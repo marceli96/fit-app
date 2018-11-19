@@ -1,5 +1,7 @@
 package pl.edu.wat.fitapp;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -18,13 +20,18 @@ import android.widget.FrameLayout;
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView mainNavigation;
     private FrameLayout mainFrame;
-    private HomeFragment homeFragment;
-    private JournalFragment journalFragment;
-    private MeFragment meFragment;
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-
+    private AboutFragment aboutFragment;
+    private ExportFragment exportFragment;
+    private GoalsFragment goalsFragment;
+    private HomeFragment homeFragment;
+    private JournalFragment journalFragment;
+    private MeFragment meFragment;
+    private ProgressFragment progressFragment;
+    private RecipesFragment recipesFragment;
+    private SettingsFragment settingsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +45,15 @@ public class MainActivity extends AppCompatActivity {
         mainNavigation = (BottomNavigationView)findViewById(R.id.mainNavigation);
         mainFrame = (FrameLayout)findViewById(R.id.mainFrame);
 
+        aboutFragment = new AboutFragment();
+        exportFragment = new ExportFragment();
+        goalsFragment = new GoalsFragment();
         homeFragment = new HomeFragment();
         journalFragment = new JournalFragment();
         meFragment = new MeFragment();
+        progressFragment = new ProgressFragment();
+        recipesFragment = new RecipesFragment();
+        settingsFragment = new SettingsFragment();
 
         setSupportActionBar(toolbar);
 
@@ -57,14 +70,17 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch(menuItem.getItemId()){
                     case R.id.navHome:
+                        mainNavigation.getMenu().setGroupCheckable(0, true, true);
                         setFragment(homeFragment);
                         navigationView.setCheckedItem(R.id.drawer_home);
                         return true;
                     case R.id.navJournal:
+                        mainNavigation.getMenu().setGroupCheckable(0, true, true);
                         setFragment(journalFragment);
                         navigationView.setCheckedItem(R.id.drawer_journal);
                         return true;
                     case R.id.navMe:
+                        mainNavigation.getMenu().setGroupCheckable(0, true, true);
                         setFragment(meFragment);
                         return true;
                         default:
@@ -78,14 +94,41 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()){
                     case R.id.drawer_home:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame,
-                                homeFragment).commit();
+                        setFragment(homeFragment);
                         mainNavigation.setSelectedItemId(R.id.navHome);
                         break;
                     case R.id.drawer_journal:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame,
-                                journalFragment).commit();
+                        setFragment(journalFragment);
                         mainNavigation.setSelectedItemId(R.id.navJournal);
+                        break;
+                    case R.id.drawer_progress:
+                        setFragment(progressFragment);
+                        mainNavigation.getMenu().setGroupCheckable(0, false, true);
+                        break;
+                    case R.id.drawer_goals:
+                        setFragment(goalsFragment);
+                        mainNavigation.getMenu().setGroupCheckable(0, false, true);
+                        break;
+                    case R.id.drawer_recipes:
+                        setFragment(recipesFragment);
+                        mainNavigation.getMenu().setGroupCheckable(0, false, true);
+                        break;
+                    case R.id.drawer_settings:
+                        setFragment(settingsFragment);
+                        mainNavigation.getMenu().setGroupCheckable(0, false, true);
+                        break;
+                    case R.id.drawer_export:
+                        setFragment(exportFragment);
+                        mainNavigation.getMenu().setGroupCheckable(0, false, true);
+                        break;
+                    case R.id.drawer_about:
+                        setFragment(aboutFragment);
+                        mainNavigation.getMenu().setGroupCheckable(0, false, true);
+                        break;
+                    case R.id.drawer_logout:
+                        Intent openWelcomeScreen = new Intent(MainActivity.this, WelcomeActivity.class);
+                        startActivity(openWelcomeScreen);
+                        MainActivity.this.finish();
                         break;
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
