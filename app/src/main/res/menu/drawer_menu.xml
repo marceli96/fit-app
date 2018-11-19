@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tools:menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="nagivation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/drawer_home"
+            android:icon="@drawable/baseline_home_black_24dp"
+            android:title="Strona główna" />
+        <item
+            android:id="@+id/drawer_journal"
+            android:icon="@drawable/baseline_import_contacts_black_24dp"
+            android:title="Dziennik" />
+        <item
+            android:id="@+id/drawer_progress"
+            android:icon="@drawable/baseline_show_chart_black_24dp"
+            android:title="Postęp" />
+        <item
+            android:id="@+id/drawer_goals"
+            android:icon="@drawable/baseline_grade_black_24dp"
+            android:title="Cele" />
+        <item
+            android:id="@+id/drawer_recipes"
+            android:icon="@drawable/baseline_fastfood_black_24dp"
+            android:title="Przepisy" />
+        <item
+            android:id="@+id/drawer_settings"
+            android:icon="@drawable/baseline_settings_black_24dp"
+            android:title="Ustawienia" />
+        <item
+            android:id="@+id/drawer_export"
+            android:icon="@drawable/baseline_subdirectory_arrow_right_black_24dp"
+            android:title="Eksport danych" />
+        <item
+            android:id="@+id/drawer_about"
+            android:icon="@drawable/baseline_supervised_user_circle_black_18dp"
+            android:title="O nas" />
+        <item
+            android:id="@+id/drawer_logout"
+            android:icon="@drawable/baseline_power_settings_new_black_24dp"
+            android:title="Wyloguj" />
+        <item
+            android:id="@+id/drawer_exit"
+            android:icon="@drawable/baseline_exit_to_app_black_24dp"
+            android:title="Wyjdź z aplikacji" />
+    </group>
+
+</tools:menu>
