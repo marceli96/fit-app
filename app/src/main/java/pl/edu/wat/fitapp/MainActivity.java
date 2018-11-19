@@ -2,6 +2,7 @@ package pl.edu.wat.fitapp;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private MeFragment meFragment;
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
 
 
     @Override
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
 
         mainNavigation = (BottomNavigationView)findViewById(R.id.mainNavigation);
         mainFrame = (FrameLayout)findViewById(R.id.mainFrame);
@@ -47,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         toggle.syncState();
 
         setFragment(homeFragment);
+        navigationView.setCheckedItem(R.id.drawer_home);
 
         mainNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -54,9 +58,11 @@ public class MainActivity extends AppCompatActivity {
                 switch(menuItem.getItemId()){
                     case R.id.navHome:
                         setFragment(homeFragment);
+                        navigationView.setCheckedItem(R.id.drawer_home);
                         return true;
                     case R.id.navJournal:
                         setFragment(journalFragment);
+                        navigationView.setCheckedItem(R.id.drawer_journal);
                         return true;
                     case R.id.navMe:
                         setFragment(meFragment);
@@ -64,6 +70,26 @@ public class MainActivity extends AppCompatActivity {
                         default:
                             return false;
                 }
+            }
+        });
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.drawer_home:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame,
+                                homeFragment).commit();
+                        mainNavigation.setSelectedItemId(R.id.navHome);
+                        break;
+                    case R.id.drawer_journal:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame,
+                                journalFragment).commit();
+                        mainNavigation.setSelectedItemId(R.id.navJournal);
+                        break;
+                }
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
             }
         });
     }
