@@ -9,7 +9,7 @@
     tools:context=".MainActivity"
     tools:openDrawer="start">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -26,13 +26,20 @@
         <FrameLayout
             android:id="@+id/mainFrame"
             android:layout_width="match_parent"
-            android:layout_height="401dp"></FrameLayout>
+            android:layout_height="456dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="55dp"></FrameLayout>
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/mainNavigation"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginBottom="0dp"
             app:itemBackground="@color/colorPrimary"
             app:itemIconTint="@color/nav_items_color"
             app:itemTextColor="@color/nav_items_color"
@@ -40,7 +47,7 @@
 
         </android.support.design.widget.BottomNavigationView>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <android.support.design.widget.NavigationView
         android:layout_width="wrap_content"
