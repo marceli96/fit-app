@@ -1,5 +1,6 @@
 package pl.edu.wat.fitapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,25 +14,30 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.logging.Logger;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    EditText etLogin, etPassword, etEmail, etAge, etWeight, etHeight;
-    RadioGroup rgSex, rgWeight;
-    TextView tvCalories;
-    Spinner spinner;
-    Button bRegister, bCalculate;
+    private EditText etLogin, etPassword, etEmail, etAge, etWeight, etHeight;
+    private RadioGroup rgSex, rgWeight;
+    private TextView tvCalories;
+    private Spinner spinner;
+    private Button bRegister, bCalculate;
 
-    String activityLevel;
-    int calories;
-    private static final String REGISTER_REQUEST_URL = "http://fitappliaction.cba.pl/register.php";
+    private String activityLevel;
+    private int calories;
+    private final String REGISTER_URL = "http://fitappliaction.cba.pl/register.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,57 +148,79 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     }
 
     public void register() {
-        String userName = etLogin.getText().toString();
-        String password = etPassword.getText().toString();
-        String email = etEmail.getText().toString();
-        int sex = getSexInt(getRadioButtonText(rgSex));
+        System.out.println("REGISTER");
+        final String userName = etLogin.getText().toString();
+        final String password = etPassword.getText().toString();
+        final String email = etEmail.getText().toString();
+        final int sex = getSexInt(getRadioButtonText(rgSex));
 //        int weight = Integer.parseInt(etWeight.getText().toString());
-        int height = Integer.parseInt(etHeight.getText().toString());
-        int age = Integer.parseInt(etAge.getText().toString());
-        int activityLevelInt = getActivityLevelInt(activityLevel);
+        final int height = Integer.parseInt(etHeight.getText().toString());
+        final int age = Integer.parseInt(etAge.getText().toString());
+        final int activityLevelInt = getActivityLevelInt(activityLevel);
 
         String goal = getRadioButtonText(rgWeight);
 
         calculateCalories();
 
-        Response.Listener<String> responseListener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    Toast.makeText(getApplicationContext(), "onResponse", Toast.LENGTH_SHORT);
-                    JSONObject jsonResponse = new JSONObject(response);
-                    boolean success = jsonResponse.getBoolean("success");
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, REGISTER_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            boolean success = jsonResponse.getBoolean("success");
 
-                    if (success) {
-                        Toast.makeText(getApplicationContext(), "Rejestracja przebiegła pomyślnie",
-                                Toast.LENGTH_LONG).show();
-                    } else {
-                        boolean userError = jsonResponse.getBoolean("userError");
-                        boolean emailError = jsonResponse.getBoolean("emailError");
-                        if (userError && emailError)
-                            Toast.makeText(getApplicationContext(), "Nazwa użytkownika oraz e-mail są zajęte",
-                                    Toast.LENGTH_LONG).show();
-                        else if (userError)
-                            Toast.makeText(getApplicationContext(), "Nazwa użytkownika jest zajęta",
-                                    Toast.LENGTH_LONG).show();
-                        else if (emailError)
-                            Toast.makeText(getApplicationContext(), "E-mail jest zajęty",
-                                    Toast.LENGTH_LONG).show();
-                        else
-                            Toast.makeText(getApplicationContext(), "Nieoczekiwany błąd",
-                                    Toast.LENGTH_LONG).show();
+                            if (success) {
+                                openLoginActivity();
+                                RegisterActivity.this.finish();
+                            } else {
+                                boolean userError = jsonResponse.getBoolean("userError");
+                                boolean emailError = jsonResponse.getBoolean("emailError");
+                                if (userError && emailError)
+                                    Toast.makeText(RegisterActivity.this, "Nazwa użytkownika oraz e-mail są zajęte", Toast.LENGTH_LONG).show();
+                                else if (userError)
+                                    Toast.makeText(RegisterActivity.this, "Nazwa użytkownika jest zajęta", Toast.LENGTH_LONG).show();
+                                else if (emailError)
+                                    Toast.makeText(RegisterActivity.this, "E-mail jest zajęty", Toast.LENGTH_LONG).show();
+                                else
+                                    Toast.makeText(RegisterActivity.this, "Nieoczekiwany błąd", Toast.LENGTH_LONG).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(RegisterActivity.this, "Register error! " + e.toString(), Toast.LENGTH_LONG).show();
+                        }
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
+                },
+                new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(RegisterActivity.this, "Register error! " + error.toString(),
+                        Toast.LENGTH_LONG).show();
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("userName", userName);
+                params.put("password", password);
+                params.put("email", email);
+                params.put("sex", String.valueOf(sex));
+                params.put("age", String.valueOf(age));
+                params.put("height", String.valueOf(height));
+                params.put("activityLevel", String.valueOf(activityLevelInt));
+                params.put("caloricDemand", String.valueOf(calories));
+                return params;
             }
         };
 
-        RegisterRequest registerRequest = new RegisterRequest(userName, password, email, sex, age,
-                height, activityLevelInt, calories, responseListener);
-        RequestQueue requestQueue = Volley.newRequestQueue(RegisterActivity.this);
-        requestQueue.add(registerRequest);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+    private void openLoginActivity() {
+        Intent openLoginActivity = new Intent(this, WelcomeActivity.class);
+        startActivity(openLoginActivity);
     }
 
     public String getRadioButtonText(RadioGroup rg) {

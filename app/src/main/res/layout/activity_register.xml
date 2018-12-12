@@ -91,9 +91,8 @@
 
         <EditText
             android:id="@+id/etWeight"
-            android:layout_width="60dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:ems="10"
             android:inputType="number" />
@@ -102,14 +101,13 @@
             android:id="@+id/textView28"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
             android:layout_weight="1"
             android:text="Wzrost:"
             android:textSize="18sp" />
 
         <EditText
             android:id="@+id/etHeight"
-            android:layout_width="60dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
@@ -126,7 +124,7 @@
 
         <EditText
             android:id="@+id/etAge"
-            android:layout_width="60dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
