@@ -1,38 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:orientation="vertical"
     tools:context=".WelcomeActivity">
 
     <TextView
-        android:id="@+id/tvTitle"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="169dp"
-        android:text="Fitness Application"
-        android:textAllCaps="false"
-        android:textSize="24sp"
-        android:textStyle="bold|italic" />
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:text="FitApplication"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="30sp" />
 
-    <Button
-        android:id="@+id/bRegister"
-        android:layout_width="190dp"
+    <EditText
+        android:id="@+id/etLogin"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="230dp"
-        android:text="Zarejestruj" />
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="Login"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="Hasło"
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/bLogin"
-        android:layout_width="192dp"
+        android:layout_width="215dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="286dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
         android:text="Zaloguj" />
-</RelativeLayout>
+
+    <Button
+        android:id="@+id/bRegister"
+        android:layout_width="215dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:text="Zarejestruj" />
+</LinearLayout>
