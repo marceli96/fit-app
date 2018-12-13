@@ -153,12 +153,11 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         final String password = etPassword.getText().toString();
         final String email = etEmail.getText().toString();
         final int sex = getSexInt(getRadioButtonText(rgSex));
-//        int weight = Integer.parseInt(etWeight.getText().toString());
-        final int height = Integer.parseInt(etHeight.getText().toString());
         final int age = Integer.parseInt(etAge.getText().toString());
+        final int height = Integer.parseInt(etHeight.getText().toString());
         final int activityLevelInt = getActivityLevelInt(activityLevel);
-
-        String goal = getRadioButtonText(rgWeight);
+        final int weight = Integer.parseInt(etWeight.getText().toString());
+        final int goal = getGoalInt(getRadioButtonText(rgWeight));
 
         calculateCalories();
 
@@ -210,6 +209,8 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                 params.put("height", String.valueOf(height));
                 params.put("activityLevel", String.valueOf(activityLevelInt));
                 params.put("caloricDemand", String.valueOf(calories));
+                params.put("weight", String.valueOf(weight));
+                params.put("goal", String.valueOf(goal));
                 return params;
             }
         };
@@ -247,6 +248,15 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             return 0;
         else
             return 1;
+    }
+
+    public int getGoalInt(String goal) {
+        if (goal.equals("Utrata"))
+            return 0;
+        else if (goal.equals("Przybranie"))
+            return 1;
+        else
+            return 2;
     }
 
 }
