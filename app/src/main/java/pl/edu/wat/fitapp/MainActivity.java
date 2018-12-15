@@ -1,6 +1,5 @@
 package pl.edu.wat.fitapp;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -13,9 +12,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView mainNavigation;
@@ -32,18 +32,23 @@ public class MainActivity extends AppCompatActivity {
     private ProgressFragment progressFragment;
     private RecipesFragment recipesFragment;
     private SettingsFragment settingsFragment;
+    private TextView tvUserName, tvEmail;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = getIntent();
+        user = (User)intent.getSerializableExtra("user");
+
         toolbar = findViewById(R.id.toolbar);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
 
-        mainNavigation = (BottomNavigationView)findViewById(R.id.mainNavigation);
-        mainFrame = (FrameLayout)findViewById(R.id.mainFrame);
+        mainNavigation = findViewById(R.id.mainNavigation);
+        mainFrame = findViewById(R.id.mainFrame);
 
         aboutFragment = new AboutFragment();
         exportFragment = new ExportFragment();
@@ -65,76 +70,90 @@ public class MainActivity extends AppCompatActivity {
         setFragment(homeFragment);
         navigationView.setCheckedItem(R.id.drawer_home);
 
+        View headerView = navigationView.getHeaderView(0);
+        tvUserName = headerView.findViewById(R.id.tvUserName);
+        tvEmail = headerView.findViewById(R.id.tvEmail);
+        tvUserName.setText(user.getUserName());
+        tvEmail.setText(user.getEmail());
+
         mainNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch(menuItem.getItemId()){
-                    case R.id.navHome:
-                        mainNavigation.getMenu().setGroupCheckable(0, true, true);
-                        setFragment(homeFragment);
-                        navigationView.setCheckedItem(R.id.drawer_home);
-                        return true;
-                    case R.id.navJournal:
-                        mainNavigation.getMenu().setGroupCheckable(0, true, true);
-                        setFragment(journalFragment);
-                        navigationView.setCheckedItem(R.id.drawer_journal);
-                        return true;
-                    case R.id.navMe:
-                        mainNavigation.getMenu().setGroupCheckable(0, true, true);
-                        setFragment(meFragment);
-                        return true;
-                        default:
-                            return false;
-                }
+                return changeBottomNavigationItem(menuItem);
             }
         });
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                    case R.id.drawer_home:
-                        setFragment(homeFragment);
-                        mainNavigation.setSelectedItemId(R.id.navHome);
-                        break;
-                    case R.id.drawer_journal:
-                        setFragment(journalFragment);
-                        mainNavigation.setSelectedItemId(R.id.navJournal);
-                        break;
-                    case R.id.drawer_progress:
-                        setFragment(progressFragment);
-                        mainNavigation.getMenu().setGroupCheckable(0, false, true);
-                        break;
-                    case R.id.drawer_goals:
-                        setFragment(goalsFragment);
-                        mainNavigation.getMenu().setGroupCheckable(0, false, true);
-                        break;
-                    case R.id.drawer_recipes:
-                        setFragment(recipesFragment);
-                        mainNavigation.getMenu().setGroupCheckable(0, false, true);
-                        break;
-                    case R.id.drawer_settings:
-                        setFragment(settingsFragment);
-                        mainNavigation.getMenu().setGroupCheckable(0, false, true);
-                        break;
-                    case R.id.drawer_export:
-                        setFragment(exportFragment);
-                        mainNavigation.getMenu().setGroupCheckable(0, false, true);
-                        break;
-                    case R.id.drawer_about:
-                        setFragment(aboutFragment);
-                        mainNavigation.getMenu().setGroupCheckable(0, false, true);
-                        break;
-                    case R.id.drawer_logout:
-                        Intent openWelcomeScreen = new Intent(MainActivity.this, WelcomeActivity.class);
-                        startActivity(openWelcomeScreen);
-                        MainActivity.this.finish();
-                        break;
-                }
-                drawerLayout.closeDrawer(GravityCompat.START);
-                return true;
+                return changeDrawerNavigationItem(menuItem);
             }
         });
+    }
+
+    private boolean changeDrawerNavigationItem(MenuItem menuItem) {
+        switch (menuItem.getItemId()){
+            case R.id.drawer_home:
+                setFragment(homeFragment);
+                mainNavigation.setSelectedItemId(R.id.navHome);
+                break;
+            case R.id.drawer_journal:
+                setFragment(journalFragment);
+                mainNavigation.setSelectedItemId(R.id.navJournal);
+                break;
+            case R.id.drawer_progress:
+                setFragment(progressFragment);
+                mainNavigation.getMenu().setGroupCheckable(0, false, true);
+                break;
+            case R.id.drawer_goals:
+                setFragment(goalsFragment);
+                mainNavigation.getMenu().setGroupCheckable(0, false, true);
+                break;
+            case R.id.drawer_recipes:
+                setFragment(recipesFragment);
+                mainNavigation.getMenu().setGroupCheckable(0, false, true);
+                break;
+            case R.id.drawer_settings:
+                setFragment(settingsFragment);
+                mainNavigation.getMenu().setGroupCheckable(0, false, true);
+                break;
+            case R.id.drawer_export:
+                setFragment(exportFragment);
+                mainNavigation.getMenu().setGroupCheckable(0, false, true);
+                break;
+            case R.id.drawer_about:
+                setFragment(aboutFragment);
+                mainNavigation.getMenu().setGroupCheckable(0, false, true);
+                break;
+            case R.id.drawer_logout:
+                Intent openWelcomeScreen = new Intent(MainActivity.this, WelcomeActivity.class);
+                startActivity(openWelcomeScreen);
+                MainActivity.this.finish();
+                break;
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    private boolean changeBottomNavigationItem(MenuItem menuItem) {
+        switch(menuItem.getItemId()){
+            case R.id.navHome:
+                mainNavigation.getMenu().setGroupCheckable(0, true, true);
+                setFragment(homeFragment);
+                navigationView.setCheckedItem(R.id.drawer_home);
+                return true;
+            case R.id.navJournal:
+                mainNavigation.getMenu().setGroupCheckable(0, true, true);
+                setFragment(journalFragment);
+                navigationView.setCheckedItem(R.id.drawer_journal);
+                return true;
+            case R.id.navMe:
+                mainNavigation.getMenu().setGroupCheckable(0, true, true);
+                setFragment(meFragment);
+                return true;
+            default:
+                return false;
+        }
     }
 
     @Override

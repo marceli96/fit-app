@@ -23,9 +23,11 @@
         </activity>
         <activity
             android:name=".RegisterActivity"
-            android:label="Rejestracja" />
+            android:label="Rejestracja"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

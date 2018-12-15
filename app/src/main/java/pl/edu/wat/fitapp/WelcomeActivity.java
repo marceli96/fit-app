@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,9 +27,9 @@ import java.util.Map;
 public class WelcomeActivity extends AppCompatActivity {
     private EditText etLogin, etPassword;
     private Button bLogin, bRegister;
+    private User user;
 
     private final String LOGIN_URL = "http://fitappliaction.cba.pl/login.php";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,11 @@ public class WelcomeActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         bLogin = findViewById(R.id.bLogin);
         bRegister = findViewById(R.id.bRegister);
+
+        //DO TESTOWANIA
+        etLogin.setText("admin");
+        etPassword.setText("admin");
+        //
 
         bRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +74,10 @@ public class WelcomeActivity extends AppCompatActivity {
                             JSONObject jsonResponse = new JSONObject(response);
                             boolean success = jsonResponse.getBoolean("success");
                             if(success){
+                                JSONObject jsonObject = jsonResponse.getJSONObject("0");
+                                user = new User(jsonObject.getInt("ID_User"), jsonObject.getString("UserName"),
+                                        jsonObject.getString("Email"), jsonObject.getInt("Sex"), jsonObject.getInt("Age"),
+                                        jsonObject.getInt("Height"), jsonObject.getInt("ActivityLevel"));
                                 openMainActivity();
                                 WelcomeActivity.this.finish();
                             } else {
@@ -102,6 +112,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private void openMainActivity() {
         Intent openMainActivity = new Intent(WelcomeActivity.this, MainActivity.class);
+        openMainActivity.putExtra("user", user);
         startActivity(openMainActivity);
     }
 
