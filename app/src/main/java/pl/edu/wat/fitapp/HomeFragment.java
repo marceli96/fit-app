@@ -1,6 +1,7 @@
 package pl.edu.wat.fitapp;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -91,6 +92,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void addToFoodSystem(int mealTime) {
-
+        Intent openAddToFoodSystemActivity = new Intent(this.getContext(), AddToFoodSystemActivity.class);
+        startActivity(openAddToFoodSystemActivity);
     }
 }

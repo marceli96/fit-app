@@ -59,7 +59,6 @@ public class WelcomeActivity extends AppCompatActivity {
                 login();
             }
         });
-
     }
 
     private void login() {
