@@ -42,12 +42,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Intent intent = getIntent();
-        user = (User)intent.getSerializableExtra("user");
+        user = (User) intent.getSerializableExtra("user");
 
         Bundle userBundle = new Bundle();
         userBundle.putSerializable("user", user);
-        if(user == null)
-            Log.d("NULOWY", "Null w Main");
 
         toolbar = findViewById(R.id.toolbar);
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -60,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         exportFragment = new ExportFragment();
         goalsFragment = new GoalsFragment();
         homeFragment = new HomeFragment();
-        homeFragment.setArguments(userBundle);
         journalFragment = new JournalFragment();
         meFragment = new MeFragment();
         progressFragment = new ProgressFragment();
@@ -99,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean changeDrawerNavigationItem(MenuItem menuItem) {
-        switch (menuItem.getItemId()){
+        switch (menuItem.getItemId()) {
             case R.id.drawer_home:
                 setFragment(homeFragment);
                 mainNavigation.setSelectedItemId(R.id.navHome);
@@ -143,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean changeBottomNavigationItem(MenuItem menuItem) {
-        switch(menuItem.getItemId()){
+        switch (menuItem.getItemId()) {
             case R.id.navHome:
                 mainNavigation.getMenu().setGroupCheckable(0, true, true);
                 setFragment(homeFragment);
@@ -165,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(drawerLayout.isDrawerOpen(GravityCompat.START))
+        if (drawerLayout.isDrawerOpen(GravityCompat.START))
             drawerLayout.closeDrawer(GravityCompat.START);
         else
             super.onBackPressed();

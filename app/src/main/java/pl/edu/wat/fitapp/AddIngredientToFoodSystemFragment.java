@@ -1,18 +1,21 @@
 package pl.edu.wat.fitapp;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +33,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -39,14 +41,14 @@ import java.util.Map;
  */
 public class AddIngredientToFoodSystemFragment extends Fragment {
 
-    private final String GET_INGREDIENTS_URL = "http://fitappliaction.cba.pl/operations.php";
+    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
     private ListView lvIngredients;
     private ArrayList<Ingredient> ingredientList;
+    private IngredientListAdapter ingredientListAdapter;
 
+    private User user;
+    private int mealTime;
 
-    public ArrayList<Ingredient> getIngredientList() {
-        return ingredientList;
-    }
 
     public AddIngredientToFoodSystemFragment() {
         // Required empty public constructor
@@ -56,17 +58,55 @@ public class AddIngredientToFoodSystemFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d("TESTOWANIE", "AddIngredientToFoodSystemFragment start");
+        user = (User) getActivity().getIntent().getSerializableExtra("user");
+        mealTime = (int) getActivity().getIntent().getSerializableExtra("mealTime");
+        Log.d("TESTOWANIE", "Username = " + user.getUserName() + " mealTime = " + mealTime);
+
         ingredientList = new ArrayList<>();
-        Log.d("TESTOWANIE", "Dlugosc listy skladinklow przed pobraniem = " + ingredientList.size());
         getIngredients();
-        Log.d("TESTOWANIE", "Dlugosc listy skladinklow po pobraniu = " + ingredientList.size());
 
         View view = inflater.inflate(R.layout.fragment_add_ingredient_to_food_system, container, false);
 
         lvIngredients = view.findViewById(R.id.lvIngredients);
-        IngredientListAdapter ingredientListAdapter = new IngredientListAdapter(getActivity(), R.layout.add_ingredient_listview_adapter, ingredientList);
+        ingredientListAdapter = new IngredientListAdapter(getActivity(), R.layout.add_ingredient_listview_adapter, ingredientList);
         lvIngredients.setAdapter(ingredientListAdapter);
+
+        lvIngredients.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                Toast.makeText(getActivity(), "Wybrales skladnik o nazwie = " + ingredientList.get(position).getIngredientName(), Toast.LENGTH_SHORT).show();
+                ;
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                final View alertView = getLayoutInflater().inflate(R.layout.weight_choose, null);
+
+                TextView tvType = alertView.findViewById(R.id.tvType);
+                TextView tvIngredientName = alertView.findViewById(R.id.tvIngredientName);
+                Button bAddIngredientToFoodSystem = alertView.findViewById(R.id.bAddIngredientToFoodSystem);
+
+                tvType.setText("posiłku");
+                tvIngredientName.setText(ingredientList.get(position).getIngredientName());
+
+                builder.setView(alertView);
+                final AlertDialog dialog = builder.create();
+                dialog.show();
+
+                bAddIngredientToFoodSystem.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        EditText etWeight = alertView.findViewById(R.id.etWeight);
+                        String weight = etWeight.getText().toString();
+                        if (weight.isEmpty())
+                            Toast.makeText(getActivity(), "Wpisz wagę!", Toast.LENGTH_SHORT).show();
+                        else {
+                            addIngredientToFoodSystem(ingredientList.get(position).getIngredientId(), user.getUserID(), mealTime, weight);
+                            dialog.dismiss();
+                        }
+                    }
+                });
+            }
+        });
+
         return view;
     }
 
@@ -74,57 +114,57 @@ public class AddIngredientToFoodSystemFragment extends Fragment {
 
         public IngredientListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Ingredient> objects) {
             super(context, resource, objects);
-            Log.d("TESTOWANIE", "Dlugosc listy skladnikow przekazanych = " + objects.size());
         }
 
         @NonNull
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            Log.d("TESTOWANIE", "Utworzono IngredientListAdapter");
             convertView = getLayoutInflater().inflate(R.layout.add_ingredient_listview_adapter, parent, false);
 
-//            TextView tvIngredientName = convertView.findViewById(R.id.tvIngredientName);
-//            TextView tvIngredientCarbohydrates = convertView.findViewById(R.id.tvIngredientCarbohydrates);
-//            TextView tvIngredientProtein = convertView.findViewById(R.id.tvIngredientProtein);
-//            TextView tvIngredientFat = convertView.findViewById(R.id.tvIngredientFat);
-//            TextView tvIngredientCalories = convertView.findViewById(R.id.tvIngredientCalories);
-//
-//            tvIngredientName.setText(ingredientList.get(position).getIngredientName());
-//            tvIngredientCarbohydrates.setText(String.valueOf(ingredientList.get(position).getIngredientCarbohydrates()));
-//            tvIngredientProtein.setText(String.valueOf(ingredientList.get(position).getIngredientProtein()));
-//            tvIngredientFat.setText(String.valueOf(ingredientList.get(position).getIngredientProtein()));
-//            tvIngredientCalories.setText(String.valueOf(ingredientList.get(position).getIngredientProtein()));
+            TextView tvIngredientName = convertView.findViewById(R.id.tvIngredientName);
+            TextView tvIngredientCarbohydrates = convertView.findViewById(R.id.tvIngredientCarbohydrates);
+            TextView tvIngredientProtein = convertView.findViewById(R.id.tvIngredientProtein);
+            TextView tvIngredientFat = convertView.findViewById(R.id.tvIngredientFat);
+            TextView tvIngredientCalories = convertView.findViewById(R.id.tvIngredientCalories);
+
+            String temp;
+            tvIngredientName.setText(ingredientList.get(position).getIngredientName());
+            temp = String.valueOf(ingredientList.get(position).getIngredientCarbohydrates()) + " g";
+            tvIngredientCarbohydrates.setText(temp);
+            temp = String.valueOf(ingredientList.get(position).getIngredientProtein()) + " g";
+            tvIngredientProtein.setText(temp);
+            temp = String.valueOf(ingredientList.get(position).getIngredientFat()) + " g";
+            tvIngredientFat.setText(temp);
+            temp = String.valueOf(ingredientList.get(position).getIngredientCalories()) + " kcal";
+            tvIngredientCalories.setText(temp);
 
             return convertView;
         }
-
-        @Override
-        public int getCount() {
-            return 3;
-        }
     }
 
+//    private void addIngredientToFoodSystem(Ingredient ingredient) {
+//        StringRequest stringRequest = new StringRequest(Request.Method.POST, )
+//    }
+
     private void getIngredients() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, GET_INGREDIENTS_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
-                    if(success){
-                        for(int i = 0; i < jsonResponse.length() - 1; i++){
+                    if (success) {
+                        for (int i = 0; i < jsonResponse.length() - 1; i++) {
                             JSONObject ingredient = jsonResponse.getJSONObject(String.valueOf(i));
                             Ingredient tempIngredient = new Ingredient(ingredient.getInt("ID_Ingredient"), ingredient.getString("IngredientName"),
-                                    ingredient.getInt("Carbohydrates"), ingredient.getInt("Protein"), ingredient.getInt("Fat"),
+                                    ingredient.getDouble("Carbohydrates"), ingredient.getDouble("Protein"), ingredient.getDouble("Fat"),
                                     ingredient.getInt("Calories"));
-                            boolean test = getIngredientList().add(tempIngredient);
-                            if(test)
-                                Log.d("TESTOWANIE", "Dodano");
+                            ingredientList.add(tempIngredient);
                         }
+                        ingredientListAdapter.notifyDataSetChanged();
                         Toast.makeText(getContext(), "Pobrano składniki", Toast.LENGTH_LONG).show();
-                    }
-                    else
-                        Toast.makeText(getContext(), "Wystąpił błąd podczas pobieranie składników", Toast.LENGTH_LONG).show();
+                    } else
+                        Toast.makeText(getContext(), "Wystąpił błąd podczas pobieraniA składników", Toast.LENGTH_LONG).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(getContext(), "Login error! " + e.toString(), Toast.LENGTH_LONG).show();
@@ -132,13 +172,12 @@ public class AddIngredientToFoodSystemFragment extends Fragment {
             }
         },
                 new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "Login error! " + error.toString(), Toast.LENGTH_LONG).show();
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getContext(), "Login error! " + error.toString(), Toast.LENGTH_LONG).show();
 
-            }
-        })
-        {
+                    }
+                }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
@@ -149,5 +188,51 @@ public class AddIngredientToFoodSystemFragment extends Fragment {
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
+    }
+
+    private void addIngredientToFoodSystem(final int ingredientId, final int userID, final int mealTime, final String weight) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
+                    boolean success = jsonResponse.getBoolean("success");
+                    if (success) {
+                        Toast.makeText(getActivity(), "Dodano pomyślnie", Toast.LENGTH_SHORT).show();
+                        openMainActivity();
+                    } else {
+                        Toast.makeText(getActivity(), "Błąd podczas dodawania", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("operation", "addIngredientToFoodSystem");
+                params.put("ingredientId", String.valueOf(ingredientId));
+                params.put("userId", String.valueOf(userID));
+                params.put("mealTime", String.valueOf(mealTime));
+                params.put("weight", weight);
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        requestQueue.add(stringRequest);
+    }
+
+    private void openMainActivity() {
+        Intent openMainActivity = new Intent(getContext(), MainActivity.class);
+        openMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        openMainActivity.putExtra("user", user);
+        startActivity(openMainActivity);
     }
 }

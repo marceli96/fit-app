@@ -28,17 +28,22 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void setArguments(@Nullable Bundle args) {
-        user = (User)args.getSerializable("user");
+        user = (User) args.getSerializable("user");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+//        getArguments nie chce zadziałać
+//        user = (User) getArguments().getSerializable("user");
+        user = (User) getActivity().getIntent().getSerializableExtra("user");
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+
         bBreakfast = getView().findViewById(R.id.bBreakfast);
         bSecondBreakfast = getView().findViewById(R.id.bSecondBreakfast);
         bLunch = getView().findViewById(R.id.bLunch);
@@ -93,6 +98,8 @@ public class HomeFragment extends Fragment {
 
     private void addToFoodSystem(int mealTime) {
         Intent openAddToFoodSystemActivity = new Intent(this.getContext(), AddToFoodSystemActivity.class);
+        openAddToFoodSystemActivity.putExtra("user", user);
+        openAddToFoodSystemActivity.putExtra("mealTime", mealTime);
         startActivity(openAddToFoodSystemActivity);
     }
 }

@@ -5,12 +5,12 @@ import java.io.Serializable;
 public class Ingredient implements Serializable {
     private int ingredientId;
     private String ingredientName;
-    private int ingredientCarbohydrates;
-    private int ingredientProtein;
-    private int ingredientFat;
+    private double ingredientCarbohydrates;
+    private double ingredientProtein;
+    private double ingredientFat;
     private int ingredientCalories;
 
-    public Ingredient(int ingredientId, String ingredientName, int ingredientCarbohydrates, int ingredientProtein, int ingredientFat, int ingredientCalories) {
+    public Ingredient(int ingredientId, String ingredientName, double ingredientCarbohydrates, double ingredientProtein, double ingredientFat, int ingredientCalories) {
         this.ingredientId = ingredientId;
         this.ingredientName = ingredientName;
         this.ingredientCarbohydrates = ingredientCarbohydrates;
@@ -27,15 +27,15 @@ public class Ingredient implements Serializable {
         return ingredientName;
     }
 
-    public int getIngredientCarbohydrates() {
+    public double getIngredientCarbohydrates() {
         return ingredientCarbohydrates;
     }
 
-    public int getIngredientProtein() {
+    public double getIngredientProtein() {
         return ingredientProtein;
     }
 
-    public int getIngredientFat() {
+    public double getIngredientFat() {
         return ingredientFat;
     }
 
