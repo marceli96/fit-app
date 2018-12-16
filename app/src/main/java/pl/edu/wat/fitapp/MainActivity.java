@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -43,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         user = (User)intent.getSerializableExtra("user");
 
+        Bundle userBundle = new Bundle();
+        userBundle.putSerializable("user", user);
+        if(user == null)
+            Log.d("NULOWY", "Null w Main");
+
         toolbar = findViewById(R.id.toolbar);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
@@ -54,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         exportFragment = new ExportFragment();
         goalsFragment = new GoalsFragment();
         homeFragment = new HomeFragment();
+        homeFragment.setArguments(userBundle);
         journalFragment = new JournalFragment();
         meFragment = new MeFragment();
         progressFragment = new ProgressFragment();
