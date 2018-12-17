@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,14 +30,12 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class AddIngredientToFoodSystemFragment extends Fragment {
 
     private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
@@ -60,7 +57,6 @@ public class AddIngredientToFoodSystemFragment extends Fragment {
                              Bundle savedInstanceState) {
         user = (User) getActivity().getIntent().getSerializableExtra("user");
         mealTime = (int) getActivity().getIntent().getSerializableExtra("mealTime");
-        Log.d("TESTOWANIE", "Username = " + user.getUserName() + " mealTime = " + mealTime);
 
         ingredientList = new ArrayList<>();
         getIngredients();
@@ -75,16 +71,13 @@ public class AddIngredientToFoodSystemFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 Toast.makeText(getActivity(), "Wybrales skladnik o nazwie = " + ingredientList.get(position).getIngredientName(), Toast.LENGTH_SHORT).show();
-                ;
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                final View alertView = getLayoutInflater().inflate(R.layout.weight_choose, null);
+                final View alertView = getLayoutInflater().inflate(R.layout.dialog_weight_choose_inredient, null);
 
-                TextView tvType = alertView.findViewById(R.id.tvType);
                 TextView tvIngredientName = alertView.findViewById(R.id.tvIngredientName);
                 Button bAddIngredientToFoodSystem = alertView.findViewById(R.id.bAddIngredientToFoodSystem);
 
-                tvType.setText("posiłku");
                 tvIngredientName.setText(ingredientList.get(position).getIngredientName());
 
                 builder.setView(alertView);
@@ -127,24 +120,26 @@ public class AddIngredientToFoodSystemFragment extends Fragment {
             TextView tvIngredientFat = convertView.findViewById(R.id.tvIngredientFat);
             TextView tvIngredientCalories = convertView.findViewById(R.id.tvIngredientCalories);
 
+            DecimalFormat decimalFormat = new DecimalFormat("#0.0");
+
             String temp;
             tvIngredientName.setText(ingredientList.get(position).getIngredientName());
-            temp = String.valueOf(ingredientList.get(position).getIngredientCarbohydrates()) + " g";
+
+            temp = String.valueOf(decimalFormat.format(ingredientList.get(position).getIngredientCarbohydrates())) + " g";
             tvIngredientCarbohydrates.setText(temp);
-            temp = String.valueOf(ingredientList.get(position).getIngredientProtein()) + " g";
+
+            temp = String.valueOf(decimalFormat.format(ingredientList.get(position).getIngredientProtein())) + " g";
             tvIngredientProtein.setText(temp);
-            temp = String.valueOf(ingredientList.get(position).getIngredientFat()) + " g";
+
+            temp = String.valueOf(decimalFormat.format(ingredientList.get(position).getIngredientFat())) + " g";
             tvIngredientFat.setText(temp);
-            temp = String.valueOf(ingredientList.get(position).getIngredientCalories()) + " kcal";
+
+            temp = String.valueOf(decimalFormat.format(ingredientList.get(position).getIngredientCalories())) + " kcal";
             tvIngredientCalories.setText(temp);
 
             return convertView;
         }
     }
-
-//    private void addIngredientToFoodSystem(Ingredient ingredient) {
-//        StringRequest stringRequest = new StringRequest(Request.Method.POST, )
-//    }
 
     private void getIngredients() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
@@ -162,19 +157,19 @@ public class AddIngredientToFoodSystemFragment extends Fragment {
                             ingredientList.add(tempIngredient);
                         }
                         ingredientListAdapter.notifyDataSetChanged();
-                        Toast.makeText(getContext(), "Pobrano składniki", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "Pobrano składniki", Toast.LENGTH_SHORT).show();
                     } else
-                        Toast.makeText(getContext(), "Wystąpił błąd podczas pobieraniA składników", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "Wystąpił błąd podczas pobieraniA składników", Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(getContext(), "Login error! " + e.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Login error! " + e.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
         },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getContext(), "Login error! " + error.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "Login error! " + error.toString(), Toast.LENGTH_SHORT).show();
 
                     }
                 }) {
@@ -205,12 +200,13 @@ public class AddIngredientToFoodSystemFragment extends Fragment {
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Toast.makeText(getActivity(), "Błąd podczas dodawania " + e.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Toast.makeText(getActivity(), "Błąd podczas dodawania " + error.toString(), Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override

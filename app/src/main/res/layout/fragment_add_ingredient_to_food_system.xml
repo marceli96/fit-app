@@ -5,13 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".AddIngredientToFoodSystemFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <ListView
         android:id="@+id/lvIngredients"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:divider="@color/colorWhite"
         android:dividerHeight="5dp"
-        android:padding="5dp"
-        android:divider="@color/colorWhite"/>
+        android:padding="5dp" />
 </FrameLayout>

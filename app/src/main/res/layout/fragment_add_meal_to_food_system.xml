@@ -5,10 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".AddMealToFoodSystemFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ListView
+        android:id="@+id/lvMeals"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="DODAWANIE NOWEGO POSIŁKU DO FOOD SYSTEM" />
-
+        android:divider="@color/colorWhite"
+        android:dividerHeight="5dp"
+        android:padding="5dp" />
 </FrameLayout>
