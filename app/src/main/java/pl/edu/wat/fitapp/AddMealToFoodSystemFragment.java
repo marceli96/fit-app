@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,13 +63,13 @@ public class AddMealToFoodSystemFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_add_meal_to_food_system, container, false);
 
         lvMeals = view.findViewById(R.id.lvMeals);
-        mealListAdapter = new MealListAdapter(getActivity(), R.layout.add_meal_listview_adapter, mealList);
+        mealListAdapter = new MealListAdapter(getActivity(), R.layout.listview_adapter_add_meal, mealList);
         lvMeals.setAdapter(mealListAdapter);
 
         lvMeals.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                Toast.makeText(getActivity(), "Wybrałeś posiłek o nazwie = " + mealList.get(position).getMealName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Wybrałeś posiłek o nazwie = " + mealList.get(position).getName(), Toast.LENGTH_SHORT).show();
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 final View alertView = getLayoutInflater().inflate(R.layout.dialog_weight_choose_meal, null);
@@ -78,7 +77,7 @@ public class AddMealToFoodSystemFragment extends Fragment {
                 TextView tvIngredientName = alertView.findViewById(R.id.tvMealName);
                 Button bAddMealToFoodSystem = alertView.findViewById(R.id.bAddMealToFoodSystem);
 
-                tvIngredientName.setText(mealList.get(position).getMealName());
+                tvIngredientName.setText(mealList.get(position).getName());
 
                 builder.setView(alertView);
                 final AlertDialog dialog = builder.create();
@@ -92,7 +91,7 @@ public class AddMealToFoodSystemFragment extends Fragment {
                         if (weight.isEmpty())
                             Toast.makeText(getActivity(), "Wpisz wagę!", Toast.LENGTH_SHORT).show();
                         else {
-                            addMealToFoodSystem(mealList.get(position).getMealID(), user.getUserID(), mealTime, weight);
+                            addMealToFoodSystem(mealList.get(position).getID(), user.getUserID(), mealTime, weight);
                             dialog.dismiss();
                         }
                     }
@@ -111,7 +110,7 @@ public class AddMealToFoodSystemFragment extends Fragment {
         @NonNull
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            convertView = getLayoutInflater().inflate(R.layout.add_meal_listview_adapter, parent, false);
+            convertView = getLayoutInflater().inflate(R.layout.listview_adapter_add_meal, parent, false);
 
             TextView tvMealName = convertView.findViewById(R.id.tvMealName);
             TextView tvMealCarbohydrates = convertView.findViewById(R.id.tvMealCarbohydrates);
@@ -122,7 +121,7 @@ public class AddMealToFoodSystemFragment extends Fragment {
             DecimalFormat decimalFormat = new DecimalFormat("#0.0");
 
             String temp;
-            tvMealName.setText(mealList.get(position).getMealName());
+            tvMealName.setText(mealList.get(position).getName());
 
             temp = String.valueOf(decimalFormat.format(getMealMacro("Carbohydrates", position))) + " g";
             tvMealCarbohydrates.setText(temp);
@@ -244,7 +243,7 @@ public class AddMealToFoodSystemFragment extends Fragment {
 
     public int checkMealPositionInList(int mealId) {
         for (int i = 0; i < mealList.size(); i++) {
-            if (mealList.get(i).getMealID() == mealId) {
+            if (mealList.get(i).getID() == mealId) {
                 return i;
             }
         }
@@ -257,19 +256,19 @@ public class AddMealToFoodSystemFragment extends Fragment {
             case "Carbohydrates":
                 for (int i = 0; i < mealList.get(position).getIngredientList().size(); i++) {
                     double ingredientWeight = mealList.get(position).getIngredientWeightList().get(i);
-                    sum += (ingredientWeight / 100) * mealList.get(position).getIngredientList().get(i).getIngredientCarbohydrates();
+                    sum += (ingredientWeight / 100) * mealList.get(position).getIngredientList().get(i).getCarbohydrates();
                 }
                 break;
             case "Protein":
                 for (int i = 0; i < mealList.get(position).getIngredientList().size(); i++) {
                     double ingredientWeight = mealList.get(position).getIngredientWeightList().get(i);
-                    sum += (ingredientWeight / 100) * mealList.get(position).getIngredientList().get(i).getIngredientProtein();
+                    sum += (ingredientWeight / 100) * mealList.get(position).getIngredientList().get(i).getProtein();
                 }
                 break;
             case "Fat":
                 for (int i = 0; i < mealList.get(position).getIngredientList().size(); i++) {
                     double ingredientWeight = mealList.get(position).getIngredientWeightList().get(i);
-                    sum += (ingredientWeight / 100) * mealList.get(position).getIngredientList().get(i).getIngredientFat();
+                    sum += (ingredientWeight / 100) * mealList.get(position).getIngredientList().get(i).getFat();
                 }
                 break;
         }
@@ -280,7 +279,7 @@ public class AddMealToFoodSystemFragment extends Fragment {
         int sum = 0;
         for (int i = 0; i < mealList.get(position).getIngredientList().size(); i++) {
             double ingredientWeight = mealList.get(position).getIngredientWeightList().get(i);
-            sum += (ingredientWeight / 100) * mealList.get(position).getIngredientList().get(i).getIngredientCalories();
+            sum += (ingredientWeight / 100) * mealList.get(position).getIngredientList().get(i).getCalories();
         }
         return sum;
     }

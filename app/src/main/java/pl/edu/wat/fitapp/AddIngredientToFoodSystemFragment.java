@@ -64,13 +64,13 @@ public class AddIngredientToFoodSystemFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_add_ingredient_to_food_system, container, false);
 
         lvIngredients = view.findViewById(R.id.lvIngredients);
-        ingredientListAdapter = new IngredientListAdapter(getActivity(), R.layout.add_ingredient_listview_adapter, ingredientList);
+        ingredientListAdapter = new IngredientListAdapter(getActivity(), R.layout.listview_adapter_add_ingredient, ingredientList);
         lvIngredients.setAdapter(ingredientListAdapter);
 
         lvIngredients.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                Toast.makeText(getActivity(), "Wybrales skladnik o nazwie = " + ingredientList.get(position).getIngredientName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Wybrales skladnik o nazwie = " + ingredientList.get(position).getName(), Toast.LENGTH_SHORT).show();
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 final View alertView = getLayoutInflater().inflate(R.layout.dialog_weight_choose_inredient, null);
@@ -78,7 +78,7 @@ public class AddIngredientToFoodSystemFragment extends Fragment {
                 TextView tvIngredientName = alertView.findViewById(R.id.tvIngredientName);
                 Button bAddIngredientToFoodSystem = alertView.findViewById(R.id.bAddIngredientToFoodSystem);
 
-                tvIngredientName.setText(ingredientList.get(position).getIngredientName());
+                tvIngredientName.setText(ingredientList.get(position).getName());
 
                 builder.setView(alertView);
                 final AlertDialog dialog = builder.create();
@@ -92,7 +92,7 @@ public class AddIngredientToFoodSystemFragment extends Fragment {
                         if (weight.isEmpty())
                             Toast.makeText(getActivity(), "Wpisz wagę!", Toast.LENGTH_SHORT).show();
                         else {
-                            addIngredientToFoodSystem(ingredientList.get(position).getIngredientId(), user.getUserID(), mealTime, weight);
+                            addIngredientToFoodSystem(ingredientList.get(position).getID(), user.getUserID(), mealTime, weight);
                             dialog.dismiss();
                         }
                     }
@@ -112,7 +112,7 @@ public class AddIngredientToFoodSystemFragment extends Fragment {
         @NonNull
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            convertView = getLayoutInflater().inflate(R.layout.add_ingredient_listview_adapter, parent, false);
+            convertView = getLayoutInflater().inflate(R.layout.listview_adapter_add_ingredient, parent, false);
 
             TextView tvIngredientName = convertView.findViewById(R.id.tvIngredientName);
             TextView tvIngredientCarbohydrates = convertView.findViewById(R.id.tvIngredientCarbohydrates);
@@ -123,18 +123,18 @@ public class AddIngredientToFoodSystemFragment extends Fragment {
             DecimalFormat decimalFormat = new DecimalFormat("#0.0");
 
             String temp;
-            tvIngredientName.setText(ingredientList.get(position).getIngredientName());
+            tvIngredientName.setText(ingredientList.get(position).getName());
 
-            temp = String.valueOf(decimalFormat.format(ingredientList.get(position).getIngredientCarbohydrates())) + " g";
+            temp = String.valueOf(decimalFormat.format(ingredientList.get(position).getCarbohydrates())) + " g";
             tvIngredientCarbohydrates.setText(temp);
 
-            temp = String.valueOf(decimalFormat.format(ingredientList.get(position).getIngredientProtein())) + " g";
+            temp = String.valueOf(decimalFormat.format(ingredientList.get(position).getProtein())) + " g";
             tvIngredientProtein.setText(temp);
 
-            temp = String.valueOf(decimalFormat.format(ingredientList.get(position).getIngredientFat())) + " g";
+            temp = String.valueOf(decimalFormat.format(ingredientList.get(position).getFat())) + " g";
             tvIngredientFat.setText(temp);
 
-            temp = String.valueOf(decimalFormat.format(ingredientList.get(position).getIngredientCalories())) + " kcal";
+            temp = String.valueOf(decimalFormat.format(ingredientList.get(position).getCalories())) + " kcal";
             tvIngredientCalories.setText(temp);
 
             return convertView;

@@ -2,44 +2,44 @@ package pl.edu.wat.fitapp;
 
 import java.io.Serializable;
 
-public class Ingredient implements Serializable {
-    private int ingredientId;
-    private String ingredientName;
-    private double ingredientCarbohydrates;
-    private double ingredientProtein;
-    private double ingredientFat;
-    private int ingredientCalories;
+public class Ingredient implements Serializable, FoodSystem {
+    private int ID;
+    private String name;
+    private double carbohydrates;
+    private double protein;
+    private double fat;
+    private int calories;
 
     public Ingredient(int ingredientId, String ingredientName, double ingredientCarbohydrates, double ingredientProtein, double ingredientFat, int ingredientCalories) {
-        this.ingredientId = ingredientId;
-        this.ingredientName = ingredientName;
-        this.ingredientCarbohydrates = ingredientCarbohydrates;
-        this.ingredientProtein = ingredientProtein;
-        this.ingredientFat = ingredientFat;
-        this.ingredientCalories = ingredientCalories;
+        this.ID = ingredientId;
+        this.name = ingredientName;
+        this.carbohydrates = ingredientCarbohydrates;
+        this.protein = ingredientProtein;
+        this.fat = ingredientFat;
+        this.calories = ingredientCalories;
     }
 
-    public int getIngredientId() {
-        return ingredientId;
+    public int getID() {
+        return ID;
     }
 
-    public String getIngredientName() {
-        return ingredientName;
+    public String getName() {
+        return name;
     }
 
-    public double getIngredientCarbohydrates() {
-        return ingredientCarbohydrates;
+    public double getCarbohydrates() {
+        return carbohydrates;
     }
 
-    public double getIngredientProtein() {
-        return ingredientProtein;
+    public double getProtein() {
+        return protein;
     }
 
-    public double getIngredientFat() {
-        return ingredientFat;
+    public double getFat() {
+        return fat;
     }
 
-    public int getIngredientCalories() {
-        return ingredientCalories;
+    public int getCalories() {
+        return calories;
     }
 }
