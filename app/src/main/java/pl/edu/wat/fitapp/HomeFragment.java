@@ -27,7 +27,6 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -100,12 +99,12 @@ public class HomeFragment extends Fragment {
         lvSnack = view.findViewById(R.id.lvSnack);
         lvSupper = view.findViewById(R.id.lvSupper);
 
-        foodSystemListBreakfastAdapter = new FoodSystemListAdapter(getActivity(), R.layout.listview_adapter_show_foodsystem, foodSystemListBreakfast, 0);
-        foodSystemListSecondBreakfastAdapter = new FoodSystemListAdapter(getActivity(), R.layout.listview_adapter_show_foodsystem, foodSystemListSecondBreakfast, 1);
-        foodSystemListLunchAdapter = new FoodSystemListAdapter(getActivity(), R.layout.listview_adapter_show_foodsystem, foodSystemListLunch, 2);
-        foodSystemListDinnerAdapter = new FoodSystemListAdapter(getActivity(), R.layout.listview_adapter_show_foodsystem, foodSystemListDinner, 3);
-        foodSystemListSnackAdapter = new FoodSystemListAdapter(getActivity(), R.layout.listview_adapter_show_foodsystem, foodSystemListSnack, 4);
-        foodSystemListSupperAdapter = new FoodSystemListAdapter(getActivity(), R.layout.listview_adapter_show_foodsystem, foodSystemListSupper, 5);
+        foodSystemListBreakfastAdapter = new FoodSystemListAdapter(getActivity(), R.layout.listview_adapter_show_foodsystem, foodSystemListBreakfast);
+        foodSystemListSecondBreakfastAdapter = new FoodSystemListAdapter(getActivity(), R.layout.listview_adapter_show_foodsystem, foodSystemListSecondBreakfast);
+        foodSystemListLunchAdapter = new FoodSystemListAdapter(getActivity(), R.layout.listview_adapter_show_foodsystem, foodSystemListLunch);
+        foodSystemListDinnerAdapter = new FoodSystemListAdapter(getActivity(), R.layout.listview_adapter_show_foodsystem, foodSystemListDinner);
+        foodSystemListSnackAdapter = new FoodSystemListAdapter(getActivity(), R.layout.listview_adapter_show_foodsystem, foodSystemListSnack);
+        foodSystemListSupperAdapter = new FoodSystemListAdapter(getActivity(), R.layout.listview_adapter_show_foodsystem, foodSystemListSupper);
 
         lvBreakfast.setAdapter(foodSystemListBreakfastAdapter);
         lvSecondBreakfast.setAdapter(foodSystemListSecondBreakfastAdapter);
@@ -176,12 +175,11 @@ public class HomeFragment extends Fragment {
 
     class FoodSystemListAdapter extends ArrayAdapter<FoodSystem> {
 
-        private int mealTime;
-        private ArrayList<FoodSystem> temp;
+        ArrayList<FoodSystem> tempList;
 
-        public FoodSystemListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<FoodSystem> objects, int mealTime) {
+        public FoodSystemListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<FoodSystem> objects) {
             super(context, resource, objects);
-            this.mealTime = mealTime;
+            tempList = objects;
         }
 
         @NonNull
@@ -197,31 +195,43 @@ public class HomeFragment extends Fragment {
 
             DecimalFormat decimalFormat = new DecimalFormat("#0.0");
 
-            switch (mealTime){
-                case 0:
-                    temp = foodSystemListBreakfast;
-                    break;
-                case 1:
-                    temp = foodSystemListSecondBreakfast;
-                    break;
-                case 2:
-                    temp = foodSystemListLunch;
-                    break;
-                case 3:
-                    temp = foodSystemListDinner;
-                    break;
-                case 4:
-                    temp = foodSystemListSnack;
-                    break;
-                case 5:
-                    temp = foodSystemListSupper;
-                    break;
-            }
 
             String tempString;
-            tvName.setText(temp.get(position).getName());
+            tvName.setText(tempList.get(position).getName());
 
+            Ingredient tempIngredient;
+            Meal tempMeal;
+            if (tempList.get(position).getClass() == Ingredient.class) {
+                tempIngredient = (Ingredient) tempList.get(position);
 
+                tempString = String.valueOf(decimalFormat.format(tempIngredient.getCarbohydrates())) + " g";
+                tvCarbohydrates.setText(tempString);
+
+                tempString = String.valueOf(decimalFormat.format(tempIngredient.getProtein())) + " g";
+                tvProtein.setText(tempString);
+
+                tempString = String.valueOf(decimalFormat.format(tempIngredient.getFat())) + " g";
+                tvFat.setText(tempString);
+
+                tempString = String.valueOf(decimalFormat.format(tempIngredient.getCalories())) + " kcal";
+                tvCalories.setText(tempString);
+            }
+
+            if (tempList.get(position).getClass() == Meal.class) {
+                tempMeal = (Meal) tempList.get(position);
+
+                tempString = String.valueOf(decimalFormat.format(tempMeal.getCarbohydrates())) + " g";
+                tvCarbohydrates.setText(tempString);
+
+                tempString = String.valueOf(decimalFormat.format(tempMeal.getProtein())) + " g";
+                tvProtein.setText(tempString);
+
+                tempString = String.valueOf(decimalFormat.format(tempMeal.getFat())) + " g";
+                tvFat.setText(tempString);
+
+                tempString = String.valueOf(decimalFormat.format(tempMeal.getCalories())) + " kcal";
+                tvCalories.setText(tempString);
+            }
             return convertView;
         }
     }
@@ -234,152 +244,23 @@ public class HomeFragment extends Fragment {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
                     if (success) {
-                        Log.d("TESTOWANIE", "Dlugosc response = " + jsonResponse.length());
                         for (int i = 0; i < jsonResponse.length() - 3; i++) {
-                            JSONObject temp = jsonResponse.getJSONObject(String.valueOf(i));
-                            if (temp.getString("type").equals("meal")) {
-                                int mealID = temp.getInt("ID_MyMeal");
-                                int mealPosition;
+                            JSONObject row = jsonResponse.getJSONObject(String.valueOf(i));
+                            if (row.getString("type").equals("meal")) {
+                                int mealPosition = checkMealPositionInList(row.getInt("ID_MyMeal"), row.getInt("MealTime"));
                                 Meal tempMeal;
-                                Ingredient tempIngredient;
-                                switch (temp.getInt("MealTime")) {
-                                    case 0:
-                                        mealPosition = checkMealPositionInList(mealID, foodSystemListBreakfast);
-                                        if (mealPosition == -1) {
-                                            tempMeal = new Meal(temp.getInt("ID_MyMeal"), temp.getString("MealName"));
-                                            tempIngredient = new Ingredient(temp.getInt("ID_Ingredient"), temp.getString("IngredientName"),
-                                                    temp.getDouble("Carbohydrates"), temp.getDouble("Protein"), temp.getDouble("Fat"), temp.getInt("Calories"));
-                                            tempMeal.getIngredientList().add(tempIngredient);
-                                            tempMeal.getIngredientWeightList().add(temp.getInt("IngredientWeight"));
-                                            foodSystemListBreakfast.add(tempMeal);
-                                        } else {
-                                            tempIngredient = new Ingredient(temp.getInt("ID_Ingredient"), temp.getString("IngredientName"),
-                                                    temp.getDouble("Carbohydrates"), temp.getDouble("Protein"), temp.getDouble("Fat"), temp.getInt("Calories"));
-                                            tempMeal = (Meal) foodSystemListBreakfast.get(mealPosition);
-                                            tempMeal.getIngredientList().add(tempIngredient);
-                                            tempMeal.getIngredientWeightList().add(temp.getInt("IngredientWeight"));
-                                        }
-                                        break;
-                                    case 1:
-                                        mealPosition = checkMealPositionInList(mealID, foodSystemListSecondBreakfast);
-                                        if (mealPosition == -1) {
-                                            tempMeal = new Meal(temp.getInt("ID_MyMeal"), temp.getString("MealName"));
-                                            tempIngredient = new Ingredient(temp.getInt("ID_Ingredient"), temp.getString("IngredientName"),
-                                                    temp.getDouble("Carbohydrates"), temp.getDouble("Protein"), temp.getDouble("Fat"), temp.getInt("Calories"));
-                                            tempMeal.getIngredientList().add(tempIngredient);
-                                            tempMeal.getIngredientWeightList().add(temp.getInt("IngredientWeight"));
-                                            foodSystemListSecondBreakfast.add(tempMeal);
-                                        } else {
-                                            tempIngredient = new Ingredient(temp.getInt("ID_Ingredient"), temp.getString("IngredientName"),
-                                                    temp.getDouble("Carbohydrates"), temp.getDouble("Protein"), temp.getDouble("Fat"), temp.getInt("Calories"));
-                                            tempMeal = (Meal) foodSystemListSecondBreakfast.get(mealPosition);
-                                            tempMeal.getIngredientList().add(tempIngredient);
-                                            tempMeal.getIngredientWeightList().add(temp.getInt("IngredientWeight"));
-                                        }
-                                        break;
-                                    case 2:
-                                        mealPosition = checkMealPositionInList(mealID, foodSystemListLunch);
-                                        if (mealPosition == -1) {
-                                            tempMeal = new Meal(temp.getInt("ID_MyMeal"), temp.getString("MealName"));
-                                            tempIngredient = new Ingredient(temp.getInt("ID_Ingredient"), temp.getString("IngredientName"),
-                                                    temp.getDouble("Carbohydrates"), temp.getDouble("Protein"), temp.getDouble("Fat"), temp.getInt("Calories"));
-                                            tempMeal.getIngredientList().add(tempIngredient);
-                                            tempMeal.getIngredientWeightList().add(temp.getInt("IngredientWeight"));
-                                            foodSystemListLunch.add(tempMeal);
-                                        } else {
-                                            tempIngredient = new Ingredient(temp.getInt("ID_Ingredient"), temp.getString("IngredientName"),
-                                                    temp.getDouble("Carbohydrates"), temp.getDouble("Protein"), temp.getDouble("Fat"), temp.getInt("Calories"));
-                                            tempMeal = (Meal) foodSystemListLunch.get(mealPosition);
-                                            tempMeal.getIngredientList().add(tempIngredient);
-                                            tempMeal.getIngredientWeightList().add(temp.getInt("IngredientWeight"));
-                                        }
-                                        break;
-                                    case 3:
-                                        mealPosition = checkMealPositionInList(mealID, foodSystemListDinner);
-                                        if (mealPosition == -1) {
-                                            tempMeal = new Meal(temp.getInt("ID_MyMeal"), temp.getString("MealName"));
-                                            tempIngredient = new Ingredient(temp.getInt("ID_Ingredient"), temp.getString("IngredientName"),
-                                                    temp.getDouble("Carbohydrates"), temp.getDouble("Protein"), temp.getDouble("Fat"), temp.getInt("Calories"));
-                                            tempMeal.getIngredientList().add(tempIngredient);
-                                            tempMeal.getIngredientWeightList().add(temp.getInt("IngredientWeight"));
-                                            foodSystemListDinner.add(tempMeal);
-                                        } else {
-                                            tempIngredient = new Ingredient(temp.getInt("ID_Ingredient"), temp.getString("IngredientName"),
-                                                    temp.getDouble("Carbohydrates"), temp.getDouble("Protein"), temp.getDouble("Fat"), temp.getInt("Calories"));
-                                            tempMeal = (Meal) foodSystemListDinner.get(mealPosition);
-                                            tempMeal.getIngredientList().add(tempIngredient);
-                                            tempMeal.getIngredientWeightList().add(temp.getInt("IngredientWeight"));
-                                        }
-                                        break;
-                                    case 4:
-                                        mealPosition = checkMealPositionInList(mealID, foodSystemListSnack);
-                                        if (mealPosition == -1) {
-                                            tempMeal = new Meal(temp.getInt("ID_MyMeal"), temp.getString("MealName"));
-                                            tempIngredient = new Ingredient(temp.getInt("ID_Ingredient"), temp.getString("IngredientName"),
-                                                    temp.getDouble("Carbohydrates"), temp.getDouble("Protein"), temp.getDouble("Fat"), temp.getInt("Calories"));
-                                            tempMeal.getIngredientList().add(tempIngredient);
-                                            tempMeal.getIngredientWeightList().add(temp.getInt("IngredientWeight"));
-                                            foodSystemListSnack.add(tempMeal);
-                                        } else {
-                                            tempIngredient = new Ingredient(temp.getInt("ID_Ingredient"), temp.getString("IngredientName"),
-                                                    temp.getDouble("Carbohydrates"), temp.getDouble("Protein"), temp.getDouble("Fat"), temp.getInt("Calories"));
-                                            tempMeal = (Meal) foodSystemListSnack.get(mealPosition);
-                                            tempMeal.getIngredientList().add(tempIngredient);
-                                            tempMeal.getIngredientWeightList().add(temp.getInt("IngredientWeight"));
-                                        }
-                                        break;
-                                    case 5:
-                                        mealPosition = checkMealPositionInList(mealID, foodSystemListSupper);
-                                        if (mealPosition == -1) {
-                                            tempMeal = new Meal(temp.getInt("ID_MyMeal"), temp.getString("MealName"));
-                                            tempIngredient = new Ingredient(temp.getInt("ID_Ingredient"), temp.getString("IngredientName"),
-                                                    temp.getDouble("Carbohydrates"), temp.getDouble("Protein"), temp.getDouble("Fat"), temp.getInt("Calories"));
-                                            tempMeal.getIngredientList().add(tempIngredient);
-                                            tempMeal.getIngredientWeightList().add(temp.getInt("IngredientWeight"));
-                                            foodSystemListSupper.add(tempMeal);
-                                        } else {
-                                            tempIngredient = new Ingredient(temp.getInt("ID_Ingredient"), temp.getString("IngredientName"),
-                                                    temp.getDouble("Carbohydrates"), temp.getDouble("Protein"), temp.getDouble("Fat"), temp.getInt("Calories"));
-                                            tempMeal = (Meal) foodSystemListSupper.get(mealPosition);
-                                            tempMeal.getIngredientList().add(tempIngredient);
-                                            tempMeal.getIngredientWeightList().add(temp.getInt("IngredientWeight"));
-                                        }
-                                        break;
+                                if (mealPosition == -1) {
+                                    tempMeal = new Meal(row.getInt("ID_MyMeal"), row.getString("MealName"));
+                                    tempMeal.addIngriedientToList(new Ingredient(row.getInt("ID_Ingredient"), row.getString("IngredientName"), row.getDouble("Carbohydrates"),
+                                            row.getDouble("Protein"), row.getDouble("Fat"), row.getInt("Calories")), row.getInt("IngredientWeight"));
+                                    addMealToFoodSystemList(tempMeal, row.getInt("MealTime"));
+                                } else {
+                                    updateMealInFoodSystemList(mealPosition, new Ingredient(row.getInt("ID_Ingredient"), row.getString("IngredientName"), row.getDouble("Carbohydrates"),
+                                            row.getDouble("Protein"), row.getDouble("Fat"), row.getInt("Calories")), row.getInt("IngredientWeight"), row.getInt("MealTime"));
                                 }
                             } else {
-                                Ingredient tempIngredient;
-                                switch (temp.getInt("MealTime")) {
-                                    case 0:
-                                        tempIngredient = new Ingredient(temp.getInt("ID_Ingredient"), temp.getString("IngredientName"),
-                                                temp.getDouble("Carbohydrates"), temp.getDouble("Protein"), temp.getDouble("Fat"), temp.getInt("Calories"));
-                                        foodSystemListBreakfast.add(tempIngredient);
-                                        break;
-                                    case 1:
-                                        tempIngredient = new Ingredient(temp.getInt("ID_Ingredient"), temp.getString("IngredientName"),
-                                                temp.getDouble("Carbohydrates"), temp.getDouble("Protein"), temp.getDouble("Fat"), temp.getInt("Calories"));
-                                        foodSystemListSecondBreakfast.add(tempIngredient);
-                                        break;
-                                    case 2:
-                                        tempIngredient = new Ingredient(temp.getInt("ID_Ingredient"), temp.getString("IngredientName"),
-                                                temp.getDouble("Carbohydrates"), temp.getDouble("Protein"), temp.getDouble("Fat"), temp.getInt("Calories"));
-                                        foodSystemListLunch.add(tempIngredient);
-                                        break;
-                                    case 3:
-                                        tempIngredient = new Ingredient(temp.getInt("ID_Ingredient"), temp.getString("IngredientName"),
-                                                temp.getDouble("Carbohydrates"), temp.getDouble("Protein"), temp.getDouble("Fat"), temp.getInt("Calories"));
-                                        foodSystemListDinner.add(tempIngredient);
-                                        break;
-                                    case 4:
-                                        tempIngredient = new Ingredient(temp.getInt("ID_Ingredient"), temp.getString("IngredientName"),
-                                                temp.getDouble("Carbohydrates"), temp.getDouble("Protein"), temp.getDouble("Fat"), temp.getInt("Calories"));
-                                        foodSystemListSnack.add(tempIngredient);
-                                        break;
-                                    case 5:
-                                        tempIngredient = new Ingredient(temp.getInt("ID_Ingredient"), temp.getString("IngredientName"),
-                                                temp.getDouble("Carbohydrates"), temp.getDouble("Protein"), temp.getDouble("Fat"), temp.getInt("Calories"));
-                                        foodSystemListSupper.add(tempIngredient);
-                                        break;
-                                }
+                                addIngredientToFoodSystemList(new Ingredient(row.getInt("ID_Ingredient"), row.getString("IngredientName"), row.getDouble("Carbohydrates"),
+                                        row.getDouble("Protein"), row.getDouble("Fat"), row.getInt("Calories")), row.getInt("MealTime"));
                             }
                         }
                         foodSystemListBreakfastAdapter.notifyDataSetChanged();
@@ -389,31 +270,30 @@ public class HomeFragment extends Fragment {
                         foodSystemListSnackAdapter.notifyDataSetChanged();
                         foodSystemListSupperAdapter.notifyDataSetChanged();
 
-                        Log.d("TESTOWANIE", "Liczba elementow w tablicy sniadanie = " + foodSystemListBreakfast.size());
-                        for (int i = 0; i < foodSystemListBreakfast.size(); i++)
-                            Log.d("TESTOWANIE", "Element " + i + " w tablicy foodSystemListBreakfast = " + foodSystemListBreakfast.get(i).getID());
-
-                        Log.d("TESTOWANIE", "Liczba elementow w tablicy drugie sniadnaie = " + foodSystemListSecondBreakfast.size());
-                        for (int i = 0; i < foodSystemListSecondBreakfast.size(); i++)
-                            Log.d("TESTOWANIE", "Element " + i + " w tablicy foodSystemListSecondBreakfast = " + foodSystemListSecondBreakfast.get(i).getID());
-
-                        Log.d("TESTOWANIE", "Liczba elementow w tablicy lunch = " + foodSystemListLunch.size());
-                        for (int i = 0; i < foodSystemListLunch.size(); i++)
-                            Log.d("TESTOWANIE", "Element " + i + " w tablicy foodSystemListLunch = " + foodSystemListLunch.get(i).getID());
-
-                        Log.d("TESTOWANIE", "Liczba elementow w tablicy obiad = " + foodSystemListDinner.size());
-                        for (int i = 0; i < foodSystemListDinner.size(); i++)
-                            Log.d("TESTOWANIE", "Element " + i + " w tablicy foodSystemListDinner = " + foodSystemListDinner.get(i).getID());
-
-
-                        Log.d("TESTOWANIE", "Liczba elementow w tablicy przekaska = " + foodSystemListSnack.size());
-                        for (int i = 0; i < foodSystemListSnack.size(); i++)
-                            Log.d("TESTOWANIE", "Element " + i + " w tablicy foodSystemListSnack = " + foodSystemListSnack.get(i).getID());
-
-                        Log.d("TESTOWANIE", "Liczba elementow w tablicy kolacja = " + foodSystemListSupper.size());
-                        for (int i = 0; i < foodSystemListSupper.size(); i++)
-                            Log.d("TESTOWANIE", "Element " + i + " w tablicy foodSystemListBreakfast = " + foodSystemListSupper.get(i).getID());
-
+//                        Log.d("TESTOWANIE", "Liczba elementow w tablicy sniadanie = " + foodSystemListBreakfast.size());
+//                        for (int i = 0; i < foodSystemListBreakfast.size(); i++)
+//                            Log.d("TESTOWANIE", "Element " + i + " w tablicy foodSystemListBreakfast = " + foodSystemListBreakfast.get(i).getID());
+//
+//                        Log.d("TESTOWANIE", "Liczba elementow w tablicy drugie sniadnaie = " + foodSystemListSecondBreakfast.size());
+//                        for (int i = 0; i < foodSystemListSecondBreakfast.size(); i++)
+//                            Log.d("TESTOWANIE", "Element " + i + " w tablicy foodSystemListSecondBreakfast = " + foodSystemListSecondBreakfast.get(i).getID());
+//
+//                        Log.d("TESTOWANIE", "Liczba elementow w tablicy lunch = " + foodSystemListLunch.size());
+//                        for (int i = 0; i < foodSystemListLunch.size(); i++)
+//                            Log.d("TESTOWANIE", "Element " + i + " w tablicy foodSystemListLunch = " + foodSystemListLunch.get(i).getID());
+//
+//                        Log.d("TESTOWANIE", "Liczba elementow w tablicy obiad = " + foodSystemListDinner.size());
+//                        for (int i = 0; i < foodSystemListDinner.size(); i++)
+//                            Log.d("TESTOWANIE", "Element " + i + " w tablicy foodSystemListDinner = " + foodSystemListDinner.get(i).getID());
+//
+//
+//                        Log.d("TESTOWANIE", "Liczba elementow w tablicy przekaska = " + foodSystemListSnack.size());
+//                        for (int i = 0; i < foodSystemListSnack.size(); i++)
+//                            Log.d("TESTOWANIE", "Element " + i + " w tablicy foodSystemListSnack = " + foodSystemListSnack.get(i).getID());
+//
+//                        Log.d("TESTOWANIE", "Liczba elementow w tablicy kolacja = " + foodSystemListSupper.size());
+//                        for (int i = 0; i < foodSystemListSupper.size(); i++)
+//                            Log.d("TESTOWANIE", "Element " + i + " w tablicy foodSystemListBreakfast = " + foodSystemListSupper.get(i).getID());
 
 
                         Toast.makeText(getActivity(), "Pobrano do FoodSystem", Toast.LENGTH_SHORT).show();
@@ -435,10 +315,10 @@ public class HomeFragment extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 Date date = new Date();
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 params.put("operation", "getFoodSystemFromDay");
                 params.put("userId", String.valueOf(user.getUserID()));
-                params.put("date", format.format(date));
+                params.put("date", dateFormat.format(date));
                 return params;
             }
         };
@@ -447,17 +327,147 @@ public class HomeFragment extends Fragment {
         requestQueue.add(stringRequest);
     }
 
-    public int checkMealPositionInList(int mealId, ArrayList<FoodSystem> foodSystemList) {
+    public int checkMealPositionInList(int mealId, int mealTime) {
         Meal tempMeal;
-        for (int i = 0; i < foodSystemList.size(); i++) {
-            if (foodSystemList.get(i).getClass() == Meal.class) {
-                tempMeal = (Meal) foodSystemList.get(i);
-                if (tempMeal.getID() == mealId) {
-                    return i;
+        switch (mealTime) {
+            case 0:
+                for (int i = 0; i < foodSystemListBreakfast.size(); i++) {
+                    if (foodSystemListBreakfast.get(i).getClass() == Meal.class) {
+                        tempMeal = (Meal) foodSystemListBreakfast.get(i);
+                        if (tempMeal.getID() == mealId) {
+                            return i;
+                        }
+                    }
                 }
-            }
+                break;
+            case 1:
+                for (int i = 0; i < foodSystemListSecondBreakfast.size(); i++) {
+                    if (foodSystemListSecondBreakfast.get(i).getClass() == Meal.class) {
+                        tempMeal = (Meal) foodSystemListSecondBreakfast.get(i);
+                        if (tempMeal.getID() == mealId) {
+                            return i;
+                        }
+                    }
+                }
+                break;
+            case 2:
+                for (int i = 0; i < foodSystemListLunch.size(); i++) {
+                    if (foodSystemListLunch.get(i).getClass() == Meal.class) {
+                        tempMeal = (Meal) foodSystemListLunch.get(i);
+                        if (tempMeal.getID() == mealId) {
+                            return i;
+                        }
+                    }
+                }
+                break;
+            case 3:
+                for (int i = 0; i < foodSystemListDinner.size(); i++) {
+                    if (foodSystemListDinner.get(i).getClass() == Meal.class) {
+                        tempMeal = (Meal) foodSystemListDinner.get(i);
+                        if (tempMeal.getID() == mealId) {
+                            return i;
+                        }
+                    }
+                }
+                break;
+            case 4:
+                for (int i = 0; i < foodSystemListSnack.size(); i++) {
+                    if (foodSystemListSnack.get(i).getClass() == Meal.class) {
+                        tempMeal = (Meal) foodSystemListSnack.get(i);
+                        if (tempMeal.getID() == mealId) {
+                            return i;
+                        }
+                    }
+                }
+                break;
+            case 5:
+                for (int i = 0; i < foodSystemListSupper.size(); i++) {
+                    if (foodSystemListSupper.get(i).getClass() == Meal.class) {
+                        tempMeal = (Meal) foodSystemListSupper.get(i);
+                        if (tempMeal.getID() == mealId) {
+                            return i;
+                        }
+                    }
+                }
+                break;
         }
         return -1;
+    }
+
+    public void addIngredientToFoodSystemList(Ingredient ingredient, int mealTime){
+        switch (mealTime) {
+            case 0:
+                foodSystemListBreakfast.add(ingredient);
+                break;
+            case 1:
+                foodSystemListSecondBreakfast.add(ingredient);
+                break;
+            case 2:
+                foodSystemListLunch.add(ingredient);
+                break;
+            case 3:
+                foodSystemListDinner.add(ingredient);
+                break;
+            case 4:
+                foodSystemListSnack.add(ingredient);
+                break;
+            case 5:
+                foodSystemListSupper.add(ingredient);
+                break;
+        }
+    }
+
+    public void addMealToFoodSystemList(Meal meal, int mealTime) {
+        switch (mealTime) {
+            case 0:
+                foodSystemListBreakfast.add(meal);
+                break;
+            case 1:
+                foodSystemListSecondBreakfast.add(meal);
+                break;
+            case 2:
+                foodSystemListLunch.add(meal);
+                break;
+            case 3:
+                foodSystemListDinner.add(meal);
+                break;
+            case 4:
+                foodSystemListSnack.add(meal);
+                break;
+            case 5:
+                foodSystemListSupper.add(meal);
+                break;
+        }
+    }
+
+    private void updateMealInFoodSystemList(int position, Ingredient ingredient, int weight, int mealTime) {
+        Meal tempMeal;
+        switch (mealTime) {
+            case 0:
+                tempMeal = (Meal) foodSystemListBreakfast.get(position);
+                tempMeal.addIngriedientToList(ingredient, weight);
+                break;
+            case 1:
+                tempMeal = (Meal) foodSystemListSecondBreakfast.get(position);
+                tempMeal.addIngriedientToList(ingredient, weight);
+                break;
+            case 2:
+                tempMeal = (Meal) foodSystemListLunch.get(position);
+                tempMeal.addIngriedientToList(ingredient, weight);
+                break;
+            case 3:
+                tempMeal = (Meal) foodSystemListDinner.get(position);
+                tempMeal.addIngriedientToList(ingredient, weight);
+                break;
+            case 4:
+                tempMeal = (Meal) foodSystemListSnack.get(position);
+                tempMeal.addIngriedientToList(ingredient, weight);
+                break;
+            case 5:
+                tempMeal = (Meal) foodSystemListSupper.get(position);
+                tempMeal.addIngriedientToList(ingredient, weight);
+                break;
+        }
     }
 
     private void addToFoodSystem(int mealTime) {

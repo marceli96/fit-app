@@ -151,15 +151,14 @@ public class AddIngredientToFoodSystemFragment extends Fragment {
                     if (success) {
                         for (int i = 0; i < jsonResponse.length() - 1; i++) {
                             JSONObject ingredient = jsonResponse.getJSONObject(String.valueOf(i));
-                            Ingredient tempIngredient = new Ingredient(ingredient.getInt("ID_Ingredient"), ingredient.getString("IngredientName"),
+                            ingredientList.add(new Ingredient(ingredient.getInt("ID_Ingredient"), ingredient.getString("IngredientName"),
                                     ingredient.getDouble("Carbohydrates"), ingredient.getDouble("Protein"), ingredient.getDouble("Fat"),
-                                    ingredient.getInt("Calories"));
-                            ingredientList.add(tempIngredient);
+                                    ingredient.getInt("Calories")));
                         }
                         ingredientListAdapter.notifyDataSetChanged();
                         Toast.makeText(getContext(), "Pobrano składniki", Toast.LENGTH_SHORT).show();
                     } else
-                        Toast.makeText(getContext(), "Wystąpił błąd podczas pobieraniA składników", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Wystąpił błąd podczas pobierania składników", Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(getContext(), "Login error! " + e.toString(), Toast.LENGTH_SHORT).show();

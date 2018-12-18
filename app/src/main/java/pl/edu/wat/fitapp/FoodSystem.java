@@ -1,6 +1,10 @@
 package pl.edu.wat.fitapp;
 
 public interface FoodSystem {
-    public int getID();
-    public String getName();
+    int getID();
+    String getName();
+    double getCarbohydrates();
+    double getProtein();
+    double getFat();
+    int getCalories();
 }

@@ -24,11 +24,36 @@ public class Meal implements Serializable, FoodSystem {
         return name;
     }
 
-    public ArrayList<Ingredient> getIngredientList() {
-        return ingredientList;
+    public double getCarbohydrates(){
+        double sum = 0;
+        for(int i =0; i < ingredientList.size(); i++)
+            sum += ingredientList.get(i).getCarbohydrates() * ingredientWeightList.get(i)/100;
+        return sum;
     }
 
-    public ArrayList<Integer> getIngredientWeightList() {
-        return ingredientWeightList;
+    public double getProtein(){
+        double sum = 0;
+        for(int i =0; i < ingredientList.size(); i++)
+            sum += ingredientList.get(i).getProtein() * ingredientWeightList.get(i)/100;
+        return sum;
+    }
+
+    public double getFat(){
+        double sum = 0;
+        for(int i =0; i < ingredientList.size(); i++)
+            sum += ingredientList.get(i).getFat() * ingredientWeightList.get(i)/100;
+        return sum;
+    }
+
+    public int getCalories(){
+        int sum = 0;
+        for(int i =0; i < ingredientList.size(); i++)
+            sum += ingredientList.get(i).getCalories() * ingredientWeightList.get(i)/100;
+        return sum;
+    }
+
+    public void addIngriedientToList(Ingredient ingredient, int weight){
+        ingredientList.add(ingredient);
+        ingredientWeightList.add(weight);
     }
 }
