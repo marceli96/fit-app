@@ -109,8 +109,10 @@
 
             <ListView
                 android:id="@+id/lvBreakfast"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_width="wrap_content"
+                android:layout_height="400dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -211,7 +213,9 @@
             <ListView
                 android:id="@+id/lvSecondBreakfast"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="400dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -312,7 +316,9 @@
             <ListView
                 android:id="@+id/lvLunch"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="400dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -413,7 +419,9 @@
             <ListView
                 android:id="@+id/lvDinner"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="400dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -514,7 +522,9 @@
             <ListView
                 android:id="@+id/lvSnack"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="400dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -615,7 +625,9 @@
             <ListView
                 android:id="@+id/lvSupper"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="400dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp" />
         </LinearLayout>
 
         <LinearLayout
