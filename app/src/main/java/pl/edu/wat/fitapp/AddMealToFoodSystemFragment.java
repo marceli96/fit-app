@@ -3,6 +3,7 @@ package pl.edu.wat.fitapp;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -140,7 +141,6 @@ public class AddMealToFoodSystemFragment extends Fragment {
     }
 
     private void addMealToFoodSystem(final int mealId, final int userId, final int mealTime, final String weight) {
-        Log.d("TESTOWNAIE", "Przesyłane parametry. mealid = " + mealId + " userId = " + userId + " mealTime = " + mealTime);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -149,6 +149,7 @@ public class AddMealToFoodSystemFragment extends Fragment {
                     boolean success = jsonResponse.getBoolean("success");
                     if (success) {
                         Toast.makeText(getActivity(), "Dodano pomyślnie", Toast.LENGTH_SHORT).show();
+                        openMainActivity();
                     } else {
                         Toast.makeText(getActivity(), "Błąd podczas dodawania", Toast.LENGTH_LONG).show();
                     }
@@ -167,7 +168,7 @@ public class AddMealToFoodSystemFragment extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("operation", "addMealToFoodSystem");
-                params.put("mealId", String.valueOf(mealId));
+                params.put("myMealId", String.valueOf(mealId));
                 params.put("userId", String.valueOf(userId));
                 params.put("mealTime", String.valueOf(mealTime));
                 params.put("weight", weight);
@@ -177,6 +178,13 @@ public class AddMealToFoodSystemFragment extends Fragment {
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         requestQueue.add(stringRequest);
+    }
+
+    private void openMainActivity() {
+        Intent openMainActivity = new Intent(getContext(), MainActivity.class);
+        openMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        openMainActivity.putExtra("user", user);
+        startActivity(openMainActivity);
     }
 
     private void getMeals() {
