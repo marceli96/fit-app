@@ -71,6 +71,7 @@ public class AddMealToFoodSystemFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 Toast.makeText(getActivity(), "Wybrałeś posiłek o nazwie = " + mealList.get(position).getName(), Toast.LENGTH_SHORT).show();
 
+                // TODO Ewentualane dodanie listy składników posiłku tak jak jest to w FoodSystem
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 final View alertView = getLayoutInflater().inflate(R.layout.dialog_weight_choose_meal, null);
 
@@ -113,6 +114,7 @@ public class AddMealToFoodSystemFragment extends Fragment {
             convertView = getLayoutInflater().inflate(R.layout.listview_adapter_add_meal, parent, false);
 
             TextView tvMealName = convertView.findViewById(R.id.tvMealName);
+            TextView tvMealTotalWeight = convertView.findViewById(R.id.tvMealTotalWeight);
             TextView tvMealCarbohydrates = convertView.findViewById(R.id.tvMealCarbohydrates);
             TextView tvMealProtein = convertView.findViewById(R.id.tvMealProtein);
             TextView tvMealFat = convertView.findViewById(R.id.tvMealFat);
@@ -122,6 +124,9 @@ public class AddMealToFoodSystemFragment extends Fragment {
 
             String temp;
             tvMealName.setText(mealList.get(position).getName());
+
+            temp = String.valueOf(mealList.get(position).getTotalWeight()) + " g";
+            tvMealTotalWeight.setText(temp);
 
             temp = String.valueOf(decimalFormat.format(mealList.get(position).getCarbohydrates())) + " g";
             tvMealCarbohydrates.setText(temp);

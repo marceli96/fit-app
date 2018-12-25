@@ -8,7 +8,7 @@
         android:id="@+id/tvMealName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="Nazwa posiłku"
         android:textSize="22sp" />
 
     <LinearLayout
@@ -19,9 +19,22 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
             android:layout_weight="1"
-            android:text="w 100g:" />
+            android:text="w " />
+
+        <TextView
+            android:id="@+id/tvMealTotalWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="0 g" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text=":"
+            android:layout_marginRight="5dp"/>
 
         <TextView
             android:id="@+id/tvMealCarbohydrates"
