@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment"
+    android:fillViewport="true"
     android:orientation="vertical"
-    android:fillViewport="true">
+    tools:context=".HomeFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,8 +14,8 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
@@ -108,25 +108,31 @@
                     android:text="+" />
             </LinearLayout>
 
-            <ListView
+            <!--<ListView-->
+            <!--android:id="@+id/lvBreakfast"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="400dp"-->
+            <!--android:layout_marginStart="15dp"-->
+            <!--android:layout_marginEnd="15dp" />-->
+            <pl.edu.wat.fitapp.NonScrollListView
                 android:id="@+id/lvBreakfast"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp" />
+                android:layout_marginEnd="15dp"></pl.edu.wat.fitapp.NonScrollListView>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -211,25 +217,31 @@
                     android:text="+" />
             </LinearLayout>
 
-            <ListView
+            <!--<ListView-->
+            <!--android:id="@+id/lvSecondBreakfast"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="400dp"-->
+            <!--android:layout_marginStart="15dp"-->
+            <!--android:layout_marginEnd="15dp" />-->
+            <pl.edu.wat.fitapp.NonScrollListView
                 android:id="@+id/lvSecondBreakfast"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp" />
+                android:layout_marginEnd="15dp"></pl.edu.wat.fitapp.NonScrollListView>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -314,25 +326,31 @@
                     android:text="+" />
             </LinearLayout>
 
-            <ListView
+            <!--<ListView-->
+            <!--android:id="@+id/lvLunch"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="400dp"-->
+            <!--android:layout_marginStart="15dp"-->
+            <!--android:layout_marginEnd="15dp" />-->
+            <pl.edu.wat.fitapp.NonScrollListView
                 android:id="@+id/lvLunch"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp" />
+                android:layout_marginEnd="15dp"></pl.edu.wat.fitapp.NonScrollListView>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -417,25 +435,31 @@
                     android:text="+" />
             </LinearLayout>
 
-            <ListView
+            <!--<ListView-->
+            <!--android:id="@+id/lvDinner"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="400dp"-->
+            <!--android:layout_marginStart="15dp"-->
+            <!--android:layout_marginEnd="15dp" />-->
+            <pl.edu.wat.fitapp.NonScrollListView
                 android:id="@+id/lvDinner"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp" />
+                android:layout_marginEnd="15dp"></pl.edu.wat.fitapp.NonScrollListView>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -520,25 +544,31 @@
                     android:text="+" />
             </LinearLayout>
 
-            <ListView
+            <!--<ListView-->
+            <!--android:id="@+id/lvSnack"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="400dp"-->
+            <!--android:layout_marginStart="15dp"-->
+            <!--android:layout_marginEnd="15dp" />-->
+            <pl.edu.wat.fitapp.NonScrollListView
                 android:id="@+id/lvSnack"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp" />
+                android:layout_marginEnd="15dp"></pl.edu.wat.fitapp.NonScrollListView>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -623,25 +653,31 @@
                     android:text="+" />
             </LinearLayout>
 
-            <ListView
+            <!--<ListView-->
+            <!--android:id="@+id/lvSupper"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="400dp"-->
+            <!--android:layout_marginStart="15dp"-->
+            <!--android:layout_marginEnd="15dp" />-->
+            <pl.edu.wat.fitapp.NonScrollListView
                 android:id="@+id/lvSupper"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp" />
+                android:layout_marginEnd="15dp"></pl.edu.wat.fitapp.NonScrollListView>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -689,10 +725,14 @@
                     android:text="+" />
             </LinearLayout>
 
-            <ListView
+            <!--<ListView-->
+            <!--android:id="@+id/lvTraining"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent" />-->
+            <pl.edu.wat.fitapp.NonScrollListView
                 android:id="@+id/lvTraining"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content"></pl.edu.wat.fitapp.NonScrollListView>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

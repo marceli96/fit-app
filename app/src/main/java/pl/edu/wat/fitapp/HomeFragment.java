@@ -41,12 +41,12 @@ import java.util.Map;
  */
 public class HomeFragment extends Fragment {
     private Button bBreakfast, bSecondBreakfast, bLunch, bDinner, bSnack, bSupper;
-    private ListView lvBreakfast;
-    private ListView lvSecondBreakfast;
-    private ListView lvLunch;
-    private ListView lvDinner;
-    private ListView lvSnack;
-    private ListView lvSupper;
+    private NonScrollListView lvBreakfast;
+    private NonScrollListView lvSecondBreakfast;
+    private NonScrollListView lvLunch;
+    private NonScrollListView lvDinner;
+    private NonScrollListView lvSnack;
+    private NonScrollListView lvSupper;
 
     private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
 
