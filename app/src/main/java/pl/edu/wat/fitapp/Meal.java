@@ -15,6 +15,13 @@ public class Meal implements Serializable, FoodSystem {
         ingredientList = new ArrayList<>();
     }
 
+    public int getTotalWeight(){
+        int weight = 0;
+        for(int i = 0; i < ingredientList.size(); i++)
+            weight += ingredientList.get(i).getWeight();
+        return weight;
+    }
+
     public ArrayList<Ingredient> getIngredientList() {
         return ingredientList;
     }
