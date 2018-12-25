@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -202,12 +201,14 @@ public class AddMealToFoodSystemFragment extends Fragment {
                                 Meal tempMeal = new Meal(row.getInt("ID_MyMeal"), row.getString("MealName"));
                                 Ingredient tempIngredient = new Ingredient(row.getInt("ID_Ingredient"), row.getString("IngredientName"),
                                         row.getDouble("Carbohydrates"), row.getDouble("Protein"), row.getDouble("Fat"), row.getInt("Calories"));
-                                tempMeal.addIngriedientToList(tempIngredient, row.getInt("IngredientWeight"));
+                                tempIngredient.setWeight(row.getInt("IngredientWeight"));
+                                tempMeal.addIngredientToList(tempIngredient);
                                 mealList.add(tempMeal);
                             } else {
                                 Ingredient tempIngredient = new Ingredient(row.getInt("ID_Ingredient"), row.getString("IngredientName"),
                                         row.getDouble("Carbohydrates"), row.getDouble("Protein"), row.getDouble("Fat"), row.getInt("Calories"));
-                                mealList.get(mealPosition).addIngriedientToList(tempIngredient, row.getInt("IngredientWeight"));
+                                tempIngredient.setWeight(row.getInt("IngredientWeight"));
+                                mealList.get(mealPosition).addIngredientToList(tempIngredient);
                             }
                         }
                         mealListAdapter.notifyDataSetChanged();

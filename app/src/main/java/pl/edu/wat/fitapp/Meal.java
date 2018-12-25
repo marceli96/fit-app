@@ -6,14 +6,25 @@ import java.util.ArrayList;
 public class Meal implements Serializable, FoodSystem {
     private int ID;
     private String name;
+    private int weight;
     private ArrayList<Ingredient> ingredientList;
-    private ArrayList<Integer> ingredientWeightList;
 
     public Meal(int mealID, String mealName) {
         this.ID = mealID;
         this.name = mealName;
         ingredientList = new ArrayList<>();
-        ingredientWeightList = new ArrayList<>();
+    }
+
+    public ArrayList<Ingredient> getIngredientList() {
+        return ingredientList;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 
     public int getID() {
@@ -24,36 +35,35 @@ public class Meal implements Serializable, FoodSystem {
         return name;
     }
 
-    public double getCarbohydrates(){
+    public double getCarbohydrates() {
         double sum = 0;
-        for(int i =0; i < ingredientList.size(); i++)
-            sum += ingredientList.get(i).getCarbohydrates() * ingredientWeightList.get(i)/100;
+        for (int i = 0; i < ingredientList.size(); i++)
+            sum += ingredientList.get(i).getCarbohydrates() * ingredientList.get(i).getWeight() / 100;
         return sum;
     }
 
-    public double getProtein(){
+    public double getProtein() {
         double sum = 0;
-        for(int i =0; i < ingredientList.size(); i++)
-            sum += ingredientList.get(i).getProtein() * ingredientWeightList.get(i)/100;
+        for (int i = 0; i < ingredientList.size(); i++)
+            sum += ingredientList.get(i).getProtein() * ingredientList.get(i).getWeight() / 100;
         return sum;
     }
 
-    public double getFat(){
+    public double getFat() {
         double sum = 0;
-        for(int i =0; i < ingredientList.size(); i++)
-            sum += ingredientList.get(i).getFat() * ingredientWeightList.get(i)/100;
+        for (int i = 0; i < ingredientList.size(); i++)
+            sum += ingredientList.get(i).getFat() * ingredientList.get(i).getWeight() / 100;
         return sum;
     }
 
-    public int getCalories(){
+    public int getCalories() {
         int sum = 0;
-        for(int i =0; i < ingredientList.size(); i++)
-            sum += ingredientList.get(i).getCalories() * ingredientWeightList.get(i)/100;
+        for (int i = 0; i < ingredientList.size(); i++)
+            sum += ingredientList.get(i).getCalories() * ingredientList.get(i).getWeight() / 100;
         return sum;
     }
 
-    public void addIngriedientToList(Ingredient ingredient, int weight){
+    public void addIngredientToList(Ingredient ingredient) {
         ingredientList.add(ingredient);
-        ingredientWeightList.add(weight);
     }
 }

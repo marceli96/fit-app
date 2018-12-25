@@ -1,6 +1,7 @@
 package pl.edu.wat.fitapp;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +12,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -76,6 +79,12 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("TESTOWANIE", "Zadziałało onResume");
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 //        getArguments nie chce zadziałać
@@ -113,9 +122,190 @@ public class HomeFragment extends Fragment {
         lvSnack.setAdapter(foodSystemListSnackAdapter);
         lvSupper.setAdapter(foodSystemListSupperAdapter);
 
+        lvBreakfast.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                foodSystemOnClick(position, 0, foodSystemListBreakfast);
+            }
+        });
+
+        lvSecondBreakfast.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                foodSystemOnClick(position, 1, foodSystemListSecondBreakfast);
+            }
+        });
+
+        lvLunch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                foodSystemOnClick(position, 2, foodSystemListLunch);
+            }
+        });
+
+        lvDinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                foodSystemOnClick(position, 3, foodSystemListDinner);
+            }
+        });
+
+        lvSnack.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                foodSystemOnClick(position, 4, foodSystemListSnack);
+            }
+        });
+
+        lvSupper.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                foodSystemOnClick(position, 5, foodSystemListSupper);
+            }
+        });
+
+
         return view;
     }
 
+    private void foodSystemOnClick(final int position, final int mealTime, final ArrayList<FoodSystem> tempList) {
+
+        Toast.makeText(getActivity(), "Wybrales = " + tempList.get(position).getName(), Toast.LENGTH_SHORT).show();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        View alertView = getLayoutInflater().inflate(R.layout.dialog_food_system_details, null);
+
+        TextView tvName = alertView.findViewById(R.id.tvName);
+        TextView tvCarbohydrates = alertView.findViewById(R.id.tvCarbohydrates);
+        TextView tvProtein = alertView.findViewById(R.id.tvProtein);
+        TextView tvFat = alertView.findViewById(R.id.tvFat);
+        TextView tvCalories = alertView.findViewById(R.id.tvCalories);
+        TextView tvIngredients = alertView.findViewById(R.id.tvIngredients);
+        ListView lvIngredients = alertView.findViewById(R.id.lvIngredients);
+        Button bDelete = alertView.findViewById(R.id.bDelete);
+
+        tvName.setText(tempList.get(position).getName());
+        DecimalFormat format = new DecimalFormat("#.0");
+
+        String tempString = String.valueOf(format.format(tempList.get(position).getCarbohydrates())) + " g";
+        tvCarbohydrates.setText(tempString);
+
+        tempString = String.valueOf(format.format(tempList.get(position).getProtein())) + " g";
+        tvProtein.setText(tempString);
+
+        tempString = String.valueOf(format.format(tempList.get(position).getFat())) + " g";
+        tvFat.setText(tempString);
+
+        tempString = String.valueOf(tempList.get(position).getCalories()) + " g";
+        tvCalories.setText(tempString);
+
+        if (tempList.get(position).getClass() == Meal.class) {
+            bDelete.setText("Usuń posiłek z sekcji 'Śniadanie'");
+            final Meal tempMeal = (Meal) tempList.get(position);
+            ArrayAdapter<Ingredient> adapter = new ArrayAdapter<Ingredient>(getActivity(), android.R.layout.simple_list_item_2, android.R.id.text1, tempMeal.getIngredientList()) {
+                @NonNull
+                @Override
+                public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                    View view = super.getView(position, convertView, parent);
+                    TextView text1 = view.findViewById(android.R.id.text1);
+                    TextView text2 = view.findViewById(android.R.id.text2);
+
+                    text1.setText(tempMeal.getIngredientList().get(position).getName());
+                    String tempString = String.valueOf(tempMeal.getIngredientList().get(position).getWeight()) + " g";
+                    text2.setText(tempString);
+
+                    return view;
+                }
+            };
+            lvIngredients.setAdapter(adapter);
+        } else {
+            tvIngredients.setVisibility(View.GONE);
+            bDelete.setText("Usuń produkt z sekcji 'Śniadanie'");
+            lvIngredients.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 0));
+        }
+
+        builder.setView(alertView);
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+
+        bDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteFromFoodSystem(tempList.get(position), user.getUserID(), mealTime, tempList.get(position).getWeight());
+                dialog.dismiss();
+            }
+        });
+    }
+
+    private void deleteFromFoodSystem(final FoodSystem food, final int userId, final int mealTime, final int weight) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
+                    boolean success = jsonResponse.getBoolean("success");
+                    if (success) {
+                        Toast.makeText(getActivity(), "Pomyślnie usunięto", Toast.LENGTH_SHORT).show();
+                        switch (mealTime) {
+                            case 0:
+                                foodSystemListBreakfast.remove(food);
+                                foodSystemListBreakfastAdapter.notifyDataSetChanged();
+                                break;
+                            case 1:
+                                foodSystemListSecondBreakfast.remove(food);
+                                foodSystemListSecondBreakfastAdapter.notifyDataSetChanged();
+                                break;
+                            case 2:
+                                foodSystemListLunch.remove(food);
+                                foodSystemListLunchAdapter.notifyDataSetChanged();
+                                break;
+                            case 3:
+                                foodSystemListDinner.remove(food);
+                                foodSystemListDinnerAdapter.notifyDataSetChanged();
+                                break;
+                            case 4:
+                                foodSystemListSnack.remove(food);
+                                foodSystemListSnackAdapter.notifyDataSetChanged();
+                                break;
+                            case 5:
+                                foodSystemListSupper.remove(food);
+                                foodSystemListSupperAdapter.notifyDataSetChanged();
+                                break;
+                        }
+                    } else
+                        Toast.makeText(getActivity(), "Błąd podczas usuwania", Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getActivity(), "Błąd podczas usuwania " + e.toString(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity(), "Błąd podczas usuwania " + error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                if (food.getClass() == Ingredient.class) {
+                    params.put("operation", "deleteIngredientFromFoodSystem");
+                    params.put("ingredientId", String.valueOf(food.getID()));
+                } else {
+                    params.put("operation", "deleteMealFromFoodSystem");
+                    params.put("myMealId", String.valueOf(food.getID()));
+                }
+
+                params.put("userId", String.valueOf(userId));
+                params.put("mealTime", String.valueOf(mealTime));
+                params.put("weight", String.valueOf(weight));
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        requestQueue.add(stringRequest);
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -188,50 +378,12 @@ public class HomeFragment extends Fragment {
             convertView = getLayoutInflater().inflate(R.layout.listview_adapter_show_foodsystem, parent, false);
 
             TextView tvName = convertView.findViewById(R.id.tvName);
-            TextView tvCarbohydrates = convertView.findViewById(R.id.tvCarbohydrates);
-            TextView tvProtein = convertView.findViewById(R.id.tvProtein);
-            TextView tvFat = convertView.findViewById(R.id.tvFat);
-            TextView tvCalories = convertView.findViewById(R.id.tvCalories);
+            TextView tvWeight = convertView.findViewById(R.id.tvWeight);
 
-            DecimalFormat decimalFormat = new DecimalFormat("#0.0");
-
-
-            String tempString;
             tvName.setText(tempList.get(position).getName());
+            String tempString = String.valueOf(tempList.get(position).getWeight()) + " g";
+            tvWeight.setText(tempString);
 
-            Ingredient tempIngredient;
-            Meal tempMeal;
-            if (tempList.get(position).getClass() == Ingredient.class) {
-                tempIngredient = (Ingredient) tempList.get(position);
-
-                tempString = String.valueOf(decimalFormat.format(tempIngredient.getCarbohydrates())) + " g";
-                tvCarbohydrates.setText(tempString);
-
-                tempString = String.valueOf(decimalFormat.format(tempIngredient.getProtein())) + " g";
-                tvProtein.setText(tempString);
-
-                tempString = String.valueOf(decimalFormat.format(tempIngredient.getFat())) + " g";
-                tvFat.setText(tempString);
-
-                tempString = String.valueOf(decimalFormat.format(tempIngredient.getCalories())) + " kcal";
-                tvCalories.setText(tempString);
-            }
-
-            if (tempList.get(position).getClass() == Meal.class) {
-                tempMeal = (Meal) tempList.get(position);
-
-                tempString = String.valueOf(decimalFormat.format(tempMeal.getCarbohydrates())) + " g";
-                tvCarbohydrates.setText(tempString);
-
-                tempString = String.valueOf(decimalFormat.format(tempMeal.getProtein())) + " g";
-                tvProtein.setText(tempString);
-
-                tempString = String.valueOf(decimalFormat.format(tempMeal.getFat())) + " g";
-                tvFat.setText(tempString);
-
-                tempString = String.valueOf(decimalFormat.format(tempMeal.getCalories())) + " kcal";
-                tvCalories.setText(tempString);
-            }
             return convertView;
         }
     }
@@ -251,16 +403,23 @@ public class HomeFragment extends Fragment {
                                 Meal tempMeal;
                                 if (mealPosition == -1) {
                                     tempMeal = new Meal(row.getInt("ID_MyMeal"), row.getString("MealName"));
-                                    tempMeal.addIngriedientToList(new Ingredient(row.getInt("ID_Ingredient"), row.getString("IngredientName"), row.getDouble("Carbohydrates"),
-                                            row.getDouble("Protein"), row.getDouble("Fat"), row.getInt("Calories")), row.getInt("IngredientWeight"));
+                                    Ingredient tempIngredient = new Ingredient(row.getInt("ID_Ingredient"), row.getString("IngredientName"), row.getDouble("Carbohydrates"),
+                                            row.getDouble("Protein"), row.getDouble("Fat"), row.getInt("Calories"));
+                                    tempIngredient.setWeight(row.getInt("IngredientWeight"));
+                                    tempMeal.addIngredientToList(tempIngredient);
+                                    tempMeal.setWeight(row.getInt("Weight"));
                                     addMealToFoodSystemList(tempMeal, row.getInt("MealTime"));
                                 } else {
-                                    updateMealInFoodSystemList(mealPosition, new Ingredient(row.getInt("ID_Ingredient"), row.getString("IngredientName"), row.getDouble("Carbohydrates"),
-                                            row.getDouble("Protein"), row.getDouble("Fat"), row.getInt("Calories")), row.getInt("IngredientWeight"), row.getInt("MealTime"));
+                                    Ingredient tempIngredient = new Ingredient(row.getInt("ID_Ingredient"), row.getString("IngredientName"), row.getDouble("Carbohydrates"),
+                                            row.getDouble("Protein"), row.getDouble("Fat"), row.getInt("Calories"));
+                                    tempIngredient.setWeight(row.getInt("IngredientWeight"));
+                                    updateMealInFoodSystemList(mealPosition, tempIngredient, row.getInt("MealTime"));
                                 }
                             } else {
-                                addIngredientToFoodSystemList(new Ingredient(row.getInt("ID_Ingredient"), row.getString("IngredientName"), row.getDouble("Carbohydrates"),
-                                        row.getDouble("Protein"), row.getDouble("Fat"), row.getInt("Calories")), row.getInt("MealTime"));
+                                Ingredient tempIngredient = new Ingredient(row.getInt("ID_Ingredient"), row.getString("IngredientName"), row.getDouble("Carbohydrates"),
+                                        row.getDouble("Protein"), row.getDouble("Fat"), row.getInt("Calories"));
+                                tempIngredient.setWeight(row.getInt("Weight"));
+                                addIngredientToFoodSystemList(tempIngredient, row.getInt("MealTime"));
                             }
                         }
                         foodSystemListBreakfastAdapter.notifyDataSetChanged();
@@ -269,33 +428,6 @@ public class HomeFragment extends Fragment {
                         foodSystemListDinnerAdapter.notifyDataSetChanged();
                         foodSystemListSnackAdapter.notifyDataSetChanged();
                         foodSystemListSupperAdapter.notifyDataSetChanged();
-
-//                        Log.d("TESTOWANIE", "Liczba elementow w tablicy sniadanie = " + foodSystemListBreakfast.size());
-//                        for (int i = 0; i < foodSystemListBreakfast.size(); i++)
-//                            Log.d("TESTOWANIE", "Element " + i + " w tablicy foodSystemListBreakfast = " + foodSystemListBreakfast.get(i).getID());
-//
-//                        Log.d("TESTOWANIE", "Liczba elementow w tablicy drugie sniadnaie = " + foodSystemListSecondBreakfast.size());
-//                        for (int i = 0; i < foodSystemListSecondBreakfast.size(); i++)
-//                            Log.d("TESTOWANIE", "Element " + i + " w tablicy foodSystemListSecondBreakfast = " + foodSystemListSecondBreakfast.get(i).getID());
-//
-//                        Log.d("TESTOWANIE", "Liczba elementow w tablicy lunch = " + foodSystemListLunch.size());
-//                        for (int i = 0; i < foodSystemListLunch.size(); i++)
-//                            Log.d("TESTOWANIE", "Element " + i + " w tablicy foodSystemListLunch = " + foodSystemListLunch.get(i).getID());
-//
-//                        Log.d("TESTOWANIE", "Liczba elementow w tablicy obiad = " + foodSystemListDinner.size());
-//                        for (int i = 0; i < foodSystemListDinner.size(); i++)
-//                            Log.d("TESTOWANIE", "Element " + i + " w tablicy foodSystemListDinner = " + foodSystemListDinner.get(i).getID());
-//
-//
-//                        Log.d("TESTOWANIE", "Liczba elementow w tablicy przekaska = " + foodSystemListSnack.size());
-//                        for (int i = 0; i < foodSystemListSnack.size(); i++)
-//                            Log.d("TESTOWANIE", "Element " + i + " w tablicy foodSystemListSnack = " + foodSystemListSnack.get(i).getID());
-//
-//                        Log.d("TESTOWANIE", "Liczba elementow w tablicy kolacja = " + foodSystemListSupper.size());
-//                        for (int i = 0; i < foodSystemListSupper.size(); i++)
-//                            Log.d("TESTOWANIE", "Element " + i + " w tablicy foodSystemListBreakfast = " + foodSystemListSupper.get(i).getID());
-
-
                         Toast.makeText(getActivity(), "Pobrano do FoodSystem", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getActivity(), "Błąd podczas pobierania do FoodSystem", Toast.LENGTH_SHORT).show();
@@ -394,7 +526,7 @@ public class HomeFragment extends Fragment {
         return -1;
     }
 
-    public void addIngredientToFoodSystemList(Ingredient ingredient, int mealTime){
+    public void addIngredientToFoodSystemList(Ingredient ingredient, int mealTime) {
         switch (mealTime) {
             case 0:
                 foodSystemListBreakfast.add(ingredient);
@@ -440,32 +572,32 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private void updateMealInFoodSystemList(int position, Ingredient ingredient, int weight, int mealTime) {
+    private void updateMealInFoodSystemList(int position, Ingredient ingredient, int mealTime) {
         Meal tempMeal;
         switch (mealTime) {
             case 0:
                 tempMeal = (Meal) foodSystemListBreakfast.get(position);
-                tempMeal.addIngriedientToList(ingredient, weight);
+                tempMeal.addIngredientToList(ingredient);
                 break;
             case 1:
                 tempMeal = (Meal) foodSystemListSecondBreakfast.get(position);
-                tempMeal.addIngriedientToList(ingredient, weight);
+                tempMeal.addIngredientToList(ingredient);
                 break;
             case 2:
                 tempMeal = (Meal) foodSystemListLunch.get(position);
-                tempMeal.addIngriedientToList(ingredient, weight);
+                tempMeal.addIngredientToList(ingredient);
                 break;
             case 3:
                 tempMeal = (Meal) foodSystemListDinner.get(position);
-                tempMeal.addIngriedientToList(ingredient, weight);
+                tempMeal.addIngredientToList(ingredient);
                 break;
             case 4:
                 tempMeal = (Meal) foodSystemListSnack.get(position);
-                tempMeal.addIngriedientToList(ingredient, weight);
+                tempMeal.addIngredientToList(ingredient);
                 break;
             case 5:
                 tempMeal = (Meal) foodSystemListSupper.get(position);
-                tempMeal.addIngriedientToList(ingredient, weight);
+                tempMeal.addIngredientToList(ingredient);
                 break;
         }
     }

@@ -9,6 +9,7 @@ public class Ingredient implements Serializable, FoodSystem {
     private double protein;
     private double fat;
     private int calories;
+    private int weight;
 
     public Ingredient(int ingredientId, String ingredientName, double ingredientCarbohydrates, double ingredientProtein, double ingredientFat, int ingredientCalories) {
         this.ID = ingredientId;
@@ -17,6 +18,14 @@ public class Ingredient implements Serializable, FoodSystem {
         this.protein = ingredientProtein;
         this.fat = ingredientFat;
         this.calories = ingredientCalories;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 
     public int getID() {

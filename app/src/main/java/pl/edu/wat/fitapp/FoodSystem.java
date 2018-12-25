@@ -7,4 +7,5 @@ public interface FoodSystem {
     double getProtein();
     double getFat();
     int getCalories();
+    int getWeight();
 }
