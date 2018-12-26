@@ -31,7 +31,6 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -195,13 +194,12 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-
-        bBreakfast = getView().findViewById(R.id.bBreakfast);
-        bSecondBreakfast = getView().findViewById(R.id.bSecondBreakfast);
-        bLunch = getView().findViewById(R.id.bLunch);
-        bDinner = getView().findViewById(R.id.bDinner);
-        bSnack = getView().findViewById(R.id.bSnack);
-        bSupper = getView().findViewById(R.id.bSupper);
+        bBreakfast = view.findViewById(R.id.bBreakfast);
+        bSecondBreakfast = view.findViewById(R.id.bSecondBreakfast);
+        bLunch = view.findViewById(R.id.bLunch);
+        bDinner = view.findViewById(R.id.bDinner);
+        bSnack = view.findViewById(R.id.bSnack);
+        bSupper = view.findViewById(R.id.bSupper);
 
         bBreakfast.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -933,5 +931,8 @@ public class HomeFragment extends Fragment {
         pbCarbohydrates.setProgress(eatenCarbohydrates);
         pbProtein.setProgress(eatenProtein);
         pbFat.setProgress(eatenFat);
+
+        // TODO zmiana na czerwony kolor (napisy + ewentualnie progres bary) kiedy przekroczymy zadane wartości
+
     }
 }

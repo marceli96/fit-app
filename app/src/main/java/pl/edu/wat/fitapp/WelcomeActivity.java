@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -27,6 +28,7 @@ import java.util.Map;
 public class WelcomeActivity extends AppCompatActivity {
     private EditText etLogin, etPassword;
     private Button bLogin, bRegister;
+    private ProgressBar pbLogin;
     private User user;
 
     private final String LOGIN_URL = "http://fitappliaction.cba.pl/login.php";
@@ -40,6 +42,7 @@ public class WelcomeActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         bLogin = findViewById(R.id.bLogin);
         bRegister = findViewById(R.id.bRegister);
+        pbLogin = findViewById(R.id.pbLogin);
 
         //DO TESTOWANIA
         etLogin.setText("admin");
@@ -56,6 +59,7 @@ public class WelcomeActivity extends AppCompatActivity {
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pbLogin.setVisibility(View.VISIBLE);
                 login();
             }
         });
@@ -83,6 +87,7 @@ public class WelcomeActivity extends AppCompatActivity {
                                 openMainActivity();
                                 WelcomeActivity.this.finish();
                             } else {
+                                pbLogin.setVisibility(View.INVISIBLE);
                                 Toast.makeText(WelcomeActivity.this, "Błędne dane", Toast.LENGTH_LONG).show();
                             }
                         } catch (JSONException e) {

@@ -238,10 +238,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -255,7 +253,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Śniadanie"
-                        android:textSize="22sp" />
+                        android:textColor="@android:color/black"
+                        android:textSize="21sp" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -325,18 +324,12 @@
                     android:text="+" />
             </LinearLayout>
 
-            <!--<ListView-->
-            <!--android:id="@+id/lvBreakfast"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginStart="15dp"-->
-            <!--android:layout_marginEnd="15dp" />-->
             <pl.edu.wat.fitapp.NonScrollListView
                 android:id="@+id/lvBreakfast"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"></pl.edu.wat.fitapp.NonScrollListView>
+                android:layout_height="wrap_content">
+
+            </pl.edu.wat.fitapp.NonScrollListView>
         </LinearLayout>
 
         <LinearLayout
@@ -347,10 +340,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -364,7 +355,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Drugie śniadanie"
-                        android:textSize="22sp" />
+                        android:textColor="@android:color/black"
+                        android:textSize="21sp" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -434,18 +426,12 @@
                     android:text="+" />
             </LinearLayout>
 
-            <!--<ListView-->
-            <!--android:id="@+id/lvSecondBreakfast"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="400dp"-->
-            <!--android:layout_marginStart="15dp"-->
-            <!--android:layout_marginEnd="15dp" />-->
             <pl.edu.wat.fitapp.NonScrollListView
                 android:id="@+id/lvSecondBreakfast"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"></pl.edu.wat.fitapp.NonScrollListView>
+                android:layout_height="wrap_content">
+
+            </pl.edu.wat.fitapp.NonScrollListView>
         </LinearLayout>
 
         <LinearLayout
@@ -456,10 +442,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -473,7 +457,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Lunch"
-                        android:textSize="22sp" />
+                        android:textColor="@android:color/black"
+                        android:textSize="21sp" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -543,18 +528,12 @@
                     android:text="+" />
             </LinearLayout>
 
-            <!--<ListView-->
-            <!--android:id="@+id/lvLunch"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="400dp"-->
-            <!--android:layout_marginStart="15dp"-->
-            <!--android:layout_marginEnd="15dp" />-->
             <pl.edu.wat.fitapp.NonScrollListView
                 android:id="@+id/lvLunch"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"></pl.edu.wat.fitapp.NonScrollListView>
+                android:layout_height="wrap_content">
+
+            </pl.edu.wat.fitapp.NonScrollListView>
         </LinearLayout>
 
         <LinearLayout
@@ -565,10 +544,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -582,7 +559,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Obiad"
-                        android:textSize="22sp" />
+                        android:textColor="@android:color/black"
+                        android:textSize="21sp" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -652,18 +630,12 @@
                     android:text="+" />
             </LinearLayout>
 
-            <!--<ListView-->
-            <!--android:id="@+id/lvDinner"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="400dp"-->
-            <!--android:layout_marginStart="15dp"-->
-            <!--android:layout_marginEnd="15dp" />-->
             <pl.edu.wat.fitapp.NonScrollListView
                 android:id="@+id/lvDinner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"></pl.edu.wat.fitapp.NonScrollListView>
+                android:layout_height="wrap_content">
+
+            </pl.edu.wat.fitapp.NonScrollListView>
         </LinearLayout>
 
         <LinearLayout
@@ -674,10 +646,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -691,7 +661,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Przekąska"
-                        android:textSize="22sp" />
+                        android:textColor="@android:color/black"
+                        android:textSize="21sp" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -761,18 +732,12 @@
                     android:text="+" />
             </LinearLayout>
 
-            <!--<ListView-->
-            <!--android:id="@+id/lvSnack"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="400dp"-->
-            <!--android:layout_marginStart="15dp"-->
-            <!--android:layout_marginEnd="15dp" />-->
             <pl.edu.wat.fitapp.NonScrollListView
                 android:id="@+id/lvSnack"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"></pl.edu.wat.fitapp.NonScrollListView>
+                android:layout_height="wrap_content">
+
+            </pl.edu.wat.fitapp.NonScrollListView>
         </LinearLayout>
 
         <LinearLayout
@@ -783,10 +748,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -800,7 +763,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Kolacja"
-                        android:textSize="22sp" />
+                        android:textColor="@android:color/black"
+                        android:textSize="21sp" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -870,18 +834,12 @@
                     android:text="+" />
             </LinearLayout>
 
-            <!--<ListView-->
-            <!--android:id="@+id/lvSupper"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="400dp"-->
-            <!--android:layout_marginStart="15dp"-->
-            <!--android:layout_marginEnd="15dp" />-->
             <pl.edu.wat.fitapp.NonScrollListView
                 android:id="@+id/lvSupper"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"></pl.edu.wat.fitapp.NonScrollListView>
+                android:layout_height="wrap_content">
+
+            </pl.edu.wat.fitapp.NonScrollListView>
         </LinearLayout>
 
         <LinearLayout
@@ -892,10 +850,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -909,7 +865,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Trening"
-                        android:textSize="22sp" />
+                        android:textColor="@android:color/black"
+                        android:textSize="21sp" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -942,14 +899,12 @@
                     android:text="+" />
             </LinearLayout>
 
-            <!--<ListView-->
-            <!--android:id="@+id/lvTraining"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent" />-->
             <pl.edu.wat.fitapp.NonScrollListView
                 android:id="@+id/lvTraining"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></pl.edu.wat.fitapp.NonScrollListView>
+                android:layout_height="wrap_content">
+
+            </pl.edu.wat.fitapp.NonScrollListView>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
