@@ -10,8 +10,11 @@ public class User implements Serializable {
     private int age;
     private int height;
     private int activityLevel;
+    private double weight;
+    private int caloricDemand;
+    private int goal;
 
-    public User(int userID, String userName, String email, int sex, int age, int height, int activityLevel) {
+    public User(int userID, String userName, String email, int sex, int age, int height, int activityLevel, double weight, int caloricDemand, int goal) {
         this.userID = userID;
         this.userName = userName;
         this.email = email;
@@ -19,6 +22,9 @@ public class User implements Serializable {
         this.age = age;
         this.height = height;
         this.activityLevel = activityLevel;
+        this.weight = weight;
+        this.caloricDemand = caloricDemand;
+        this.goal = goal;
     }
 
     public int getUserID() {
@@ -47,5 +53,17 @@ public class User implements Serializable {
 
     public int getActivityLevel() {
         return activityLevel;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public int getCaloricDemand() {
+        return caloricDemand;
+    }
+
+    public int getGoal() {
+        return goal;
     }
 }

@@ -73,10 +73,13 @@ public class WelcomeActivity extends AppCompatActivity {
                             JSONObject jsonResponse = new JSONObject(response);
                             boolean success = jsonResponse.getBoolean("success");
                             if(success){
+                                // TODO Zmienić w bazie na CaloricDemAnd
                                 JSONObject jsonObject = jsonResponse.getJSONObject("0");
+                                JSONObject jsonObject1 = jsonResponse.getJSONObject("1");
                                 user = new User(jsonObject.getInt("ID_User"), jsonObject.getString("UserName"),
                                         jsonObject.getString("Email"), jsonObject.getInt("Sex"), jsonObject.getInt("Age"),
-                                        jsonObject.getInt("Height"), jsonObject.getInt("ActivityLevel"));
+                                        jsonObject.getInt("Height"), jsonObject.getInt("ActivityLevel"), jsonObject1.getDouble("UserWeight"),
+                                        jsonObject1.getInt("CaloricDemend"), jsonObject1.getInt("Goal"));
                                 openMainActivity();
                                 WelcomeActivity.this.finish();
                             } else {
