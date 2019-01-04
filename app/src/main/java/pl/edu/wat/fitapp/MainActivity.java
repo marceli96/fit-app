@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     private JournalFragment journalFragment;
     private MeFragment meFragment;
     private ProgressFragment progressFragment;
-    private RecipesFragment recipesFragment;
     private SettingsFragment settingsFragment;
     private TextView tvUserName, tvEmail;
     private User user;
@@ -61,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
         journalFragment = new JournalFragment();
         meFragment = new MeFragment();
         progressFragment = new ProgressFragment();
-        recipesFragment = new RecipesFragment();
         settingsFragment = new SettingsFragment();
 
         setSupportActionBar(toolbar);
@@ -105,16 +103,16 @@ public class MainActivity extends AppCompatActivity {
                 setFragment(journalFragment);
                 mainNavigation.setSelectedItemId(R.id.navJournal);
                 break;
+            case R.id.drawer_me:
+                setFragment(meFragment);
+                mainNavigation.setSelectedItemId(R.id.navMe);
+                break;
             case R.id.drawer_progress:
                 setFragment(progressFragment);
                 mainNavigation.getMenu().setGroupCheckable(0, false, true);
                 break;
             case R.id.drawer_goals:
                 setFragment(goalsFragment);
-                mainNavigation.getMenu().setGroupCheckable(0, false, true);
-                break;
-            case R.id.drawer_recipes:
-                setFragment(recipesFragment);
                 mainNavigation.getMenu().setGroupCheckable(0, false, true);
                 break;
             case R.id.drawer_settings:
@@ -130,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
                 mainNavigation.getMenu().setGroupCheckable(0, false, true);
                 break;
             case R.id.drawer_logout:
+                // TODO zamykanie wszystkich pozostałych okien
                 Intent openWelcomeScreen = new Intent(MainActivity.this, WelcomeActivity.class);
                 startActivity(openWelcomeScreen);
                 MainActivity.this.finish();
@@ -154,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.navMe:
                 mainNavigation.getMenu().setGroupCheckable(0, true, true);
                 setFragment(meFragment);
+                navigationView.setCheckedItem(R.id.drawer_me);
                 return true;
             default:
                 return false;

@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Eksport danych z aplikacji (np.Endomondo)"
+        android:text="Eksportowanie danych do pliku pdf/excel"
         android:textAppearance="@style/TextAppearance.AppCompat" />
 
 </LinearLayout>

@@ -12,6 +12,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="O mnie(nick, e-mail, krótkie podsumowanie, moje przepisy, moje treningi)"
+        android:text="Moje przepisy, moje treningi (dodawania, przegladanie)"
         android:textAppearance="@style/TextAppearance.AppCompat" />
 </LinearLayout>
