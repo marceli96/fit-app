@@ -46,21 +46,19 @@ public class AddMealToFoodSystemFragment extends Fragment {
     private int mealTime;
 
 
-    public AddMealToFoodSystemFragment() {
-        // Required empty public constructor
-    }
+    public AddMealToFoodSystemFragment() { }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_add_meal_to_food_system, container, false);
+
         user = (User) getActivity().getIntent().getSerializableExtra("user");
         mealTime = (int) getActivity().getIntent().getSerializableExtra("mealTime");
 
         mealList = new ArrayList<>();
         getMeals();
-
-        View view = inflater.inflate(R.layout.fragment_add_meal_to_food_system, container, false);
 
         lvMeals = view.findViewById(R.id.lvMeals);
         mealListAdapter = new MealListAdapter(getActivity(), R.layout.listview_adapter_add_meal, mealList);
@@ -120,7 +118,7 @@ public class AddMealToFoodSystemFragment extends Fragment {
             TextView tvMealFat = convertView.findViewById(R.id.tvMealFat);
             TextView tvMealCalories = convertView.findViewById(R.id.tvMealCalories);
 
-            DecimalFormat decimalFormat = new DecimalFormat("#0.0");
+            DecimalFormat decimalFormat = new DecimalFormat("0.0");
 
             String temp;
             tvMealName.setText(mealList.get(position).getName());
@@ -222,14 +220,15 @@ public class AddMealToFoodSystemFragment extends Fragment {
                         Toast.makeText(getActivity(), "Blad podczas pobierania posiłków", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
-                    Toast.makeText(getContext(), "Login error! " + e.toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Blad podczas pobierania posiłków " + e.toString(), Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
                 }
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "Login error! " + error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Blad podczas pobierania posiłków " + error.toString(), Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override

@@ -87,7 +87,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Węgl.: "
-                            android:textSize="12sp" />
+                            android:textSize="11sp" />
 
                         <TextView
                             android:id="@+id/tvEatenCarbohydrates"
@@ -95,14 +95,14 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="0"
-                            android:textSize="12sp" />
+                            android:textSize="11sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="/"
-                            android:textSize="12sp" />
+                            android:textSize="11sp" />
 
                         <TextView
                             android:id="@+id/tvReqCarbohydrates"
@@ -110,7 +110,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="999-999"
-                            android:textSize="12sp" />
+                            android:textSize="11sp" />
                     </LinearLayout>
 
                     <ProgressBar
@@ -140,7 +140,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Białko: "
-                            android:textSize="12sp" />
+                            android:textSize="11sp" />
 
                         <TextView
                             android:id="@+id/tvEatenProtein"
@@ -148,14 +148,14 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="0"
-                            android:textSize="12sp" />
+                            android:textSize="11sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="/"
-                            android:textSize="12sp" />
+                            android:textSize="11sp" />
 
                         <TextView
                             android:id="@+id/tvReqProtein"
@@ -163,7 +163,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="999-999"
-                            android:textSize="12sp" />
+                            android:textSize="11sp" />
                     </LinearLayout>
 
                     <ProgressBar
@@ -192,7 +192,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Tłuszcz: "
-                            android:textSize="12sp" />
+                            android:textSize="11sp" />
 
                         <TextView
                             android:id="@+id/tvEatenFat"
@@ -200,14 +200,14 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="0"
-                            android:textSize="12sp" />
+                            android:textSize="11sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="/"
-                            android:textSize="12sp" />
+                            android:textSize="11sp" />
 
                         <TextView
                             android:id="@+id/tvReqFat"
@@ -215,7 +215,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="999-999"
-                            android:textSize="12sp" />
+                            android:textSize="11sp" />
                     </LinearLayout>
 
                     <ProgressBar

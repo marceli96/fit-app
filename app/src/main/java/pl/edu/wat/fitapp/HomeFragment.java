@@ -44,12 +44,12 @@ import java.util.Map;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
-    private Button bBreakfast, bSecondBreakfast, bLunch, bDinner, bSnack, bSupper;
-    private TextView tvEatenCalories, tvReqCalories, tvEatenCarbohydrates, tvReqCarbohydrates, tvEatenProtein, tvReqProtein, tvEatenFat, tvReqFat;
-    private ProgressBar pbCalories, pbCarbohydrates, pbProtein, pbFat;
 
     private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
 
+    private Button bBreakfast, bSecondBreakfast, bLunch, bDinner, bSnack, bSupper;
+    private TextView tvEatenCalories, tvReqCalories, tvEatenCarbohydrates, tvReqCarbohydrates, tvEatenProtein, tvReqProtein, tvEatenFat, tvReqFat;
+    private ProgressBar pbCalories, pbCarbohydrates, pbProtein, pbFat;
     private NonScrollListView lvBreakfast, lvSecondBreakfast, lvLunch, lvDinner, lvSnack, lvSupper;
     private ArrayList<FoodSystem> foodSystemListBreakfast, foodSystemListSecondBreakfast, foodSystemListLunch, foodSystemListDinner,
             foodSystemListSnack, foodSystemListSupper;
@@ -59,11 +59,10 @@ public class HomeFragment extends Fragment {
     private User user;
 
     private int minReqCarbohydrates = 0, maxReqCarbohydrates = 0, minReqProtein = 0, maxReqProtein = 0, minReqFat = 0, maxReqFat;
-    private int eatenCalories, eatenCarbohydrates, eatenProtein, eatenFat;
+    private double eatenCarbohydrates, eatenProtein, eatenFat;
+    private int eatenCalories;
 
-    public HomeFragment() {
-
-    }
+    public HomeFragment() { }
 
     @Override
     public void setArguments(@Nullable Bundle args) {
@@ -541,16 +540,17 @@ public class HomeFragment extends Fragment {
         ListView lvIngredients = alertView.findViewById(R.id.lvIngredients);
         Button bDelete = alertView.findViewById(R.id.bDelete);
 
-        tvName.setText(tempList.get(position).getName());
-        DecimalFormat format = new DecimalFormat("0.0");
+        DecimalFormat decimalFormat = new DecimalFormat("0.0");
 
-        String tempString = String.valueOf(format.format(tempList.get(position).getCarbohydrates())) + " g";
+        tvName.setText(tempList.get(position).getName());
+
+        String tempString = String.valueOf(decimalFormat.format(tempList.get(position).getCarbohydrates())) + " g";
         tvCarbohydrates.setText(tempString);
 
-        tempString = String.valueOf(format.format(tempList.get(position).getProtein())) + " g";
+        tempString = String.valueOf(decimalFormat.format(tempList.get(position).getProtein())) + " g";
         tvProtein.setText(tempString);
 
-        tempString = String.valueOf(format.format(tempList.get(position).getFat())) + " g";
+        tempString = String.valueOf(decimalFormat.format(tempList.get(position).getFat())) + " g";
         tvFat.setText(tempString);
 
         tempString = String.valueOf(tempList.get(position).getCalories()) + " g";
@@ -921,16 +921,17 @@ public class HomeFragment extends Fragment {
     }
 
     private void updateEatenMacros() {
+        DecimalFormat decimalFormat = new DecimalFormat("0.0");
         tvEatenCalories.setText(String.valueOf(eatenCalories));
-        tvEatenCarbohydrates.setText(String.valueOf(eatenCarbohydrates));
-        tvEatenProtein.setText(String.valueOf(eatenProtein));
-        tvEatenFat.setText(String.valueOf(eatenFat));
+        tvEatenCarbohydrates.setText(String.valueOf(decimalFormat.format(eatenCarbohydrates)));
+        tvEatenProtein.setText(String.valueOf(decimalFormat.format(eatenProtein)));
+        tvEatenFat.setText(String.valueOf(decimalFormat.format(eatenFat)));
 
 
         pbCalories.setProgress(eatenCalories);
-        pbCarbohydrates.setProgress(eatenCarbohydrates);
-        pbProtein.setProgress(eatenProtein);
-        pbFat.setProgress(eatenFat);
+        pbCarbohydrates.setProgress((int)Math.round(eatenCarbohydrates));
+        pbProtein.setProgress((int)Math.round(eatenProtein));
+        pbFat.setProgress((int)Math.round(eatenFat));
 
         // TODO zmiana na czerwony kolor (napisy + ewentualnie progres bary) kiedy przekroczymy zadane wartości
 
