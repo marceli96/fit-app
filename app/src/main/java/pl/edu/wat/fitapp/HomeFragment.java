@@ -44,7 +44,7 @@ import java.util.Map;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
-
+    //TODO dodanie zwijania list + obrazek strzałki
     private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
 
     private Button bBreakfast, bSecondBreakfast, bLunch, bDinner, bSnack, bSupper;

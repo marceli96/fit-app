@@ -32,7 +32,9 @@
         <activity
             android:name=".AddToFoodSystemActivity"
             android:label="@string/title_activity_add_to_food_system"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".AddMyMealActivity1" />
+        <activity android:name=".AddMyMealActivity2"></activity>
     </application>
 
 </manifest>

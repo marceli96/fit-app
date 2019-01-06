@@ -34,24 +34,19 @@ public class MainActivity extends AppCompatActivity {
     private SettingsFragment settingsFragment;
     private TextView tvUserName, tvEmail;
     private User user;
+    private String action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         Intent intent = getIntent();
-        user = (User) intent.getSerializableExtra("user");
-
-        Bundle userBundle = new Bundle();
-        userBundle.putSerializable("user", user);
-
-        toolbar = findViewById(R.id.toolbar);
-        drawerLayout = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.nav_view);
-
-        mainNavigation = findViewById(R.id.mainNavigation);
-        mainFrame = findViewById(R.id.mainFrame);
+        if (intent != null) {
+            user = (User) intent.getSerializableExtra("user");
+            action = (String) intent.getSerializableExtra("action");
+        }
 
         aboutFragment = new AboutFragment();
         exportFragment = new ExportFragment();
@@ -62,6 +57,13 @@ public class MainActivity extends AppCompatActivity {
         progressFragment = new ProgressFragment();
         settingsFragment = new SettingsFragment();
 
+        toolbar = findViewById(R.id.toolbar);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+
+        mainNavigation = findViewById(R.id.mainNavigation);
+        mainFrame = findViewById(R.id.mainFrame);
+
         setSupportActionBar(toolbar);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
@@ -69,8 +71,14 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        setFragment(homeFragment);
-        navigationView.setCheckedItem(R.id.drawer_home);
+        if (action != null && action.equals("openMeFragment")) {
+            setFragment(meFragment);
+            navigationView.setCheckedItem(R.id.drawer_me);
+            mainNavigation.setSelectedItemId(R.id.navMe);
+        } else {
+            setFragment(homeFragment);
+            navigationView.setCheckedItem(R.id.drawer_home);
+        }
 
         View headerView = navigationView.getHeaderView(0);
         tvUserName = headerView.findViewById(R.id.tvUserName);

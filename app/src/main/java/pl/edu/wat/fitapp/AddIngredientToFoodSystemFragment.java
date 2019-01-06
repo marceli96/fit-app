@@ -120,7 +120,7 @@ public class AddIngredientToFoodSystemFragment extends Fragment {
             TextView tvIngredientFat = convertView.findViewById(R.id.tvIngredientFat);
             TextView tvIngredientCalories = convertView.findViewById(R.id.tvIngredientCalories);
 
-            DecimalFormat decimalFormat = new DecimalFormat("#0.0");
+            DecimalFormat decimalFormat = new DecimalFormat("0.0");
 
             String temp;
             tvIngredientName.setText(ingredientList.get(position).getName());

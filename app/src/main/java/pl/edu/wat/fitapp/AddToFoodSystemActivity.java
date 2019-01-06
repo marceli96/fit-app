@@ -39,11 +39,10 @@ public class AddToFoodSystemActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_to_food_system);
 
 //        user = (User) getIntent().getSerializableExtra("user");
 //        mealTime = (int) getIntent().getSerializableExtra("mealTime");
-
-        setContentView(R.layout.activity_add_to_food_system);
 
         addIngredientToFoodSystemFragment = new AddIngredientToFoodSystemFragment();
         addMealToFoodSystemFragment = new AddMealToFoodSystemFragment();

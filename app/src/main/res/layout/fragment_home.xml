@@ -94,7 +94,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="0"
+                            android:text="0,0"
                             android:textSize="11sp" />
 
                         <TextView
@@ -147,7 +147,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="0"
+                            android:text="0,0"
                             android:textSize="11sp" />
 
                         <TextView
@@ -199,7 +199,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="0"
+                            android:text="0,0"
                             android:textSize="11sp" />
 
                         <TextView
@@ -267,7 +267,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="0 g" />
+                            android:text="0,0 g" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -282,7 +282,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="0 g" />
+                            android:text="0,0 g" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -297,7 +297,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="0 g" />
+                            android:text="0,0 g" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -369,7 +369,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="0 g" />
+                            android:text="0,0 g" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -384,7 +384,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="0 g" />
+                            android:text="0,0 g" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -399,7 +399,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="0 g" />
+                            android:text="0,0 g" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -471,7 +471,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="0 g" />
+                            android:text="0,0 g" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -486,7 +486,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="0 g" />
+                            android:text="0,0 g" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -501,7 +501,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="0 g" />
+                            android:text="0,0 g" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -573,7 +573,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="0 g" />
+                            android:text="0,0 g" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -588,7 +588,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="0 g" />
+                            android:text="0,0 g" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -603,7 +603,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="0 g" />
+                            android:text="0,0 g" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -675,7 +675,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="0 g" />
+                            android:text="0,0 g" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -690,7 +690,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="0 g" />
+                            android:text="0,0 g" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -705,7 +705,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="0 g" />
+                            android:text="0,0 g" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -777,7 +777,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="0 g" />
+                            android:text="0,0 g" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -792,7 +792,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="0 g" />
+                            android:text="0,0 g" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -807,7 +807,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="0 g" />
+                            android:text="0,0 g" />
 
                         <TextView
                             android:layout_width="wrap_content"
