@@ -224,56 +224,59 @@ public class AddMyMealActivity2 extends AppCompatActivity {
     }
 
     private void addMyMeal() {
-        String ingredientIds = "";
-        String ingredientWeights = "";
-        for (int i = 0; i < mealIngredients.size(); i++) {
-            if (i == mealIngredients.size() - 1) {
-                ingredientIds += String.valueOf(mealIngredients.get(i).getID());
-                ingredientWeights += String.valueOf(mealIngredients.get(i).getWeight());
-            } else {
-                ingredientIds += String.valueOf(mealIngredients.get(i).getID()) + "/";
-                ingredientWeights += String.valueOf(mealIngredients.get(i).getWeight()) + "/";
-            }
-        }
-
-        final String finalIngredientWeights = ingredientWeights;
-        final String finalIngredientIds = ingredientIds;
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonResponse = new JSONObject(response);
-                    boolean success = jsonResponse.getBoolean("success");
-                    if (success) {
-                        Toast.makeText(AddMyMealActivity2.this, "Dodane posiłek", Toast.LENGTH_SHORT).show();
-                        openMeFragment();
-                    } else {
-                        Toast.makeText(AddMyMealActivity2.this, "Blad podczas dodawania posiłku", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (JSONException e) {
-                    Toast.makeText(AddMyMealActivity2.this, "Blad podczas dodawania posiłku " + e.toString(), Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
+        if(mealIngredients.size() > 0){
+            String ingredientIds = "";
+            String ingredientWeights = "";
+            for (int i = 0; i < mealIngredients.size(); i++) {
+                if (i == mealIngredients.size() - 1) {
+                    ingredientIds += String.valueOf(mealIngredients.get(i).getID());
+                    ingredientWeights += String.valueOf(mealIngredients.get(i).getWeight());
+                } else {
+                    ingredientIds += String.valueOf(mealIngredients.get(i).getID()) + "/";
+                    ingredientWeights += String.valueOf(mealIngredients.get(i).getWeight()) + "/";
                 }
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(AddMyMealActivity2.this, "Blad podczas dodawania posiłku " + error.toString(), Toast.LENGTH_SHORT).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("operation", "addMyMeal");
-                params.put("ingredientIds", finalIngredientIds);
-                params.put("userId", String.valueOf(user.getUserID()));
-                params.put("mealName", mealName);
-                params.put("ingredientWeights", finalIngredientWeights);
-                return params;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(AddMyMealActivity2.this);
-        requestQueue.add(stringRequest);
+
+            final String finalIngredientWeights = ingredientWeights;
+            final String finalIngredientIds = ingredientIds;
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONObject jsonResponse = new JSONObject(response);
+                        boolean success = jsonResponse.getBoolean("success");
+                        if (success) {
+                            Toast.makeText(AddMyMealActivity2.this, "Dodane posiłek", Toast.LENGTH_SHORT).show();
+                            openMeFragment();
+                        } else {
+                            Toast.makeText(AddMyMealActivity2.this, "Blad podczas dodawania posiłku", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        Toast.makeText(AddMyMealActivity2.this, "Blad podczas dodawania posiłku " + e.toString(), Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(AddMyMealActivity2.this, "Blad podczas dodawania posiłku " + error.toString(), Toast.LENGTH_SHORT).show();
+                }
+            }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("operation", "addMyMeal");
+                    params.put("ingredientIds", finalIngredientIds);
+                    params.put("userId", String.valueOf(user.getUserID()));
+                    params.put("mealName", mealName);
+                    params.put("ingredientWeights", finalIngredientWeights);
+                    return params;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(AddMyMealActivity2.this);
+            requestQueue.add(stringRequest);
+        } else
+            Toast.makeText(AddMyMealActivity2.this, "Najpierw dodaj składniki do posiłku", Toast.LENGTH_SHORT).show();
     }
 
     private void openMeFragment() {

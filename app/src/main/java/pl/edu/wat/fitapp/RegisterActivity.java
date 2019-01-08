@@ -99,124 +99,150 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     }
 
     public void calculateCalories() {
-        // TODO zabezpieczenie przed kliknięciem kiedy puste dane
-        String sex = getRadioButtonText(rgSex);
-        String goal = getRadioButtonText(rgWeight);
-        int age = Integer.parseInt(etAge.getText().toString());
-        int weight = Integer.parseInt(etWeight.getText().toString());
-        int height = Integer.parseInt(etHeight.getText().toString());
+        if(!etAge.getText().toString().isEmpty() && !etWeight.getText().toString().isEmpty() && !etHeight.getText().toString().isEmpty()){
+            String sex = getRadioButtonText(rgSex);
+            String goal = getRadioButtonText(rgWeight);
+            int age = Integer.parseInt(etAge.getText().toString());
+            int weight = Integer.parseInt(etWeight.getText().toString());
+            int height = Integer.parseInt(etHeight.getText().toString());
 
-        if (sex.equals("Kobieta")) {
-            calories = (int) Math.round(655 + (9.6 * weight) + (1.8 * height) - (4.7 * age));
-            if (activityLevel.equals("Brak"))
-                calories *= 1.2;
-            else if (activityLevel.equals("Niska"))
-                calories *= 1.3;
-            else if (activityLevel.equals("Średnia"))
-                calories *= 1.5;
-            else if (activityLevel.equals("Wysoka"))
-                calories *= 1.7;
-            else if (activityLevel.equals("Bardzo wysoka"))
-                calories *= 1.9;
+            if (sex.equals("Kobieta")) {
+                calories = (int) Math.round(655 + (9.6 * weight) + (1.8 * height) - (4.7 * age));
+                if (activityLevel.equals("Brak"))
+                    calories *= 1.2;
+                else if (activityLevel.equals("Niska"))
+                    calories *= 1.3;
+                else if (activityLevel.equals("Średnia"))
+                    calories *= 1.5;
+                else if (activityLevel.equals("Wysoka"))
+                    calories *= 1.7;
+                else if (activityLevel.equals("Bardzo wysoka"))
+                    calories *= 1.9;
 
-            if (goal.equals("Utrata"))
-                calories -= 250;
-            else if (goal.equals("Przybranie"))
-                calories += 250;
+                if (goal.equals("Utrata"))
+                    calories -= 250;
+                else if (goal.equals("Przybranie"))
+                    calories += 250;
 
-            tvCalories.setText(String.valueOf(calories));
+                tvCalories.setText(String.valueOf(calories));
+            } else {
+                calories = (int) Math.round(66 + (13.7 * weight) + (5 * height) - (6.76 * age));
+                if (activityLevel.equals("Brak"))
+                    calories *= 1.2;
+                else if (activityLevel.equals("Niska"))
+                    calories *= 1.3;
+                else if (activityLevel.equals("Średnia"))
+                    calories *= 1.5;
+                else if (activityLevel.equals("Wysoka"))
+                    calories *= 1.7;
+                else if (activityLevel.equals("Bardzo wysoka"))
+                    calories *= 1.9;
+
+                if (goal.equals("Utrata"))
+                    calories -= 250;
+                else if (goal.equals("Przybranie"))
+                    calories += 250;
+
+                tvCalories.setText(String.valueOf(calories));
+            }
         } else {
-            calories = (int) Math.round(66 + (13.7 * weight) + (5 * height) - (6.76 * age));
-            if (activityLevel.equals("Brak"))
-                calories *= 1.2;
-            else if (activityLevel.equals("Niska"))
-                calories *= 1.3;
-            else if (activityLevel.equals("Średnia"))
-                calories *= 1.5;
-            else if (activityLevel.equals("Wysoka"))
-                calories *= 1.7;
-            else if (activityLevel.equals("Bardzo wysoka"))
-                calories *= 1.9;
-
-            if (goal.equals("Utrata"))
-                calories -= 250;
-            else if (goal.equals("Przybranie"))
-                calories += 250;
-
-            tvCalories.setText(String.valueOf(calories));
+            if(etAge.getText().toString().isEmpty())
+                Toast.makeText(RegisterActivity.this, "Wprowadź swój wiek", Toast.LENGTH_SHORT).show();
+            else if(etWeight.getText().toString().isEmpty())
+                Toast.makeText(RegisterActivity.this, "Wprowadź swoją wagę", Toast.LENGTH_SHORT).show();
+            else if(etHeight.getText().toString().isEmpty())
+                Toast.makeText(RegisterActivity.this, "Wprowadź swój wzrost", Toast.LENGTH_SHORT).show();
         }
     }
 
     public void register() {
-        System.out.println("REGISTER");
-        final String userName = etLogin.getText().toString();
-        final String password = etPassword.getText().toString();
-        final String email = etEmail.getText().toString();
-        final int sex = getSexInt(getRadioButtonText(rgSex));
-        final int age = Integer.parseInt(etAge.getText().toString());
-        final int height = Integer.parseInt(etHeight.getText().toString());
-        final int activityLevelInt = getActivityLevelInt(activityLevel);
-        final int weight = Integer.parseInt(etWeight.getText().toString());
-        final int goal = getGoalInt(getRadioButtonText(rgWeight));
+        if (!etLogin.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty() && !etEmail.getText().toString().isEmpty()
+                && !etAge.getText().toString().isEmpty() && !etHeight.getText().toString().isEmpty() && !etWeight.getText().toString().isEmpty()
+                && etLogin.getText().toString().length() > 5 && etPassword.getText().toString().length() > 5) {
+            final String userName = etLogin.getText().toString();
+            final String password = etPassword.getText().toString();
+            final String email = etEmail.getText().toString();
+            final int sex = getSexInt(getRadioButtonText(rgSex));
+            final int age = Integer.parseInt(etAge.getText().toString());
+            final int height = Integer.parseInt(etHeight.getText().toString());
+            final int activityLevelInt = getActivityLevelInt(activityLevel);
+            final int weight = Integer.parseInt(etWeight.getText().toString());
+            final int goal = getGoalInt(getRadioButtonText(rgWeight));
 
-        calculateCalories();
+            calculateCalories();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, REGISTER_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonResponse = new JSONObject(response);
-                            boolean success = jsonResponse.getBoolean("success");
-
-                            if (success) {
-                                openLoginActivity();
-                                RegisterActivity.this.finish();
-                            } else {
-                                boolean userError = jsonResponse.getBoolean("userError");
-                                boolean emailError = jsonResponse.getBoolean("emailError");
-                                if (userError && emailError)
-                                    Toast.makeText(RegisterActivity.this, "Nazwa użytkownika oraz e-mail są zajęte", Toast.LENGTH_LONG).show();
-                                else if (userError)
-                                    Toast.makeText(RegisterActivity.this, "Nazwa użytkownika jest zajęta", Toast.LENGTH_LONG).show();
-                                else if (emailError)
-                                    Toast.makeText(RegisterActivity.this, "E-mail jest zajęty", Toast.LENGTH_LONG).show();
-                                else
-                                    Toast.makeText(RegisterActivity.this, "Nieoczekiwany błąd", Toast.LENGTH_LONG).show();
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, REGISTER_URL,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject jsonResponse = new JSONObject(response);
+                                boolean success = jsonResponse.getBoolean("success");
+                                if (success) {
+                                    openLoginActivity();
+                                    RegisterActivity.this.finish();
+                                } else {
+                                    boolean userError = jsonResponse.getBoolean("userError");
+                                    boolean emailError = jsonResponse.getBoolean("emailError");
+                                    if (userError && emailError)
+                                        Toast.makeText(RegisterActivity.this, "Nazwa użytkownika oraz e-mail są zajęte", Toast.LENGTH_LONG).show();
+                                    else if (userError)
+                                        Toast.makeText(RegisterActivity.this, "Nazwa użytkownika jest zajęta", Toast.LENGTH_LONG).show();
+                                    else if (emailError)
+                                        Toast.makeText(RegisterActivity.this, "E-mail jest zajęty", Toast.LENGTH_LONG).show();
+                                    else
+                                        Toast.makeText(RegisterActivity.this, "Nieoczekiwany błąd", Toast.LENGTH_LONG).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Toast.makeText(RegisterActivity.this, "Register error! " + e.toString(), Toast.LENGTH_LONG).show();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(RegisterActivity.this, "Register error! " + e.toString(), Toast.LENGTH_LONG).show();
                         }
-                    }
-                },
-                new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(RegisterActivity.this, "Register error! " + error.toString(),
-                        Toast.LENGTH_LONG).show();
-            }
-        })
-        {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("userName", userName);
-                params.put("password", password);
-                params.put("email", email);
-                params.put("sex", String.valueOf(sex));
-                params.put("age", String.valueOf(age));
-                params.put("height", String.valueOf(height));
-                params.put("activityLevel", String.valueOf(activityLevelInt));
-                params.put("caloricDemand", String.valueOf(calories));
-                params.put("weight", String.valueOf(weight));
-                params.put("goal", String.valueOf(goal));
-                return params;
-            }
-        };
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(RegisterActivity.this, "Register error! " + error.toString(),
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("userName", userName);
+                    params.put("password", password);
+                    params.put("email", email);
+                    params.put("sex", String.valueOf(sex));
+                    params.put("age", String.valueOf(age));
+                    params.put("height", String.valueOf(height));
+                    params.put("activityLevel", String.valueOf(activityLevelInt));
+                    params.put("caloricDemand", String.valueOf(calories));
+                    params.put("weight", String.valueOf(weight));
+                    params.put("goal", String.valueOf(goal));
+                    return params;
+                }
+            };
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            requestQueue.add(stringRequest);
+        } else {
+            if (etLogin.getText().toString().isEmpty())
+                Toast.makeText(RegisterActivity.this, "Wprowadź login", Toast.LENGTH_SHORT).show();
+            else if (etPassword.getText().toString().isEmpty())
+                Toast.makeText(RegisterActivity.this, "Wprowadź hasło", Toast.LENGTH_SHORT).show();
+            else if (etEmail.getText().toString().isEmpty())
+                Toast.makeText(RegisterActivity.this, "Wprowadź e-mail", Toast.LENGTH_SHORT).show();
+            else if (etAge.getText().toString().isEmpty())
+                Toast.makeText(RegisterActivity.this, "Wprowadź swój wiek", Toast.LENGTH_SHORT).show();
+            else if (etHeight.getText().toString().isEmpty())
+                Toast.makeText(RegisterActivity.this, "Wprowadź swój wzrost", Toast.LENGTH_SHORT).show();
+            else if (etWeight.getText().toString().isEmpty())
+                Toast.makeText(RegisterActivity.this, "Wprowadź swoją wagę", Toast.LENGTH_SHORT).show();
+            else if(etLogin.getText().toString().length() <= 5)
+                Toast.makeText(RegisterActivity.this, "Login musi mieć conajmniej 6 znaków", Toast.LENGTH_SHORT).show();
+            else if(etPassword.getText().toString().length() <= 5)
+                Toast.makeText(RegisterActivity.this, "Hasło musi mieć conajmniej 6 znaków", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void openLoginActivity() {

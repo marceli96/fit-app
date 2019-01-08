@@ -14,11 +14,21 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/llMyMeals"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
+            android:gravity="center"
             android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imArrowMeals"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:src="@drawable/arrow_down" />
 
             <ImageView
                 android:layout_width="40dp"
@@ -28,7 +38,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_marginHorizontal="10dp"
                 android:text="Moje posiłki"
                 android:textColor="@android:color/black"
@@ -38,7 +47,6 @@
                 android:id="@+id/bAddMyMeal"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_gravity="center"
                 android:text="+" />
         </LinearLayout>
 
@@ -46,7 +54,14 @@
             android:id="@+id/tvMyMealsEmpty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nie dodałeś jeszcze żadnych posiłków" />
+            android:text="Nie dodałeś jeszcze żadnych posiłków"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/pbLoadingMeals"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <pl.edu.wat.fitapp.NonScrollListView
             android:id="@+id/lvMyMeals"
@@ -56,11 +71,20 @@
         </pl.edu.wat.fitapp.NonScrollListView>
 
         <LinearLayout
+            android:id="@+id/llMyTrainings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
             android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imArrowTrainings"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_weight="1"
+                android:src="@drawable/arrow_down" />
 
             <ImageView
                 android:layout_width="40dp"
@@ -70,7 +94,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_marginHorizontal="10dp"
                 android:text="Moje treningi"
                 android:textColor="@android:color/black"
@@ -80,7 +103,6 @@
                 android:id="@+id/bAddMyTraining"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_gravity="center"
                 android:text="+" />
         </LinearLayout>
 
@@ -88,7 +110,8 @@
             android:id="@+id/tvMyTrainingsEmpty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nie dodałeś jeszcze żadnych treningów" />
+            android:text="Nie dodałeś jeszcze żadnych treningów"
+            android:visibility="gone" />
 
         <pl.edu.wat.fitapp.NonScrollListView
             android:id="@+id/lvMyTrainings"

@@ -14,7 +14,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,12 +48,16 @@ public class MeFragment extends Fragment {
     private Button bAddMyMeal, bAddMyTraining;
     private TextView tvMyMealsEmpty, tvMyTrainingsEmpty;
     private NonScrollListView lvMyMeals, lvMyTrainings;
+    private ImageView imArrowMeals, imArrowTrainings;
+    private LinearLayout llMyMeals, llMyTrainings;
+    private ProgressBar pbLoadingMeals;
 
     private ArrayList<Meal> myMeals, myTrainings;
     private MyMealsListAdapter myMealsListAdapter;
 
-
     private User user;
+
+    private boolean hiddenMyMeals = false, hiddenMyTrainings = false;
 
     public MeFragment() {
     }
@@ -62,8 +69,11 @@ public class MeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_me, container, false);
         user = (User) getActivity().getIntent().getSerializableExtra("user");
 
-        tvMyMealsEmpty = view.findViewById(R.id.tvMyMealsEmpty);
         bAddMyMeal = view.findViewById(R.id.bAddMyMeal);
+        tvMyMealsEmpty = view.findViewById(R.id.tvMyMealsEmpty);
+        imArrowMeals = view.findViewById(R.id.imArrowMeals);
+        llMyMeals = view.findViewById(R.id.llMyMeals);
+        pbLoadingMeals = view.findViewById(R.id.pbLoadingMeals);
 
         myMeals = new ArrayList<>();
         getMyMeals();
@@ -143,6 +153,21 @@ public class MeFragment extends Fragment {
             }
         });
 
+        llMyMeals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(hiddenMyMeals){
+                    lvMyMeals.setVisibility(View.VISIBLE);
+                    hiddenMyMeals = false;
+                    imArrowMeals.setImageResource(R.drawable.arrow_down);
+                } else {
+                    lvMyMeals.setVisibility(View.GONE);
+                    hiddenMyMeals = true;
+                    imArrowMeals.setImageResource(R.drawable.arrow_up);
+                }
+            }
+        });
+
         return view;
     }
 
@@ -177,8 +202,9 @@ public class MeFragment extends Fragment {
                                 myMeals.get(mealPosition).addIngredientToList(tempIngredient);
                             }
                         }
-                        if (myMeals.size() > 0)
-                            tvMyMealsEmpty.setVisibility(View.GONE);
+                        if (myMeals.size() == 0)
+                            tvMyMealsEmpty.setVisibility(View.VISIBLE);
+                        pbLoadingMeals.setVisibility(View.GONE);
                         myMealsListAdapter.notifyDataSetChanged();
                         Toast.makeText(getActivity(), "Pobrano posiłki", Toast.LENGTH_SHORT).show();
                     } else

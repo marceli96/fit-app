@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -40,17 +41,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class HomeFragment extends Fragment {
     //TODO dodanie zwijania list + obrazek strzałki
     private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
 
     private Button bBreakfast, bSecondBreakfast, bLunch, bDinner, bSnack, bSupper;
     private TextView tvEatenCalories, tvReqCalories, tvEatenCarbohydrates, tvReqCarbohydrates, tvEatenProtein, tvReqProtein, tvEatenFat, tvReqFat;
-    private ProgressBar pbCalories, pbCarbohydrates, pbProtein, pbFat;
+    private ProgressBar pbCalories, pbCarbohydrates, pbProtein, pbFat, pbLoading;
     private NonScrollListView lvBreakfast, lvSecondBreakfast, lvLunch, lvDinner, lvSnack, lvSupper;
+    private ImageView imArrowBreakfast, imArrowSecondBreakfast, imArrowLunch, imArrowDinner, imArrowSnack, imArrowSupper;
+    private LinearLayout llProgressBars, llBreakfast, llSecondBreakfast, llLunch, llDinner, llSnack, llSupper;
     private ArrayList<FoodSystem> foodSystemListBreakfast, foodSystemListSecondBreakfast, foodSystemListLunch, foodSystemListDinner,
             foodSystemListSnack, foodSystemListSupper;
     private FoodSystemListAdapter foodSystemListBreakfastAdapter, foodSystemListSecondBreakfastAdapter, foodSystemListLunchAdapter,
@@ -61,21 +61,53 @@ public class HomeFragment extends Fragment {
     private int minReqCarbohydrates = 0, maxReqCarbohydrates = 0, minReqProtein = 0, maxReqProtein = 0, minReqFat = 0, maxReqFat;
     private double eatenCarbohydrates, eatenProtein, eatenFat;
     private int eatenCalories;
+    private boolean hiddenBreakfast = false, hiddenSecondBreakfast = false, hiddenLunch = false, hiddenDinner = false, hiddenSnack = false, hiddenSupper = false;
 
     public HomeFragment() { }
 
     @Override
-    public void setArguments(@Nullable Bundle args) {
-        user = (User) args.getSerializable("user");
-    }
-
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//        getArguments nie chce zadziałać
-//        user = (User) getArguments().getSerializable("user");
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
         user = (User) getActivity().getIntent().getSerializableExtra("user");
+
+        pbLoading = view.findViewById(R.id.pbLoading);
+        pbCalories = view.findViewById(R.id.pbCalories);
+        pbCarbohydrates = view.findViewById(R.id.pbCarbohydrates);
+        pbProtein = view.findViewById(R.id.pbProtein);
+        pbFat = view.findViewById(R.id.pbFat);
+
+        tvEatenCalories = view.findViewById(R.id.tvEatenCalories);
+        tvReqCalories = view.findViewById(R.id.tvReqCalories);
+        tvEatenCarbohydrates = view.findViewById(R.id.tvEatenCarbohydrates);
+        tvReqCarbohydrates = view.findViewById(R.id.tvReqCarbohydrates);
+        tvEatenProtein = view.findViewById(R.id.tvEatenProtein);
+        tvReqProtein = view.findViewById(R.id.tvReqProtein);
+        tvEatenFat = view.findViewById(R.id.tvEatenFat);
+        tvReqFat = view.findViewById(R.id.tvReqFat);
+
+        lvBreakfast = view.findViewById(R.id.lvBreakfast);
+        lvSecondBreakfast = view.findViewById(R.id.lvSecondBreakfast);
+        lvLunch = view.findViewById(R.id.lvLunch);
+        lvDinner = view.findViewById(R.id.lvDinner);
+        lvSnack = view.findViewById(R.id.lvSnack);
+        lvSupper = view.findViewById(R.id.lvSupper);
+
+        imArrowBreakfast = view.findViewById(R.id.imArrowBreakfast);
+        imArrowSecondBreakfast = view.findViewById(R.id.imArrowSecondBreakfast);
+        imArrowLunch = view.findViewById(R.id.imArrowLunch);
+        imArrowDinner = view.findViewById(R.id.imArrowDinner);
+        imArrowSnack= view.findViewById(R.id.imArrowSnack);
+        imArrowSupper = view.findViewById(R.id.imArrowSupper);
+
+        llProgressBars = view.findViewById(R.id.llProgressBars);
+        llBreakfast = view.findViewById(R.id.llBreakfast);
+        llSecondBreakfast = view.findViewById(R.id.llSecondBreakfast);
+        llLunch = view.findViewById(R.id.llLunch);
+        llDinner = view.findViewById(R.id.llDinner);
+        llSnack = view.findViewById(R.id.llSnack);
+        llSupper = view.findViewById(R.id.llSupper);
 
         foodSystemListBreakfast = new ArrayList<>();
         foodSystemListSecondBreakfast = new ArrayList<>();
@@ -84,15 +116,6 @@ public class HomeFragment extends Fragment {
         foodSystemListSnack = new ArrayList<>();
         foodSystemListSupper = new ArrayList<>();
         getFoodSystem();
-
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-
-        lvBreakfast = view.findViewById(R.id.lvBreakfast);
-        lvSecondBreakfast = view.findViewById(R.id.lvSecondBreakfast);
-        lvLunch = view.findViewById(R.id.lvLunch);
-        lvDinner = view.findViewById(R.id.lvDinner);
-        lvSnack = view.findViewById(R.id.lvSnack);
-        lvSupper = view.findViewById(R.id.lvSupper);
 
         foodSystemListBreakfastAdapter = new FoodSystemListAdapter(getActivity(), R.layout.listview_adapter_show_foodsystem, foodSystemListBreakfast);
         foodSystemListSecondBreakfastAdapter = new FoodSystemListAdapter(getActivity(), R.layout.listview_adapter_show_foodsystem, foodSystemListSecondBreakfast);
@@ -150,15 +173,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        tvEatenCalories = view.findViewById(R.id.tvEatenCalories);
-        tvReqCalories = view.findViewById(R.id.tvReqCalories);
-        tvEatenCarbohydrates = view.findViewById(R.id.tvEatenCarbohydrates);
-        tvReqCarbohydrates = view.findViewById(R.id.tvReqCarbohydrates);
-        tvEatenProtein = view.findViewById(R.id.tvEatenProtein);
-        tvReqProtein = view.findViewById(R.id.tvReqProtein);
-        tvEatenFat = view.findViewById(R.id.tvEatenFat);
-        tvReqFat = view.findViewById(R.id.tvReqFat);
-
         String tempString = String.valueOf(user.getCaloricDemand()) + " kcal";
         tvReqCalories.setText(tempString);
 
@@ -177,15 +191,100 @@ public class HomeFragment extends Fragment {
         tempString = String.valueOf(minReqFat) + "-" + String.valueOf(maxReqFat);
         tvReqFat.setText(tempString);
 
-        pbCalories = view.findViewById(R.id.pbCalories);
-        pbCarbohydrates = view.findViewById(R.id.pbCarbohydrates);
-        pbProtein = view.findViewById(R.id.pbProtein);
-        pbFat = view.findViewById(R.id.pbFat);
-
         pbCalories.setMax(user.getCaloricDemand());
         pbCarbohydrates.setMax(minReqCarbohydrates);
         pbProtein.setMax(minReqProtein);
         pbFat.setMax(minReqFat);
+
+        llBreakfast.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(hiddenBreakfast){
+                    lvBreakfast.setVisibility(View.VISIBLE);
+                    hiddenBreakfast = false;
+                    imArrowBreakfast.setImageResource(R.drawable.arrow_down);
+                } else {
+                    lvBreakfast.setVisibility(View.GONE);
+                    hiddenBreakfast = true;
+                    imArrowBreakfast.setImageResource(R.drawable.arrow_up);
+                }
+            }
+        });
+
+        llSecondBreakfast.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(hiddenSecondBreakfast){
+                    lvSecondBreakfast.setVisibility(View.VISIBLE);
+                    hiddenSecondBreakfast = false;
+                    imArrowSecondBreakfast.setImageResource(R.drawable.arrow_down);
+                } else {
+                    lvSecondBreakfast.setVisibility(View.GONE);
+                    hiddenSecondBreakfast = true;
+                    imArrowSecondBreakfast.setImageResource(R.drawable.arrow_up);
+                }
+            }
+        });
+
+        llLunch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(hiddenLunch){
+                    lvLunch.setVisibility(View.VISIBLE);
+                    hiddenLunch = false;
+                    imArrowLunch.setImageResource(R.drawable.arrow_down);
+                } else {
+                    lvSecondBreakfast.setVisibility(View.GONE);
+                    hiddenLunch = true;
+                    imArrowLunch.setImageResource(R.drawable.arrow_up);
+                }
+            }
+        });
+
+        llDinner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(hiddenDinner){
+                    lvDinner.setVisibility(View.VISIBLE);
+                    hiddenDinner = false;
+                    imArrowDinner.setImageResource(R.drawable.arrow_down);
+                } else {
+                    lvDinner.setVisibility(View.GONE);
+                    hiddenDinner = true;
+                    imArrowDinner.setImageResource(R.drawable.arrow_up);
+                }
+            }
+        });
+
+        llSnack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(hiddenSnack){
+                    lvSnack.setVisibility(View.VISIBLE);
+                    hiddenSnack = false;
+                    imArrowSnack.setImageResource(R.drawable.arrow_down);
+                } else {
+                    lvSnack.setVisibility(View.GONE);
+                    hiddenSnack = true;
+                    imArrowSnack.setImageResource(R.drawable.arrow_up);
+                }
+            }
+        });
+
+        llSupper.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(hiddenSupper){
+                    lvSupper.setVisibility(View.VISIBLE);
+                    hiddenSupper = false;
+                    imArrowSupper.setImageResource(R.drawable.arrow_down);
+                } else {
+                    lvSupper.setVisibility(View.GONE);
+                    hiddenSupper = true;
+                    imArrowSupper.setImageResource(R.drawable.arrow_up);
+                }
+            }
+        });
 
         return view;
     }
@@ -298,6 +397,7 @@ public class HomeFragment extends Fragment {
 
 
     private void getFoodSystem() {
+        // TODO poprawić dodawanie tego samego skłdnika/posiłku do jednej pory jedzenia
         StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -331,6 +431,15 @@ public class HomeFragment extends Fragment {
                                 addIngredientToFoodSystemList(tempIngredient, row.getInt("MealTime"));
                             }
                         }
+                        pbLoading.setVisibility(View.GONE);
+                        llProgressBars.setVisibility(View.VISIBLE);
+                        llBreakfast.setVisibility(View.VISIBLE);
+                        llSecondBreakfast.setVisibility(View.VISIBLE);
+                        llLunch.setVisibility(View.VISIBLE);
+                        llDinner.setVisibility(View.VISIBLE);
+                        llSnack.setVisibility(View.VISIBLE);
+                        llSupper.setVisibility(View.VISIBLE);
+
                         foodSystemListBreakfastAdapter.notifyDataSetChanged();
                         foodSystemListSecondBreakfastAdapter.notifyDataSetChanged();
                         foodSystemListLunchAdapter.notifyDataSetChanged();
