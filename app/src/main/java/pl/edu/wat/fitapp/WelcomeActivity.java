@@ -66,55 +66,61 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     private void login() {
-        final String userName = etLogin.getText().toString();
-        final String password = etPassword.getText().toString();
+        if(!etLogin.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty()){
+            final String userName = etLogin.getText().toString();
+            final String password = etPassword.getText().toString();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, LOGIN_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonResponse = new JSONObject(response);
-                            boolean success = jsonResponse.getBoolean("success");
-                            if(success){
-                                // TODO Zmienić w bazie na CaloricDemAnd
-                                JSONObject jsonObject = jsonResponse.getJSONObject("0");
-                                JSONObject jsonObject1 = jsonResponse.getJSONObject("1");
-                                user = new User(jsonObject.getInt("ID_User"), jsonObject.getString("UserName"),
-                                        jsonObject.getString("Email"), jsonObject.getInt("Sex"), jsonObject.getInt("Age"),
-                                        jsonObject.getInt("Height"), jsonObject.getInt("ActivityLevel"), jsonObject1.getDouble("UserWeight"),
-                                        jsonObject1.getInt("CaloricDemend"), jsonObject1.getInt("Goal"));
-                                openMainActivity();
-                                WelcomeActivity.this.finish();
-                            } else {
-                                pbLogin.setVisibility(View.INVISIBLE);
-                                Toast.makeText(WelcomeActivity.this, "Błędne dane", Toast.LENGTH_LONG).show();
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, LOGIN_URL,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject jsonResponse = new JSONObject(response);
+                                boolean success = jsonResponse.getBoolean("success");
+                                if(success){
+                                    // TODO Zmienić w bazie na CaloricDemAnd
+                                    JSONObject jsonObject = jsonResponse.getJSONObject("0");
+                                    JSONObject jsonObject1 = jsonResponse.getJSONObject("1");
+                                    user = new User(jsonObject.getInt("ID_User"), jsonObject.getString("UserName"),
+                                            jsonObject.getString("Email"), jsonObject.getInt("Sex"), jsonObject.getInt("Age"),
+                                            jsonObject.getInt("Height"), jsonObject.getInt("ActivityLevel"), jsonObject1.getDouble("UserWeight"),
+                                            jsonObject1.getInt("CaloricDemend"), jsonObject1.getInt("Goal"));
+                                    openMainActivity();
+                                    WelcomeActivity.this.finish();
+                                } else {
+                                    pbLogin.setVisibility(View.INVISIBLE);
+                                    Toast.makeText(WelcomeActivity.this, "Błędne dane", Toast.LENGTH_LONG).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Toast.makeText(WelcomeActivity.this, "Login error! " + e.toString(), Toast.LENGTH_LONG).show();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(WelcomeActivity.this, "Login error! " + e.toString(), Toast.LENGTH_LONG).show();
                         }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(WelcomeActivity.this, "Login error! " + error.toString(), Toast.LENGTH_LONG).show();
-                    }
-                })
-        {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("userName", userName);
-                params.put("password", password);
-                return params;
-            }
-        };
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(WelcomeActivity.this, "Login error! " + error.toString(), Toast.LENGTH_LONG).show();
+                        }
+                    })
+            {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("userName", userName);
+                    params.put("password", password);
+                    return params;
+                }
+            };
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
-
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            requestQueue.add(stringRequest);
+        } else {
+         if(etLogin.getText().toString().isEmpty())
+             Toast.makeText(WelcomeActivity.this, "Wpisz login", Toast.LENGTH_SHORT).show();
+         else if (etPassword.getText().toString().isEmpty())
+             Toast.makeText(WelcomeActivity.this, "Wpisz hasło", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void openMainActivity() {

@@ -46,7 +46,8 @@ public class AddMealToFoodSystemFragment extends Fragment {
     private int mealTime;
 
 
-    public AddMealToFoodSystemFragment() { }
+    public AddMealToFoodSystemFragment() {
+    }
 
 
     @Override
@@ -148,24 +149,32 @@ public class AddMealToFoodSystemFragment extends Fragment {
             public void onResponse(String response) {
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
-                    boolean success = jsonResponse.getBoolean("success");
-                    if (success) {
-                        Toast.makeText(getActivity(), "Dodano pomyślnie", Toast.LENGTH_SHORT).show();
-                        openMainActivity();
+                    boolean message = jsonResponse.getBoolean("message");
+                    if (!message) {
+                        Toast.makeText(getActivity(), "Dany posiłek został już dodany w tej porze jedzenia", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(getActivity(), "Błąd podczas dodawania", Toast.LENGTH_LONG).show();
+                        boolean success = jsonResponse.getBoolean("success");
+                        if (success) {
+                            Toast.makeText(getActivity(), "Dodano pomyślnie", Toast.LENGTH_SHORT).show();
+                            openMainActivity();
+                        } else
+                            Toast.makeText(getActivity(), "Błąd podczas dodawania", Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(getActivity(), "Błąd podczas dodawania " + e.toString(), Toast.LENGTH_LONG).show();
                 }
             }
-        }, new Response.ErrorListener() {
+        }, new Response.ErrorListener()
+
+        {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getActivity(), "Błąd podczas dodawania " + error.toString(), Toast.LENGTH_SHORT).show();
             }
-        }) {
+        })
+
+        {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();

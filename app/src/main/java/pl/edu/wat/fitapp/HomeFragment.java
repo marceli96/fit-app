@@ -42,7 +42,6 @@ import java.util.Map;
 
 
 public class HomeFragment extends Fragment {
-    //TODO dodanie zwijania list + obrazek strzałki
     private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
 
     private Button bBreakfast, bSecondBreakfast, bLunch, bDinner, bSnack, bSupper;
@@ -63,7 +62,8 @@ public class HomeFragment extends Fragment {
     private int eatenCalories;
     private boolean hiddenBreakfast = false, hiddenSecondBreakfast = false, hiddenLunch = false, hiddenDinner = false, hiddenSnack = false, hiddenSupper = false;
 
-    public HomeFragment() { }
+    public HomeFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -98,7 +98,7 @@ public class HomeFragment extends Fragment {
         imArrowSecondBreakfast = view.findViewById(R.id.imArrowSecondBreakfast);
         imArrowLunch = view.findViewById(R.id.imArrowLunch);
         imArrowDinner = view.findViewById(R.id.imArrowDinner);
-        imArrowSnack= view.findViewById(R.id.imArrowSnack);
+        imArrowSnack = view.findViewById(R.id.imArrowSnack);
         imArrowSupper = view.findViewById(R.id.imArrowSupper);
 
         llProgressBars = view.findViewById(R.id.llProgressBars);
@@ -199,7 +199,7 @@ public class HomeFragment extends Fragment {
         llBreakfast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(hiddenBreakfast){
+                if (hiddenBreakfast) {
                     lvBreakfast.setVisibility(View.VISIBLE);
                     hiddenBreakfast = false;
                     imArrowBreakfast.setImageResource(R.drawable.arrow_down);
@@ -214,7 +214,7 @@ public class HomeFragment extends Fragment {
         llSecondBreakfast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(hiddenSecondBreakfast){
+                if (hiddenSecondBreakfast) {
                     lvSecondBreakfast.setVisibility(View.VISIBLE);
                     hiddenSecondBreakfast = false;
                     imArrowSecondBreakfast.setImageResource(R.drawable.arrow_down);
@@ -229,7 +229,7 @@ public class HomeFragment extends Fragment {
         llLunch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(hiddenLunch){
+                if (hiddenLunch) {
                     lvLunch.setVisibility(View.VISIBLE);
                     hiddenLunch = false;
                     imArrowLunch.setImageResource(R.drawable.arrow_down);
@@ -244,7 +244,7 @@ public class HomeFragment extends Fragment {
         llDinner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(hiddenDinner){
+                if (hiddenDinner) {
                     lvDinner.setVisibility(View.VISIBLE);
                     hiddenDinner = false;
                     imArrowDinner.setImageResource(R.drawable.arrow_down);
@@ -259,7 +259,7 @@ public class HomeFragment extends Fragment {
         llSnack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(hiddenSnack){
+                if (hiddenSnack) {
                     lvSnack.setVisibility(View.VISIBLE);
                     hiddenSnack = false;
                     imArrowSnack.setImageResource(R.drawable.arrow_down);
@@ -274,7 +274,7 @@ public class HomeFragment extends Fragment {
         llSupper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(hiddenSupper){
+                if (hiddenSupper) {
                     lvSupper.setVisibility(View.VISIBLE);
                     hiddenSupper = false;
                     imArrowSupper.setImageResource(R.drawable.arrow_down);
@@ -397,7 +397,6 @@ public class HomeFragment extends Fragment {
 
 
     private void getFoodSystem() {
-        // TODO poprawić dodawanie tego samego skłdnika/posiłku do jednej pory jedzenia
         StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -478,6 +477,7 @@ public class HomeFragment extends Fragment {
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         requestQueue.add(stringRequest);
     }
+
 
     private int checkMealPositionInList(int mealId, int mealTime) {
         Meal tempMeal;
@@ -1038,9 +1038,9 @@ public class HomeFragment extends Fragment {
 
 
         pbCalories.setProgress(eatenCalories);
-        pbCarbohydrates.setProgress((int)Math.round(eatenCarbohydrates));
-        pbProtein.setProgress((int)Math.round(eatenProtein));
-        pbFat.setProgress((int)Math.round(eatenFat));
+        pbCarbohydrates.setProgress((int) Math.round(eatenCarbohydrates));
+        pbProtein.setProgress((int) Math.round(eatenProtein));
+        pbFat.setProgress((int) Math.round(eatenFat));
 
         // TODO zmiana na czerwony kolor (napisy + ewentualnie progres bary) kiedy przekroczymy zadane wartości
 

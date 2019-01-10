@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -14,61 +15,196 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Podsumowanie ostatniego tygodnia" />
+            android:layout_gravity="center"
+            android:text="Podsumowanie ostatniego tygodnia"
+            android:textColor="@android:color/black"
+            android:textSize="19sp"
+            android:layout_marginTop="5dp"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:src="@drawable/separation" />
+
+        <ProgressBar
+            android:id="@+id/pbLoadingLastWeek"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/llCaloriesWeekly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:src="@drawable/calories" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kalorie"
+                android:textSize="17sp"
+                android:visibility="visible" />
+        </LinearLayout>
+
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/chartCarloriesWeek"
             android:layout_width="match_parent"
-            android:layout_height="200dp"></com.github.mikephil.charting.charts.BarChart>
+            android:layout_height="200dp"
+            android:visibility="gone"></com.github.mikephil.charting.charts.BarChart>
+
+        <LinearLayout
+            android:id="@+id/llCarbohydratesWeekly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:src="@drawable/carbohydrates" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Węglowodany"
+                android:textSize="17sp"
+                android:visibility="visible" />
+        </LinearLayout>
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/chartCarbohydratesWeek"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </com.github.mikephil.charting.charts.BarChart>
+            android:layout_height="200dp"
+            android:visibility="gone"></com.github.mikephil.charting.charts.BarChart>
+
+        <LinearLayout
+            android:id="@+id/llProteinWeekly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:src="@drawable/protein" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Białko"
+                android:textSize="17sp"
+                android:visibility="visible" />
+        </LinearLayout>
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/chartProteinWeek"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </com.github.mikephil.charting.charts.BarChart>
+            android:layout_height="200dp"
+            android:visibility="gone"></com.github.mikephil.charting.charts.BarChart>
+
+        <LinearLayout
+            android:id="@+id/llFatWeekly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:src="@drawable/fat" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tłuszcze"
+                android:textSize="17sp"
+                android:visibility="visible" />
+        </LinearLayout>
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/chartFatWeek"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </com.github.mikephil.charting.charts.BarChart>
+            android:layout_height="200dp"
+            android:visibility="gone"></com.github.mikephil.charting.charts.BarChart>
 
-        <TextView
+        <ImageView
             android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:src="@drawable/separation" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Podsumowanie dnia: DATA" />
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Podsumowanie dnia: "
+                android:textColor="@android:color/black"
+                android:textSize="19sp" />
+
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="wybierz datę"
+                android:textColor="@android:color/black"
+                android:textSize="19sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <CalendarView
-            android:id="@+id/calendarView"
+            android:id="@+id/cvDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <TextView
+        <ProgressBar
+            android:id="@+id/pbLoadingDaily"
+            style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Wykres zjedzonych kalorii" />
+            android:visibility="gone" />
 
-        <TextView
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/chartDaily"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Wykres zjedzonego białka" />
+            android:layout_height="200dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"></com.github.mikephil.charting.charts.BarChart>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Wykres zjedzonych węglowodanów" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Wykres zjedzonego tłuszczu" />
     </LinearLayout>
 </ScrollView>
