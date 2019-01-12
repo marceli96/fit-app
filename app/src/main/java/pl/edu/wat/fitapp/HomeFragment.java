@@ -44,11 +44,11 @@ import java.util.Map;
 public class HomeFragment extends Fragment {
     private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
 
-    private Button bBreakfast, bSecondBreakfast, bLunch, bDinner, bSnack, bSupper;
     private TextView tvEatenCalories, tvReqCalories, tvEatenCarbohydrates, tvReqCarbohydrates, tvEatenProtein, tvReqProtein, tvEatenFat, tvReqFat;
     private ProgressBar pbCalories, pbCarbohydrates, pbProtein, pbFat, pbLoading;
     private NonScrollListView lvBreakfast, lvSecondBreakfast, lvLunch, lvDinner, lvSnack, lvSupper;
-    private ImageView imArrowBreakfast, imArrowSecondBreakfast, imArrowLunch, imArrowDinner, imArrowSnack, imArrowSupper;
+    private ImageView imArrowBreakfast, imArrowSecondBreakfast, imArrowLunch, imArrowDinner, imArrowSnack, imArrowSupper,
+            imAddBreakfast, imAddSecondBreakfast, imAddLunch, imAddDinner, imAddSnack, imAddSupper;
     private LinearLayout llProgressBars, llBreakfast, llSecondBreakfast, llLunch, llDinner, llSnack, llSupper;
     private ArrayList<FoodSystem> foodSystemListBreakfast, foodSystemListSecondBreakfast, foodSystemListLunch, foodSystemListDinner,
             foodSystemListSnack, foodSystemListSupper;
@@ -68,6 +68,8 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ((MainActivity) getActivity()).setActionBarTitle("Strona główna");
+
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         user = (User) getActivity().getIntent().getSerializableExtra("user");
@@ -286,62 +288,56 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        return view;
-    }
+        imAddBreakfast = view.findViewById(R.id.imAddBreakfast);
+        imAddSecondBreakfast = view.findViewById(R.id.imAddSecondBreakfast);
+        imAddLunch = view.findViewById(R.id.imAddLunch);
+        imAddDinner = view.findViewById(R.id.imAddDinner);
+        imAddSnack = view.findViewById(R.id.imAddSnack);
+        imAddSupper = view.findViewById(R.id.imAddSupper);
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
-        bBreakfast = view.findViewById(R.id.bBreakfast);
-        bSecondBreakfast = view.findViewById(R.id.bSecondBreakfast);
-        bLunch = view.findViewById(R.id.bLunch);
-        bDinner = view.findViewById(R.id.bDinner);
-        bSnack = view.findViewById(R.id.bSnack);
-        bSupper = view.findViewById(R.id.bSupper);
-
-        bBreakfast.setOnClickListener(new View.OnClickListener() {
+        imAddBreakfast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addToFoodSystem(0);
             }
         });
 
-        bSecondBreakfast.setOnClickListener(new View.OnClickListener() {
+        imAddSecondBreakfast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addToFoodSystem(1);
             }
         });
 
-        bLunch.setOnClickListener(new View.OnClickListener() {
+        imAddLunch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addToFoodSystem(2);
             }
         });
 
-        bDinner.setOnClickListener(new View.OnClickListener() {
+        imAddDinner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addToFoodSystem(3);
             }
         });
 
-        bSnack.setOnClickListener(new View.OnClickListener() {
+        imAddSnack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addToFoodSystem(4);
             }
         });
 
-        bSupper.setOnClickListener(new View.OnClickListener() {
+        imAddSupper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addToFoodSystem(5);
             }
         });
 
-        super.onViewCreated(view, savedInstanceState);
+        return view;
     }
 
 
@@ -395,6 +391,29 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    class IngredientsListAdapter extends ArrayAdapter<Ingredient>{
+        ArrayList<Ingredient> ingredientList;
+
+        public IngredientsListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Ingredient> objects) {
+            super(context, resource, objects);
+            ingredientList = objects;
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            convertView = getLayoutInflater().inflate(R.layout.listview_adapter_ingredient_with_weight_simple, parent, false);
+
+            TextView tvIngredientName = convertView.findViewById(R.id.tvIngredientName);
+            TextView tvIngredientWeight = convertView.findViewById(R.id.tvIngredientWeight);
+
+            tvIngredientName.setText(ingredientList.get(position).getName());
+            String tempString = ingredientList.get(position).getWeight() + " g";
+            tvIngredientWeight.setText(tempString);
+
+            return convertView;
+        }
+    }
 
     private void getFoodSystem() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
@@ -671,27 +690,14 @@ public class HomeFragment extends Fragment {
             final Meal tempMeal = (Meal) tempList.get(position);
             tempString = String.valueOf(tempMeal.getTotalWeight()) + " g";
             tvTotalMealWeight.setText(tempString);
-            ArrayAdapter<Ingredient> adapter = new ArrayAdapter<Ingredient>(getActivity(), android.R.layout.simple_list_item_2, android.R.id.text1, tempMeal.getIngredientList()) {
-                @NonNull
-                @Override
-                public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                    View view = super.getView(position, convertView, parent);
-                    TextView text1 = view.findViewById(android.R.id.text1);
-                    TextView text2 = view.findViewById(android.R.id.text2);
 
-                    text1.setText(tempMeal.getIngredientList().get(position).getName());
-                    String tempString = String.valueOf(tempMeal.getIngredientList().get(position).getWeight()) + " g";
-                    text2.setText(tempString);
-
-                    return view;
-                }
-            };
+            IngredientsListAdapter adapter = new IngredientsListAdapter(getActivity(), R.layout.listview_adapter_ingredient_with_weight_simple, tempMeal.getIngredientList());
             lvIngredients.setAdapter(adapter);
         } else {
             tvIngredients.setVisibility(View.GONE);
             llMeal.setVisibility(View.GONE);
             bDelete.setText("Usuń produkt z sekcji 'Śniadanie'");
-            lvIngredients.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 0));
+            lvIngredients.setVisibility(View.GONE);
         }
 
         builder.setView(alertView);

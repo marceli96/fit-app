@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         android:text="Nazwa"
         android:textColor="@android:color/black"
-        android:textSize="19sp" />
+        android:textSize="18sp"
+        android:textStyle="italic" />
 
     <TextView
         android:id="@+id/tvWeight"

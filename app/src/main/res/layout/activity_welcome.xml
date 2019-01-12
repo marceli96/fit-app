@@ -3,19 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_gravity="center_vertical"
+    android:background="@drawable/welcome_background"
+    android:gravity="center"
     android:orientation="vertical"
     tools:context=".WelcomeActivity">
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="FitApplication"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="30sp" />
 
     <EditText
         android:id="@+id/etLogin"
@@ -23,9 +16,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
+        android:backgroundTint="@color/colorWhite"
         android:ems="10"
         android:hint="Login"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="#cccccc" />
 
     <EditText
         android:id="@+id/etPassword"
@@ -33,17 +29,22 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
+        android:backgroundTint="@color/colorWhite"
         android:ems="10"
         android:hint="Hasło"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="#cccccc" />
 
     <Button
         android:id="@+id/bLogin"
         android:layout_width="215dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:text="Zaloguj" />
+        android:background="@drawable/button_welcome"
+        android:text="Zaloguj"
+        android:textSize="15sp" />
 
     <Button
         android:id="@+id/bRegister"
@@ -51,7 +52,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:text="Zarejestruj" />
+        android:background="@drawable/button_welcome"
+        android:text="Zarejestruj"
+        android:textColor="#253692"
+        android:textSize="15sp"
+        android:textStyle="bold" />
 
     <ProgressBar
         android:id="@+id/pbLogin"

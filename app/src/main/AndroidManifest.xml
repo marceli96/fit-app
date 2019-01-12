@@ -14,7 +14,8 @@
         <activity
             android:name=".WelcomeActivity"
             android:label="Welcome"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarWithColor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,14 +28,22 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
+            android:label="FitApplication"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AddToFoodSystemActivity"
             android:label="@string/title_activity_add_to_food_system"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".AddMyMealActivity1" />
-        <activity android:name=".AddMyMealActivity2"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarWithColor" />
+        <activity
+            android:name=".AddMyMealActivity1"
+            android:label="Dodawanie posiłku - etap 1/2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AddMyMealActivity2"
+            android:label="Dodawanie posiłku - etap 2/2"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

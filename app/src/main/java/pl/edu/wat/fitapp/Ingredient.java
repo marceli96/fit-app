@@ -2,7 +2,7 @@ package pl.edu.wat.fitapp;
 
 import java.io.Serializable;
 
-public class Ingredient implements Serializable, FoodSystem {
+public class Ingredient implements Serializable, FoodSystem, Cloneable {
     private int ID;
     private String name;
     private double carbohydrates;
@@ -50,5 +50,10 @@ public class Ingredient implements Serializable, FoodSystem {
 
     public int getCalories() {
         return calories;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

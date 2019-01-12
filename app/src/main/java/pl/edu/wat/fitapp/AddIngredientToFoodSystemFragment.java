@@ -48,7 +48,6 @@ public class AddIngredientToFoodSystemFragment extends Fragment {
 
 
     public AddIngredientToFoodSystemFragment() {
-        // Required empty public constructor
     }
 
 

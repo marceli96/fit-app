@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:gravity="center_vertical"
     android:orientation="vertical"
     tools:context=".RegisterActivity">
@@ -13,27 +14,36 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:backgroundTint="@color/colorWhite"
         android:ems="10"
         android:hint="Login"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="#cccccc" />
 
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:backgroundTint="@color/colorWhite"
         android:ems="10"
         android:hint="Hasło"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="#cccccc" />
 
     <EditText
         android:id="@+id/etEmail"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:backgroundTint="@color/colorWhite"
         android:ems="10"
         android:hint="E-mail"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="#cccccc" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -43,11 +53,11 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView25"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Płeć:"
+            android:textColor="@color/colorWhite"
             android:textSize="18sp" />
 
         <RadioGroup
@@ -63,14 +73,16 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:checked="true"
-                android:text="Kobieta" />
+                android:text="Kobieta"
+                android:textColor="@color/colorWhite" />
 
             <RadioButton
                 android:id="@+id/rbMan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Mężczyzna" />
+                android:text="Mężczyzna"
+                android:textColor="@color/colorWhite" />
         </RadioGroup>
     </LinearLayout>
 
@@ -82,11 +94,11 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView30"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Waga:"
+            android:textColor="@color/colorWhite"
             android:textSize="18sp" />
 
         <EditText
@@ -94,16 +106,20 @@
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:backgroundTint="@color/colorWhite"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="number"
+            android:textColor="@color/colorWhite"
+            android:gravity="center"/>
 
         <TextView
-            android:id="@+id/textView28"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Wzrost:"
-            android:textSize="18sp" />
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            android:layout_marginLeft="5dp"/>
 
         <EditText
             android:id="@+id/etHeight"
@@ -111,16 +127,20 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
+            android:backgroundTint="@color/colorWhite"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="number"
+            android:textColor="@color/colorWhite"
+            android:gravity="center"/>
 
         <TextView
-            android:id="@+id/textView33"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Wiek:"
-            android:textSize="18sp" />
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            android:layout_marginLeft="5dp"/>
 
         <EditText
             android:id="@+id/etAge"
@@ -128,8 +148,11 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
+            android:backgroundTint="@color/colorWhite"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="number"
+            android:textColor="@color/colorWhite"
+            android:gravity="center"/>
     </LinearLayout>
 
     <LinearLayout
@@ -140,18 +163,18 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView27"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Poziom aktywności:"
+            android:textColor="@color/colorWhite"
             android:textSize="18sp" />
 
         <Spinner
             android:id="@+id/spinnerActivityLevel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_marginLeft="5dp" />
 
     </LinearLayout>
 
@@ -159,16 +182,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView29"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:text="Cel wagi:"
+            android:textColor="@color/colorWhite"
             android:textSize="20sp" />
 
         <RadioGroup
@@ -184,21 +207,25 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:checked="true"
-                android:text="Utrata" />
-
-            <RadioButton
-                android:id="@+id/rbGain"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Przybranie" />
+                android:text="Utrata"
+                android:textColor="@color/colorWhite" />
 
             <RadioButton
                 android:id="@+id/rbKeep"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Utrzymanie" />
+                android:text="Utrzymanie"
+                android:textColor="@color/colorWhite" />
+
+            <RadioButton
+                android:id="@+id/rbGain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Przybranie"
+                android:textColor="@color/colorWhite" />
+
         </RadioGroup>
 
     </LinearLayout>
@@ -218,11 +245,10 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView31"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="Zapotrzebowanie:"
+                android:textColor="@color/colorWhite"
                 android:textSize="20sp" />
 
             <TextView
@@ -231,7 +257,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
-                android:textColor="@android:color/holo_green_dark"
+                android:textColor="@android:color/holo_green_light"
                 android:textSize="20sp" />
 
         </LinearLayout>
@@ -239,8 +265,9 @@
         <Button
             android:id="@+id/bCalculate"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_weight="1"
+            android:background="@drawable/button_welcome"
             android:text="Oblicz" />
 
     </LinearLayout>
@@ -251,6 +278,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:text="Zarejestruj" />
+        android:background="@drawable/button_welcome"
+        android:text="Zarejestruj"
+        android:textColor="#253692"
+        android:textStyle="bold" />
 
 </LinearLayout>

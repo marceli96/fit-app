@@ -2,7 +2,7 @@
     <string name="app_name">FitApp</string>
     <string name="nav_home">Strona główna</string>
     <string name="nav_journal">Dziennik</string>
-    <string name="nav_me">Ja</string>
+    <string name="nav_me">Profil</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 

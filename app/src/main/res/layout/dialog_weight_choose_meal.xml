@@ -2,19 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Wpisz wagę posiłku"
+            android:textColor="@android:color/black"
             android:textSize="20sp" />
 
     </LinearLayout>
@@ -22,7 +24,6 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:layout_marginStart="5dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="5dp"
@@ -32,6 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Dodawanie: "
+            android:textColor="@android:color/black"
             android:textSize="18sp" />
 
         <TextView
@@ -40,13 +42,27 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="nazwa produktu"
-            android:textSize="18sp" />
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="5dp"
+        android:text="Składniki"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <ListView
+        android:id="@+id/lvIngredients"
+        android:layout_width="match_parent"
+        android:layout_height="150dp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
@@ -57,6 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Waga:"
+            android:textColor="@android:color/black"
             android:textSize="18sp" />
 
         <EditText
@@ -71,9 +88,9 @@
     <Button
         android:id="@+id/bAddMealToFoodSystem"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_height="40dp"
         android:layout_marginTop="10dp"
+        android:background="@drawable/button_add"
         android:text="Dodaj" />
 
 </LinearLayout>

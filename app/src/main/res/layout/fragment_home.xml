@@ -18,7 +18,8 @@
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:visibility="visible" />
 
         <LinearLayout
             android:id="@+id/llProgressBars"
@@ -253,8 +254,8 @@
                 android:padding="10dp">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
@@ -341,12 +342,13 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/bBreakfast"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="+" />
+                <ImageView
+                    android:id="@+id/imAddBreakfast"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/plus" />
+
             </LinearLayout>
 
             <pl.edu.wat.fitapp.NonScrollListView
@@ -356,6 +358,7 @@
                 android:visibility="visible">
 
             </pl.edu.wat.fitapp.NonScrollListView>
+
         </LinearLayout>
 
         <LinearLayout
@@ -372,8 +375,8 @@
                 android:padding="10dp">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
@@ -462,12 +465,12 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/bSecondBreakfast"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="+" />
+                <ImageView
+                    android:id="@+id/imAddSecondBreakfast"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/plus" />
             </LinearLayout>
 
             <pl.edu.wat.fitapp.NonScrollListView
@@ -477,6 +480,7 @@
                 android:visibility="visible">
 
             </pl.edu.wat.fitapp.NonScrollListView>
+
         </LinearLayout>
 
         <LinearLayout
@@ -493,8 +497,8 @@
                 android:padding="10dp">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
@@ -583,12 +587,12 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/bLunch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="+" />
+                <ImageView
+                    android:id="@+id/imAddLunch"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/plus" />
             </LinearLayout>
 
             <pl.edu.wat.fitapp.NonScrollListView
@@ -597,6 +601,7 @@
                 android:layout_height="wrap_content">
 
             </pl.edu.wat.fitapp.NonScrollListView>
+
         </LinearLayout>
 
         <LinearLayout
@@ -613,8 +618,8 @@
                 android:padding="10dp">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
@@ -703,12 +708,12 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/bDinner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="+" />
+                <ImageView
+                    android:id="@+id/imAddDinner"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/plus" />
             </LinearLayout>
 
             <pl.edu.wat.fitapp.NonScrollListView
@@ -717,6 +722,7 @@
                 android:layout_height="wrap_content">
 
             </pl.edu.wat.fitapp.NonScrollListView>
+
         </LinearLayout>
 
         <LinearLayout
@@ -733,8 +739,8 @@
                 android:padding="10dp">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
@@ -823,12 +829,12 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/bSnack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="+" />
+                <ImageView
+                    android:id="@+id/imAddSnack"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/plus" />
             </LinearLayout>
 
             <pl.edu.wat.fitapp.NonScrollListView
@@ -837,6 +843,7 @@
                 android:layout_height="wrap_content">
 
             </pl.edu.wat.fitapp.NonScrollListView>
+
         </LinearLayout>
 
         <LinearLayout
@@ -853,8 +860,8 @@
                 android:padding="10dp">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
@@ -943,12 +950,12 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/bSupper"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="+" />
+                <ImageView
+                    android:id="@+id/imAddSupper"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/plus" />
             </LinearLayout>
 
             <pl.edu.wat.fitapp.NonScrollListView
@@ -957,6 +964,7 @@
                 android:layout_height="wrap_content">
 
             </pl.edu.wat.fitapp.NonScrollListView>
+
         </LinearLayout>
 
         <LinearLayout
@@ -971,8 +979,8 @@
                 android:padding="10dp">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
@@ -1008,12 +1016,11 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/bTraining"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="+" />
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/plus" />
             </LinearLayout>
 
             <pl.edu.wat.fitapp.NonScrollListView

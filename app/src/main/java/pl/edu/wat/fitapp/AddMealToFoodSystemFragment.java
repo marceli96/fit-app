@@ -70,14 +70,17 @@ public class AddMealToFoodSystemFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 Toast.makeText(getActivity(), "Wybrałeś posiłek o nazwie = " + mealList.get(position).getName(), Toast.LENGTH_SHORT).show();
 
-                // TODO Ewentualane dodanie listy składników posiłku tak jak jest to w FoodSystem
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 final View alertView = getLayoutInflater().inflate(R.layout.dialog_weight_choose_meal, null);
 
                 TextView tvMealName = alertView.findViewById(R.id.tvMealName);
+                ListView lvIngredients = alertView.findViewById(R.id.lvIngredients);
                 Button bAddMealToFoodSystem = alertView.findViewById(R.id.bAddMealToFoodSystem);
 
                 tvMealName.setText(mealList.get(position).getName());
+
+                IngredientsListAdapter adapter = new IngredientsListAdapter(getActivity(), R.layout.listview_adapter_ingredient_with_weight_simple, mealList.get(position).getIngredientList());
+                lvIngredients.setAdapter(adapter);
 
                 builder.setView(alertView);
                 final AlertDialog dialog = builder.create();
@@ -260,6 +263,30 @@ public class AddMealToFoodSystemFragment extends Fragment {
             }
         }
         return -1;
+    }
+
+    class IngredientsListAdapter extends ArrayAdapter<Ingredient>{
+        ArrayList<Ingredient> ingredientList;
+
+        public IngredientsListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Ingredient> objects) {
+            super(context, resource, objects);
+            ingredientList = objects;
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            convertView = getLayoutInflater().inflate(R.layout.listview_adapter_ingredient_with_weight_simple, parent, false);
+
+            TextView tvIngredientName = convertView.findViewById(R.id.tvIngredientName);
+            TextView tvIngredientWeight = convertView.findViewById(R.id.tvIngredientWeight);
+
+            tvIngredientName.setText(ingredientList.get(position).getName());
+            String tempString = ingredientList.get(position).getWeight() + " g";
+            tvIngredientWeight.setText(tempString);
+
+            return convertView;
+        }
     }
 
 }

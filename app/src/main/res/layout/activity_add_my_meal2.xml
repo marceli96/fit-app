@@ -5,14 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddMyMealActivity2"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingHorizontal="5dp">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/progress2"
+        android:layout_marginTop="5dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:paddingHorizontal="10dp">
+        android:paddingHorizontal="10dp"
+        android:layout_marginTop="5dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -25,8 +34,9 @@
         <Button
             android:id="@+id/bAddMyMeal"
             android:layout_width="120dp"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_gravity="end"
+            android:background="@drawable/button_add"
             android:text="Dodaj" />
     </LinearLayout>
 
@@ -263,19 +273,25 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:text="Wybrane składniki ("
-            android:layout_marginLeft="10dp"/>
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tvIngredientAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0" />
+            android:text="0"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=") do posiłku:" />
+            android:text=") do posiłku:"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <ListView
@@ -287,7 +303,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Składniki do wyboru:" />
+        android:text="Składniki do wyboru:"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
 
     <ListView
         android:id="@+id/lvIngredients"

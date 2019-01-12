@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,7 +46,7 @@ public class MeFragment extends Fragment {
 
     private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
 
-    private Button bAddMyMeal, bAddMyTraining;
+    private ImageView imAddMyMeal, imAddMyTraining;
     private TextView tvMyMealsEmpty, tvMyTrainingsEmpty;
     private NonScrollListView lvMyMeals, lvMyTrainings;
     private ImageView imArrowMeals, imArrowTrainings;
@@ -66,10 +67,12 @@ public class MeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ((MainActivity) getActivity()).setActionBarTitle("Profil");
+
         View view = inflater.inflate(R.layout.fragment_me, container, false);
         user = (User) getActivity().getIntent().getSerializableExtra("user");
 
-        bAddMyMeal = view.findViewById(R.id.bAddMyMeal);
+        imAddMyMeal = view.findViewById(R.id.imAddMyMeal);
         tvMyMealsEmpty = view.findViewById(R.id.tvMyMealsEmpty);
         imArrowMeals = view.findViewById(R.id.imArrowMeals);
         llMyMeals = view.findViewById(R.id.llMyMeals);
@@ -146,7 +149,7 @@ public class MeFragment extends Fragment {
             }
         });
 
-        bAddMyMeal.setOnClickListener(new View.OnClickListener() {
+        imAddMyMeal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openAddMyMealActivity1();
@@ -156,7 +159,7 @@ public class MeFragment extends Fragment {
         llMyMeals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(hiddenMyMeals){
+                if (hiddenMyMeals) {
                     lvMyMeals.setVisibility(View.VISIBLE);
                     hiddenMyMeals = false;
                     imArrowMeals.setImageResource(R.drawable.arrow_down);
@@ -206,6 +209,13 @@ public class MeFragment extends Fragment {
                             tvMyMealsEmpty.setVisibility(View.VISIBLE);
                         pbLoadingMeals.setVisibility(View.GONE);
                         myMealsListAdapter.notifyDataSetChanged();
+                        final ScrollView scrollView = getView().findViewById(R.id.scrollView);
+                        scrollView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                scrollView.fullScroll(ScrollView.FOCUS_UP);
+                            }
+                        });
                         Toast.makeText(getActivity(), "Pobrano posiłki", Toast.LENGTH_SHORT).show();
                     } else
                         Toast.makeText(getActivity(), "Blad podczas pobierania posiłków", Toast.LENGTH_SHORT).show();

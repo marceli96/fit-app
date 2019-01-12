@@ -136,8 +136,8 @@ public class MainActivity extends AppCompatActivity {
                 mainNavigation.getMenu().setGroupCheckable(0, false, true);
                 break;
             case R.id.drawer_logout:
-                // TODO zamykanie wszystkich pozostałych okien
                 Intent openWelcomeScreen = new Intent(MainActivity.this, WelcomeActivity.class);
+                openWelcomeScreen.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(openWelcomeScreen);
                 MainActivity.this.finish();
                 break;
@@ -180,5 +180,9 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.mainFrame, fragment);
         fragmentTransaction.commit();
+    }
+
+    public void setActionBarTitle(String title) {
+        getSupportActionBar().setTitle(title);
     }
 }

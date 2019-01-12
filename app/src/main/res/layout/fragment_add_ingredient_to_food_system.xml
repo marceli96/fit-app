@@ -5,11 +5,25 @@
     android:layout_height="match_parent"
     tools:context=".AddIngredientToFoodSystemFragment">
 
-    <ListView
-        android:id="@+id/lvIngredients"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@color/colorWhite"
-        android:dividerHeight="5dp"
-        android:padding="5dp" />
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="Wybierz składnik, który chcesz dodać, a nastepnie wybierz wagę."
+            android:padding="5dp"/>
+
+        <ListView
+            android:id="@+id/lvIngredients"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#000000"
+            android:dividerHeight="1dp"
+            android:padding="5dp" />
+    </LinearLayout>
+
 </FrameLayout>

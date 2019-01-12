@@ -71,6 +71,8 @@ public class JournalFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ((MainActivity) getActivity()).setActionBarTitle("Dziennik");
+
         View view = getLayoutInflater().inflate(R.layout.fragment_journal, container, false);
 
         user = (User) getActivity().getIntent().getSerializableExtra("user");

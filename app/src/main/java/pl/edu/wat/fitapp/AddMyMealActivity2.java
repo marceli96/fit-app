@@ -2,11 +2,13 @@ package pl.edu.wat.fitapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -143,9 +145,14 @@ public class AddMyMealActivity2 extends AppCompatActivity {
                         if (weight.isEmpty())
                             Toast.makeText(AddMyMealActivity2.this, "Wpisz wagę!", Toast.LENGTH_SHORT).show();
                         else {
-                            Ingredient ingredient = ingredients.get(position);
-                            ingredient.setWeight(Integer.parseInt(weight));
-                            mealIngredients.add(ingredient);
+                            Ingredient tempIngredient = null;
+                            try {
+                                tempIngredient = (Ingredient) ingredients.get(position).clone();
+                            } catch (CloneNotSupportedException e) {
+                                e.printStackTrace();
+                            }
+                            tempIngredient.setWeight(Integer.parseInt(weight));
+                            addIngredient(tempIngredient);
                             updateMealMacros();
                             tvIngredientAmount.setText(String.valueOf(mealIngredients.size()));
                             dialog.dismiss();
@@ -178,6 +185,18 @@ public class AddMyMealActivity2 extends AppCompatActivity {
         pbProtein.setMax(minReqProtein);
         pbFat.setMax(minReqFat);
 
+    }
+
+    private void addIngredient(Ingredient ingredient) {
+        for(int i = 0; i < mealIngredients.size(); i++){
+            if(mealIngredients.get(i).getID() == ingredient.getID()){
+                mealIngredients.get(i).setWeight(mealIngredients.get(i).getWeight() + ingredient.getWeight());
+                mealIngredientsAdapter.notifyDataSetChanged();
+                return;
+            }
+        }
+        Log.d("TESTOWANIE", "Dodaje nowy skladnik");
+        mealIngredients.add(ingredient);
     }
 
     private void getIngredients() {
@@ -341,7 +360,7 @@ public class AddMyMealActivity2 extends AppCompatActivity {
             TextView tvIngredientProtein = convertView.findViewById(R.id.tvIngredientProtein);
             TextView tvIngredientFat = convertView.findViewById(R.id.tvIngredientFat);
             TextView tvIngredientCalories = convertView.findViewById(R.id.tvIngredientCalories);
-            Button bDeleteIngredient = convertView.findViewById(R.id.bDeleteIngredient);
+            ImageView imDeleteIngredient = convertView.findViewById(R.id.imDeleteIngredient);
 
             DecimalFormat decimalFormat = new DecimalFormat("0.0");
             String tempString;
@@ -365,7 +384,7 @@ public class AddMyMealActivity2 extends AppCompatActivity {
             tempString = String.valueOf(ingredient.getCalories() * ingredient.getWeight() / 100) + " kcal";
             tvIngredientCalories.setText(tempString);
 
-            bDeleteIngredient.setOnClickListener(new View.OnClickListener() {
+            imDeleteIngredient.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //TODO rozważyć dodania dialogu, który zapyta czy na pewno chcemy tu usnąć
