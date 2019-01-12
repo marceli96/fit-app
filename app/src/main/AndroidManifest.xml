@@ -43,7 +43,9 @@
         <activity
             android:name=".AddMyMealActivity2"
             android:label="Dodawanie posiłku - etap 2/2"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".AddMyTrainingActivity1" />
+        <activity android:name=".AddMyTrainingActivity2"></activity>
     </application>
 
 </manifest>

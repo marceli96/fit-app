@@ -32,6 +32,7 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -46,15 +47,16 @@ public class MeFragment extends Fragment {
 
     private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
 
-    private ImageView imAddMyMeal, imAddMyTraining;
+    private ImageView imAddMyMeal, imAddMyTraining, imArrowMeals, imArrowTrainings;
     private TextView tvMyMealsEmpty, tvMyTrainingsEmpty;
     private NonScrollListView lvMyMeals, lvMyTrainings;
-    private ImageView imArrowMeals, imArrowTrainings;
     private LinearLayout llMyMeals, llMyTrainings;
-    private ProgressBar pbLoadingMeals;
+    private ProgressBar pbLoadingMeals, pbLoadingTrainings;
 
-    private ArrayList<Meal> myMeals, myTrainings;
+    private ArrayList<Meal> myMeals;
+    private ArrayList<Training> myTrainings;
     private MyMealsListAdapter myMealsListAdapter;
+    private MyTrainingsListAdapter myTrainingsListAdapter;
 
     private User user;
 
@@ -73,17 +75,27 @@ public class MeFragment extends Fragment {
         user = (User) getActivity().getIntent().getSerializableExtra("user");
 
         imAddMyMeal = view.findViewById(R.id.imAddMyMeal);
-        tvMyMealsEmpty = view.findViewById(R.id.tvMyMealsEmpty);
+        imAddMyTraining = view.findViewById(R.id.imAddMyTraining);
         imArrowMeals = view.findViewById(R.id.imArrowMeals);
+        imArrowTrainings = view.findViewById(R.id.imArrowTrainings);
+        tvMyMealsEmpty = view.findViewById(R.id.tvMyMealsEmpty);
+        tvMyTrainingsEmpty = view.findViewById(R.id.tvMyTrainingsEmpty);
         llMyMeals = view.findViewById(R.id.llMyMeals);
+        llMyTrainings = view.findViewById(R.id.llMyTrainings);
         pbLoadingMeals = view.findViewById(R.id.pbLoadingMeals);
+        pbLoadingTrainings = view.findViewById(R.id.pbLoadingTrainings);
+        lvMyMeals = view.findViewById(R.id.lvMyMeals);
+        lvMyTrainings = view.findViewById(R.id.lvMyTrainings);
 
         myMeals = new ArrayList<>();
+        myTrainings = new ArrayList<>();
         getMyMeals();
+        getMyTrainings();
 
-        lvMyMeals = view.findViewById(R.id.lvMyMeals);
         myMealsListAdapter = new MyMealsListAdapter(getActivity(), R.layout.listview_adapter_show_foodsystem, myMeals);
         lvMyMeals.setAdapter(myMealsListAdapter);
+        myTrainingsListAdapter = new MyTrainingsListAdapter(getActivity(), R.layout.listview_adapter_training, myTrainings);
+        lvMyTrainings.setAdapter(myTrainingsListAdapter);
 
         lvMyMeals.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -124,24 +136,32 @@ public class MeFragment extends Fragment {
                 tempString = String.valueOf(myMeals.get(position).getIngredientList().size());
                 tvIngredientAmount.setText(tempString);
 
-                final Meal tempMeal = myMeals.get(position);
+                IngredientsListAdapter ingredientsListAdapter = new IngredientsListAdapter(getActivity(), R.layout.listview_adapter_ingredient_with_weight_simple, myMeals.get(position).getIngredientList());
+                lvIngredients.setAdapter(ingredientsListAdapter);
 
-                ArrayAdapter<Ingredient> mealIngredientsAdapter = new ArrayAdapter<Ingredient>(getActivity(), android.R.layout.simple_list_item_2, android.R.id.text1, tempMeal.getIngredientList()) {
-                    @NonNull
-                    @Override
-                    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                        View view = super.getView(position, convertView, parent);
-                        TextView text1 = view.findViewById(android.R.id.text1);
-                        TextView text2 = view.findViewById(android.R.id.text2);
+                builder.setView(alertView);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
 
-                        text1.setText(tempMeal.getIngredientList().get(position).getName());
-                        String tempString = String.valueOf(tempMeal.getIngredientList().get(position).getWeight()) + " g";
-                        text2.setText(tempString);
+        lvMyTrainings.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getActivity(), "Wybrales = " + myTrainings.get(position).getName(), Toast.LENGTH_SHORT).show();
 
-                        return view;
-                    }
-                };
-                lvIngredients.setAdapter(mealIngredientsAdapter);
+                View alertView = getLayoutInflater().inflate(R.layout.dialog_my_training_details, null);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+                TextView tvTrainingName = alertView.findViewById(R.id.tvTrainingName);
+                TextView tvExerciseAmount = alertView.findViewById(R.id.tvExerciseAmount);
+                ListView lvExercises = alertView.findViewById(R.id.lvExercises);
+
+                tvTrainingName.setText(myTrainings.get(position).getName());
+                tvExerciseAmount.setText(String.valueOf(myTrainings.get(position).getExerciseList().size()));
+
+                ExercisesListAdapter exercisesListAdapter = new ExercisesListAdapter(getActivity(), R.layout.listview_adapter_exercise_with_series_repetitions_simple, myTrainings.get(position).getExerciseList());
+                lvExercises.setAdapter(exercisesListAdapter);
 
                 builder.setView(alertView);
                 AlertDialog dialog = builder.create();
@@ -153,6 +173,13 @@ public class MeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 openAddMyMealActivity1();
+            }
+        });
+
+        imAddMyTraining.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openAddMyTrainingActivity1();
             }
         });
 
@@ -171,13 +198,96 @@ public class MeFragment extends Fragment {
             }
         });
 
+        llMyTrainings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (hiddenMyTrainings) {
+                    lvMyTrainings.setVisibility(View.VISIBLE);
+                    hiddenMyTrainings = false;
+                    imArrowTrainings.setImageResource(R.drawable.arrow_down);
+                } else {
+                    lvMyTrainings.setVisibility(View.GONE);
+                    hiddenMyTrainings = true;
+                    imArrowTrainings.setImageResource(R.drawable.arrow_up);
+                }
+            }
+        });
+
         return view;
+    }
+
+    private void getMyTrainings() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
+                    boolean success = jsonResponse.getBoolean("success");
+                    if (success) {
+                        for (int i = 0; i < jsonResponse.length() - 1; i++) {
+                            JSONObject row = jsonResponse.getJSONObject(String.valueOf(i));
+                            int trainingPosition = findTrainingInList(row.getInt("ID_MyTraining"));
+                            if (trainingPosition == -1) {
+                                Training tempTraining = new Training(row.getInt("ID_MyTraining"), row.getString("TrainingName"));
+                                Exercise tempExercise = new Exercise(row.getInt("ID_Exercise"), row.getString("ExerciseName"));
+                                tempExercise.setSeries(row.getInt("MySeries"));
+                                tempExercise.setRepetitions(row.getInt("MyRepetitions"));
+                                tempTraining.addExerciseToList(tempExercise);
+                                myTrainings.add(tempTraining);
+                            } else {
+                                Exercise tempExercise = new Exercise(row.getInt("ID_Exercise"), row.getString("ExerciseName"));
+                                tempExercise.setSeries(row.getInt("MySeries"));
+                                tempExercise.setRepetitions(row.getInt("MyRepetitions"));
+                                myTrainings.get(trainingPosition).addExerciseToList(tempExercise);
+                            }
+                        }
+                        if (myTrainings.size() == 0)
+                            tvMyTrainingsEmpty.setVisibility(View.VISIBLE);
+                        pbLoadingTrainings.setVisibility(View.GONE);
+                        myTrainingsListAdapter.notifyDataSetChanged();
+                    } else
+                        Toast.makeText(getActivity(), "Blad podczas pobierania treningów", Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getActivity(), "Blad podczas pobierania treningów " + e.toString(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity(), "Blad podczas pobierania treningów " + error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("operation", "getMyTrainings");
+                params.put("userId", String.valueOf(user.getUserID()));
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        requestQueue.add(stringRequest);
+    }
+
+    private int findTrainingInList(int trainingId) {
+        for (int i = 0; i < myTrainings.size(); i++) {
+            if (myTrainings.get(i).getID() == trainingId)
+                return i;
+        }
+        return -1;
     }
 
     private void openAddMyMealActivity1() {
         Intent openAddMyMealActivity1 = new Intent(getContext(), AddMyMealActivity1.class);
         openAddMyMealActivity1.putExtra("user", user);
         startActivity(openAddMyMealActivity1);
+    }
+
+    private void openAddMyTrainingActivity1() {
+        Intent openAddMyTrainingActivity1 = new Intent(getContext(), AddMyTrainingActivity1.class);
+        openAddMyTrainingActivity1.putExtra("user", user);
+        startActivity(openAddMyTrainingActivity1);
     }
 
     private void getMyMeals() {
@@ -293,4 +403,73 @@ public class MeFragment extends Fragment {
         }
     }
 
+    class MyTrainingsListAdapter extends ArrayAdapter<Training> {
+
+        public MyTrainingsListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Training> objects) {
+            super(context, resource, objects);
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            convertView = getLayoutInflater().inflate(R.layout.listview_adapter_training, parent, false);
+
+            TextView tvTrainingName = convertView.findViewById(R.id.tvTrainingName);
+            TextView tvExercisesAmount = convertView.findViewById(R.id.tvExercisesAmount);
+
+            tvTrainingName.setText(myTrainings.get(position).getName());
+            tvExercisesAmount.setText(String.valueOf(myTrainings.get(position).getExerciseList().size()));
+
+            return convertView;
+        }
+    }
+
+    class IngredientsListAdapter extends ArrayAdapter<Ingredient>{
+        private ArrayList<Ingredient> ingredientList;
+
+        public IngredientsListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Ingredient> objects) {
+            super(context, resource, objects);
+            ingredientList = objects;
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            convertView = getLayoutInflater().inflate(R.layout.listview_adapter_ingredient_with_weight_simple, parent, false);
+
+            TextView tvIngredientName = convertView.findViewById(R.id.tvIngredientName);
+            TextView tvIngredientWeight = convertView.findViewById(R.id.tvIngredientWeight);
+
+            tvIngredientName.setText(ingredientList.get(position).getName());
+            String tempString = ingredientList.get(position).getWeight() + " g";
+            tvIngredientWeight.setText(tempString);
+
+            return convertView;
+        }
+    }
+
+    class ExercisesListAdapter extends ArrayAdapter<Exercise>{
+        private ArrayList<Exercise> exerciseList;
+
+        public ExercisesListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Exercise> objects) {
+            super(context, resource, objects);
+            exerciseList = objects;
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            convertView = getLayoutInflater().inflate(R.layout.listview_adapter_exercise_with_series_repetitions_simple, parent, false);
+
+            TextView tvExerciseName = convertView.findViewById(R.id.tvExerciseName);
+            TextView tvSeries = convertView.findViewById(R.id.tvSeries);
+            TextView tvRepetitions = convertView.findViewById(R.id.tvRepetitions);
+
+            tvExerciseName.setText(exerciseList.get(position).getName());
+            tvSeries.setText(String.valueOf(exerciseList.get(position).getSeries()));
+            tvRepetitions.setText(String.valueOf(exerciseList.get(position).getRepetitions()));
+
+            return convertView;
+        }
+    }
 }
