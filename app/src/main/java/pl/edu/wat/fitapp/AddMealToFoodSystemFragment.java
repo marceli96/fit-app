@@ -31,7 +31,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -181,11 +183,14 @@ public class AddMealToFoodSystemFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
+                Date date = new Date();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 params.put("operation", "addMealToFoodSystem");
                 params.put("myMealId", String.valueOf(mealId));
                 params.put("userId", String.valueOf(userId));
                 params.put("mealTime", String.valueOf(mealTime));
                 params.put("weight", weight);
+                params.put("date", dateFormat.format(date));
                 return params;
             }
         };

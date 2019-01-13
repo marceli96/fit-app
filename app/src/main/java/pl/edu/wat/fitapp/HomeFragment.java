@@ -869,6 +869,8 @@ public class HomeFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
+                Date date = new Date();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 if (food.getClass() == Ingredient.class) {
                     params.put("operation", "deleteIngredientFromFoodSystem");
                     params.put("ingredientId", String.valueOf(food.getID()));
@@ -880,6 +882,7 @@ public class HomeFragment extends Fragment {
                 params.put("userId", String.valueOf(userId));
                 params.put("mealTime", String.valueOf(mealTime));
                 params.put("weight", String.valueOf(weight));
+                params.put("date", dateFormat.format(date));
                 return params;
             }
         };
