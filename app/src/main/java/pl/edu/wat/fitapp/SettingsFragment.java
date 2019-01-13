@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -29,29 +30,39 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SettingsFragment extends Fragment {
+public class SettingsFragment extends Fragment
+{
 
 
     private HomeFragment homeFragment;
     private EditText etLogin, etEmail, etPassword1, etPassword2;
     private Button bChangeLogin, bChangeEmail, bChangePassword;
+    private TextView tvLogin, tvEmail;
 
     private User user;
     private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
 
-    public SettingsFragment() {
+    public SettingsFragment()
+    {
         // Required empty public constructor
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         // Inflate the layout for this fragment
 
         View view = getLayoutInflater().inflate(R.layout.fragment_settings, container, false);
 
         user = (User) getActivity().getIntent().getSerializableExtra("user");
+
+        tvLogin = view.findViewById(R.id.tvLogin);
+        tvEmail = view.findViewById(R.id.tvEmail);
+
+        tvLogin.setText(user.getUserName());
+        tvEmail.setText(user.getEmail());
 
         etLogin = view.findViewById(R.id.etLogin);
         etEmail = view.findViewById(R.id.etEmail);
@@ -94,43 +105,60 @@ public class SettingsFragment extends Fragment {
         return view;
     }
 
-    public void changeLogin() {
+
+    public void changeLogin()
+    {
         if (!etLogin.getText().toString().isEmpty() && etLogin.getText().toString().length() > 5)
         {
             final String userName = etLogin.getText().toString();
 
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL,
-                    new Response.Listener<String>() {
+                    new Response.Listener<String>()
+                    {
                         @Override
-                        public void onResponse(String response) {
-                            try {
+                        public void onResponse(String response)
+                        {
+                            try
+                            {
                                 JSONObject jsonResponse = new JSONObject(response);
-                                boolean success = jsonResponse.getBoolean("success");
-                                if (success) {
-                                    openHomeActivty();
-                                } else {
-                                    boolean userError = jsonResponse.getBoolean("userError");
-                                    if (userError)
-                                        Toast.makeText(getActivity(), "Nazwa użytkownika jest zajęta", Toast.LENGTH_LONG).show();
+                                boolean available = jsonResponse.getBoolean("available");
+
+                                if (available)
+                                {
+                                    boolean success = jsonResponse.getBoolean("success");
+                                    if(success)
+                                    {
+                                        user.setUserName(userName);
+                                        openHomeActivty();
+                                    }
                                     else
                                         Toast.makeText(getActivity(), "Nieoczekiwany błąd", Toast.LENGTH_LONG).show();
                                 }
-                            } catch (JSONException e) {
+                                else
+                                    Toast.makeText(getActivity(), "Nazwa użytkownika jest zajęta", Toast.LENGTH_LONG).show();
+
+                            }
+                            catch (JSONException e)
+                            {
                                 e.printStackTrace();
                                 Toast.makeText(getActivity(), "Settings error! " + e.toString(), Toast.LENGTH_LONG).show();
                             }
                         }
                     },
-                    new Response.ErrorListener() {
+                    new Response.ErrorListener()
+                    {
                         @Override
-                        public void onErrorResponse(VolleyError error) {
+                        public void onErrorResponse(VolleyError error)
+                        {
                             Toast.makeText(getActivity(), "Settings error! " + error.toString(),
                                     Toast.LENGTH_LONG).show();
                         }
-                    }) {
+                    })
+            {
                 @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
+                protected Map<String, String> getParams() throws AuthFailureError
+                {
                     Map<String, String> params = new HashMap<>();
                     params.put("operation", "setUsername");
                     params.put("userId", String.valueOf(user.getUserID()));
@@ -141,7 +169,9 @@ public class SettingsFragment extends Fragment {
 
             RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
             requestQueue.add(stringRequest);
-        } else {
+        }
+        else
+        {
             if (etLogin.getText().toString().isEmpty())
                 Toast.makeText(getActivity(), "Wprowadź login", Toast.LENGTH_SHORT).show();
             else if(etLogin.getText().toString().length() <= 5)
@@ -150,42 +180,57 @@ public class SettingsFragment extends Fragment {
     }
 
 
-    public void changeEmail() {
+    public void changeEmail()
+    {
         if (!etEmail.getText().toString().isEmpty())
         {
             final String email = etEmail.getText().toString();
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL,
-                    new Response.Listener<String>() {
+                    new Response.Listener<String>()
+                    {
                         @Override
-                        public void onResponse(String response) {
-                            try {
+                        public void onResponse(String response)
+                        {
+                            try
+                            {
                                 JSONObject jsonResponse = new JSONObject(response);
-                                boolean success = jsonResponse.getBoolean("success");
-                                if (success) {
-                                    openHomeActivty();
-                                } else {
-                                    boolean emailError = jsonResponse.getBoolean("emailError");
-                                    if (emailError)
-                                        Toast.makeText(getActivity(), "E-mail jest zajęty", Toast.LENGTH_LONG).show();
+                                boolean available = jsonResponse.getBoolean("available");
+                                if (available)
+                                {
+                                    boolean success = jsonResponse.getBoolean("success");
+                                    if(success)
+                                    {
+                                        user.setEmail(email);
+                                        openHomeActivty();
+                                    }
                                     else
                                         Toast.makeText(getActivity(), "Nieoczekiwany błąd", Toast.LENGTH_LONG).show();
                                 }
-                            } catch (JSONException e) {
+                                else
+                                    Toast.makeText(getActivity(), "E-mail jest zajęty", Toast.LENGTH_LONG).show();
+
+                            }
+                            catch (JSONException e)
+                            {
                                 e.printStackTrace();
                                 Toast.makeText(getActivity(), "Settings error! " + e.toString(), Toast.LENGTH_LONG).show();
                             }
                         }
                     },
-                    new Response.ErrorListener() {
+                    new Response.ErrorListener()
+                    {
                         @Override
-                        public void onErrorResponse(VolleyError error) {
+                        public void onErrorResponse(VolleyError error)
+                        {
                             Toast.makeText(getActivity(), "Settings error! " + error.toString(),
                                     Toast.LENGTH_LONG).show();
                         }
-                    }) {
+                    })
+            {
                 @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
+                protected Map<String, String> getParams() throws AuthFailureError
+                {
                     Map<String, String> params = new HashMap<>();
                     params.put("operation", "setEmail");
                     params.put("userId", String.valueOf(user.getUserID()));
@@ -196,47 +241,57 @@ public class SettingsFragment extends Fragment {
 
             RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
             requestQueue.add(stringRequest);
-        } else {
+        }
+        else
+        {
             Toast.makeText(getActivity(), "Wprowadź e-mail", Toast.LENGTH_SHORT).show();
         }
     }
 
 
-    public void changePassword() {
+    public void changePassword()
+    {
         if (!etPassword1.getText().toString().isEmpty() && etPassword1.getText().toString().length() > 5
                 && etPassword1.getText().toString().equals(etPassword2.getText().toString()))
         {
             final String password = etPassword1.getText().toString();
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL,
-                    new Response.Listener<String>() {
+                    new Response.Listener<String>()
+                    {
                         @Override
-                        public void onResponse(String response) {
-                            try {
+                        public void onResponse(String response)
+                        {
+                            try
+                            {
                                 JSONObject jsonResponse = new JSONObject(response);
                                 boolean success = jsonResponse.getBoolean("success");
-                                if (success) {
+                                if (success)
                                     openHomeActivty();
-                                }
-                                else {
+                                else
                                     Toast.makeText(getActivity(), "Nieoczekiwany błąd", Toast.LENGTH_LONG).show();
-                                }
-                            } catch (JSONException e) {
+                            }
+                            catch (JSONException e)
+                            {
                                 e.printStackTrace();
                                 Toast.makeText(getActivity(), "Settings error! " + e.toString(), Toast.LENGTH_LONG).show();
                             }
 
                         }
                     },
-                    new Response.ErrorListener() {
+                    new Response.ErrorListener()
+                    {
                         @Override
-                        public void onErrorResponse(VolleyError error) {
+                        public void onErrorResponse(VolleyError error)
+                        {
                             Toast.makeText(getActivity(), "Settings error! " + error.toString(),
                                     Toast.LENGTH_LONG).show();
                         }
-                    }) {
+                    })
+            {
                 @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
+                protected Map<String, String> getParams() throws AuthFailureError
+                {
                     Map<String, String> params = new HashMap<>();
                     params.put("operation", "setPassword");
                     params.put("password", password);
@@ -249,7 +304,7 @@ public class SettingsFragment extends Fragment {
 
         }
         else
-            {
+        {
             if (etPassword1.getText().toString().isEmpty())
                 Toast.makeText(getActivity(), "Wprowadź hasło", Toast.LENGTH_SHORT).show();
             else if(!etPassword1.getText().toString().equals(etPassword2.getText().toString()))

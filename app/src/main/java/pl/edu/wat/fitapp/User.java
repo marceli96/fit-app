@@ -14,6 +14,8 @@ public class User implements Serializable {
     private int caloricDemand;
     private int goal;
 
+
+
     public User(int userID, String userName, String email, int sex, int age, int height, int activityLevel, double weight, int caloricDemand, int goal) {
         this.userID = userID;
         this.userName = userName;
@@ -65,5 +67,13 @@ public class User implements Serializable {
 
     public int getGoal() {
         return goal;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
