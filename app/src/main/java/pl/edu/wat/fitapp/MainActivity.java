@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
     private boolean changeDrawerNavigationItem(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.drawer_home:
@@ -173,7 +174,9 @@ public class MainActivity extends AppCompatActivity {
         if (drawerLayout.isDrawerOpen(GravityCompat.START))
             drawerLayout.closeDrawer(GravityCompat.START);
         else
+        {
             super.onBackPressed();
+        }
     }
 
     private void setFragment(Fragment fragment) {
