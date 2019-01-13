@@ -214,6 +214,7 @@ public class AddIngredientToFoodSystemFragment extends Fragment {
         }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
+                // TODO ddodać tuaj i przy posiłku parametr daty - zamiast Current_date w php
                 Map<String, String> params = new HashMap<>();
                 params.put("operation", "addIngredientToFoodSystem");
                 params.put("ingredientId", String.valueOf(ingredientId));

@@ -971,7 +971,8 @@
             android:id="@+id/llTraining"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -994,14 +995,42 @@
                         android:layout_marginRight="10dp"
                         android:src="@drawable/arrow_down" />
 
-                    <TextView
-                        android:id="@+id/tvTraining"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Trening"
-                        android:textColor="@android:color/black"
-                        android:textSize="21sp" />
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvTraining"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Trening"
+                            android:textColor="@android:color/black"
+                            android:textSize="21sp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Liczba ćwiczeń: " />
+
+                            <TextView
+                                android:id="@+id/tvExerciseAmount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="0" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <ImageView

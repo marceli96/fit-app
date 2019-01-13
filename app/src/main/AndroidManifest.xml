@@ -33,7 +33,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AddToFoodSystemActivity"
-            android:label="@string/title_activity_add_to_food_system"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBarWithColor" />
         <activity
@@ -44,8 +43,18 @@
             android:name=".AddMyMealActivity2"
             android:label="Dodawanie posiłku - etap 2/2"
             android:screenOrientation="portrait" />
-        <activity android:name=".AddMyTrainingActivity1" />
-        <activity android:name=".AddMyTrainingActivity2"></activity>
+        <activity
+            android:name=".AddMyTrainingActivity1"
+            android:label="Dodawanie treningu - etap 1/2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AddMyTrainingActivity2"
+            android:label="Dodawanie treningu - etap 2/2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AddToTrainingSystemActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarWithColor"></activity>
     </application>
 
 </manifest>
