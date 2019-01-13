@@ -85,13 +85,14 @@ public class AddTrainingToTrainingSystemFragment extends Fragment {
                 lvTrainingExercises.setAdapter(exercisesListAdapter);
 
                 builder.setView(alertView);
-                AlertDialog dialog = builder.create();
+                final AlertDialog dialog = builder.create();
                 dialog.show();
 
                 bAddTrainingToTrainingSystem.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         addTrainingToTrainingSystem(trainingList.get(position).getID(), user.getUserID());
+                        dialog.dismiss();
                     }
                 });
             }
