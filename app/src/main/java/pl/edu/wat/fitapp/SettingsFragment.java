@@ -45,6 +45,8 @@ public class SettingsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ((MainActivity) getActivity()).setActionBarTitle("Ustawienia");
+
         View view = getLayoutInflater().inflate(R.layout.fragment_settings, container, false);
 
         user = (User) getActivity().getIntent().getSerializableExtra("user");
