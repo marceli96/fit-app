@@ -108,9 +108,9 @@
             android:layout_weight="1"
             android:backgroundTint="@color/colorWhite"
             android:ems="10"
-            android:inputType="number"
-            android:textColor="@color/colorWhite"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:inputType="numberDecimal"
+            android:textColor="@color/colorWhite" />
 
         <TextView
             android:layout_width="wrap_content"

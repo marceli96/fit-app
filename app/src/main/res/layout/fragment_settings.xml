@@ -62,14 +62,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:ems="17" />
+                android:ems="17"
+                android:inputType="textEmailAddress" />
         </LinearLayout>
 
         <EditText
             android:id="@+id/etLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
+            android:layout_marginLeft="70dp"
             android:layout_marginTop="30dp"
             android:ems="11"
             android:hint="Wpisz nowy login"
@@ -79,7 +80,7 @@
             android:id="@+id/bChangeLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="130dp"
+            android:layout_marginLeft="120dp"
             android:layout_marginTop="10dp"
             android:text="Zatwierdź login" />
 
@@ -87,7 +88,7 @@
             android:id="@+id/etEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
+            android:layout_marginLeft="70dp"
             android:layout_marginTop="30dp"
             android:ems="11"
             android:hint="Wpisz nowy e-mail"
@@ -97,7 +98,7 @@
             android:id="@+id/bChangeEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="125dp"
+            android:layout_marginLeft="115dp"
             android:layout_marginTop="10dp"
             android:text="Zatwierdź e-mail" />
 
@@ -105,7 +106,7 @@
             android:id="@+id/etPassword1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
+            android:layout_marginLeft="70dp"
             android:layout_marginTop="30dp"
             android:ems="11"
             android:hint="Wpisz nowe hasło"
@@ -115,7 +116,7 @@
             android:id="@+id/etPassword2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
+            android:layout_marginLeft="70dp"
             android:layout_marginTop="10dp"
             android:ems="11"
             android:hint="Potwierdź nowe hasło"
@@ -125,7 +126,7 @@
             android:id="@+id/bChangePassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="125dp"
+            android:layout_marginLeft="115dp"
             android:layout_marginTop="10dp"
             android:text="Zatwierdź hasło" />
 
