@@ -85,15 +85,15 @@
 
     <EditText
         android:id="@+id/etPassword1"
-        android:layout_width="wrap_content"
+        android:layout_width="190dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:hint="Wpisz nowe hasło"
-        android:inputType="textPassword"
-        android:layout_marginTop="10dp"/>
+        android:inputType="textPassword" />
 
     <EditText
         android:id="@+id/etPassword2"
-        android:layout_width="wrap_content"
+        android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:hint="Potwierdź nowe hasło"
         android:inputType="textPassword" />
