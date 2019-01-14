@@ -54,17 +54,19 @@ public class JournalFragment extends Fragment {
     private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
 
     private TextView tvDate;
-    private LinearLayout llCaloriesWeekly, llCarbohydratesWeekly, llProteinWeekly, llFatWeekly;
-    private BarChart chartCaloriesWeek, chartCarbohydratesWeek, chartProteinWeek, chartFatWeek, chartDaily;
+    private LinearLayout llCaloriesWeekly, llCarbohydratesWeekly, llProteinWeekly, llFatWeekly, llWeightWeekly;
+    private BarChart chartCaloriesWeek, chartCarbohydratesWeek, chartProteinWeek, chartFatWeek, chartDaily, chartWeightWeek;
     private ProgressBar pbLoadingLastWeek, pbLoadingDaily;
     private CalendarView cvDate;
 
     private User user;
     private ArrayList<ArrayList<FoodSystem>> foodSystem1DayBefore, foodSystem2DayBefore, foodSystem3DayBefore,
             foodSystem4DayBefore, foodSystem5DayBefore, foodSystem6DayBefore, foodSystem7DayBefore, foodSystemDate;
-    private int colorCalories, colorCarbohydrates, colorProtein, colorFat;
+    private double[] weight;
+    private int colorCalories, colorCarbohydrates, colorProtein, colorFat, colorWeight;
 
-    public JournalFragment() {
+    public JournalFragment()
+    {
     }
 
 
@@ -81,12 +83,14 @@ public class JournalFragment extends Fragment {
         llCarbohydratesWeekly = view.findViewById(R.id.llCarbohydratesWeekly);
         llProteinWeekly = view.findViewById(R.id.llProteinWeekly);
         llFatWeekly = view.findViewById(R.id.llFatWeekly);
+        llWeightWeekly = view.findViewById(R.id.llWeightWeekly);
         tvDate = view.findViewById(R.id.tvDate);
         chartCaloriesWeek = view.findViewById(R.id.chartCarloriesWeek);
         chartCarbohydratesWeek = view.findViewById(R.id.chartCarbohydratesWeek);
         chartProteinWeek = view.findViewById(R.id.chartProteinWeek);
         chartFatWeek = view.findViewById(R.id.chartFatWeek);
         chartDaily = view.findViewById(R.id.chartDaily);
+        chartWeightWeek = view.findViewById(R.id.chartWeightWeek);
         pbLoadingLastWeek = view.findViewById(R.id.pbLoadingLastWeek);
         pbLoadingDaily = view.findViewById(R.id.pbLoadingDaily);
         cvDate = view.findViewById(R.id.cvDate);
@@ -95,10 +99,12 @@ public class JournalFragment extends Fragment {
         colorCarbohydrates = Color.rgb(67, 153, 70);
         colorProtein = Color.rgb(196, 124, 23);
         colorFat = Color.rgb(198, 188, 7);
+        colorWeight = Color.rgb(237, 41,57);
 
         initializeArrays();
 
         getFoodSystemFromWeek();
+        getWeightFromWeek();
 
         cvDate.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -180,7 +186,7 @@ public class JournalFragment extends Fragment {
                             }
                         }
                         Toast.makeText(getActivity(), "Pobrano do FoodSystem", Toast.LENGTH_SHORT).show();
-                        drawChartsWeekly();
+                        //drawChartsWeekly();
 //                        Log.d("TESTOWANIE", "1day before size = " + foodSystem1DayBefore.size());
 //                        Log.d("TESTOWANIE", "2day before size = " + foodSystem2DayBefore.size());
 //                        Log.d("TESTOWANIE", "3day before size = " + foodSystem3DayBefore.size());
@@ -216,6 +222,65 @@ public class JournalFragment extends Fragment {
                 Date date = new Date();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 params.put("operation", "getFoodSystemFromWeek");
+                params.put("userId", String.valueOf(user.getUserID()));
+                params.put("dateNow", dateFormat.format(date));
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        requestQueue.add(stringRequest);
+    }
+
+
+    private void getWeightFromWeek()
+    {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response)
+            {
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
+                    boolean success = jsonResponse.getBoolean("success");
+                    if (success)
+                    {
+                        weight = new double[7];
+//                        Log.d("TESTOWANIE", "Liczba wynikow = " + (jsonResponse.length() - 1));
+                        for (int i = 0; i < jsonResponse.length() - 1; i++)
+                        {
+                            JSONObject row = jsonResponse.getJSONObject(String.valueOf(i));
+                            weight[i] = row.getDouble("UserWeight");
+                        }
+                        Toast.makeText(getActivity(), "Pobrano do Weight", Toast.LENGTH_SHORT).show();
+                        drawChartsWeekly();
+
+//                        Log.d("testing", String.valueOf(weight[0]));
+//                        Log.d("testing", String.valueOf(weight[1]));
+//                        Log.d("testing", String.valueOf(weight[2]));
+//                        Log.d("testing", String.valueOf(weight[3]));
+//                        Log.d("testing", String.valueOf(weight[4]));
+//                        Log.d("testing", String.valueOf(weight[5]));
+                    }
+                    else
+                        Toast.makeText(getActivity(), "Błąd podczas pobierania do Weight", Toast.LENGTH_SHORT).show();
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getActivity(), "Błąd podczas pobierania do Weight " + e.toString(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity(), "Błąd podczas pobierania do Weight " + error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                Date date = new Date();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                params.put("operation", "getWeightFromWeek");
                 params.put("userId", String.valueOf(user.getUserID()));
                 params.put("dateNow", dateFormat.format(date));
                 return params;
@@ -298,10 +363,13 @@ public class JournalFragment extends Fragment {
         llCarbohydratesWeekly.setVisibility(View.VISIBLE);
         llProteinWeekly.setVisibility(View.VISIBLE);
         llFatWeekly.setVisibility(View.VISIBLE);
+        llWeightWeekly.setVisibility(View.VISIBLE);
+
         chartCaloriesWeek.setVisibility(View.VISIBLE);
         chartCarbohydratesWeek.setVisibility(View.VISIBLE);
         chartProteinWeek.setVisibility(View.VISIBLE);
         chartFatWeek.setVisibility(View.VISIBLE);
+        chartWeightWeek.setVisibility(View.VISIBLE);
 
         Calendar calendar = Calendar.getInstance();
         ArrayList<String> days = new ArrayList<>();
@@ -469,7 +537,54 @@ public class JournalFragment extends Fragment {
         xAxisFat.setGranularity(1);
         xAxisFat.setValueFormatter(new MyXAxisValueFormatter(days));
         xAxisFat.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+
+        //wykres wagi
+        chartWeightWeek.getDescription().setEnabled(false);
+        chartWeightWeek.getLegend().setEnabled(false);
+        chartWeightWeek.setScaleEnabled(false);
+
+        int weightEqualZero = 0;
+        boolean allZero;
+        for (int i = 0; i < 7; i++)
+        {
+            if(weight[i] == 0.0)
+                weightEqualZero++;
+        }
+
+        if(weightEqualZero == 7)
+            allZero = true;
+        else
+            allZero = false;
+
+        if (allZero)
+        {
+            YAxis yAxisLeft = chartWeightWeek.getAxisLeft();
+            YAxis yAxisRight = chartWeightWeek.getAxisRight();
+            yAxisLeft.setAxisMinimum(0);
+            yAxisRight.setAxisMinimum(0);
+        }
+
+        ArrayList<BarEntry> barEntriesWeight = new ArrayList<>();
+        for (int i = 0; i < 7; i++)
+        {
+            barEntriesWeight.add(new BarEntry(i, (float) weight[i]));
+        }
+
+        BarDataSet barDataSetWeight = new BarDataSet(barEntriesWeight, "Test");
+        barDataSetWeight.setValueFormatter(new DoubleValueFormatter());
+        barDataSetWeight.setColors(colorWeight);
+        barDataSetWeight.setValueTextSize(10);
+
+        BarData dataWeight = new BarData(barDataSetWeight);
+        chartWeightWeek.setData(dataWeight);
+
+        XAxis xAxisWeight = chartWeightWeek.getXAxis();
+        xAxisWeight.setGranularity(1);
+        xAxisWeight.setValueFormatter(new MyXAxisValueFormatter(days));
+        xAxisWeight.setPosition(XAxis.XAxisPosition.BOTTOM);
     }
+
 
     private void drawChartsDaily() {
         // TODO ewntualne dodanie 2 data set (wymagane do zjedzenia)
@@ -1054,4 +1169,5 @@ public class JournalFragment extends Fragment {
 
         return fat;
     }
+
 }
