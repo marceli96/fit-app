@@ -41,6 +41,7 @@ import java.util.Map;
 public class AddIngredientToFoodSystemFragment extends Fragment {
 
     private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
+
     private ListView lvIngredients;
     private ArrayList<Ingredient> ingredientList;
     private IngredientListAdapter ingredientListAdapter;
@@ -48,10 +49,8 @@ public class AddIngredientToFoodSystemFragment extends Fragment {
     private User user;
     private int mealTime;
 
-
     public AddIngredientToFoodSystemFragment() {
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -157,19 +156,18 @@ public class AddIngredientToFoodSystemFragment extends Fragment {
                                     ingredient.getInt("Calories")));
                         }
                         ingredientListAdapter.notifyDataSetChanged();
-                        Toast.makeText(getContext(), "Pobrano składniki", Toast.LENGTH_SHORT).show();
                     } else
-                        Toast.makeText(getContext(), "Wystąpił błąd podczas pobierania składników", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(getContext(), "Login error! " + e.toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Błąd połączenia z bazą " + e.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
         },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getContext(), "Login error! " + error.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Błąd połączenia z bazą " + error.toString(), Toast.LENGTH_SHORT).show();
 
                     }
                 }) {

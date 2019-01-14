@@ -26,10 +26,6 @@ public class AddMyMealActivity1 extends AppCompatActivity {
         etMealName = findViewById(R.id.etMealName);
         bSecondStep = findViewById(R.id.bSecondStep);
 
-        //DO TESTOWANIA
-        etMealName.setText("test");
-        //
-
         bSecondStep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

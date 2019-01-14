@@ -68,8 +68,6 @@ public class AddTrainingToTrainingSystemFragment extends Fragment {
         lvTrainings.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                Toast.makeText(getActivity(), "Wybrales = " + trainingList.get(position).getName(), Toast.LENGTH_SHORT).show();
-
                 View alertView = getLayoutInflater().inflate(R.layout.dialog_add_training_to_training_system, null);
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
@@ -179,16 +177,16 @@ public class AddTrainingToTrainingSystemFragment extends Fragment {
                         }
                         trainingListAdapter.notifyDataSetChanged();
                     } else
-                        Toast.makeText(getActivity(), "Blad podczas pobierania treningów", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(getActivity(), "Blad podczas pobierania treningów " + e.toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Błąd połączenia z bazą " + e.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "Blad podczas pobierania treningów " + error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Błąd połączenia z bazą " + error.toString(), Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override

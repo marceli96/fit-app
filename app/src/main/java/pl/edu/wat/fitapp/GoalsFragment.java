@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -33,12 +34,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class GoalsFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
-    private EditText etWeight, etCaloricDemand;
+    private EditText etWeight;
+    TextView tvCaloricDemand;
     private Spinner spinnerLevelActivity;
     private RadioButton rbLose, rbKeep, rbGain;
     private RadioGroup rgGoal;
@@ -61,31 +60,25 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
-    {
+                             Bundle savedInstanceState) {
         View view = getLayoutInflater().inflate(R.layout.fragment_goals, container, false);
         v = view;
 
         user = (User) getActivity().getIntent().getSerializableExtra("user");
 
         etWeight = view.findViewById(R.id.etWeight);
-        etCaloricDemand = view.findViewById(R.id.etCaloricDemand);
-
-
+        tvCaloricDemand = view.findViewById(R.id.tvCaloricDemand);
         spinnerLevelActivity = view.findViewById(R.id.spinnerLevelActivity);
-
         rgGoal = view.findViewById(R.id.rgGoal);
         rbLose = view.findViewById(R.id.rbLose);
         rbKeep = view.findViewById(R.id.rbKeep);
         rbGain = view.findViewById(R.id.rbGain);
-
         bCount = view.findViewById(R.id.bCount);
         bSave = view.findViewById(R.id.bSave);
 
         etWeight.setText(String.valueOf(user.getWeight()));
 
-        switch (user.getGoal())
-        {
+        switch (user.getGoal()) {
             case 0:
                 rbLose.setChecked(true);
                 break;
@@ -104,25 +97,20 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
         spinnerLevelActivity.setOnItemSelectedListener(this);
 
 
-        bCount.setOnClickListener(new View.OnClickListener()
-        {
+        bCount.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 calculateCalories();
             }
         });
 
-        bSave.setOnClickListener(new View.OnClickListener()
-        {
+        bSave.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 save();
             }
         });
 
-        // Inflate the layout for this fragment
         return view;
     }
 
@@ -136,17 +124,15 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
 
     }
 
-    public void calculateCalories()
-    {
+    public void calculateCalories() {
         String goal = getRadioButtonText(rgGoal);
         int sex = user.getSex();
         int age = user.getAge();
         int weight = Integer.parseInt(etWeight.getText().toString());
         int height = user.getHeight();
 
-        if(weight > 0)
-        switch (sex)
-            {
+        if (weight > 0)
+            switch (sex) {
                 case 0:
                     calories = (int) Math.round(655 + (9.6 * weight) + (1.8 * height) - (4.7 * age));
                     if (activityLevel.equals("Brak"))
@@ -165,7 +151,7 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
                     else if (goal.equals("Przybranie"))
                         calories += 250;
 
-                    etCaloricDemand.setText(String.valueOf(calories));
+                    tvCaloricDemand.setText(String.valueOf(calories));
                     break;
                 case 1:
                     calories = (int) Math.round(66 + (13.7 * weight) + (5 * height) - (6.76 * age));
@@ -185,7 +171,7 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
                     else if (goal.equals("Przybranie"))
                         calories += 250;
 
-                    etCaloricDemand.setText(String.valueOf(calories));
+                    tvCaloricDemand.setText(String.valueOf(calories));
                     break;
             }
 
@@ -193,10 +179,8 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
             Toast.makeText(getActivity(), "Masa ciała musi być dodatnia", Toast.LENGTH_SHORT).show();
     }
 
-    public void save()
-    {
-        if (!etWeight.getText().toString().isEmpty())
-        {
+    public void save() {
+        if (!etWeight.getText().toString().isEmpty()) {
             final int userID = user.getUserID();
             final double weight = Double.parseDouble(etWeight.getText().toString());
             final int goal = getGoalInt(getRadioButtonText(rgGoal));
@@ -214,22 +198,21 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
                                 JSONObject jsonResponse = new JSONObject(response);
                                 boolean successUser = jsonResponse.getBoolean("successUser");
                                 boolean successWeight = jsonResponse.getBoolean("successWeight");
-                                if (successUser && successWeight)
+                                if (successUser && successWeight) {
+                                    Toast.makeText(getActivity(), "Dane zaaktualizowane ", Toast.LENGTH_SHORT).show();
                                     openHomeActivty();
-                                else
-                                    Toast.makeText(getActivity(), "Nieoczkiwany błąd, powtórz wcześniej wprowadzone zmiany", Toast.LENGTH_LONG).show();
+                                } else
+                                    Toast.makeText(getActivity(), "Nieoczkiwany błąd, powtórz wcześniej wprowadzone zmiany", Toast.LENGTH_SHORT).show();
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                                Toast.makeText(getActivity(), "Error! Zmiany nie zaaktualizowane. " + e.toString(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(getActivity(), "Błąd połączenia z bazą" + e.toString(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     },
                     new Response.ErrorListener() {
                         @Override
-                        public void onErrorResponse(VolleyError error)
-                        {
-                            Toast.makeText(getActivity(), "Connecting Error! " + error.toString(),
-                                    Toast.LENGTH_LONG).show();
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getActivity(), "Błąd połączenia z bazą " + error.toString(), Toast.LENGTH_SHORT).show();
                         }
                     }) {
                 @Override
@@ -248,20 +231,17 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
 
             RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
             requestQueue.add(stringRequest);
-        }
-        else
+        } else
             Toast.makeText(getActivity(), "Wprowadź wagę", Toast.LENGTH_SHORT).show();
     }
 
-    public String getRadioButtonText(RadioGroup rg)
-    {
+    public String getRadioButtonText(RadioGroup rg) {
         int radioId = rg.getCheckedRadioButtonId();
         RadioButton rb = v.findViewById(radioId);
         return rb.getText().toString();
     }
 
-    public int getGoalInt(String goal)
-    {
+    public int getGoalInt(String goal) {
         if (goal.equals("Utrata"))
             return 0;
         else if (goal.equals("Przybranie"))
@@ -270,8 +250,7 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
             return 2;
     }
 
-    public int getActivityLevelInt()
-    {
+    public int getActivityLevelInt() {
         if (activityLevel.equals("Brak"))
             return 0;
         else if (activityLevel.equals("Niska"))
@@ -284,12 +263,11 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
             return 4;
     }
 
-    public void openHomeActivty()
-    {
+    public void openHomeActivty() {
         Intent openHomeScreen = new Intent(getActivity(), MainActivity.class);
+        openHomeScreen.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         openHomeScreen.putExtra("user", user);
         startActivity(openHomeScreen);
-        Toast.makeText(getActivity(),"Dane zaaktualizowane ", Toast.LENGTH_SHORT).show();
     }
 
 }

@@ -1,6 +1,7 @@
 package pl.edu.wat.fitapp;
 
 import android.content.Intent;
+import android.os.Process;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -12,11 +13,11 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView mainNavigation;
@@ -30,9 +31,9 @@ public class MainActivity extends AppCompatActivity {
     private HomeFragment homeFragment;
     private JournalFragment journalFragment;
     private MeFragment meFragment;
-    private ProgressFragment progressFragment;
     private SettingsFragment settingsFragment;
     private TextView tvUserName, tvEmail;
+
     private User user;
     private String action;
 
@@ -54,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
         homeFragment = new HomeFragment();
         journalFragment = new JournalFragment();
         meFragment = new MeFragment();
-        progressFragment = new ProgressFragment();
         settingsFragment = new SettingsFragment();
 
         toolbar = findViewById(R.id.toolbar);
@@ -116,10 +116,6 @@ public class MainActivity extends AppCompatActivity {
                 setFragment(meFragment);
                 mainNavigation.setSelectedItemId(R.id.navMe);
                 break;
-            case R.id.drawer_progress:
-                setFragment(progressFragment);
-                mainNavigation.getMenu().setGroupCheckable(0, false, true);
-                break;
             case R.id.drawer_goals:
                 setFragment(goalsFragment);
                 mainNavigation.getMenu().setGroupCheckable(0, false, true);
@@ -140,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent openWelcomeScreen = new Intent(MainActivity.this, WelcomeActivity.class);
                 openWelcomeScreen.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(openWelcomeScreen);
+                Toast.makeText(MainActivity.this, "Wylogowano pomyślnie", Toast.LENGTH_SHORT).show();
                 MainActivity.this.finish();
                 break;
         }
@@ -188,4 +185,5 @@ public class MainActivity extends AppCompatActivity {
     public void setActionBarTitle(String title) {
         getSupportActionBar().setTitle(title);
     }
+
 }

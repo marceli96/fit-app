@@ -166,7 +166,6 @@ public class ExportFragment extends Fragment {
                 String path = Environment.getExternalStorageDirectory().getAbsolutePath();
 
                 File file = new File(path, "excel.xls");
-                Log.d("TESTOWANIE", "Ściezka do pliku = " + file.getPath());
 
                 ArrayList<ArrayList<ArrayList<FoodSystem>>> foodSystemWeek = new ArrayList<>();
                 foodSystemWeek.add(foodSystem1DayBefore);
@@ -702,10 +701,10 @@ public class ExportFragment extends Fragment {
                         }
                         getTrainingSystemFromWeek();
                     } else
-                        Toast.makeText(getActivity(), "Błąd podczas pobierania do FoodSystem", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(getActivity(), "Błąd podczas pobierania do FoodSystem " + e.toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Błąd połączenia z bazą " + e.toString(), Toast.LENGTH_SHORT).show();
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -713,7 +712,7 @@ public class ExportFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "Błąd podczas pobierania do FoodSystem " + error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Błąd połączenia z bazą " + error.toString(), Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
@@ -986,10 +985,10 @@ public class ExportFragment extends Fragment {
                         }
                         getCaloricDemandFromWeek();
                     } else
-                        Toast.makeText(getActivity(), "Błąd podczas pobierania do TrainingSystem", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(getActivity(), "Błąd podczas pobierania do TrainingSystem " + e.toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Błąd połączenia z bazą " + e.toString(), Toast.LENGTH_SHORT).show();
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -997,7 +996,7 @@ public class ExportFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "Błąd podczas pobierania do TrainingSystem " + error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Błąd połączenia z bazą " + error.toString(), Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
@@ -1126,10 +1125,10 @@ public class ExportFragment extends Fragment {
                         }
                         getGoalFromWeek();
                     } else
-                        Toast.makeText(getActivity(), "Błąd podczas pobierania kalorii", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(getActivity(), "Błąd podczas pobierania kalorii " + e.toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Błąd połączenia z bazą " + e.toString(), Toast.LENGTH_SHORT).show();
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -1137,7 +1136,7 @@ public class ExportFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "Błąd podczas pobierania kalorii " + error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Błąd połączenia z bazą " + error.toString(), Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
@@ -1192,10 +1191,10 @@ public class ExportFragment extends Fragment {
                         pbLoading.setVisibility(View.GONE);
                         llOptions.setVisibility(View.VISIBLE);
                     } else
-                        Toast.makeText(getActivity(), "Błąd podczas pobierania celi", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(getActivity(), "Błąd podczas pobierania celi " + e.toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Błąd połączenia z bazą " + e.toString(), Toast.LENGTH_SHORT).show();
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -1203,7 +1202,7 @@ public class ExportFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "Błąd podczas pobierania celi " + error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Błąd połączenia z bazą " + error.toString(), Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override

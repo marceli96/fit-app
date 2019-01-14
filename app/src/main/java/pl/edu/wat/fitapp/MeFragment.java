@@ -100,8 +100,6 @@ public class MeFragment extends Fragment {
         lvMyMeals.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "Wybrales = " + myMeals.get(position).getName(), Toast.LENGTH_SHORT).show();
-
                 View alertView = getLayoutInflater().inflate(R.layout.dialog_my_meal_details, null);
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
@@ -148,8 +146,6 @@ public class MeFragment extends Fragment {
         lvMyTrainings.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "Wybrales = " + myTrainings.get(position).getName(), Toast.LENGTH_SHORT).show();
-
                 View alertView = getLayoutInflater().inflate(R.layout.dialog_my_training_details, null);
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
@@ -246,16 +242,16 @@ public class MeFragment extends Fragment {
                         pbLoadingTrainings.setVisibility(View.GONE);
                         myTrainingsListAdapter.notifyDataSetChanged();
                     } else
-                        Toast.makeText(getActivity(), "Blad podczas pobierania treningów", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(getActivity(), "Blad podczas pobierania treningów " + e.toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Błąd połączenia z bazą " + e.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "Blad podczas pobierania treningów " + error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Błąd połączenia z bazą " + error.toString(), Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
@@ -326,18 +322,17 @@ public class MeFragment extends Fragment {
                                 scrollView.fullScroll(ScrollView.FOCUS_UP);
                             }
                         });
-                        Toast.makeText(getActivity(), "Pobrano posiłki", Toast.LENGTH_SHORT).show();
                     } else
-                        Toast.makeText(getActivity(), "Blad podczas pobierania posiłków", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
-                    Toast.makeText(getContext(), "Blad podczas pobierania posiłków " + e.toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Błąd połączenia z bazą " + e.toString(), Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "Blad podczas pobierania posiłków " + error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Błąd połączenia z bazą " + error.toString(), Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
@@ -424,7 +419,7 @@ public class MeFragment extends Fragment {
         }
     }
 
-    class IngredientsListAdapter extends ArrayAdapter<Ingredient>{
+    class IngredientsListAdapter extends ArrayAdapter<Ingredient> {
         private ArrayList<Ingredient> ingredientList;
 
         public IngredientsListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Ingredient> objects) {
@@ -448,7 +443,7 @@ public class MeFragment extends Fragment {
         }
     }
 
-    class ExercisesListAdapter extends ArrayAdapter<Exercise>{
+    class ExercisesListAdapter extends ArrayAdapter<Exercise> {
         private ArrayList<Exercise> exerciseList;
 
         public ExercisesListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Exercise> objects) {

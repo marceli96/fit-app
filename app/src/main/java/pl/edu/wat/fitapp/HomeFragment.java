@@ -570,19 +570,18 @@ public class HomeFragment extends Fragment {
                         foodSystemListSupperAdapter.notifyDataSetChanged();
                         updateMacrosOnMealTimes();
                         updateEatenMacros();
-                        Toast.makeText(getActivity(), "Pobrano do FoodSystem", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(getActivity(), "Błąd podczas pobierania do FoodSystem", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(getActivity(), "Błąd podczas pobierania do FoodSystem " + e.toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Błąd połączenia z bazą " + e.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "Błąd podczas pobierania do FoodSystem " + error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Błąd połączenia z bazą " + error.toString(), Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
@@ -754,8 +753,6 @@ public class HomeFragment extends Fragment {
 
     private void foodSystemOnClick(final int position, final int mealTime, final ArrayList<FoodSystem> tempList) {
 
-        Toast.makeText(getActivity(), "Wybrales = " + tempList.get(position).getName(), Toast.LENGTH_SHORT).show();
-
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         View alertView = getLayoutInflater().inflate(R.layout.dialog_food_system_details, null);
 
@@ -824,7 +821,6 @@ public class HomeFragment extends Fragment {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
                     if (success) {
-                        Toast.makeText(getActivity(), "Pomyślnie usunięto", Toast.LENGTH_SHORT).show();
                         switch (mealTime) {
                             case 0:
                                 foodSystemListBreakfast.remove(food);
@@ -851,6 +847,7 @@ public class HomeFragment extends Fragment {
                                 foodSystemListSupperAdapter.notifyDataSetChanged();
                                 break;
                         }
+                        Toast.makeText(getActivity(), "Pomyślnie usunięto", Toast.LENGTH_SHORT).show();
                         updateMacrosOnMealTimes();
                         updateEatenMacros();
                     } else
@@ -1195,16 +1192,16 @@ public class HomeFragment extends Fragment {
                         trainingSystemListAdapter.notifyDataSetChanged();
                         updateExerciseAmount();
                     } else
-                        Toast.makeText(getActivity(), "Błąd podczas pobieranie do TrainingSystem", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(getActivity(), "Błąd podczas pobieranie do TrainingSystem " + e.toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Błąd połączenia z bazą " + e.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "Błąd podczas pobieranie do TrainingSystem " + error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Błąd połączenia z bazą " + error.toString(), Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
@@ -1246,8 +1243,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void trainingSystemOnClick(final int position) {
-        Toast.makeText(getActivity(), "Wybrales = " + trainingSystem.get(position).getName(), Toast.LENGTH_SHORT).show();
-
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         View alertView = getLayoutInflater().inflate(R.layout.dialog_training_system_details, null);
 

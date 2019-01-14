@@ -25,10 +25,6 @@ public class AddMyTrainingActivity1 extends AppCompatActivity {
         etTrainingName = findViewById(R.id.etTrainingName);
         bSecondStep = findViewById(R.id.bSecondStep);
 
-        // DO TESTOWANIA
-        etTrainingName.setText("trening1");
-        //
-
         bSecondStep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
