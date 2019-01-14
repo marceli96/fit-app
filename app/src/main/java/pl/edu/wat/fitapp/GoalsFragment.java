@@ -61,6 +61,8 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ((MainActivity) getActivity()).setActionBarTitle("Cele");
+
         View view = getLayoutInflater().inflate(R.layout.fragment_goals, container, false);
         v = view;
 
