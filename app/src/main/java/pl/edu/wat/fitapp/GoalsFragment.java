@@ -128,7 +128,7 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
         String goal = getRadioButtonText(rgGoal);
         int sex = user.getSex();
         int age = user.getAge();
-        int weight = Integer.parseInt(etWeight.getText().toString());
+        double weight = Double.parseDouble(etWeight.getText().toString());
         int height = user.getHeight();
 
         if (weight > 0)
