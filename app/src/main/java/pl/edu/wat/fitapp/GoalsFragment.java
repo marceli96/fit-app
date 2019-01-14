@@ -133,9 +133,10 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
 
         if(etWeight.getText().toString().isEmpty())
             Toast.makeText(getActivity(), "Uzupełnij pole 'Masa ciała'" , Toast.LENGTH_SHORT).show();
-
-        if (weight > 0)
-            switch (sex) {
+        else
+        {
+            switch (sex)
+            {
                 case 0:
                     calories = (int) Math.round(655 + (9.6 * weight) + (1.8 * height) - (4.7 * age));
                     if (activityLevel.equals("Brak"))
@@ -177,9 +178,9 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
                     tvCaloricDemand.setText(String.valueOf(calories));
                     break;
             }
+        }
 
-        else
-            Toast.makeText(getActivity(), "Masa ciała musi być dodatnia", Toast.LENGTH_SHORT).show();
+
     }
 
     public void save() {
