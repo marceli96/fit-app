@@ -60,7 +60,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         etLogin.setText("test");
         etPassword.setText("test");
         etEmail.setText("test@test.pl");
-        etWeight.setText("80");
+        etWeight.setText("80.0");
         etHeight.setText("190");
         etAge.setText("22");
         //
@@ -103,7 +103,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             String sex = getRadioButtonText(rgSex);
             String goal = getRadioButtonText(rgWeight);
             int age = Integer.parseInt(etAge.getText().toString());
-            int weight = Integer.parseInt(etWeight.getText().toString());
+            double weight = Double.parseDouble(etWeight.getText().toString());
             int height = Integer.parseInt(etHeight.getText().toString());
 
             if (sex.equals("Kobieta")) {
@@ -166,7 +166,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             final int age = Integer.parseInt(etAge.getText().toString());
             final int height = Integer.parseInt(etHeight.getText().toString());
             final int activityLevelInt = getActivityLevelInt(activityLevel);
-            final int weight = Integer.parseInt(etWeight.getText().toString());
+            final double weight = Double.parseDouble(etWeight.getText().toString());
             final int goal = getGoalInt(getRadioButtonText(rgWeight));
 
             calculateCalories();
@@ -177,25 +177,34 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                         public void onResponse(String response) {
                             try {
                                 JSONObject jsonResponse = new JSONObject(response);
-                                boolean success = jsonResponse.getBoolean("success");
-                                if (success) {
-                                    openLoginActivity();
-                                    RegisterActivity.this.finish();
-                                } else {
-                                    boolean userError = jsonResponse.getBoolean("userError");
-                                    boolean emailError = jsonResponse.getBoolean("emailError");
-                                    if (userError && emailError)
-                                        Toast.makeText(RegisterActivity.this, "Nazwa użytkownika oraz e-mail są zajęte", Toast.LENGTH_LONG).show();
-                                    else if (userError)
-                                        Toast.makeText(RegisterActivity.this, "Nazwa użytkownika jest zajęta", Toast.LENGTH_LONG).show();
-                                    else if (emailError)
-                                        Toast.makeText(RegisterActivity.this, "E-mail jest zajęty", Toast.LENGTH_LONG).show();
+                                boolean availableUserName = jsonResponse.getBoolean("availableUserName");
+                                boolean availableEmail = jsonResponse.getBoolean("availableEmail");
+
+                                if (availableUserName && availableEmail)
+                                {
+                                    boolean success = jsonResponse.getBoolean("success");
+                                    if (success)
+                                    {
+                                        openLoginActivity();
+                                        RegisterActivity.this.finish();
+                                        Toast.makeText(RegisterActivity.this, "Jesteś nowym użytkownikiem! Zaloguj się do serwisu !", Toast.LENGTH_LONG).show();
+                                    }
                                     else
-                                        Toast.makeText(RegisterActivity.this, "Nieoczekiwany błąd", Toast.LENGTH_LONG).show();
+                                    {
+                                        Toast.makeText(RegisterActivity.this, "Nieoczekiwany błąd rejestracji", Toast.LENGTH_LONG).show();
+                                    }
                                 }
-                            } catch (JSONException e) {
+                                else if(!availableUserName && availableEmail)
+                                    Toast.makeText(RegisterActivity.this, "Nazwa użytkownika jest zajęta", Toast.LENGTH_LONG).show();
+                                else if (!availableEmail)
+                                    Toast.makeText(RegisterActivity.this, "E-mail jest zajęty", Toast.LENGTH_LONG).show();
+                                else
+                                    Toast.makeText(RegisterActivity.this, "Błąd połączenia", Toast.LENGTH_LONG).show();
+
+                            }
+                            catch (JSONException e) {
                                 e.printStackTrace();
-                                Toast.makeText(RegisterActivity.this, "Register error! " + e.toString(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(RegisterActivity.this, "Błąd rejestracji " + e.toString(), Toast.LENGTH_LONG).show();
                             }
                         }
                     },
