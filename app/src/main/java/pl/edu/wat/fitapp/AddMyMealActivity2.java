@@ -49,8 +49,10 @@ public class AddMyMealActivity2 extends AppCompatActivity {
     private LinearLayout llShowListView;
     private ImageView imArrow;
     private ListView lvMealIngredients, lvIngredients;
+
     private IngredientsAdapter ingredientsAdapter;
     private MealIngredientsAdapter mealIngredientsAdapter;
+
     private ArrayList<Ingredient> ingredients, mealIngredients;
 
     private User user;
@@ -195,7 +197,6 @@ public class AddMyMealActivity2 extends AppCompatActivity {
                 return;
             }
         }
-        Log.d("TESTOWANIE", "Dodaje nowy skladnik");
         mealIngredients.add(ingredient);
     }
 

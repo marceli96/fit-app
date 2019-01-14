@@ -27,32 +27,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class SettingsFragment extends Fragment
-{
+public class SettingsFragment extends Fragment {
 
+    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
 
-    private HomeFragment homeFragment;
     private EditText etLogin, etEmail, etPassword1, etPassword2;
     private Button bChangeLogin, bChangeEmail, bChangePassword;
     private TextView tvLogin, tvEmail;
 
     private User user;
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
 
-    public SettingsFragment()
-    {
-        // Required empty public constructor
+
+    public SettingsFragment() {
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
-    {
-        // Inflate the layout for this fragment
+                             Bundle savedInstanceState) {
+        ((MainActivity) getActivity()).setActionBarTitle("Ustawienia");
 
         View view = getLayoutInflater().inflate(R.layout.fragment_settings, container, false);
 
@@ -71,9 +64,7 @@ public class SettingsFragment extends Fragment
 
         bChangeLogin = view.findViewById(R.id.bChangeLogin);
         bChangeEmail = view.findViewById(R.id.bChangeEmail);
-        bChangePassword= view.findViewById(R.id.bChangePassword);
-
-        homeFragment = new HomeFragment();
+        bChangePassword = view.findViewById(R.id.bChangePassword);
 
         bChangeLogin.setOnClickListener(new View.OnClickListener() {
 
@@ -106,59 +97,43 @@ public class SettingsFragment extends Fragment
     }
 
 
-    public void changeLogin()
-    {
-        if (!etLogin.getText().toString().isEmpty() && etLogin.getText().toString().length() > 5)
-        {
+    public void changeLogin() {
+        if (!etLogin.getText().toString().isEmpty() && etLogin.getText().toString().length() > 5) {
             final String userName = etLogin.getText().toString();
 
-
             StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL,
-                    new Response.Listener<String>()
-                    {
+                    new Response.Listener<String>() {
                         @Override
-                        public void onResponse(String response)
-                        {
-                            try
-                            {
+                        public void onResponse(String response) {
+                            try {
                                 JSONObject jsonResponse = new JSONObject(response);
                                 boolean available = jsonResponse.getBoolean("available");
-
-                                if (available)
-                                {
+                                if (available) {
                                     boolean success = jsonResponse.getBoolean("success");
-                                    if(success)
-                                    {
+                                    if (success) {
                                         user.setUserName(userName);
-                                        openHomeActivty();
-                                    }
-                                    else
+                                        Toast.makeText(getActivity(), "Login zmieniony pomyślnie", Toast.LENGTH_LONG).show();
+                                        openHomeActivity();
+                                    } else
                                         Toast.makeText(getActivity(), "Nieoczekiwany błąd", Toast.LENGTH_LONG).show();
-                                }
-                                else
+                                } else
                                     Toast.makeText(getActivity(), "Nazwa użytkownika jest zajęta", Toast.LENGTH_LONG).show();
 
-                            }
-                            catch (JSONException e)
-                            {
+                            } catch (JSONException e) {
                                 e.printStackTrace();
                                 Toast.makeText(getActivity(), "Settings error! " + e.toString(), Toast.LENGTH_LONG).show();
                             }
                         }
                     },
-                    new Response.ErrorListener()
-                    {
+                    new Response.ErrorListener() {
                         @Override
-                        public void onErrorResponse(VolleyError error)
-                        {
+                        public void onErrorResponse(VolleyError error) {
                             Toast.makeText(getActivity(), "Settings error! " + error.toString(),
                                     Toast.LENGTH_LONG).show();
                         }
-                    })
-            {
+                    }) {
                 @Override
-                protected Map<String, String> getParams() throws AuthFailureError
-                {
+                protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> params = new HashMap<>();
                     params.put("operation", "setUsername");
                     params.put("userId", String.valueOf(user.getUserID()));
@@ -169,68 +144,51 @@ public class SettingsFragment extends Fragment
 
             RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
             requestQueue.add(stringRequest);
-        }
-        else
-        {
+        } else {
             if (etLogin.getText().toString().isEmpty())
                 Toast.makeText(getActivity(), "Wprowadź login", Toast.LENGTH_SHORT).show();
-            else if(etLogin.getText().toString().length() <= 5)
+            else if (etLogin.getText().toString().length() <= 5)
                 Toast.makeText(getActivity(), "Login musi mieć conajmniej 6 znaków", Toast.LENGTH_SHORT).show();
         }
     }
 
-
-    public void changeEmail()
-    {
-        if (!etEmail.getText().toString().isEmpty())
-        {
+    public void changeEmail() {
+        if (!etEmail.getText().toString().isEmpty()) {
             final String email = etEmail.getText().toString();
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL,
-                    new Response.Listener<String>()
-                    {
+                    new Response.Listener<String>() {
                         @Override
-                        public void onResponse(String response)
-                        {
-                            try
-                            {
+                        public void onResponse(String response) {
+                            try {
                                 JSONObject jsonResponse = new JSONObject(response);
                                 boolean available = jsonResponse.getBoolean("available");
-                                if (available)
-                                {
+                                if (available) {
                                     boolean success = jsonResponse.getBoolean("success");
-                                    if(success)
-                                    {
+                                    if (success) {
                                         user.setEmail(email);
-                                        openHomeActivty();
-                                    }
-                                    else
+                                        Toast.makeText(getActivity(), "E-mail zmieniony pomyślnie", Toast.LENGTH_LONG).show();
+                                        openHomeActivity();
+                                    } else
                                         Toast.makeText(getActivity(), "Nieoczekiwany błąd", Toast.LENGTH_LONG).show();
-                                }
-                                else
+                                } else
                                     Toast.makeText(getActivity(), "E-mail jest zajęty", Toast.LENGTH_LONG).show();
 
-                            }
-                            catch (JSONException e)
-                            {
+                            } catch (JSONException e) {
                                 e.printStackTrace();
                                 Toast.makeText(getActivity(), "Settings error! " + e.toString(), Toast.LENGTH_LONG).show();
                             }
                         }
                     },
-                    new Response.ErrorListener()
-                    {
+                    new Response.ErrorListener() {
                         @Override
-                        public void onErrorResponse(VolleyError error)
-                        {
+                        public void onErrorResponse(VolleyError error) {
                             Toast.makeText(getActivity(), "Settings error! " + error.toString(),
                                     Toast.LENGTH_LONG).show();
                         }
-                    })
-            {
+                    }) {
                 @Override
-                protected Map<String, String> getParams() throws AuthFailureError
-                {
+                protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> params = new HashMap<>();
                     params.put("operation", "setEmail");
                     params.put("userId", String.valueOf(user.getUserID()));
@@ -241,60 +199,47 @@ public class SettingsFragment extends Fragment
 
             RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
             requestQueue.add(stringRequest);
-        }
-        else
-        {
+        } else {
             Toast.makeText(getActivity(), "Wprowadź e-mail", Toast.LENGTH_SHORT).show();
         }
     }
 
-
-    public void changePassword()
-    {
+    public void changePassword() {
         if (!etPassword1.getText().toString().isEmpty() && etPassword1.getText().toString().length() > 5
-                && etPassword1.getText().toString().equals(etPassword2.getText().toString()))
-        {
+                && etPassword1.getText().toString().equals(etPassword2.getText().toString())) {
             final String password = etPassword1.getText().toString();
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL,
-                    new Response.Listener<String>()
-                    {
+                    new Response.Listener<String>() {
                         @Override
-                        public void onResponse(String response)
-                        {
-                            try
-                            {
+                        public void onResponse(String response) {
+                            try {
                                 JSONObject jsonResponse = new JSONObject(response);
                                 boolean success = jsonResponse.getBoolean("success");
-                                if (success)
-                                    openHomeActivty();
-                                else
+                                if (success) {
+                                    Toast.makeText(getActivity(), "Hasło zmienione pomyślnie", Toast.LENGTH_LONG).show();
+                                    openHomeActivity();
+                                } else
                                     Toast.makeText(getActivity(), "Nieoczekiwany błąd", Toast.LENGTH_LONG).show();
-                            }
-                            catch (JSONException e)
-                            {
+                            } catch (JSONException e) {
                                 e.printStackTrace();
                                 Toast.makeText(getActivity(), "Settings error! " + e.toString(), Toast.LENGTH_LONG).show();
                             }
 
                         }
                     },
-                    new Response.ErrorListener()
-                    {
+                    new Response.ErrorListener() {
                         @Override
-                        public void onErrorResponse(VolleyError error)
-                        {
-                            Toast.makeText(getActivity(), "Settings error! " + error.toString(),
-                                    Toast.LENGTH_LONG).show();
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getActivity(), "Settings error! " + error.toString(), Toast.LENGTH_LONG).show();
                         }
-                    })
-            {
+                    }) {
                 @Override
-                protected Map<String, String> getParams() throws AuthFailureError
-                {
+                protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> params = new HashMap<>();
                     params.put("operation", "setPassword");
                     params.put("password", password);
+                    params.put("userId", String.valueOf(user.getUserID()));
                     return params;
                 }
             };
@@ -302,20 +247,17 @@ public class SettingsFragment extends Fragment
             RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
             requestQueue.add(stringRequest);
 
-        }
-        else
-        {
+        } else {
             if (etPassword1.getText().toString().isEmpty())
                 Toast.makeText(getActivity(), "Wprowadź hasło", Toast.LENGTH_SHORT).show();
-            else if(!etPassword1.getText().toString().equals(etPassword2.getText().toString()))
+            else if (!etPassword1.getText().toString().equals(etPassword2.getText().toString()))
                 Toast.makeText(getActivity(), "Hasła się różnią", Toast.LENGTH_SHORT).show();
-            else if(etPassword1.getText().toString().length() <= 5)
+            else if (etPassword1.getText().toString().length() <= 5)
                 Toast.makeText(getActivity(), "Hasło musi mieć conajmniej 6 znaków", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void openHomeActivty()
-    {
+    public void openHomeActivity() {
         Intent openHomeScreen = new Intent(getActivity(), MainActivity.class);
         openHomeScreen.putExtra("user", user);
         startActivity(openHomeScreen);

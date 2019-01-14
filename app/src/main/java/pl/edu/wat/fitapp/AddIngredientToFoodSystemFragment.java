@@ -31,7 +31,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -214,12 +216,16 @@ public class AddIngredientToFoodSystemFragment extends Fragment {
         }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
+                // TODO ddodać tuaj i przy posiłku parametr daty - zamiast Current_date w php
                 Map<String, String> params = new HashMap<>();
+                Date date = new Date();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 params.put("operation", "addIngredientToFoodSystem");
                 params.put("ingredientId", String.valueOf(ingredientId));
                 params.put("userId", String.valueOf(userID));
                 params.put("mealTime", String.valueOf(mealTime));
                 params.put("weight", weight);
+                params.put("date", dateFormat.format(date));
                 return params;
             }
         };
