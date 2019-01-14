@@ -196,20 +196,6 @@ public class JournalFragment extends Fragment {
                         }
                         Toast.makeText(getActivity(), "Pobrano do FoodSystem", Toast.LENGTH_SHORT).show();
                         drawChartsWeekly();
-//                        Log.d("TESTOWANIE", "1day before size = " + foodSystem1DayBefore.size());
-//                        Log.d("TESTOWANIE", "2day before size = " + foodSystem2DayBefore.size());
-//                        Log.d("TESTOWANIE", "3day before size = " + foodSystem3DayBefore.size());
-//                        Log.d("TESTOWANIE", "4day before size = " + foodSystem4DayBefore.size());
-//                        Log.d("TESTOWANIE", "5day before size = " + foodSystem5DayBefore.size());
-//                        Log.d("TESTOWANIE", "6day before size = " + foodSystem6DayBefore.size());
-//                        Log.d("TESTOWANIE", "6day before size = " + foodSystem7DayBefore.size());
-
-//                        Log.d("TESTOWANIE", "Kalorie z dnia - 1 = " + getCaloriesFromList(foodSystem1DayBefore));
-//                        Log.d("TESTOWANIE", "Kalorie z dnia - 2 = " + getCaloriesFromList(foodSystem2DayBefore));
-//                        Log.d("TESTOWANIE", "Kalorie z dnia - 3 = " + getCaloriesFromList(foodSystem3DayBefore));
-//                        Log.d("TESTOWANIE", "Kalorie z dnia - 4 = " + getCaloriesFromList(foodSystem4DayBefore));
-//                        Log.d("TESTOWANIE", "Kalorie z dnia - 5 = " + getCaloriesFromList(foodSystem5DayBefore));
-//                        Log.d("TESTOWANIE", "Kalorie z dnia - 6 = " + getCaloriesFromList(foodSystem6DayBefore));
                     } else
                         Toast.makeText(getActivity(), "Błąd podczas pobierania do FoodSystem", Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {

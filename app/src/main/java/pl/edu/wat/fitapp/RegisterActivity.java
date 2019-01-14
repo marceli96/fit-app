@@ -25,10 +25,15 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+
+    private final String REGISTER_URL = "http://fitappliaction.cba.pl/register.php";
+
     private EditText etLogin, etPassword, etEmail, etAge, etWeight, etHeight;
     private RadioGroup rgSex, rgWeight;
     private TextView tvCalories;
@@ -37,7 +42,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
 
     private String activityLevel;
     private int calories;
-    private final String REGISTER_URL = "http://fitappliaction.cba.pl/register.php";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,15 +60,6 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         bCalculate = findViewById(R.id.bCalculate);
         rgSex = findViewById(R.id.rgSex);
         rgWeight = findViewById(R.id.rgWeight);
-
-        // DO TESTOWANIA
-        etLogin.setText("test");
-        etPassword.setText("test");
-        etEmail.setText("test@test.pl");
-        etWeight.setText("80.0");
-        etHeight.setText("190");
-        etAge.setText("22");
-        //
 
         spinner = findViewById(R.id.spinnerActivityLevel);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -99,7 +95,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     }
 
     public void calculateCalories() {
-        if(!etAge.getText().toString().isEmpty() && !etWeight.getText().toString().isEmpty() && !etHeight.getText().toString().isEmpty()){
+        if (!etAge.getText().toString().isEmpty() && !etWeight.getText().toString().isEmpty() && !etHeight.getText().toString().isEmpty()) {
             String sex = getRadioButtonText(rgSex);
             String goal = getRadioButtonText(rgWeight);
             int age = Integer.parseInt(etAge.getText().toString());
@@ -146,11 +142,11 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                 tvCalories.setText(String.valueOf(calories));
             }
         } else {
-            if(etAge.getText().toString().isEmpty())
+            if (etAge.getText().toString().isEmpty())
                 Toast.makeText(RegisterActivity.this, "Wprowadź swój wiek", Toast.LENGTH_SHORT).show();
-            else if(etWeight.getText().toString().isEmpty())
+            else if (etWeight.getText().toString().isEmpty())
                 Toast.makeText(RegisterActivity.this, "Wprowadź swoją wagę", Toast.LENGTH_SHORT).show();
-            else if(etHeight.getText().toString().isEmpty())
+            else if (etHeight.getText().toString().isEmpty())
                 Toast.makeText(RegisterActivity.this, "Wprowadź swój wzrost", Toast.LENGTH_SHORT).show();
         }
     }
@@ -180,44 +176,39 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                                 boolean availableUserName = jsonResponse.getBoolean("availableUserName");
                                 boolean availableEmail = jsonResponse.getBoolean("availableEmail");
 
-                                if (availableUserName && availableEmail)
-                                {
+                                if (availableUserName && availableEmail) {
                                     boolean success = jsonResponse.getBoolean("success");
-                                    if (success)
-                                    {
+                                    if (success) {
                                         openLoginActivity();
                                         RegisterActivity.this.finish();
-                                        Toast.makeText(RegisterActivity.this, "Jesteś nowym użytkownikiem! Zaloguj się do serwisu !", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(RegisterActivity.this, "Jesteś nowym użytkownikiem! Zaloguj się do serwisu!", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(RegisterActivity.this, "Nieoczekiwany błąd rejestracji", Toast.LENGTH_SHORT).show();
                                     }
-                                    else
-                                    {
-                                        Toast.makeText(RegisterActivity.this, "Nieoczekiwany błąd rejestracji", Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                                else if(!availableUserName && availableEmail)
-                                    Toast.makeText(RegisterActivity.this, "Nazwa użytkownika jest zajęta", Toast.LENGTH_LONG).show();
+                                } else if (!availableUserName && availableEmail)
+                                    Toast.makeText(RegisterActivity.this, "Nazwa użytkownika jest zajęta", Toast.LENGTH_SHORT).show();
                                 else if (!availableEmail)
-                                    Toast.makeText(RegisterActivity.this, "E-mail jest zajęty", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(RegisterActivity.this, "E-mail jest zajęty", Toast.LENGTH_SHORT).show();
                                 else
-                                    Toast.makeText(RegisterActivity.this, "Błąd połączenia", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(RegisterActivity.this, "Błąd połączenia", Toast.LENGTH_SHORT).show();
 
-                            }
-                            catch (JSONException e) {
+                            } catch (JSONException e) {
                                 e.printStackTrace();
-                                Toast.makeText(RegisterActivity.this, "Błąd rejestracji " + e.toString(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(RegisterActivity.this, "Błąd połączenia z bazą! " + e.toString(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     },
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(RegisterActivity.this, "Register error! " + error.toString(),
-                                    Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegisterActivity.this, "Błąd połączenia z bazą! " + error.toString(), Toast.LENGTH_LONG).show();
                         }
                     }) {
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> params = new HashMap<>();
+                    Date date = new Date();
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                     params.put("userName", userName);
                     params.put("password", password);
                     params.put("email", email);
@@ -228,6 +219,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                     params.put("caloricDemand", String.valueOf(calories));
                     params.put("weight", String.valueOf(weight));
                     params.put("goal", String.valueOf(goal));
+                    params.put("date", dateFormat.format(date));
                     return params;
                 }
             };
@@ -247,9 +239,9 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                 Toast.makeText(RegisterActivity.this, "Wprowadź swój wzrost", Toast.LENGTH_SHORT).show();
             else if (etWeight.getText().toString().isEmpty())
                 Toast.makeText(RegisterActivity.this, "Wprowadź swoją wagę", Toast.LENGTH_SHORT).show();
-            else if(etLogin.getText().toString().length() <= 5)
+            else if (etLogin.getText().toString().length() <= 5)
                 Toast.makeText(RegisterActivity.this, "Login musi mieć conajmniej 6 znaków", Toast.LENGTH_SHORT).show();
-            else if(etPassword.getText().toString().length() <= 5)
+            else if (etPassword.getText().toString().length() <= 5)
                 Toast.makeText(RegisterActivity.this, "Hasło musi mieć conajmniej 6 znaków", Toast.LENGTH_SHORT).show();
         }
     }

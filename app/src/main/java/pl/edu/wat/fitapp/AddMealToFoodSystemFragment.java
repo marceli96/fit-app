@@ -40,6 +40,7 @@ import java.util.Map;
 public class AddMealToFoodSystemFragment extends Fragment {
 
     private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
+
     private ListView lvMeals;
     private ArrayList<Meal> mealList;
     private MealListAdapter mealListAdapter;
@@ -70,8 +71,6 @@ public class AddMealToFoodSystemFragment extends Fragment {
         lvMeals.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                Toast.makeText(getActivity(), "Wybrałeś posiłek o nazwie = " + mealList.get(position).getName(), Toast.LENGTH_SHORT).show();
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 final View alertView = getLayoutInflater().inflate(R.layout.dialog_weight_choose_meal, null);
 
@@ -232,12 +231,11 @@ public class AddMealToFoodSystemFragment extends Fragment {
                             }
                         }
                         mealListAdapter.notifyDataSetChanged();
-                        Toast.makeText(getActivity(), "Pobrano posiłki", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(getActivity(), "Blad podczas pobierania posiłków", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
-                    Toast.makeText(getContext(), "Blad podczas pobierania posiłków " + e.toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Błąd połączenia z bazą " + e.toString(), Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
 
@@ -245,7 +243,7 @@ public class AddMealToFoodSystemFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "Blad podczas pobierania posiłków " + error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Błąd połączenia z bazą " + error.toString(), Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override

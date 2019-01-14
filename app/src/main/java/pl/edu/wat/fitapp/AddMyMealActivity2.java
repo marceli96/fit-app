@@ -125,8 +125,6 @@ public class AddMyMealActivity2 extends AppCompatActivity {
         lvIngredients.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                Toast.makeText(AddMyMealActivity2.this, "Wybrales skladnik o nazwie = " + ingredients.get(position).getName(), Toast.LENGTH_SHORT).show();
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(AddMyMealActivity2.this);
                 final View alertView = getLayoutInflater().inflate(R.layout.dialog_weight_choose_inredient, null);
 
@@ -190,8 +188,8 @@ public class AddMyMealActivity2 extends AppCompatActivity {
     }
 
     private void addIngredient(Ingredient ingredient) {
-        for(int i = 0; i < mealIngredients.size(); i++){
-            if(mealIngredients.get(i).getID() == ingredient.getID()){
+        for (int i = 0; i < mealIngredients.size(); i++) {
+            if (mealIngredients.get(i).getID() == ingredient.getID()) {
                 mealIngredients.get(i).setWeight(mealIngredients.get(i).getWeight() + ingredient.getWeight());
                 mealIngredientsAdapter.notifyDataSetChanged();
                 return;
@@ -215,22 +213,20 @@ public class AddMyMealActivity2 extends AppCompatActivity {
                                     ingredient.getInt("Calories")));
                         }
                         ingredientsAdapter.notifyDataSetChanged();
-                        Toast.makeText(AddMyMealActivity2.this, "Pobrano składniki", Toast.LENGTH_SHORT).show();
                     } else
-                        Toast.makeText(AddMyMealActivity2.this, "Wystąpił błąd podczas pobierania składników", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddMyMealActivity2.this, "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(AddMyMealActivity2.this, "Wystąpił błąd podczas pobierania składników " + e.toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddMyMealActivity2.this, "Błąd połączenia z bazą " + e.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(AddMyMealActivity2.this, "Wystąpił błąd podczas pobierania składników " + error.toString(), Toast.LENGTH_SHORT).show();
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(AddMyMealActivity2.this, "Błąd połączenia z bazą " + error.toString(), Toast.LENGTH_SHORT).show();
 
-                    }
-                }) {
+            }
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
@@ -244,7 +240,7 @@ public class AddMyMealActivity2 extends AppCompatActivity {
     }
 
     private void addMyMeal() {
-        if(mealIngredients.size() > 0){
+        if (mealIngredients.size() > 0) {
             String ingredientIds = "";
             String ingredientWeights = "";
             for (int i = 0; i < mealIngredients.size(); i++) {
@@ -266,7 +262,7 @@ public class AddMyMealActivity2 extends AppCompatActivity {
                         JSONObject jsonResponse = new JSONObject(response);
                         boolean success = jsonResponse.getBoolean("success");
                         if (success) {
-                            Toast.makeText(AddMyMealActivity2.this, "Dodane posiłek", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddMyMealActivity2.this, "Dodano posiłek", Toast.LENGTH_SHORT).show();
                             openMeFragment();
                         } else {
                             Toast.makeText(AddMyMealActivity2.this, "Blad podczas dodawania posiłku", Toast.LENGTH_SHORT).show();
@@ -301,6 +297,7 @@ public class AddMyMealActivity2 extends AppCompatActivity {
 
     private void openMeFragment() {
         Intent openMeFragment = new Intent(AddMyMealActivity2.this, MainActivity.class);
+        openMeFragment.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         openMeFragment.putExtra("user", user);
         openMeFragment.putExtra("action", "openMeFragment");
         startActivity(openMeFragment);

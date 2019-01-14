@@ -69,8 +69,6 @@ public class AddExerciseToTrainingSystemFragment extends Fragment {
         lvExercises.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                Toast.makeText(getActivity(), "Wybrales skladnik o nazwie = " + exerciseList.get(position).getName(), Toast.LENGTH_SHORT).show();
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 View alertView = getLayoutInflater().inflate(R.layout.dialog_choose_series_repetitions_exercise, null);
 
@@ -173,18 +171,17 @@ public class AddExerciseToTrainingSystemFragment extends Fragment {
                             exerciseList.add(new Exercise(exercise.getInt("ID_Exercise"), exercise.getString("ExerciseName")));
                         }
                         exercisesAdapter.notifyDataSetChanged();
-                        Toast.makeText(getActivity(), "Pobrano ćwiczenia", Toast.LENGTH_SHORT).show();
                     } else
-                        Toast.makeText(getActivity(), "Wystąpił błąd podczas pobierania ćwiczeń", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(getActivity(), "Wystąpił błąd podczas pobierania ćwiczeń " + e.toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Błąd połączenia z bazą " + e.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "Wystąpił błąd podczas pobierania ćwiczeń " + error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Błąd połączenia z bazą " + error.toString(), Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override

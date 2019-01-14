@@ -259,9 +259,8 @@ public class SettingsFragment extends Fragment {
 
     public void openHomeActivity() {
         Intent openHomeScreen = new Intent(getActivity(), MainActivity.class);
+        openHomeScreen.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         openHomeScreen.putExtra("user", user);
         startActivity(openHomeScreen);
     }
-
-
 }

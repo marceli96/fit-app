@@ -213,6 +213,7 @@ public class AddMyTrainingActivity2 extends AppCompatActivity {
 
     private void openMeFragment() {
         Intent openMeFragment = new Intent(AddMyTrainingActivity2.this, MainActivity.class);
+        openMeFragment.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         openMeFragment.putExtra("user", user);
         openMeFragment.putExtra("action", "openMeFragment");
         startActivity(openMeFragment);
@@ -243,7 +244,6 @@ public class AddMyTrainingActivity2 extends AppCompatActivity {
                             exercises.add(new Exercise(exercise.getInt("ID_Exercise"), exercise.getString("ExerciseName")));
                         }
                         exercisesAdapter.notifyDataSetChanged();
-                        Toast.makeText(AddMyTrainingActivity2.this, "Pobrano ćwiczenia", Toast.LENGTH_SHORT).show();
                     } else
                         Toast.makeText(AddMyTrainingActivity2.this, "Wystąpił błąd podczas pobierania ćwiczeń", Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {

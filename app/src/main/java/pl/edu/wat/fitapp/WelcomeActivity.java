@@ -23,16 +23,21 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class WelcomeActivity extends AppCompatActivity {
+
+    private final String LOGIN_URL = "http://fitappliaction.cba.pl/login.php";
+    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
+
     private EditText etLogin, etPassword;
     private Button bLogin, bRegister;
     private ProgressBar pbLogin;
-    private User user;
 
-    private final String LOGIN_URL = "http://fitappliaction.cba.pl/login.php";
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +50,6 @@ public class WelcomeActivity extends AppCompatActivity {
         bRegister = findViewById(R.id.bRegister);
         pbLogin = findViewById(R.id.pbLogin);
 
-        //DO TESTOWANIA
-        etLogin.setText("admin");
-        etPassword.setText("admin");
-        //
-
         bRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,68 +60,97 @@ public class WelcomeActivity extends AppCompatActivity {
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pbLogin.setVisibility(View.VISIBLE);
-                login();
+                if (!etLogin.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty()) {
+                    pbLogin.setVisibility(View.VISIBLE);
+                    moveWeight();
+                } else {
+                    pbLogin.setVisibility(View.INVISIBLE);
+                    if (etLogin.getText().toString().isEmpty())
+                        Toast.makeText(WelcomeActivity.this, "Wpisz login", Toast.LENGTH_SHORT).show();
+                    else if (etPassword.getText().toString().isEmpty())
+                        Toast.makeText(WelcomeActivity.this, "Wpisz hasło", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
+    private void moveWeight() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                login();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                Date date = new Date();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                params.put("operation", "moveWeight");
+                params.put("userName", etLogin.getText().toString());
+                params.put("dateNow", dateFormat.format(date));
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(WelcomeActivity.this);
+        requestQueue.add(stringRequest);
+    }
+
     private void login() {
-        if(!etLogin.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty()){
-            final String userName = etLogin.getText().toString();
-            final String password = etPassword.getText().toString();
+        final String userName = etLogin.getText().toString();
+        final String password = etPassword.getText().toString();
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, LOGIN_URL,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            try {
-                                JSONObject jsonResponse = new JSONObject(response);
-                                boolean success = jsonResponse.getBoolean("success");
-                                if(success){
-                                    // TODO Zmienić w bazie na CaloricDemAnd
-                                    JSONObject jsonObject = jsonResponse.getJSONObject("0");
-                                    JSONObject jsonObject1 = jsonResponse.getJSONObject("1");
-                                    user = new User(jsonObject.getInt("ID_User"), jsonObject.getString("UserName"),
-                                            jsonObject.getString("Email"), jsonObject.getInt("Sex"), jsonObject.getInt("Age"),
-                                            jsonObject.getInt("Height"), jsonObject.getInt("ActivityLevel"), jsonObject1.getDouble("UserWeight"),
-                                            jsonObject1.getInt("CaloricDemend"), jsonObject1.getInt("Goal"));
-                                    openMainActivity();
-                                    WelcomeActivity.this.finish();
-                                } else {
-                                    pbLogin.setVisibility(View.INVISIBLE);
-                                    Toast.makeText(WelcomeActivity.this, "Błędne dane", Toast.LENGTH_LONG).show();
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                Toast.makeText(WelcomeActivity.this, "Login error! " + e.toString(), Toast.LENGTH_LONG).show();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, LOGIN_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            boolean success = jsonResponse.getBoolean("success");
+                            if (success) {
+                                JSONObject jsonObject = jsonResponse.getJSONObject("0");
+                                JSONObject jsonObject1 = jsonResponse.getJSONObject("1");
+                                user = new User(jsonObject.getInt("ID_User"), jsonObject.getString("UserName"),
+                                        jsonObject.getString("Email"), jsonObject.getInt("Sex"), jsonObject.getInt("Age"),
+                                        jsonObject.getInt("Height"), jsonObject.getInt("ActivityLevel"), jsonObject1.getDouble("UserWeight"),
+                                        jsonObject1.getInt("CaloricDemend"), jsonObject1.getInt("Goal"));
+                                openMainActivity();
+                                Toast.makeText(WelcomeActivity.this, "Zalogowano pomyślnie", Toast.LENGTH_SHORT).show();
+                                WelcomeActivity.this.finish();
+                            } else {
+                                pbLogin.setVisibility(View.INVISIBLE);
+                                Toast.makeText(WelcomeActivity.this, "Błędne dane", Toast.LENGTH_LONG).show();
                             }
+                        } catch (JSONException e) {
+                            pbLogin.setVisibility(View.INVISIBLE);
+                            e.printStackTrace();
+                            Toast.makeText(WelcomeActivity.this, "Błąd połączenia z bazą! " + e.toString(), Toast.LENGTH_LONG).show();
                         }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(WelcomeActivity.this, "Login error! " + error.toString(), Toast.LENGTH_LONG).show();
-                        }
-                    })
-            {
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<>();
-                    params.put("userName", userName);
-                    params.put("password", password);
-                    return params;
-                }
-            };
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        pbLogin.setVisibility(View.INVISIBLE);
+                        Toast.makeText(WelcomeActivity.this, "Błąd połączenia z bazą! " + error.toString(), Toast.LENGTH_LONG).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("userName", userName);
+                params.put("password", password);
+                return params;
+            }
+        };
 
-            RequestQueue requestQueue = Volley.newRequestQueue(this);
-            requestQueue.add(stringRequest);
-        } else {
-         if(etLogin.getText().toString().isEmpty())
-             Toast.makeText(WelcomeActivity.this, "Wpisz login", Toast.LENGTH_SHORT).show();
-         else if (etPassword.getText().toString().isEmpty())
-             Toast.makeText(WelcomeActivity.this, "Wpisz hasło", Toast.LENGTH_SHORT).show();
-        }
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
 
     private void openMainActivity() {
