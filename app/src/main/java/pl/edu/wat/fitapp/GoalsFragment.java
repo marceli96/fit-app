@@ -128,13 +128,14 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
         String goal = getRadioButtonText(rgGoal);
         int sex = user.getSex();
         int age = user.getAge();
-        double weight = Double.parseDouble(etWeight.getText().toString());
         int height = user.getHeight();
 
-        if(etWeight.getText().toString().isEmpty())
+        if(etWeight.getText().toString().isEmpty()) {
             Toast.makeText(getActivity(), "Uzupełnij pole 'Masa ciała'" , Toast.LENGTH_SHORT).show();
+        }
         else
         {
+            double weight = Double.parseDouble(etWeight.getText().toString());
             switch (sex)
             {
                 case 0:
@@ -236,7 +237,7 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
             RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
             requestQueue.add(stringRequest);
         } else
-            Toast.makeText(getActivity(), "Wprowadź wagę", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Uzupełnij pole 'Masa ciała'", Toast.LENGTH_SHORT).show();
     }
 
     public String getRadioButtonText(RadioGroup rg) {
