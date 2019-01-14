@@ -62,8 +62,10 @@ public class JournalFragment extends Fragment {
     private User user;
     private ArrayList<ArrayList<FoodSystem>> foodSystem1DayBefore, foodSystem2DayBefore, foodSystem3DayBefore,
             foodSystem4DayBefore, foodSystem5DayBefore, foodSystem6DayBefore, foodSystem7DayBefore, foodSystemDate;
+    private ArrayList<String> days;
     private double[] weight;
     private int colorCalories, colorCarbohydrates, colorProtein, colorFat, colorWeight;
+
 
     public JournalFragment()
     {
@@ -186,7 +188,7 @@ public class JournalFragment extends Fragment {
                             }
                         }
                         Toast.makeText(getActivity(), "Pobrano do FoodSystem", Toast.LENGTH_SHORT).show();
-                        //drawChartsWeekly();
+                        drawChartsWeekly();
 //                        Log.d("TESTOWANIE", "1day before size = " + foodSystem1DayBefore.size());
 //                        Log.d("TESTOWANIE", "2day before size = " + foodSystem2DayBefore.size());
 //                        Log.d("TESTOWANIE", "3day before size = " + foodSystem3DayBefore.size());
@@ -251,7 +253,7 @@ public class JournalFragment extends Fragment {
                             weight[i] = row.getDouble("UserWeight");
                         }
                         Toast.makeText(getActivity(), "Pobrano do Weight", Toast.LENGTH_SHORT).show();
-                        drawChartsWeekly();
+                        drawChartsWeeklyWeight();
 
 //                        Log.d("testing", String.valueOf(weight[0]));
 //                        Log.d("testing", String.valueOf(weight[1]));
@@ -363,16 +365,15 @@ public class JournalFragment extends Fragment {
         llCarbohydratesWeekly.setVisibility(View.VISIBLE);
         llProteinWeekly.setVisibility(View.VISIBLE);
         llFatWeekly.setVisibility(View.VISIBLE);
-        llWeightWeekly.setVisibility(View.VISIBLE);
 
         chartCaloriesWeek.setVisibility(View.VISIBLE);
         chartCarbohydratesWeek.setVisibility(View.VISIBLE);
         chartProteinWeek.setVisibility(View.VISIBLE);
         chartFatWeek.setVisibility(View.VISIBLE);
-        chartWeightWeek.setVisibility(View.VISIBLE);
+
 
         Calendar calendar = Calendar.getInstance();
-        ArrayList<String> days = new ArrayList<>();
+        days = new ArrayList<>();
         Date today = new Date();
 
         calendar.setTime(today);
@@ -538,6 +539,14 @@ public class JournalFragment extends Fragment {
         xAxisFat.setValueFormatter(new MyXAxisValueFormatter(days));
         xAxisFat.setPosition(XAxis.XAxisPosition.BOTTOM);
 
+    }
+
+    private void drawChartsWeeklyWeight() {
+        // TODO ewntualne dodanie 2 data set (wymagane do zjedzenia)
+
+
+        llWeightWeekly.setVisibility(View.VISIBLE);
+        chartWeightWeek.setVisibility(View.VISIBLE);
 
         //wykres wagi
         chartWeightWeek.getDescription().setEnabled(false);
@@ -546,19 +555,17 @@ public class JournalFragment extends Fragment {
 
         int weightEqualZero = 0;
         boolean allZero;
-        for (int i = 0; i < 7; i++)
-        {
-            if(weight[i] == 0.0)
+        for (int i = 0; i < 7; i++) {
+            if (weight[i] == 0.0)
                 weightEqualZero++;
         }
 
-        if(weightEqualZero == 7)
+        if (weightEqualZero == 7)
             allZero = true;
         else
             allZero = false;
 
-        if (allZero)
-        {
+        if (allZero) {
             YAxis yAxisLeft = chartWeightWeek.getAxisLeft();
             YAxis yAxisRight = chartWeightWeek.getAxisRight();
             yAxisLeft.setAxisMinimum(0);
@@ -566,8 +573,7 @@ public class JournalFragment extends Fragment {
         }
 
         ArrayList<BarEntry> barEntriesWeight = new ArrayList<>();
-        for (int i = 0; i < 7; i++)
-        {
+        for (int i = 0; i < 7; i++) {
             barEntriesWeight.add(new BarEntry(i, (float) weight[i]));
         }
 
@@ -584,7 +590,6 @@ public class JournalFragment extends Fragment {
         xAxisWeight.setValueFormatter(new MyXAxisValueFormatter(days));
         xAxisWeight.setPosition(XAxis.XAxisPosition.BOTTOM);
     }
-
 
     private void drawChartsDaily() {
         // TODO ewntualne dodanie 2 data set (wymagane do zjedzenia)
