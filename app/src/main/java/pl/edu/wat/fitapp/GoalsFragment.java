@@ -85,10 +85,10 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
                 rbLose.setChecked(true);
                 break;
             case 1:
-                rbKeep.setChecked(true);
+                rbGain.setChecked(true);
                 break;
             case 2:
-                rbGain.setChecked(true);
+                rbKeep.setChecked(true);
                 break;
         }
 
@@ -97,6 +97,7 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerLevelActivity.setAdapter(adapter);
         spinnerLevelActivity.setOnItemSelectedListener(this);
+        spinnerLevelActivity.setSelection(user.getActivityLevel());
 
 
         bCount.setOnClickListener(new View.OnClickListener() {
