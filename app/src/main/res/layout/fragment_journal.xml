@@ -243,5 +243,28 @@
             android:layout_marginBottom="10dp"
             android:visibility="gone"></com.github.mikephil.charting.charts.BarChart>
 
+        <LinearLayout
+            android:id="@+id/llWeightDay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tvWeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:text="Waga w tym dniu:" />
+
+            <TextView
+                android:id="@+id/tvWeightDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:ems="3" />
+        </LinearLayout>
+
     </LinearLayout>
 </ScrollView>

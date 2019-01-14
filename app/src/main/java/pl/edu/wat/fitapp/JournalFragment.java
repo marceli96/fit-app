@@ -53,8 +53,8 @@ public class JournalFragment extends Fragment {
 
     private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
 
-    private TextView tvDate;
-    private LinearLayout llCaloriesWeekly, llCarbohydratesWeekly, llProteinWeekly, llFatWeekly, llWeightWeekly;
+    private TextView tvDate, tvWeightDay;
+    private LinearLayout llCaloriesWeekly, llCarbohydratesWeekly, llProteinWeekly, llFatWeekly, llWeightWeekly, llWeightDay;
     private BarChart chartCaloriesWeek, chartCarbohydratesWeek, chartProteinWeek, chartFatWeek, chartDaily, chartWeightWeek;
     private ProgressBar pbLoadingLastWeek, pbLoadingDaily;
     private CalendarView cvDate;
@@ -63,9 +63,10 @@ public class JournalFragment extends Fragment {
     private ArrayList<ArrayList<FoodSystem>> foodSystem1DayBefore, foodSystem2DayBefore, foodSystem3DayBefore,
             foodSystem4DayBefore, foodSystem5DayBefore, foodSystem6DayBefore, foodSystem7DayBefore, foodSystemDate;
     private ArrayList<String> days;
-    private double[] weight;
+    private double[] weightWeek;
+    private double weightDay;
     private int colorCalories, colorCarbohydrates, colorProtein, colorFat, colorWeight;
-
+    private MyXAxisValueFormatter myXAxisValueFormatter;
 
     public JournalFragment()
     {
@@ -86,7 +87,9 @@ public class JournalFragment extends Fragment {
         llProteinWeekly = view.findViewById(R.id.llProteinWeekly);
         llFatWeekly = view.findViewById(R.id.llFatWeekly);
         llWeightWeekly = view.findViewById(R.id.llWeightWeekly);
+        llWeightDay = view.findViewById(R.id.llWeightDay);
         tvDate = view.findViewById(R.id.tvDate);
+        tvWeightDay = view.findViewById(R.id.tvWeightDay);
         chartCaloriesWeek = view.findViewById(R.id.chartCarloriesWeek);
         chartCarbohydratesWeek = view.findViewById(R.id.chartCarbohydratesWeek);
         chartProteinWeek = view.findViewById(R.id.chartProteinWeek);
@@ -108,14 +111,18 @@ public class JournalFragment extends Fragment {
         getFoodSystemFromWeek();
         getWeightFromWeek();
 
-        cvDate.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+        cvDate.setOnDateChangeListener(new CalendarView.OnDateChangeListener()
+        {
             @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth)
+            {
                 chartDaily.setVisibility(View.GONE);
                 String date = year + "-" + (month + 1) + "-" + dayOfMonth;
                 tvDate.setText(date);
+                llWeightDay.setVisibility(View.GONE);
                 clearFoodSystemDate();
                 getFoodSystemFromDay(date);
+                getWeightFromDay(date);
             }
         });
 
@@ -231,12 +238,12 @@ public class JournalFragment extends Fragment {
                     boolean success = jsonResponse.getBoolean("success");
                     if (success)
                     {
-                        weight = new double[7];
+                        weightWeek = new double[7];
 //                        Log.d("TESTOWANIE", "Liczba wynikow = " + (jsonResponse.length() - 1));
                         for (int i = 0; i < jsonResponse.length() - 1; i++)
                         {
                             JSONObject row = jsonResponse.getJSONObject(String.valueOf(i));
-                            weight[i] = row.getDouble("UserWeight");
+                            weightWeek[i] = row.getDouble("UserWeight");
                         }
                         Toast.makeText(getActivity(), "Pobrano do Weight", Toast.LENGTH_SHORT).show();
                         drawChartsWeeklyWeight();
@@ -334,6 +341,61 @@ public class JournalFragment extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("operation", "getFoodSystemFromDay");
+                params.put("userId", String.valueOf(user.getUserID()));
+                params.put("date", date);
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        requestQueue.add(stringRequest);
+    }
+
+
+    private void getWeightFromDay(final String date)
+    {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response)
+            {
+                try
+                {
+                    JSONObject jsonResponse = new JSONObject(response);
+//                    Log.d("TESTOWANIE", "Dlugosc odpowiedzi = " + jsonResponse.length());
+                    boolean success = jsonResponse.getBoolean("success");
+                    if (success)
+                    {
+                        for (int i = 0; i < jsonResponse.length() - 1; i++)
+                        {
+                            JSONObject row = jsonResponse.getJSONObject(String.valueOf(i));
+                            String a = row.getString("UserWeight");
+                            weightDay = Double.parseDouble(a);
+                            llWeightDay.setVisibility(View.VISIBLE);
+                            tvWeightDay.setText(String.valueOf(weightDay));
+                        }
+                    }
+                    else
+                    {
+                        Toast.makeText(getActivity(), "Błąd podczas pobierania wagi z dnia", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<>();
+                params.put("operation", "getWeight");
                 params.put("userId", String.valueOf(user.getUserID()));
                 params.put("date", date);
                 return params;
@@ -484,9 +546,10 @@ public class JournalFragment extends Fragment {
         BarData dataProtein = new BarData(barDataSetProtein);
         chartProteinWeek.setData(dataProtein);
 
+        myXAxisValueFormatter = new MyXAxisValueFormatter((days));
         XAxis xAxisProtein = chartProteinWeek.getXAxis();
         xAxisProtein.setGranularity(1);
-        xAxisProtein.setValueFormatter(new MyXAxisValueFormatter(days));
+        xAxisProtein.setValueFormatter(myXAxisValueFormatter);
         xAxisProtein.setPosition(XAxis.XAxisPosition.BOTTOM);
 
         //wykres tłuszczu
@@ -522,7 +585,7 @@ public class JournalFragment extends Fragment {
 
         XAxis xAxisFat = chartFatWeek.getXAxis();
         xAxisFat.setGranularity(1);
-        xAxisFat.setValueFormatter(new MyXAxisValueFormatter(days));
+        xAxisFat.setValueFormatter(myXAxisValueFormatter);
         xAxisFat.setPosition(XAxis.XAxisPosition.BOTTOM);
 
     }
@@ -542,7 +605,7 @@ public class JournalFragment extends Fragment {
         int weightEqualZero = 0;
         boolean allZero;
         for (int i = 0; i < 7; i++) {
-            if (weight[i] == 0.0)
+            if (weightWeek[i] == 0.0)
                 weightEqualZero++;
         }
 
@@ -560,7 +623,7 @@ public class JournalFragment extends Fragment {
 
         ArrayList<BarEntry> barEntriesWeight = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
-            barEntriesWeight.add(new BarEntry(i, (float) weight[i]));
+            barEntriesWeight.add(new BarEntry(i, (float) weightWeek[i]));
         }
 
         BarDataSet barDataSetWeight = new BarDataSet(barEntriesWeight, "Test");
@@ -573,7 +636,7 @@ public class JournalFragment extends Fragment {
 
         XAxis xAxisWeight = chartWeightWeek.getXAxis();
         xAxisWeight.setGranularity(1);
-        xAxisWeight.setValueFormatter(new MyXAxisValueFormatter(days));
+        xAxisWeight.setValueFormatter(myXAxisValueFormatter);
         xAxisWeight.setPosition(XAxis.XAxisPosition.BOTTOM);
     }
 
