@@ -131,6 +131,9 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
         double weight = Double.parseDouble(etWeight.getText().toString());
         int height = user.getHeight();
 
+        if(etWeight.getText().toString().isEmpty())
+            Toast.makeText(getActivity(), "Uzupełnij pole 'Masa ciała'" , Toast.LENGTH_SHORT).show();
+
         if (weight > 0)
             switch (sex) {
                 case 0:
