@@ -23,6 +23,8 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +35,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private User user;
 
     private final String LOGIN_URL = "http://fitappliaction.cba.pl/login.php";
+    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,36 @@ public class WelcomeActivity extends AppCompatActivity {
         });
     }
 
+    private void moveWeight(final int userID) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                openMainActivity();
+                Toast.makeText(WelcomeActivity.this, "Zalogowano pomyślnie", Toast.LENGTH_SHORT).show();
+                WelcomeActivity.this.finish();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                Date date = new Date();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                params.put("operation", "moveWeight");
+                params.put("userId", String.valueOf(userID));
+                params.put("dateNow", dateFormat.format(date));
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(WelcomeActivity.this);
+        requestQueue.add(stringRequest);
+    }
+
     private void login() {
         if(!etLogin.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty()){
             final String userName = etLogin.getText().toString();
@@ -86,8 +119,7 @@ public class WelcomeActivity extends AppCompatActivity {
                                             jsonObject.getString("Email"), jsonObject.getInt("Sex"), jsonObject.getInt("Age"),
                                             jsonObject.getInt("Height"), jsonObject.getInt("ActivityLevel"), jsonObject1.getDouble("UserWeight"),
                                             jsonObject1.getInt("CaloricDemend"), jsonObject1.getInt("Goal"));
-                                    openMainActivity();
-                                    WelcomeActivity.this.finish();
+                                    moveWeight(user.getUserID());
                                 } else {
                                     pbLogin.setVisibility(View.INVISIBLE);
                                     Toast.makeText(WelcomeActivity.this, "Błędne dane", Toast.LENGTH_LONG).show();

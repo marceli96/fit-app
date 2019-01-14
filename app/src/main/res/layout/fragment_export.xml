@@ -5,12 +5,92 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ExportFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Eksportowanie szczegółowych danych z ostatniego tygodnia do pliku Excel"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textSize="18sp" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Eksportowanie danych do pliku pdf"
-        android:textAppearance="@style/TextAppearance.AppCompat" />
+        android:layout_height="wrap_content"
+        android:text="Wybór danych:"
+        android:layout_marginTop="10dp"/>
+
+    <LinearLayout
+        android:id="@+id/llOptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <CheckBox
+            android:id="@+id/cbBreakfast"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Śniadanie" />
+
+        <CheckBox
+            android:id="@+id/cbSecondBreakfast"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Drugie śniadanie" />
+
+        <CheckBox
+            android:id="@+id/cbLunch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lunch" />
+
+        <CheckBox
+            android:id="@+id/cbDinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Obiad" />
+
+        <CheckBox
+            android:id="@+id/cbSnack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Przekąska" />
+
+        <CheckBox
+            android:id="@+id/cbSupper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Kolacja" />
+
+        <CheckBox
+            android:id="@+id/cbTraining"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Trening" />
+
+        <CheckBox
+            android:id="@+id/cbSummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Podsumowanie dnia" />
+
+        <Button
+            android:id="@+id/bGenerate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_next"
+            android:text="Wygeneruj"
+            android:textColor="@color/colorWhite" />
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/pbLoading"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
