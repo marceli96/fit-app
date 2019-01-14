@@ -68,8 +68,7 @@ public class JournalFragment extends Fragment {
     private int colorCalories, colorCarbohydrates, colorProtein, colorFat, colorWeight;
     private MyXAxisValueFormatter myXAxisValueFormatter;
 
-    public JournalFragment()
-    {
+    public JournalFragment() {
     }
 
 
@@ -104,18 +103,16 @@ public class JournalFragment extends Fragment {
         colorCarbohydrates = Color.rgb(67, 153, 70);
         colorProtein = Color.rgb(196, 124, 23);
         colorFat = Color.rgb(198, 188, 7);
-        colorWeight = Color.rgb(237, 41,57);
+        colorWeight = Color.rgb(237, 41, 57);
 
         initializeArrays();
 
         getFoodSystemFromWeek();
         getWeightFromWeek();
 
-        cvDate.setOnDateChangeListener(new CalendarView.OnDateChangeListener()
-        {
+        cvDate.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth)
-            {
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 chartDaily.setVisibility(View.GONE);
                 String date = year + "-" + (month + 1) + "-" + dayOfMonth;
                 tvDate.setText(date);
@@ -164,7 +161,6 @@ public class JournalFragment extends Fragment {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
                     if (success) {
-                        Log.d("TESTOWANIE", "Liczba wynikow = " + (jsonResponse.length() - 3));
                         for (int i = 0; i < jsonResponse.length() - 3; i++) {
                             JSONObject row = jsonResponse.getJSONObject(String.valueOf(i));
                             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -194,13 +190,12 @@ public class JournalFragment extends Fragment {
                                 addIngredientToFoodSystemListForDate(tempIngredient, date, row.getInt("MealTime"));
                             }
                         }
-                        Toast.makeText(getActivity(), "Pobrano do FoodSystem", Toast.LENGTH_SHORT).show();
                         drawChartsWeekly();
                     } else
-                        Toast.makeText(getActivity(), "Błąd podczas pobierania do FoodSystem", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(getActivity(), "Błąd podczas pobierania do FoodSystem " + e.toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Błąd połączenia z bazą " + e.toString(), Toast.LENGTH_SHORT).show();
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -208,7 +203,7 @@ public class JournalFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "Błąd podczas pobierania do FoodSystem " + error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Błąd połączenia z bazą " + error.toString(), Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
@@ -227,47 +222,31 @@ public class JournalFragment extends Fragment {
     }
 
 
-    private void getWeightFromWeek()
-    {
+    private void getWeightFromWeek() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
             @Override
-            public void onResponse(String response)
-            {
+            public void onResponse(String response) {
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
-                    if (success)
-                    {
+                    if (success) {
                         weightWeek = new double[7];
-//                        Log.d("TESTOWANIE", "Liczba wynikow = " + (jsonResponse.length() - 1));
-                        for (int i = 0; i < jsonResponse.length() - 1; i++)
-                        {
+                        for (int i = 0; i < jsonResponse.length() - 1; i++) {
                             JSONObject row = jsonResponse.getJSONObject(String.valueOf(i));
                             weightWeek[i] = row.getDouble("UserWeight");
                         }
-                        Toast.makeText(getActivity(), "Pobrano do Weight", Toast.LENGTH_SHORT).show();
                         drawChartsWeeklyWeight();
-
-//                        Log.d("testing", String.valueOf(weight[0]));
-//                        Log.d("testing", String.valueOf(weight[1]));
-//                        Log.d("testing", String.valueOf(weight[2]));
-//                        Log.d("testing", String.valueOf(weight[3]));
-//                        Log.d("testing", String.valueOf(weight[4]));
-//                        Log.d("testing", String.valueOf(weight[5]));
-                    }
-                    else
-                        Toast.makeText(getActivity(), "Błąd podczas pobierania do Weight", Toast.LENGTH_SHORT).show();
-                }
-                catch (JSONException e) {
+                    } else
+                        Toast.makeText(getActivity(), "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(getActivity(), "Błąd podczas pobierania do Weight " + e.toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Błąd połączenia z bazą " + e.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
-        }, new Response.ErrorListener()
-        {
+        }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "Błąd podczas pobierania do Weight " + error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Błąd połączenia z bazą " + error.toString(), Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
@@ -292,7 +271,6 @@ public class JournalFragment extends Fragment {
             public void onResponse(String response) {
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
-                    Log.d("TESTOWANIE", "Dlugosc odpowiedzi = " + jsonResponse.length());
                     boolean success = jsonResponse.getBoolean("success");
                     if (success) {
                         for (int i = 0; i < jsonResponse.length() - 3; i++) {
@@ -322,19 +300,19 @@ public class JournalFragment extends Fragment {
                             }
                         }
                         pbLoadingDaily.setVisibility(View.GONE);
-                        Toast.makeText(getActivity(), "Pobrano do FoodSystem", Toast.LENGTH_SHORT).show();
                         drawChartsDaily();
                     } else {
-                        Toast.makeText(getActivity(), "Błąd podczas pobierania do FoodSystem", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Toast.makeText(getActivity(), "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Toast.makeText(getActivity(), "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
@@ -351,49 +329,37 @@ public class JournalFragment extends Fragment {
     }
 
 
-    private void getWeightFromDay(final String date)
-    {
+    private void getWeightFromDay(final String date) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
             @Override
-            public void onResponse(String response)
-            {
-                try
-                {
+            public void onResponse(String response) {
+                try {
                     JSONObject jsonResponse = new JSONObject(response);
-//                    Log.d("TESTOWANIE", "Dlugosc odpowiedzi = " + jsonResponse.length());
                     boolean success = jsonResponse.getBoolean("success");
-                    if (success)
-                    {
-                        for (int i = 0; i < jsonResponse.length() - 1; i++)
-                        {
+                    if (success) {
+                        for (int i = 0; i < jsonResponse.length() - 1; i++) {
                             JSONObject row = jsonResponse.getJSONObject(String.valueOf(i));
                             String a = row.getString("UserWeight");
                             weightDay = Double.parseDouble(a);
-                            llWeightDay.setVisibility(View.VISIBLE);
                             tvWeightDay.setText(String.valueOf(weightDay));
+                            llWeightDay.setVisibility(View.VISIBLE);
                         }
-                    }
-                    else
-                    {
+                    } else {
                         Toast.makeText(getActivity(), "Błąd podczas pobierania wagi z dnia", Toast.LENGTH_SHORT).show();
                     }
-                }
-                catch (JSONException e)
-                {
+                } catch (JSONException e) {
                     e.printStackTrace();
+                    Toast.makeText(getActivity(), "Błąd połączenia z bazą! " + e.toString(), Toast.LENGTH_LONG).show();
                 }
             }
-        }, new Response.ErrorListener()
-        {
+        }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error)
-            {
-
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity(), "Błąd połączenia z bazą! " + error.toString(), Toast.LENGTH_LONG).show();
             }
         }) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError
-            {
+            protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("operation", "getWeight");
                 params.put("userId", String.valueOf(user.getUserID()));

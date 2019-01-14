@@ -133,10 +133,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:orientation="horizontal"
-            android:visibility="gone"
-            android:layout_marginTop="20dp">
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="25dp"
@@ -167,10 +167,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:orientation="horizontal"
-            android:visibility="gone"
-            android:layout_marginTop="20dp">
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="25dp"
@@ -249,21 +249,25 @@
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <TextView
                 android:id="@+id/tvWeight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
-                android:text="Waga w tym dniu:" />
+                android:text="Waga w tym dniu:"
+                android:textColor="@android:color/black"
+                android:textSize="17sp" />
 
             <TextView
                 android:id="@+id/tvWeightDay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:ems="3" />
+                android:ems="3"
+                android:textColor="@android:color/black"
+                android:textSize="17sp" />
         </LinearLayout>
 
     </LinearLayout>
