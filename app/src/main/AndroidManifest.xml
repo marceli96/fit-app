@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".WelcomeActivity"
+            android:name=".Welcome.WelcomeActivity"
             android:label="Welcome"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBarWithColor">
@@ -25,36 +25,36 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RegisterActivity"
+            android:name=".Register.RegisterActivity"
             android:label="Rejestracja"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Main.MainActivity"
             android:label="FitApplication"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".AddToFoodSystemActivity"
+            android:name=".Main.Fragment.AddToSystem.AddToFoodSystemActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBarWithColor" />
         <activity
-            android:name=".AddMyMealActivity1"
+            android:name=".Main.Fragment.Profile.AddMyMealNameActivity"
             android:label="Dodawanie posiłku - etap 1/2"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AddMyMealActivity2"
+            android:name=".Main.Fragment.Profile.AddMyMealIngredientsActivity"
             android:label="Dodawanie posiłku - etap 2/2"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AddMyTrainingActivity1"
+            android:name=".Main.Fragment.Profile.AddMyTrainingNameActivity"
             android:label="Dodawanie treningu - etap 1/2"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AddMyTrainingActivity2"
+            android:name=".Main.Fragment.Profile.AddMyTrainingExercisesActivity"
             android:label="Dodawanie treningu - etap 2/2"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AddToTrainingSystemActivity"
+            android:name=".Main.Fragment.AddToSystem.AddToTrainingSystemActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBarWithColor"></activity>
     </application>

@@ -8,7 +8,7 @@
     android:background="@drawable/welcome_background"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".WelcomeActivity">
+    tools:context=".Welcome.WelcomeActivity">
 
     <EditText
         android:id="@+id/etLogin"

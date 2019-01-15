@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MeFragment">
+    tools:context=".Main.Fragment.Profile.ProfileFragment">
 
 
     <LinearLayout
@@ -66,13 +66,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <pl.edu.wat.fitapp.NonScrollListView
+        <pl.edu.wat.fitapp.JavaComponent.NonScrollListView
             android:id="@+id/lvMyMeals"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp">
 
-        </pl.edu.wat.fitapp.NonScrollListView>
+        </pl.edu.wat.fitapp.JavaComponent.NonScrollListView>
 
         <LinearLayout
             android:id="@+id/llMyTrainings"
@@ -120,13 +120,13 @@
             android:text="Nie dodałeś jeszcze żadnych treningów"
             android:visibility="gone" />
 
-        <pl.edu.wat.fitapp.NonScrollListView
+        <pl.edu.wat.fitapp.JavaComponent.NonScrollListView
             android:id="@+id/lvMyTrainings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp">
 
-        </pl.edu.wat.fitapp.NonScrollListView>
+        </pl.edu.wat.fitapp.JavaComponent.NonScrollListView>
 
         <ProgressBar
             android:id="@+id/pbLoadingTrainings"

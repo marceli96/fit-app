@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".JournalFragment">
+    tools:context=".Main.Fragment.JournalFragment">
 
 
     <LinearLayout
@@ -236,20 +236,12 @@
             android:layout_height="wrap_content"
             android:visibility="gone" />
 
-        <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/chartDaily"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginBottom="10dp"
-            android:visibility="gone"></com.github.mikephil.charting.charts.BarChart>
-
         <LinearLayout
             android:id="@+id/llWeightDay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
             android:orientation="horizontal"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tvWeight"
@@ -269,6 +261,13 @@
                 android:textColor="@android:color/black"
                 android:textSize="17sp" />
         </LinearLayout>
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/chartDaily"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"></com.github.mikephil.charting.charts.BarChart>
 
     </LinearLayout>
 </ScrollView>
