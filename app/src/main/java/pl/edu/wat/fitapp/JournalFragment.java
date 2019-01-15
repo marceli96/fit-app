@@ -105,6 +105,30 @@ public class JournalFragment extends Fragment {
         colorFat = Color.rgb(198, 188, 7);
         colorWeight = Color.rgb(237, 41, 57);
 
+        Calendar calendar = Calendar.getInstance();
+        days = new ArrayList<>();
+        Date today = new Date();
+
+        calendar.setTime(today);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+
+        calendar.add(Calendar.DAY_OF_MONTH, -1);
+        days.add(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1));
+        calendar.add(Calendar.DAY_OF_MONTH, -1);
+        days.add(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1));
+        calendar.add(Calendar.DAY_OF_MONTH, -1);
+        days.add(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1));
+        calendar.add(Calendar.DAY_OF_MONTH, -1);
+        days.add(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1));
+        calendar.add(Calendar.DAY_OF_MONTH, -1);
+        days.add(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1));
+        calendar.add(Calendar.DAY_OF_MONTH, -1);
+        days.add(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1));
+        calendar.add(Calendar.DAY_OF_MONTH, -1);
+        days.add(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1));
+
         initializeArrays();
 
         getFoodSystemFromWeek();
@@ -384,31 +408,6 @@ public class JournalFragment extends Fragment {
         chartCarbohydratesWeek.setVisibility(View.VISIBLE);
         chartProteinWeek.setVisibility(View.VISIBLE);
         chartFatWeek.setVisibility(View.VISIBLE);
-
-
-        Calendar calendar = Calendar.getInstance();
-        days = new ArrayList<>();
-        Date today = new Date();
-
-        calendar.setTime(today);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-
-        calendar.add(Calendar.DAY_OF_MONTH, -1);
-        days.add(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1));
-        calendar.add(Calendar.DAY_OF_MONTH, -1);
-        days.add(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1));
-        calendar.add(Calendar.DAY_OF_MONTH, -1);
-        days.add(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1));
-        calendar.add(Calendar.DAY_OF_MONTH, -1);
-        days.add(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1));
-        calendar.add(Calendar.DAY_OF_MONTH, -1);
-        days.add(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1));
-        calendar.add(Calendar.DAY_OF_MONTH, -1);
-        days.add(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1));
-        calendar.add(Calendar.DAY_OF_MONTH, -1);
-        days.add(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1));
 
         // wykres kalorii
         chartCaloriesWeek.getDescription().setEnabled(false);
