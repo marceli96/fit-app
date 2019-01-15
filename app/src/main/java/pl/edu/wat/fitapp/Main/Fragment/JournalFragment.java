@@ -103,11 +103,11 @@ public class JournalFragment extends Fragment {
         pbLoadingDaily = view.findViewById(R.id.pbLoadingDaily);
         cvDate = view.findViewById(R.id.cvDate);
 
-        colorCalories = Color.rgb(13, 202, 232);
-        colorCarbohydrates = Color.rgb(67, 153, 70);
-        colorProtein = Color.rgb(196, 124, 23);
-        colorFat = Color.rgb(198, 188, 7);
-        colorWeight = Color.rgb(237, 41, 57);
+        colorCalories = Color.rgb(13, 202, 232);        //bright blue
+        colorCarbohydrates = Color.rgb(67, 153, 70);    //green
+        colorProtein = Color.rgb(196, 124, 23);         //orange
+        colorFat = Color.rgb(198, 188, 7);              //yellow
+        colorWeight = Color.rgb(237, 41, 57);           //red
 
         Calendar calendar = Calendar.getInstance();
         days = new ArrayList<>();

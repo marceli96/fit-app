@@ -280,7 +280,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/button_welcome"
         android:text="Zarejestruj"
-        android:textColor="#253692"
+        android:textColor="@color/colorBlue"
         android:textStyle="bold" />
 
 </LinearLayout>
