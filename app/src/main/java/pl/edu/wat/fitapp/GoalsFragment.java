@@ -208,6 +208,10 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
                                 boolean successWeight = jsonResponse.getBoolean("successWeight");
                                 if (successUser && successWeight) {
                                     Toast.makeText(getActivity(), "Dane zaaktualizowane ", Toast.LENGTH_SHORT).show();
+                                    user.setWeight(weight);
+                                    user.setGoal(goal);
+                                    user.setCaloricDemand(calories);
+                                    user.setActivityLevel(getActivityLevelInt());
                                     openHomeActivty();
                                 } else
                                     Toast.makeText(getActivity(), "Nieoczkiwany błąd, powtórz wcześniej wprowadzone zmiany", Toast.LENGTH_SHORT).show();

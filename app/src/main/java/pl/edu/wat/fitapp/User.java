@@ -76,4 +76,20 @@ public class User implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public void setActivityLevel(int activityLevel) {
+        this.activityLevel = activityLevel;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public void setCaloricDemand(int caloricDemand) {
+        this.caloricDemand = caloricDemand;
+    }
+
+    public void setGoal(int goal) {
+        this.goal = goal;
+    }
 }
