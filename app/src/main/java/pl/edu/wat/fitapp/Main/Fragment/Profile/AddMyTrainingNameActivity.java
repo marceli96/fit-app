@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import pl.edu.wat.fitapp.Database.User;
+import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.R;
 
 public class AddMyTrainingNameActivity extends AppCompatActivity {

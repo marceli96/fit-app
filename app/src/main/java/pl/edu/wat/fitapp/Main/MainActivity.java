@@ -19,7 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import pl.edu.wat.fitapp.Main.Fragment.AboutFragment;
-import pl.edu.wat.fitapp.Database.User;
+import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.Main.Fragment.ExportFragment;
 import pl.edu.wat.fitapp.Main.Fragment.GoalsFragment;
 import pl.edu.wat.fitapp.Main.Fragment.HomeFragment;

@@ -30,6 +30,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import pl.edu.wat.fitapp.Database.Entity.Connection.RegisterConnection;
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Welcome.WelcomeActivity;
 
@@ -46,6 +47,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     private String activityLevel;
     private int calories;
 
+    private RegisterConnection registerConnection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +77,40 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         bRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                register();
+                if (!etLogin.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty() && !etEmail.getText().toString().isEmpty()
+                        && !etAge.getText().toString().isEmpty() && !etHeight.getText().toString().isEmpty() && !etWeight.getText().toString().isEmpty()
+                        && etLogin.getText().toString().length() > 5 && etPassword.getText().toString().length() > 5) {
+                    String userName = etLogin.getText().toString();
+                    String password = etPassword.getText().toString();
+                    String email = etEmail.getText().toString();
+                    int sex = getSexInt(getRadioButtonText(rgSex));
+                    int age = Integer.parseInt(etAge.getText().toString());
+                    int height = Integer.parseInt(etHeight.getText().toString());
+                    int activityLevelInt = getActivityLevelInt(activityLevel);
+                    double weight = Double.parseDouble(etWeight.getText().toString());
+                    int goal = getGoalInt(getRadioButtonText(rgWeight));
+
+                    calculateCalories();
+                    registerConnection = new RegisterConnection(RegisterActivity.this, userName, password, email, sex, age, height, activityLevelInt, goal, calories, weight);
+                    registerConnection.register();
+                } else {
+                    if (etLogin.getText().toString().isEmpty())
+                        Toast.makeText(RegisterActivity.this, "Wprowadź login", Toast.LENGTH_SHORT).show();
+                    else if (etPassword.getText().toString().isEmpty())
+                        Toast.makeText(RegisterActivity.this, "Wprowadź hasło", Toast.LENGTH_SHORT).show();
+                    else if (etEmail.getText().toString().isEmpty())
+                        Toast.makeText(RegisterActivity.this, "Wprowadź e-mail", Toast.LENGTH_SHORT).show();
+                    else if (etAge.getText().toString().isEmpty())
+                        Toast.makeText(RegisterActivity.this, "Wprowadź swój wiek", Toast.LENGTH_SHORT).show();
+                    else if (etHeight.getText().toString().isEmpty())
+                        Toast.makeText(RegisterActivity.this, "Wprowadź swój wzrost", Toast.LENGTH_SHORT).show();
+                    else if (etWeight.getText().toString().isEmpty())
+                        Toast.makeText(RegisterActivity.this, "Wprowadź swoją wagę", Toast.LENGTH_SHORT).show();
+                    else if (etLogin.getText().toString().length() <= 5)
+                        Toast.makeText(RegisterActivity.this, "Login musi mieć conajmniej 6 znaków", Toast.LENGTH_SHORT).show();
+                    else if (etPassword.getText().toString().length() <= 5)
+                        Toast.makeText(RegisterActivity.this, "Hasło musi mieć conajmniej 6 znaków", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -154,102 +189,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         }
     }
 
-    public void register() {
-        if (!etLogin.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty() && !etEmail.getText().toString().isEmpty()
-                && !etAge.getText().toString().isEmpty() && !etHeight.getText().toString().isEmpty() && !etWeight.getText().toString().isEmpty()
-                && etLogin.getText().toString().length() > 5 && etPassword.getText().toString().length() > 5) {
-            final String userName = etLogin.getText().toString();
-            final String password = etPassword.getText().toString();
-            final String email = etEmail.getText().toString();
-            final int sex = getSexInt(getRadioButtonText(rgSex));
-            final int age = Integer.parseInt(etAge.getText().toString());
-            final int height = Integer.parseInt(etHeight.getText().toString());
-            final int activityLevelInt = getActivityLevelInt(activityLevel);
-            final double weight = Double.parseDouble(etWeight.getText().toString());
-            final int goal = getGoalInt(getRadioButtonText(rgWeight));
-
-            calculateCalories();
-
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, REGISTER_URL,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            try {
-                                JSONObject jsonResponse = new JSONObject(response);
-                                boolean availableUserName = jsonResponse.getBoolean("availableUserName");
-                                boolean availableEmail = jsonResponse.getBoolean("availableEmail");
-
-                                if (availableUserName && availableEmail) {
-                                    boolean success = jsonResponse.getBoolean("success");
-                                    if (success) {
-                                        openLoginActivity();
-                                        RegisterActivity.this.finish();
-                                        Toast.makeText(RegisterActivity.this, "Jesteś nowym użytkownikiem! Zaloguj się do serwisu!", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(RegisterActivity.this, "Nieoczekiwany błąd rejestracji", Toast.LENGTH_SHORT).show();
-                                    }
-                                } else if (!availableUserName && availableEmail)
-                                    Toast.makeText(RegisterActivity.this, "Nazwa użytkownika jest zajęta", Toast.LENGTH_SHORT).show();
-                                else if (!availableEmail)
-                                    Toast.makeText(RegisterActivity.this, "E-mail jest zajęty", Toast.LENGTH_SHORT).show();
-                                else
-                                    Toast.makeText(RegisterActivity.this, "Błąd połączenia", Toast.LENGTH_SHORT).show();
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                Toast.makeText(RegisterActivity.this, "Błąd połączenia z bazą! " + e.toString(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(RegisterActivity.this, "Błąd połączenia z bazą! " + error.toString(), Toast.LENGTH_LONG).show();
-                        }
-                    }) {
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<>();
-                    Date date = new Date();
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    params.put("userName", userName);
-                    params.put("password", password);
-                    params.put("email", email);
-                    params.put("sex", String.valueOf(sex));
-                    params.put("age", String.valueOf(age));
-                    params.put("height", String.valueOf(height));
-                    params.put("activityLevel", String.valueOf(activityLevelInt));
-                    params.put("caloricDemand", String.valueOf(calories));
-                    params.put("weight", String.valueOf(weight));
-                    params.put("goal", String.valueOf(goal));
-                    params.put("date", dateFormat.format(date));
-                    return params;
-                }
-            };
-
-            RequestQueue requestQueue = Volley.newRequestQueue(this);
-            requestQueue.add(stringRequest);
-        } else {
-            if (etLogin.getText().toString().isEmpty())
-                Toast.makeText(RegisterActivity.this, "Wprowadź login", Toast.LENGTH_SHORT).show();
-            else if (etPassword.getText().toString().isEmpty())
-                Toast.makeText(RegisterActivity.this, "Wprowadź hasło", Toast.LENGTH_SHORT).show();
-            else if (etEmail.getText().toString().isEmpty())
-                Toast.makeText(RegisterActivity.this, "Wprowadź e-mail", Toast.LENGTH_SHORT).show();
-            else if (etAge.getText().toString().isEmpty())
-                Toast.makeText(RegisterActivity.this, "Wprowadź swój wiek", Toast.LENGTH_SHORT).show();
-            else if (etHeight.getText().toString().isEmpty())
-                Toast.makeText(RegisterActivity.this, "Wprowadź swój wzrost", Toast.LENGTH_SHORT).show();
-            else if (etWeight.getText().toString().isEmpty())
-                Toast.makeText(RegisterActivity.this, "Wprowadź swoją wagę", Toast.LENGTH_SHORT).show();
-            else if (etLogin.getText().toString().length() <= 5)
-                Toast.makeText(RegisterActivity.this, "Login musi mieć conajmniej 6 znaków", Toast.LENGTH_SHORT).show();
-            else if (etPassword.getText().toString().length() <= 5)
-                Toast.makeText(RegisterActivity.this, "Hasło musi mieć conajmniej 6 znaków", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void openLoginActivity() {
+    public void openLoginActivity() {
         Intent openLoginActivity = new Intent(this, WelcomeActivity.class);
         startActivity(openLoginActivity);
     }
@@ -288,5 +228,4 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         else
             return 2;
     }
-
 }

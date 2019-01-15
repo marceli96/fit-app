@@ -20,7 +20,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -36,8 +35,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import pl.edu.wat.fitapp.Database.Ingredient;
-import pl.edu.wat.fitapp.Database.User;
+import pl.edu.wat.fitapp.Database.Entity.Ingredient;
+import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.Main.MainActivity;
 import pl.edu.wat.fitapp.R;
 
@@ -231,7 +230,7 @@ public class AddMyMealIngredientsActivity extends AppCompatActivity {
             }
         }) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("operation", "getIngredients");
                 return params;
@@ -282,7 +281,7 @@ public class AddMyMealIngredientsActivity extends AppCompatActivity {
                 }
             }) {
                 @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
+                protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<>();
                     params.put("operation", "addMyMeal");
                     params.put("ingredientIds", finalIngredientIds);
@@ -388,7 +387,6 @@ public class AddMyMealIngredientsActivity extends AppCompatActivity {
             imDeleteIngredient.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO rozważyć dodania dialogu, który zapyta czy na pewno chcemy tu usnąć
                     mealIngredients.remove(ingredient);
                     mealIngredientsAdapter.notifyDataSetChanged();
                     updateMealMacros();

@@ -16,7 +16,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -35,9 +34,9 @@ import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import pl.edu.wat.fitapp.Database.Exercise;
-import pl.edu.wat.fitapp.Database.Training;
-import pl.edu.wat.fitapp.Database.User;
+import pl.edu.wat.fitapp.Database.Entity.Exercise;
+import pl.edu.wat.fitapp.Database.Entity.Training;
+import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.Main.MainActivity;
 import pl.edu.wat.fitapp.R;
 
@@ -132,7 +131,7 @@ public class AddTrainingToTrainingSystemFragment extends Fragment {
             }
         }) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 Date date = new Date();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -194,7 +193,7 @@ public class AddTrainingToTrainingSystemFragment extends Fragment {
             }
         }) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("operation", "getMyTrainings");
                 params.put("userId", String.valueOf(user.getUserID()));

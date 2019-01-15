@@ -14,7 +14,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -46,9 +45,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
-import pl.edu.wat.fitapp.Database.Ingredient;
-import pl.edu.wat.fitapp.Database.Meal;
-import pl.edu.wat.fitapp.Database.User;
+import pl.edu.wat.fitapp.Database.Entity.Ingredient;
+import pl.edu.wat.fitapp.Database.Entity.Meal;
+import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.Interface.FoodSystem;
 import pl.edu.wat.fitapp.Main.MainActivity;
 import pl.edu.wat.fitapp.R;
@@ -236,7 +235,7 @@ public class JournalFragment extends Fragment {
             }
         }) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 Date date = new Date();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -279,7 +278,7 @@ public class JournalFragment extends Fragment {
             }
         }) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 Date date = new Date();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -345,7 +344,7 @@ public class JournalFragment extends Fragment {
             }
         }) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("operation", "getFoodSystemFromDay");
                 params.put("userId", String.valueOf(user.getUserID()));
@@ -388,7 +387,7 @@ public class JournalFragment extends Fragment {
             }
         }) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("operation", "getWeight");
                 params.put("userId", String.valueOf(user.getUserID()));
@@ -402,7 +401,6 @@ public class JournalFragment extends Fragment {
 
 
     private void drawChartsWeekly() {
-        // TODO ewntualne dodanie 2 data set (wymagane do zjedzenia)
         pbLoadingLastWeek.setVisibility(View.GONE);
         llCaloriesWeekly.setVisibility(View.VISIBLE);
         llCarbohydratesWeekly.setVisibility(View.VISIBLE);
@@ -561,9 +559,6 @@ public class JournalFragment extends Fragment {
     }
 
     private void drawChartsWeeklyWeight() {
-        // TODO ewntualne dodanie 2 data set (wymagane do zjedzenia)
-
-
         llWeightWeekly.setVisibility(View.VISIBLE);
         chartWeightWeek.setVisibility(View.VISIBLE);
 
@@ -611,7 +606,6 @@ public class JournalFragment extends Fragment {
     }
 
     private void drawChartsDaily() {
-        // TODO ewntualne dodanie 2 data set (wymagane do zjedzenia)
         chartDaily.setVisibility(View.VISIBLE);
 
         ArrayList<String> xLabels = new ArrayList<>();

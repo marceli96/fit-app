@@ -21,7 +21,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -41,11 +40,11 @@ import java.util.Map;
 
 import pl.edu.wat.fitapp.Main.Fragment.AddToSystem.AddToFoodSystemActivity;
 import pl.edu.wat.fitapp.Main.Fragment.AddToSystem.AddToTrainingSystemActivity;
-import pl.edu.wat.fitapp.Database.Exercise;
-import pl.edu.wat.fitapp.Database.Ingredient;
-import pl.edu.wat.fitapp.Database.Meal;
-import pl.edu.wat.fitapp.Database.Training;
-import pl.edu.wat.fitapp.Database.User;
+import pl.edu.wat.fitapp.Database.Entity.Exercise;
+import pl.edu.wat.fitapp.Database.Entity.Ingredient;
+import pl.edu.wat.fitapp.Database.Entity.Meal;
+import pl.edu.wat.fitapp.Database.Entity.Training;
+import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.Interface.FoodSystem;
 import pl.edu.wat.fitapp.Interface.TrainingSystem;
 import pl.edu.wat.fitapp.JavaComponent.NonScrollListView;
@@ -596,7 +595,7 @@ public class HomeFragment extends Fragment {
             }
         }) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 Date date = new Date();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -875,7 +874,7 @@ public class HomeFragment extends Fragment {
             }
         }) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 Date date = new Date();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -900,7 +899,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void updateMacrosOnMealTimes() {
-        // TODO Rozważyć update na jednym mealTime zamiast na wszystkich na raz (niepotrzebny udpate, kiedy usuwamy z jednej sekcji)
         DecimalFormat format = new DecimalFormat("0.0");
 
         View view = getView();
@@ -1161,9 +1159,6 @@ public class HomeFragment extends Fragment {
         pbCarbohydrates.setProgress((int) Math.round(eatenCarbohydrates));
         pbProtein.setProgress((int) Math.round(eatenProtein));
         pbFat.setProgress((int) Math.round(eatenFat));
-
-        // TODO zmiana na czerwony kolor (napisy + ewentualnie progres bary) kiedy przekroczymy zadane wartości
-
     }
 
 
@@ -1216,7 +1211,7 @@ public class HomeFragment extends Fragment {
             }
         }) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 Date date = new Date();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -1323,7 +1318,7 @@ public class HomeFragment extends Fragment {
             }
         }) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 Date date = new Date();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

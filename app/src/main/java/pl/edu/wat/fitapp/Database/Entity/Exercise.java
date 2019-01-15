@@ -1,4 +1,4 @@
-package pl.edu.wat.fitapp.Database;
+package pl.edu.wat.fitapp.Database.Entity;
 
 import java.io.Serializable;
 

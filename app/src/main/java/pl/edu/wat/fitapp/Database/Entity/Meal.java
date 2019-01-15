@@ -1,8 +1,9 @@
-package pl.edu.wat.fitapp.Database;
+package pl.edu.wat.fitapp.Database.Entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import pl.edu.wat.fitapp.Database.Entity.Ingredient;
 import pl.edu.wat.fitapp.Interface.FoodSystem;
 
 public class Meal implements Serializable, FoodSystem {

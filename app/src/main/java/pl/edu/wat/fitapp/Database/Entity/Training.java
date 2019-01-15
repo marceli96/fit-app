@@ -1,8 +1,9 @@
-package pl.edu.wat.fitapp.Database;
+package pl.edu.wat.fitapp.Database.Entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import pl.edu.wat.fitapp.Database.Entity.Exercise;
 import pl.edu.wat.fitapp.Interface.TrainingSystem;
 
 public class Training implements Serializable, TrainingSystem {
