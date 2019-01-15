@@ -285,7 +285,7 @@ public class JournalFragment extends Fragment {
                                     tempIngredient.setWeight(row.getInt("IngredientWeight"));
                                     tempMeal.addIngredientToList(tempIngredient);
                                     tempMeal.setWeight(row.getInt("Weight"));
-
+                                    addMealToFoodSystemList(tempMeal, row.getInt("MealTime"));
                                 } else {
                                     Ingredient tempIngredient = new Ingredient(row.getInt("ID_Ingredient"), row.getString("IngredientName"), row.getDouble("Carbohydrates"),
                                             row.getDouble("Protein"), row.getDouble("Fat"), row.getInt("Calories"));
@@ -602,7 +602,7 @@ public class JournalFragment extends Fragment {
 
         XAxis xAxisWeight = chartWeightWeek.getXAxis();
         xAxisWeight.setGranularity(1);
-        xAxisWeight.setValueFormatter(myXAxisValueFormatter);
+        xAxisWeight.setValueFormatter(new MyXAxisValueFormatter(days));
         xAxisWeight.setPosition(XAxis.XAxisPosition.BOTTOM);
     }
 
@@ -1113,6 +1113,29 @@ public class JournalFragment extends Fragment {
                 break;
             case 5:
                 foodSystemDate.get(5).add(ingredient);
+                break;
+        }
+    }
+
+    private void addMealToFoodSystemList(Meal meal, int mealTime) {
+        switch (mealTime) {
+            case 0:
+                foodSystemDate.get(0).add(meal);
+                break;
+            case 1:
+                foodSystemDate.get(1).add(meal);
+                break;
+            case 2:
+                foodSystemDate.get(2).add(meal);
+                break;
+            case 3:
+                foodSystemDate.get(3).add(meal);
+                break;
+            case 4:
+                foodSystemDate.get(4).add(meal);
+                break;
+            case 5:
+                foodSystemDate.get(5).add(meal);
                 break;
         }
     }
