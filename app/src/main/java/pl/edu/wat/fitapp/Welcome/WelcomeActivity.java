@@ -1,6 +1,7 @@
 package pl.edu.wat.fitapp.Welcome;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -24,6 +25,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import pl.edu.wat.fitapp.Database.Entity.Connection.LoginConnection;
 import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.Main.MainActivity;
 import pl.edu.wat.fitapp.R;
@@ -40,6 +42,8 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private User user;
 
+    private LoginConnection loginConnection;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +54,10 @@ public class WelcomeActivity extends AppCompatActivity {
         bLogin = findViewById(R.id.bLogin);
         bRegister = findViewById(R.id.bRegister);
         pbLogin = findViewById(R.id.pbLogin);
+
+        //TODO do testowania
+        etLogin.setText("admin");
+        etPassword.setText("admin");
 
         bRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +71,8 @@ public class WelcomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!etLogin.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty()) {
                     pbLogin.setVisibility(View.VISIBLE);
-                    moveWeight();
+                    loginConnection = new LoginConnection(WelcomeActivity.this, etLogin.getText().toString(), etPassword.getText().toString(), user);
+                    loginConnection.moveWeight();
                 } else {
                     pbLogin.setVisibility(View.INVISIBLE);
                     if (etLogin.getText().toString().isEmpty())
@@ -75,93 +84,24 @@ public class WelcomeActivity extends AppCompatActivity {
         });
     }
 
-    private void moveWeight() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                login();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams(){
-                Map<String, String> params = new HashMap<>();
-                Date date = new Date();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                params.put("operation", "moveWeight");
-                params.put("userName", etLogin.getText().toString());
-                params.put("dateNow", dateFormat.format(date));
-                return params;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(WelcomeActivity.this);
-        requestQueue.add(stringRequest);
-    }
-
-    private void login() {
-        final String userName = etLogin.getText().toString();
-        final String password = etPassword.getText().toString();
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, LOGIN_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonResponse = new JSONObject(response);
-                            boolean success = jsonResponse.getBoolean("success");
-                            if (success) {
-                                JSONObject jsonObject = jsonResponse.getJSONObject("0");
-                                JSONObject jsonObject1 = jsonResponse.getJSONObject("1");
-                                user = new User(jsonObject.getInt("ID_User"), jsonObject.getString("UserName"),
-                                        jsonObject.getString("Email"), jsonObject.getInt("Sex"), jsonObject.getInt("Age"),
-                                        jsonObject.getInt("Height"), jsonObject.getInt("ActivityLevel"), jsonObject1.getDouble("UserWeight"),
-                                        jsonObject1.getInt("CaloricDemend"), jsonObject1.getInt("Goal"));
-                                openMainActivity();
-                                Toast.makeText(WelcomeActivity.this, "Zalogowano pomyślnie", Toast.LENGTH_SHORT).show();
-                                WelcomeActivity.this.finish();
-                            } else {
-                                pbLogin.setVisibility(View.INVISIBLE);
-                                Toast.makeText(WelcomeActivity.this, "Błędne dane", Toast.LENGTH_LONG).show();
-                            }
-                        } catch (JSONException e) {
-                            pbLogin.setVisibility(View.INVISIBLE);
-                            e.printStackTrace();
-                            Toast.makeText(WelcomeActivity.this, "Błąd połączenia z bazą! " + e.toString(), Toast.LENGTH_LONG).show();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        pbLogin.setVisibility(View.INVISIBLE);
-                        Toast.makeText(WelcomeActivity.this, "Błąd połączenia z bazą! " + error.toString(), Toast.LENGTH_LONG).show();
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams(){
-                Map<String, String> params = new HashMap<>();
-                params.put("userName", userName);
-                params.put("password", password);
-                return params;
-            }
-        };
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
-    }
-
-    private void openMainActivity() {
+    public void openMainActivity() {
+        Toast.makeText(WelcomeActivity.this, "Zalogowano pomyślnie", Toast.LENGTH_SHORT).show();
         Intent openMainActivity = new Intent(WelcomeActivity.this, MainActivity.class);
         openMainActivity.putExtra("user", user);
         startActivity(openMainActivity);
+        WelcomeActivity.this.finish();
     }
 
     private void openRegisterActivity() {
         Intent openRegisterActivity = new Intent(WelcomeActivity.this, RegisterActivity.class);
         startActivity(openRegisterActivity);
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public ProgressBar getPbLogin() {
+        return pbLogin;
     }
 }
