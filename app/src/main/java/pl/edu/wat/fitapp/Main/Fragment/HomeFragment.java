@@ -1,7 +1,5 @@
 package pl.edu.wat.fitapp.Main.Fragment;
 
-
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,41 +7,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
-import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.ExercisesListAdapter;
-import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.IngredientsListAdapter;
 import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.TrainingSystemListAdapter;
-import pl.edu.wat.fitapp.Database.Connection.DeleteFoodSystemConnection;
 import pl.edu.wat.fitapp.Database.Connection.FoodSystemDayConnection;
 import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.FoodSystemListAdapter;
+import pl.edu.wat.fitapp.Database.Connection.TrainingSystemDayConnection;
+import pl.edu.wat.fitapp.Dialog.FoodSystemOnClickDialog;
+import pl.edu.wat.fitapp.Dialog.TrainingSystemOnClickDialog;
 import pl.edu.wat.fitapp.Main.Fragment.AddToSystem.AddToFoodSystemActivity;
 import pl.edu.wat.fitapp.Main.Fragment.AddToSystem.AddToTrainingSystemActivity;
 import pl.edu.wat.fitapp.Database.Entity.Exercise;
-import pl.edu.wat.fitapp.Database.Entity.Meal;
 import pl.edu.wat.fitapp.Database.Entity.Training;
 import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.Interface.FoodSystem;
@@ -53,28 +35,22 @@ import pl.edu.wat.fitapp.Main.MainActivity;
 import pl.edu.wat.fitapp.Mangement.MacrocomponentManagement;
 import pl.edu.wat.fitapp.R;
 
-
 public class HomeFragment extends Fragment {
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
-
     private TextView tvEatenCalories, tvReqCalories, tvEatenCarbohydrates, tvReqCarbohydrates, tvEatenProtein, tvReqProtein, tvEatenFat, tvReqFat, tvExerciseAmount;
     private ProgressBar pbCalories, pbCarbohydrates, pbProtein, pbFat, pbLoading;
     private NonScrollListView lvBreakfast, lvSecondBreakfast, lvLunch, lvDinner, lvSnack, lvSupper, lvTraining;
-    private ImageView imArrowBreakfast, imArrowSecondBreakfast, imArrowLunch, imArrowDinner, imArrowSnack, imArrowSupper, imArrowTraining,
-            imAddBreakfast, imAddSecondBreakfast, imAddLunch, imAddDinner, imAddSnack, imAddSupper, imAddTraining;
+    private ImageView imArrowBreakfast, imArrowSecondBreakfast, imArrowLunch, imArrowDinner, imArrowSnack, imArrowSupper, imArrowTraining, imAddBreakfast, imAddSecondBreakfast, imAddLunch, imAddDinner, imAddSnack, imAddSupper, imAddTraining;
     private LinearLayout llProgressBars, llBreakfast, llSecondBreakfast, llLunch, llDinner, llSnack, llSupper, llTraining;
     private ArrayList<ArrayList<FoodSystem>> foodSystemDay;
-    private ArrayList<TrainingSystem> trainingSystem;
+    private ArrayList<TrainingSystem> trainingSystemDay;
     private ArrayList<FoodSystemListAdapter> foodSystemMealTimeAdapters;
     private TrainingSystemListAdapter trainingSystemListAdapter;
-
     private User user;
-
     private FoodSystemDayConnection foodSystemDayConnection;
-
-    private int minReqCarbohydrates = 0, maxReqCarbohydrates = 0, minReqProtein = 0, maxReqProtein = 0, minReqFat = 0, maxReqFat;
-    private boolean hiddenBreakfast = false, hiddenSecondBreakfast = false, hiddenLunch = false, hiddenDinner = false, hiddenSnack = false,
-            hiddenSupper = false, hiddenTraining = false;
+    private TrainingSystemDayConnection trainingSystemDayConnection;
+    private FoodSystemOnClickDialog foodSystemOnClickDialog;
+    private TrainingSystemOnClickDialog trainingSystemOnClickDialog;
+    private boolean hiddenBreakfast = false, hiddenSecondBreakfast = false, hiddenLunch = false, hiddenDinner = false, hiddenSnack = false, hiddenSupper = false, hiddenTraining = false;
 
     public HomeFragment() {
     }
@@ -91,7 +67,6 @@ public class HomeFragment extends Fragment {
         user = (User) getActivity().getIntent().getSerializableExtra("user");
 
         initializeArrays();
-        getTrainingSystem();
 
         pbLoading = view.findViewById(R.id.pbLoading);
         pbCalories = view.findViewById(R.id.pbCalories);
@@ -142,7 +117,7 @@ public class HomeFragment extends Fragment {
         imAddSupper = view.findViewById(R.id.imAddSupper);
         imAddTraining = view.findViewById(R.id.imAddTraining);
 
-        trainingSystemListAdapter = new TrainingSystemListAdapter(getActivity(), R.layout.listview_adapter_show_trainingsystem, trainingSystem);
+        trainingSystemListAdapter = new TrainingSystemListAdapter(getActivity(), R.layout.listview_adapter_show_trainingsystem, trainingSystemDay);
 
         lvBreakfast.setAdapter(foodSystemMealTimeAdapters.get(0));
         lvSecondBreakfast.setAdapter(foodSystemMealTimeAdapters.get(1));
@@ -155,173 +130,123 @@ public class HomeFragment extends Fragment {
         foodSystemDayConnection = new FoodSystemDayConnection(this, foodSystemDay);
         foodSystemDayConnection.getFoodSystemFromDay(user.getUserID(), dateFormat.format(date));
 
+        trainingSystemDayConnection = new TrainingSystemDayConnection(this, trainingSystemDay);
+        trainingSystemDayConnection.getTrainingSystem(user.getUserID());
+
+        foodSystemOnClickDialog = new FoodSystemOnClickDialog(this, foodSystemDay, foodSystemMealTimeAdapters);
+        trainingSystemOnClickDialog = new TrainingSystemOnClickDialog(this, trainingSystemDay, trainingSystemListAdapter);
         lvBreakfast.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                foodSystemOnClick(position, 0, foodSystemDay.get(0));
+                foodSystemOnClickDialog.build(position, 0, foodSystemDay.get(0), user.getUserID());
             }
         });
 
         lvSecondBreakfast.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                foodSystemOnClick(position, 1, foodSystemDay.get(1));
+                foodSystemOnClickDialog.build(position, 1, foodSystemDay.get(1), user.getUserID());
             }
         });
 
         lvLunch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                foodSystemOnClick(position, 2, foodSystemDay.get(2));
+                foodSystemOnClickDialog.build(position, 2, foodSystemDay.get(2), user.getUserID());
             }
         });
 
         lvDinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                foodSystemOnClick(position, 3, foodSystemDay.get(3));
+                foodSystemOnClickDialog.build(position, 3, foodSystemDay.get(3), user.getUserID());
             }
         });
 
         lvSnack.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                foodSystemOnClick(position, 4, foodSystemDay.get(4));
+                foodSystemOnClickDialog.build(position, 4, foodSystemDay.get(4), user.getUserID());
             }
         });
 
         lvSupper.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                foodSystemOnClick(position, 5, foodSystemDay.get(5));
+                foodSystemOnClickDialog.build(position, 5, foodSystemDay.get(5), user.getUserID());
             }
         });
 
         lvTraining.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                trainingSystemOnClick(position);
+                trainingSystemOnClickDialog.build(position, user.getUserID());
             }
         });
 
         String tempString = String.valueOf(user.getCaloricDemand()) + " kcal";
         tvReqCalories.setText(tempString);
 
-        minReqCarbohydrates = (int) (0.5 * user.getCaloricDemand() / 4);
-        maxReqCarbohydrates = (int) (0.65 * user.getCaloricDemand() / 4);
-        tempString = String.valueOf(minReqCarbohydrates) + "-" + String.valueOf(maxReqCarbohydrates);
+        tempString = String.valueOf((int) (0.5 * user.getCaloricDemand() / 4)) + "-" + String.valueOf((int) (0.65 * user.getCaloricDemand() / 4));
         tvReqCarbohydrates.setText(tempString);
 
-        minReqProtein = (int) (0.15 * user.getCaloricDemand() / 4);
-        maxReqProtein = (int) (0.25 * user.getCaloricDemand() / 4);
-        tempString = String.valueOf(minReqProtein) + "-" + String.valueOf(maxReqProtein);
+        tempString = String.valueOf((int) (0.15 * user.getCaloricDemand() / 4)) + "-" + String.valueOf((int) (0.25 * user.getCaloricDemand() / 4));
         tvReqProtein.setText(tempString);
 
-        minReqFat = (int) (0.2 * user.getCaloricDemand() / 9);
-        maxReqFat = (int) (0.3 * user.getCaloricDemand() / 9);
-        tempString = String.valueOf(minReqFat) + "-" + String.valueOf(maxReqFat);
+        tempString = String.valueOf((int) (0.2 * user.getCaloricDemand() / 9)) + "-" + String.valueOf((int) (0.3 * user.getCaloricDemand() / 9));
         tvReqFat.setText(tempString);
 
         pbCalories.setMax(user.getCaloricDemand());
-        pbCarbohydrates.setMax(minReqCarbohydrates);
-        pbProtein.setMax(minReqProtein);
-        pbFat.setMax(minReqFat);
+        pbCarbohydrates.setMax((int) (0.5 * user.getCaloricDemand() / 4));
+        pbProtein.setMax((int) (0.15 * user.getCaloricDemand() / 4));
+        pbFat.setMax((int) (0.2 * user.getCaloricDemand() / 9));
 
         llBreakfast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO przetestować czy działa
-                layoutOnClick(hiddenBreakfast, lvBreakfast, imArrowBreakfast);
+                hiddenBreakfast = layoutOnClick(hiddenBreakfast, lvBreakfast, imArrowBreakfast);
             }
         });
 
         llSecondBreakfast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (hiddenSecondBreakfast) {
-                    lvSecondBreakfast.setVisibility(View.VISIBLE);
-                    hiddenSecondBreakfast = false;
-                    imArrowSecondBreakfast.setImageResource(R.drawable.arrow_down);
-                } else {
-                    lvSecondBreakfast.setVisibility(View.GONE);
-                    hiddenSecondBreakfast = true;
-                    imArrowSecondBreakfast.setImageResource(R.drawable.arrow_up);
-                }
+                hiddenSecondBreakfast = layoutOnClick(hiddenSecondBreakfast, lvSecondBreakfast, imArrowSecondBreakfast);
             }
         });
 
         llLunch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (hiddenLunch) {
-                    lvLunch.setVisibility(View.VISIBLE);
-                    hiddenLunch = false;
-                    imArrowLunch.setImageResource(R.drawable.arrow_down);
-                } else {
-                    lvSecondBreakfast.setVisibility(View.GONE);
-                    hiddenLunch = true;
-                    imArrowLunch.setImageResource(R.drawable.arrow_up);
-                }
+                hiddenLunch = layoutOnClick(hiddenLunch, lvLunch, imArrowLunch);
             }
         });
 
         llDinner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (hiddenDinner) {
-                    lvDinner.setVisibility(View.VISIBLE);
-                    hiddenDinner = false;
-                    imArrowDinner.setImageResource(R.drawable.arrow_down);
-                } else {
-                    lvDinner.setVisibility(View.GONE);
-                    hiddenDinner = true;
-                    imArrowDinner.setImageResource(R.drawable.arrow_up);
-                }
+                hiddenDinner = layoutOnClick(hiddenDinner, lvDinner, imArrowDinner);
             }
         });
 
         llSnack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (hiddenSnack) {
-                    lvSnack.setVisibility(View.VISIBLE);
-                    hiddenSnack = false;
-                    imArrowSnack.setImageResource(R.drawable.arrow_down);
-                } else {
-                    lvSnack.setVisibility(View.GONE);
-                    hiddenSnack = true;
-                    imArrowSnack.setImageResource(R.drawable.arrow_up);
-                }
+                hiddenSnack = layoutOnClick(hiddenSnack, lvSnack, imArrowSnack);
             }
         });
 
         llSupper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (hiddenSupper) {
-                    lvSupper.setVisibility(View.VISIBLE);
-                    hiddenSupper = false;
-                    imArrowSupper.setImageResource(R.drawable.arrow_down);
-                } else {
-                    lvSupper.setVisibility(View.GONE);
-                    hiddenSupper = true;
-                    imArrowSupper.setImageResource(R.drawable.arrow_up);
-                }
+                hiddenSupper = layoutOnClick(hiddenSupper, lvSupper, imArrowSupper);
             }
         });
 
         llTraining.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (hiddenTraining) {
-                    lvTraining.setVisibility(View.VISIBLE);
-                    hiddenTraining = false;
-                    imArrowTraining.setImageResource(R.drawable.arrow_down);
-                } else {
-                    lvTraining.setVisibility(View.GONE);
-                    hiddenTraining = true;
-                    imArrowTraining.setImageResource(R.drawable.arrow_up);
-                }
+                hiddenTraining = layoutOnClick(hiddenTraining, lvTraining, imArrowTraining);
             }
         });
 
@@ -370,36 +295,36 @@ public class HomeFragment extends Fragment {
         imAddTraining.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addToTrainingSystem();
+                openAddToTrainingSystem();
             }
         });
 
         return view;
     }
 
-    private void layoutOnClick(boolean hiddenMealTime, NonScrollListView lvMealTime, ImageView imArrowMealTime) {
+    private boolean layoutOnClick(boolean hiddenMealTime, NonScrollListView lvMealTime, ImageView imArrowMealTime) {
         if (hiddenMealTime) {
             lvMealTime.setVisibility(View.VISIBLE);
-            hiddenMealTime = false;
             imArrowMealTime.setImageResource(R.drawable.arrow_down);
+            return false;
         } else {
             lvMealTime.setVisibility(View.GONE);
-            hiddenMealTime = true;
             imArrowMealTime.setImageResource(R.drawable.arrow_up);
+            return true;
         }
     }
 
     private void initializeArrays() {
         foodSystemDay = new ArrayList<>();
-        trainingSystem = new ArrayList<>();
+        trainingSystemDay = new ArrayList<>();
         foodSystemMealTimeAdapters = new ArrayList<>();
-        for (int i = 0; i < 6; i++){
+        for (int i = 0; i < 6; i++) {
             foodSystemDay.add(new ArrayList<FoodSystem>());
             foodSystemMealTimeAdapters.add(new FoodSystemListAdapter(getActivity(), R.layout.listview_adapter_show_foodsystem, foodSystemDay.get(i)));
         }
     }
 
-    public void showMealLayoutsAndUpdate(){
+    public void showMealLayoutsAndUpdate() {
         pbLoading.setVisibility(View.GONE);
         llProgressBars.setVisibility(View.VISIBLE);
         llBreakfast.setVisibility(View.VISIBLE);
@@ -409,7 +334,7 @@ public class HomeFragment extends Fragment {
         llSnack.setVisibility(View.VISIBLE);
         llSupper.setVisibility(View.VISIBLE);
 
-        for(int i = 0; i < 6; i++)
+        for (int i = 0; i < 6; i++)
             foodSystemMealTimeAdapters.get(i).notifyDataSetChanged();
         updateMacrosOnMealTimes();
         updateEatenMacros();
@@ -418,10 +343,8 @@ public class HomeFragment extends Fragment {
     public void updateMacrosOnMealTimes() {
         DecimalFormat decFormat = new DecimalFormat("0.0");
         MacrocomponentManagement macroMg = new MacrocomponentManagement();
-
         View view = getView();
 
-        //Śniadanie
         TextView tvCarbohydratesBreakfast = view.findViewById(R.id.tvCarbohydratesBreakfast);
         TextView tvProteinBreakfast = view.findViewById(R.id.tvProteinBreakfast);
         TextView tvFatBreakfast = view.findViewById(R.id.tvFatBreakfast);
@@ -436,7 +359,6 @@ public class HomeFragment extends Fragment {
         tempString = String.valueOf(macroMg.getCaloriesForMealTimeFromDay(foodSystemDay.get(0))) + " kcal";
         tvCaloriesBreakfast.setText(tempString);
 
-        //Drugie śniadanie
         TextView tvCarbohydratesSecondBreakfast = view.findViewById(R.id.tvCarbohydratesSecondBreakfast);
         TextView tvProteinSecondBreakfast = view.findViewById(R.id.tvProteinSecondBreakfast);
         TextView tvFatSecondBreakfast = view.findViewById(R.id.tvFatSecondBreakfast);
@@ -451,7 +373,6 @@ public class HomeFragment extends Fragment {
         tempString = String.valueOf(macroMg.getCaloriesForMealTimeFromDay(foodSystemDay.get(1))) + " kcal";
         tvCaloriesSecondBreakfast.setText(tempString);
 
-        // Lunch
         TextView tvCarbohydratesLunch = view.findViewById(R.id.tvCarbohydratesLunch);
         TextView tvProteinLunch = view.findViewById(R.id.tvProteinLunch);
         TextView tvFatLunch = view.findViewById(R.id.tvFatLunch);
@@ -466,7 +387,6 @@ public class HomeFragment extends Fragment {
         tempString = String.valueOf(macroMg.getCaloriesForMealTimeFromDay(foodSystemDay.get(2))) + " kcal";
         tvCaloriesLunch.setText(tempString);
 
-        //Obiad
         TextView tvCarbohydratesDinner = view.findViewById(R.id.tvCarbohydratesDinner);
         TextView tvProteinDinner = view.findViewById(R.id.tvProteinDinner);
         TextView tvFatDinner = view.findViewById(R.id.tvFatDinner);
@@ -481,7 +401,6 @@ public class HomeFragment extends Fragment {
         tempString = String.valueOf(macroMg.getCaloriesForMealTimeFromDay(foodSystemDay.get(3))) + " kcal";
         tvCaloriesDinner.setText(tempString);
 
-        //Przekąska
         TextView tvCarbohydratesSnack = view.findViewById(R.id.tvCarbohydratesSnack);
         TextView tvProteinSnack = view.findViewById(R.id.tvProteinSnack);
         TextView tvFatSnack = view.findViewById(R.id.tvFatSnack);
@@ -496,7 +415,6 @@ public class HomeFragment extends Fragment {
         tempString = String.valueOf(macroMg.getCaloriesForMealTimeFromDay(foodSystemDay.get(4))) + " kcal";
         tvCaloriesSnack.setText(tempString);
 
-        //Kolacja
         TextView tvCarbohydratesSupper = view.findViewById(R.id.tvCarbohydratesSupper);
         TextView tvProteinSupper = view.findViewById(R.id.tvProteinSupper);
         TextView tvFatSupper = view.findViewById(R.id.tvFatSupper);
@@ -527,6 +445,19 @@ public class HomeFragment extends Fragment {
         pbFat.setProgress((int) Math.round(macroMg.getFatFromDay(foodSystemDay)));
     }
 
+    public void updateExerciseAmount() {
+        int exerciseAmount = 0;
+        for (int i = 0; i < trainingSystemDay.size(); i++) {
+            if (trainingSystemDay.get(i).getClass() == Exercise.class)
+                exerciseAmount++;
+            else {
+                Training tempTraining = (Training) trainingSystemDay.get(i);
+                exerciseAmount += tempTraining.getExerciseList().size();
+            }
+        }
+        tvExerciseAmount.setText(String.valueOf(exerciseAmount));
+    }
+
     private void openAddToFoodSystem(int mealTime) {
         Intent openAddToFoodSystemActivity = new Intent(getContext(), AddToFoodSystemActivity.class);
         openAddToFoodSystemActivity.putExtra("user", user);
@@ -534,260 +465,17 @@ public class HomeFragment extends Fragment {
         startActivity(openAddToFoodSystemActivity);
     }
 
-    private void foodSystemOnClick(final int position, final int mealTime, final ArrayList<FoodSystem> tempList) {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        View alertView = getLayoutInflater().inflate(R.layout.dialog_food_system_details, null);
-
-        TextView tvName = alertView.findViewById(R.id.tvName);
-        TextView tvIn100 = alertView.findViewById(R.id.tvIn100);
-        LinearLayout llMeal = alertView.findViewById(R.id.llMeal);
-        TextView tvTotalMealWeight = alertView.findViewById(R.id.tvTotalMealWeight);
-        TextView tvCarbohydrates = alertView.findViewById(R.id.tvCarbohydrates);
-        TextView tvProtein = alertView.findViewById(R.id.tvProtein);
-        TextView tvFat = alertView.findViewById(R.id.tvFat);
-        TextView tvCalories = alertView.findViewById(R.id.tvCalories);
-        TextView tvIngredients = alertView.findViewById(R.id.tvIngredients);
-        ListView lvIngredients = alertView.findViewById(R.id.lvIngredients);
-        Button bDelete = alertView.findViewById(R.id.bDelete);
-
-        DecimalFormat decimalFormat = new DecimalFormat("0.0");
-
-        tvName.setText(tempList.get(position).getName());
-
-        String tempString = String.valueOf(decimalFormat.format(tempList.get(position).getCarbohydrates())) + " g";
-        tvCarbohydrates.setText(tempString);
-
-        tempString = String.valueOf(decimalFormat.format(tempList.get(position).getProtein())) + " g";
-        tvProtein.setText(tempString);
-
-        tempString = String.valueOf(decimalFormat.format(tempList.get(position).getFat())) + " g";
-        tvFat.setText(tempString);
-
-        tempString = String.valueOf(tempList.get(position).getCalories()) + " g";
-        tvCalories.setText(tempString);
-
-        if (tempList.get(position).getClass() == Meal.class) {
-            tvIn100.setVisibility(View.GONE);
-            bDelete.setText("Usuń posiłek z sekcji 'Śniadanie'");
-            final Meal tempMeal = (Meal) tempList.get(position);
-            tempString = String.valueOf(tempMeal.getTotalWeight()) + " g";
-            tvTotalMealWeight.setText(tempString);
-
-            IngredientsListAdapter adapter = new IngredientsListAdapter(getActivity(), R.layout.listview_adapter_ingredient_with_weight_simple, tempMeal.getIngredientList());
-            lvIngredients.setAdapter(adapter);
-        } else {
-            tvIngredients.setVisibility(View.GONE);
-            llMeal.setVisibility(View.GONE);
-            bDelete.setText("Usuń produkt z sekcji 'Śniadanie'");
-            lvIngredients.setVisibility(View.GONE);
-        }
-
-        builder.setView(alertView);
-        final AlertDialog dialog = builder.create();
-        dialog.show();
-
-        bDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DeleteFoodSystemConnection deleteConnection = new DeleteFoodSystemConnection(HomeFragment.this, foodSystemDay, foodSystemMealTimeAdapters);
-                deleteConnection.deleteFromFoodSystem(tempList.get(position), user.getUserID(), mealTime, tempList.get(position).getWeight());
-                dialog.dismiss();
-            }
-        });
-    }
-
-
-
-
-
-    private void getTrainingSystem() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonResponse = new JSONObject(response);
-                    boolean success = jsonResponse.getBoolean("success");
-                    if (success) {
-                        for (int i = 0; i < jsonResponse.length() - 3; i++) {
-                            JSONObject row = jsonResponse.getJSONObject(String.valueOf(i));
-                            if (row.getString("type").equals("training")) {
-                                int trainingPosition = checkTrainingPositionInList(row.getInt("ID_MyTraining"));
-                                if (trainingPosition == -1) {
-                                    Training tempTraining = new Training(row.getInt("ID_MyTraining"), row.getString("TrainingName"));
-                                    Exercise tempExercise = new Exercise(row.getInt("ID_Exercise"), row.getString("ExerciseName"));
-                                    tempExercise.setSeries(row.getInt("Series"));
-                                    tempExercise.setRepetitions(row.getInt("Repetitions"));
-                                    tempTraining.addExerciseToList(tempExercise);
-                                    trainingSystem.add(tempTraining);
-                                } else {
-                                    Exercise tempExercise = new Exercise(row.getInt("ID_Exercise"), row.getString("ExerciseName"));
-                                    tempExercise.setSeries(row.getInt("Series"));
-                                    tempExercise.setRepetitions(row.getInt("Repetitions"));
-                                    updateTrainingInTrainingSystemList(trainingPosition, tempExercise);
-                                }
-                            } else {
-                                Exercise tempExercise = new Exercise(row.getInt("ID_Exercise"), row.getString("ExerciseName"));
-                                tempExercise.setSeries(row.getInt("Series"));
-                                tempExercise.setRepetitions(row.getInt("Repetitions"));
-                                trainingSystem.add(tempExercise);
-                            }
-                        }
-                        llTraining.setVisibility(View.VISIBLE);
-                        trainingSystemListAdapter.notifyDataSetChanged();
-                        updateExerciseAmount();
-                    } else
-                        Toast.makeText(getActivity(), "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getActivity(), "Błąd połączenia z bazą " + e.toString(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "Błąd połączenia z bazą " + error.toString(), Toast.LENGTH_SHORT).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                Date date = new Date();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                params.put("operation", "getTrainingSystemFromDay");
-                params.put("userId", String.valueOf(user.getUserID()));
-                params.put("date", dateFormat.format(date));
-                return params;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        requestQueue.add(stringRequest);
-    }
-
-    private void updateTrainingInTrainingSystemList(int trainingPosition, Exercise tempExercise) {
-        Training tempTraining = (Training) trainingSystem.get(trainingPosition);
-        tempTraining.addExerciseToList(tempExercise);
-    }
-
-    private int checkTrainingPositionInList(int trainingId) {
-        Training tempTraining;
-        for (int i = 0; i < trainingSystem.size(); i++) {
-            if (trainingSystem.get(i).getClass() == Training.class) {
-                tempTraining = (Training) trainingSystem.get(i);
-                if (tempTraining.getID() == trainingId)
-                    return i;
-            }
-        }
-        return -1;
-    }
-
-    private void addToTrainingSystem() {
+    private void openAddToTrainingSystem() {
         Intent openAddToTrainingSystemActivity = new Intent(getContext(), AddToTrainingSystemActivity.class);
         openAddToTrainingSystemActivity.putExtra("user", user);
         startActivity(openAddToTrainingSystemActivity);
     }
 
-    private void trainingSystemOnClick(final int position) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        View alertView = getLayoutInflater().inflate(R.layout.dialog_training_system_details, null);
-
-        TextView tvName = alertView.findViewById(R.id.tvName);
-        TextView tvSeries = alertView.findViewById(R.id.tvSeries);
-        TextView tvRepetitions = alertView.findViewById(R.id.tvRepetitions);
-        TextView tvExerciseAmount = alertView.findViewById(R.id.tvExerciseAmount);
-        ListView lvExercises = alertView.findViewById(R.id.lvExercises);
-        Button bDelete = alertView.findViewById(R.id.bDelete);
-        LinearLayout llExercise = alertView.findViewById(R.id.llExercise);
-        LinearLayout llTraining = alertView.findViewById(R.id.llTraining);
-
-        tvName.setText(trainingSystem.get(position).getName());
-
-        if (trainingSystem.get(position).getClass() == Exercise.class) {
-            Exercise tempExercise = (Exercise) trainingSystem.get(position);
-            llTraining.setVisibility(View.GONE);
-            tvSeries.setText(String.valueOf(tempExercise.getSeries()));
-            tvRepetitions.setText(String.valueOf(tempExercise.getRepetitions()));
-            bDelete.setText("Usuń ćwiczenie");
-        } else {
-            Training tempTraining = (Training) trainingSystem.get(position);
-            llExercise.setVisibility(View.GONE);
-            tvExerciseAmount.setText(String.valueOf(tempTraining.getExerciseList().size()));
-            bDelete.setText("Usuń trening");
-
-            ExercisesListAdapter exercisesListAdapter = new ExercisesListAdapter(getActivity(), R.layout.listview_adapter_exercise_with_series_repetitions_simple, tempTraining.getExerciseList());
-            lvExercises.setAdapter(exercisesListAdapter);
-        }
-
-        builder.setView(alertView);
-        final AlertDialog dialog = builder.create();
-        dialog.show();
-
-        bDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                deleteFromTrainingSystem(trainingSystem.get(position), user.getUserID());
-                dialog.dismiss();
-            }
-        });
+    public LinearLayout getLlTraining() {
+        return llTraining;
     }
 
-    private void deleteFromTrainingSystem(final TrainingSystem training, final int userID) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonResponse = new JSONObject(response);
-                    boolean success = jsonResponse.getBoolean("success");
-                    if (success) {
-                        Toast.makeText(getActivity(), "Pomyślnie usunięto", Toast.LENGTH_SHORT).show();
-                        trainingSystem.remove(training);
-                        trainingSystemListAdapter.notifyDataSetChanged();
-                        updateExerciseAmount();
-                    } else
-                        Toast.makeText(getActivity(), "Błąd podczas usuwania", Toast.LENGTH_SHORT).show();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getActivity(), "Błąd podczas usuwania " + e.toString(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "Błąd podczas usuwania " + error.toString(), Toast.LENGTH_SHORT).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                Date date = new Date();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                params.put("userId", String.valueOf(userID));
-                params.put("date", dateFormat.format(date));
-                if (training.getClass() == Exercise.class) {
-                    params.put("operation", "deleteExerciseFromTrainingSystem");
-                    params.put("exerciseId", String.valueOf(training.getID()));
-
-                } else {
-                    params.put("operation", "deleteTrainingFromTrainingSystem");
-                    params.put("myTrainingId", String.valueOf(training.getID()));
-                }
-                return params;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        requestQueue.add(stringRequest);
-    }
-
-    private void updateExerciseAmount() {
-        int exerciseAmount = 0;
-        for (int i = 0; i < trainingSystem.size(); i++) {
-            if (trainingSystem.get(i).getClass() == Exercise.class)
-                exerciseAmount++;
-            else {
-                Training tempTraining = (Training) trainingSystem.get(i);
-                exerciseAmount += tempTraining.getExerciseList().size();
-            }
-        }
-        tvExerciseAmount.setText(String.valueOf(exerciseAmount));
+    public TrainingSystemListAdapter getTrainingSystemListAdapter() {
+        return trainingSystemListAdapter;
     }
 }
