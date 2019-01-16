@@ -9,34 +9,19 @@ import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.formatter.IValueFormatter;
-import com.github.mikephil.charting.utils.ViewPortHandler;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 import androidx.annotation.NonNull;
-import pl.edu.wat.fitapp.Database.Entity.Connection.FoodSystemDayConnection;
-import pl.edu.wat.fitapp.Database.Entity.Connection.FoodSystemWeekConnection;
-import pl.edu.wat.fitapp.Database.Entity.Connection.WeightConnection;
+import pl.edu.wat.fitapp.Database.Connection.FoodSystemDayConnection;
+import pl.edu.wat.fitapp.Database.Connection.FoodSystemWeekConnection;
+import pl.edu.wat.fitapp.Database.Connection.WeightConnection;
 import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.Interface.FoodSystem;
 import pl.edu.wat.fitapp.Main.MainActivity;
-import pl.edu.wat.fitapp.Mangement.MacrocomponentManagement;
 import pl.edu.wat.fitapp.R;
 
 

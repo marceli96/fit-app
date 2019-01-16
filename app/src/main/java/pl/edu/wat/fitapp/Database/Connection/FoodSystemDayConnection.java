@@ -1,4 +1,4 @@
-package pl.edu.wat.fitapp.Database.Entity.Connection;
+package pl.edu.wat.fitapp.Database.Connection;
 
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -14,46 +14,41 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import pl.edu.wat.fitapp.Charts.JournalChartsMacroWeek;
+import pl.edu.wat.fitapp.Charts.JournalChartDay;
 import pl.edu.wat.fitapp.Database.Entity.Ingredient;
 import pl.edu.wat.fitapp.Database.Entity.Meal;
 import pl.edu.wat.fitapp.Interface.FoodSystem;
+import pl.edu.wat.fitapp.Main.Fragment.HomeFragment;
 import pl.edu.wat.fitapp.Main.Fragment.JournalFragment;
-import pl.edu.wat.fitapp.Mangement.FoodSystemWeekManagement;
+import pl.edu.wat.fitapp.Mangement.FoodSystemDayManagement;
 
-public class FoodSystemWeekConnection {
+public class FoodSystemDayConnection {
     private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
     private Fragment fragment;
-    private ArrayList<ArrayList<ArrayList<FoodSystem>>> foodSystemWeek;
+    private ArrayList<ArrayList<FoodSystem>> foodSystemDay;
 
-    public FoodSystemWeekConnection(Fragment fragment, ArrayList<ArrayList<ArrayList<FoodSystem>>> foodSystemWeek) {
+    public FoodSystemDayConnection(Fragment fragment, ArrayList<ArrayList<FoodSystem>> foodSystemDay) {
         this.fragment = fragment;
-        this.foodSystemWeek = foodSystemWeek;
+        this.foodSystemDay = foodSystemDay;
     }
 
-    public void getFoodSystemFromWeek(final int userID) {
+    public void getFoodSystemFromDay(final int userID, final String date) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
-                    FoodSystemWeekManagement foodSystemWeekManagement = new FoodSystemWeekManagement();
+                    FoodSystemDayManagement foodSystemManagement = new FoodSystemDayManagement();
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
                     if (success) {
                         for (int i = 0; i < jsonResponse.length() - 3; i++) {
                             JSONObject row = jsonResponse.getJSONObject(String.valueOf(i));
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                            String dateString = row.getString("FoodDate");
-                            Date date = sdf.parse(dateString);
                             if (row.getString("type").equals("meal")) {
-                                int mealPosition = foodSystemWeekManagement.checkMealPositionInListForDate(row.getInt("ID_MyMeal"), date, row.getInt("MealTime"), foodSystemWeek);
+                                int mealPosition = foodSystemManagement.checkMealPositionInList(row.getInt("ID_MyMeal"), row.getInt("MealTime"), foodSystemDay);
                                 Meal tempMeal;
                                 if (mealPosition == -1) {
                                     tempMeal = new Meal(row.getInt("ID_MyMeal"), row.getString("MealName"));
@@ -62,53 +57,52 @@ public class FoodSystemWeekConnection {
                                     tempIngredient.setWeight(row.getInt("IngredientWeight"));
                                     tempMeal.addIngredientToList(tempIngredient);
                                     tempMeal.setWeight(row.getInt("Weight"));
-                                    foodSystemWeekManagement.addMealToFoodSystemListForDate(tempMeal, date, row.getInt("MealTime"), foodSystemWeek);
+                                    foodSystemManagement.addMealToFoodSystemList(tempMeal, row.getInt("MealTime"), foodSystemDay);
                                 } else {
                                     Ingredient tempIngredient = new Ingredient(row.getInt("ID_Ingredient"), row.getString("IngredientName"), row.getDouble("Carbohydrates"),
                                             row.getDouble("Protein"), row.getDouble("Fat"), row.getInt("Calories"));
                                     tempIngredient.setWeight(row.getInt("IngredientWeight"));
-                                    foodSystemWeekManagement.updateMealInFoodSystemListForDate(mealPosition, tempIngredient, date, row.getInt("MealTime"), foodSystemWeek);
+                                    foodSystemManagement.updateMealInFoodSystemList(mealPosition, tempIngredient, row.getInt("MealTime"), foodSystemDay);
                                 }
                             } else {
                                 Ingredient tempIngredient = new Ingredient(row.getInt("ID_Ingredient"), row.getString("IngredientName"), row.getDouble("Carbohydrates"),
                                         row.getDouble("Protein"), row.getDouble("Fat"), row.getInt("Calories"));
                                 tempIngredient.setWeight(row.getInt("Weight"));
-                                foodSystemWeekManagement.addIngredientToFoodSystemListForDate(tempIngredient, date, row.getInt("MealTime"), foodSystemWeek);
+                                foodSystemManagement.addIngredientToFoodSystemList(tempIngredient, row.getInt("MealTime"), foodSystemDay);
                             }
                         }
-                        if(fragment.getClass() == JournalFragment.class){
-                            ((JournalFragment) fragment).getPbLoadingLastWeek().setVisibility(View.GONE);
-                            JournalChartsMacroWeek journalChartsMacroWeek = new JournalChartsMacroWeek((JournalFragment) fragment, foodSystemWeek);
-                            journalChartsMacroWeek.drawChartsMacroWeek();
+                        if (fragment.getClass() == JournalFragment.class) {
+                            ((JournalFragment) fragment).getPbLoadingDaily().setVisibility(View.GONE);
+                            JournalChartDay journalChartDay = new JournalChartDay((JournalFragment) fragment, foodSystemDay);
+                            journalChartDay.drawChartsMacroDaily();
+                        } else if(fragment.getClass() == HomeFragment.class){
+                            ((HomeFragment) fragment).showMealLayoutsAndUpdate();
                         }
-
-                    } else
+                    } else {
                         Toast.makeText(fragment.getActivity(), "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(fragment.getActivity(), "Błąd połączenia z bazą " + e.toString(), Toast.LENGTH_SHORT).show();
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                    Toast.makeText(fragment.getActivity(), "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(fragment.getActivity(), "Błąd połączenia z bazą " + error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(fragment.getActivity(), "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                Date date = new Date();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                params.put("operation", "getFoodSystemFromWeek");
+                params.put("operation", "getFoodSystemFromDay");
                 params.put("userId", String.valueOf(userID));
-                params.put("dateNow", dateFormat.format(date));
+                params.put("date", date);
                 return params;
             }
         };
         RequestQueue requestQueue = Volley.newRequestQueue(fragment.getActivity());
         requestQueue.add(stringRequest);
     }
+
 }

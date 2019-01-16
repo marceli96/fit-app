@@ -75,4 +75,56 @@ public class MacrocomponentManagement {
         }
         return fat;
     }
+
+    public int getCaloriesForMealTimeFromDay(ArrayList<FoodSystem> foodSystemMealTime){
+        int calories = 0;
+        for(int i = 0; i < foodSystemMealTime.size(); i++){
+            if(foodSystemMealTime.get(i).getClass() == Ingredient.class)
+                calories += foodSystemMealTime.get(i).getCalories() * foodSystemMealTime.get(i).getWeight() / 100;
+            else {
+                Meal tempMeal = (Meal) foodSystemMealTime.get(i);
+                calories += tempMeal.getCalories() * tempMeal.getWeight() / tempMeal.getTotalWeight();
+            }
+        }
+        return calories;
+    }
+
+    public double getCarbohydratesForMealTimeFromDay(ArrayList<FoodSystem> foodSystemMealTime){
+        double carbohydrates = 0;
+        for(int i = 0; i < foodSystemMealTime.size(); i++){
+            if(foodSystemMealTime.get(i).getClass() == Ingredient.class)
+                carbohydrates += foodSystemMealTime.get(i).getCarbohydrates() * foodSystemMealTime.get(i).getWeight() / 100;
+            else {
+                Meal tempMeal = (Meal) foodSystemMealTime.get(i);
+                carbohydrates += tempMeal.getCarbohydrates() * tempMeal.getWeight() / tempMeal.getTotalWeight();
+            }
+        }
+        return carbohydrates;
+    }
+
+    public double getProteinForMealTimeFromDay(ArrayList<FoodSystem> foodSystemMealTime){
+        double protein = 0;
+        for(int i = 0; i < foodSystemMealTime.size(); i++){
+            if(foodSystemMealTime.get(i).getClass() == Ingredient.class)
+                protein += foodSystemMealTime.get(i).getProtein() * foodSystemMealTime.get(i).getWeight() / 100;
+            else {
+                Meal tempMeal = (Meal) foodSystemMealTime.get(i);
+                protein += tempMeal.getProtein() * tempMeal.getWeight() / tempMeal.getTotalWeight();
+            }
+        }
+        return protein;
+    }
+
+    public double getFatForMealTimeFromDay(ArrayList<FoodSystem> foodSystemMealTime){
+        double fat = 0;
+        for(int i = 0; i < foodSystemMealTime.size(); i++){
+            if(foodSystemMealTime.get(i).getClass() == Ingredient.class)
+                fat += foodSystemMealTime.get(i).getFat() * foodSystemMealTime.get(i).getWeight() / 100;
+            else {
+                Meal tempMeal = (Meal) foodSystemMealTime.get(i);
+                fat += tempMeal.getFat() * tempMeal.getWeight() / tempMeal.getTotalWeight();
+            }
+        }
+        return fat;
+    }
 }

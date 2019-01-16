@@ -1,4 +1,4 @@
-package pl.edu.wat.fitapp.Database.Entity.Connection;
+package pl.edu.wat.fitapp.Database.Connection;
 
 import android.view.View;
 import android.widget.Toast;
