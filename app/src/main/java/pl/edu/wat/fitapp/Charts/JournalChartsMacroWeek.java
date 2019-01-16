@@ -4,23 +4,17 @@ import android.graphics.Color;
 import android.view.View;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.formatter.IValueFormatter;
-import com.github.mikephil.charting.utils.ViewPortHandler;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import pl.edu.wat.fitapp.Charts.ChartComponent.DaysXAxisValueFormatter;
+import pl.edu.wat.fitapp.Charts.ChartComponent.XAxisValueFormatter;
 import pl.edu.wat.fitapp.Charts.ChartComponent.DoubleValueFormatter;
 import pl.edu.wat.fitapp.Interface.FoodSystem;
 import pl.edu.wat.fitapp.Main.Fragment.JournalFragment;
@@ -67,7 +61,7 @@ public class JournalChartsMacroWeek {
 
     public void drawChartsMacroWeek() {
         MacrocomponentManagement macroMg = new MacrocomponentManagement();
-        DaysXAxisValueFormatter daysXAxisValueFormatter = new DaysXAxisValueFormatter(days);
+        XAxisValueFormatter XAxisValueFormatter = new XAxisValueFormatter(days);
         DoubleValueFormatter doubleValueFormatter = new DoubleValueFormatter();
         journalFragment.getLlCaloriesWeekly().setVisibility(View.VISIBLE);
         journalFragment.getLlCarbohydratesWeekly().setVisibility(View.VISIBLE);
@@ -112,7 +106,7 @@ public class JournalChartsMacroWeek {
 
         XAxis xAxisCalories = chartCaloriesWeek.getXAxis();
         xAxisCalories.setGranularity(1);
-        xAxisCalories.setValueFormatter(daysXAxisValueFormatter);
+        xAxisCalories.setValueFormatter(XAxisValueFormatter);
         xAxisCalories.setPosition(XAxis.XAxisPosition.BOTTOM);
 
         //wykres węglowodanów
@@ -144,7 +138,7 @@ public class JournalChartsMacroWeek {
 
         XAxis xAxisCarbohydrates = chartCarbohydratesWeek.getXAxis();
         xAxisCarbohydrates.setGranularity(1);
-        xAxisCarbohydrates.setValueFormatter(daysXAxisValueFormatter);
+        xAxisCarbohydrates.setValueFormatter(XAxisValueFormatter);
         xAxisCarbohydrates.setPosition(XAxis.XAxisPosition.BOTTOM);
 
         //wykres białka
@@ -176,7 +170,7 @@ public class JournalChartsMacroWeek {
 
         XAxis xAxisProtein = chartProteinWeek.getXAxis();
         xAxisProtein.setGranularity(1);
-        xAxisProtein.setValueFormatter(daysXAxisValueFormatter);
+        xAxisProtein.setValueFormatter(XAxisValueFormatter);
         xAxisProtein.setPosition(XAxis.XAxisPosition.BOTTOM);
 
         //wykres tłuszczu
@@ -208,7 +202,7 @@ public class JournalChartsMacroWeek {
 
         XAxis xAxisFat = chartFatWeek.getXAxis();
         xAxisFat.setGranularity(1);
-        xAxisFat.setValueFormatter(daysXAxisValueFormatter);
+        xAxisFat.setValueFormatter(XAxisValueFormatter);
         xAxisFat.setPosition(XAxis.XAxisPosition.BOTTOM);
     }
 }

@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import pl.edu.wat.fitapp.Charts.JournalChartDay;
 import pl.edu.wat.fitapp.Database.Entity.Ingredient;
 import pl.edu.wat.fitapp.Database.Entity.Meal;
 import pl.edu.wat.fitapp.Interface.FoodSystem;
@@ -75,7 +76,8 @@ public class FoodSystemDayConnection {
                         }
                         if (fragment.getClass() == JournalFragment.class) {
                             ((JournalFragment) fragment).getPbLoadingDaily().setVisibility(View.GONE);
-//                            ((JournalFragment) fragment).drawChartsDaily();
+                            JournalChartDay journalChartDay = new JournalChartDay((JournalFragment) fragment, foodSystemDay);
+                            journalChartDay.drawChartsMacroDaily();
                         }
                     } else {
                         Toast.makeText(fragment.getActivity(), "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();

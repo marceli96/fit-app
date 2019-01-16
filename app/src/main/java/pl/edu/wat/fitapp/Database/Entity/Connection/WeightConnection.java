@@ -40,11 +40,13 @@ public class WeightConnection {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
                     if (success) {
+                        if (jsonResponse.length() == 2) {
                             JSONObject row = jsonResponse.getJSONObject(String.valueOf(0));
                             double weightDay = Double.parseDouble(row.getString("UserWeight"));
                             journalFragment.setWeightDay(weightDay);
                             journalFragment.getTvWeightDay().setText(String.valueOf(weightDay));
                             journalFragment.getLlWeightDay().setVisibility(View.VISIBLE);
+                        }
                     } else {
                         Toast.makeText(journalFragment.getActivity(), "Błąd podczas pobierania wagi z dnia", Toast.LENGTH_SHORT).show();
                     }

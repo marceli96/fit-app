@@ -5,11 +5,11 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
 import java.util.ArrayList;
 
-public class DaysXAxisValueFormatter implements IAxisValueFormatter {
+public class XAxisValueFormatter implements IAxisValueFormatter {
 
     ArrayList<String> values;
 
-    public DaysXAxisValueFormatter(ArrayList<String> values) {
+    public XAxisValueFormatter(ArrayList<String> values) {
         this.values = values;
     }
 

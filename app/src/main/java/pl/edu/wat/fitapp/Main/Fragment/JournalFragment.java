@@ -117,6 +117,27 @@ public class JournalFragment extends Fragment {
         return view;
     }
 
+    private void clearFoodSystemDate() {
+        for (int i = 0; i < 6; i++)
+            foodSystemDate.get(i).clear();
+    }
+
+    private void initializeArrays() {
+        foodSystemWeek = new ArrayList<>();
+        foodSystemDate = new ArrayList<>();
+        weightWeek = new ArrayList<>();
+
+        for(int i = 0; i < 7; i++){
+            foodSystemWeek.add(new ArrayList<ArrayList<FoodSystem>>());
+            for(int j = 0; j < 6; j++){
+                foodSystemWeek.get(i).add(new ArrayList<FoodSystem>());
+            }
+        }
+        for (int i = 0; i < 6; i++){
+            foodSystemDate.add(new ArrayList<FoodSystem>());
+        }
+    }
+
     public void setWeightDay(double weightDay) {
         this.weightDay = weightDay;
     }
@@ -183,26 +204,5 @@ public class JournalFragment extends Fragment {
 
     public LinearLayout getLlWeightWeekly() {
         return llWeightWeekly;
-    }
-
-    private void clearFoodSystemDate() {
-        for (int i = 0; i < 6; i++)
-            foodSystemDate.get(i).clear();
-    }
-
-    private void initializeArrays() {
-        foodSystemWeek = new ArrayList<>();
-        foodSystemDate = new ArrayList<>();
-        weightWeek = new ArrayList<>();
-
-        for(int i = 0; i < 7; i++){
-            foodSystemWeek.add(new ArrayList<ArrayList<FoodSystem>>());
-            for(int j = 0; j < 6; j++){
-                foodSystemWeek.get(i).add(new ArrayList<FoodSystem>());
-            }
-        }
-        for (int i = 0; i < 6; i++){
-            foodSystemDate.add(new ArrayList<FoodSystem>());
-        }
     }
 }

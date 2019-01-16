@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import pl.edu.wat.fitapp.Charts.ChartComponent.DaysXAxisValueFormatter;
+import pl.edu.wat.fitapp.Charts.ChartComponent.XAxisValueFormatter;
 import pl.edu.wat.fitapp.Charts.ChartComponent.DoubleValueFormatter;
 import pl.edu.wat.fitapp.Main.Fragment.JournalFragment;
 
@@ -57,7 +57,7 @@ public class JournalChartsWeightWeek {
     public void drawChartsWeightWeek(){
         journalFragment.getLlWeightWeekly().setVisibility(View.VISIBLE);
 
-        DaysXAxisValueFormatter daysXAxisValueFormatter = new DaysXAxisValueFormatter(days);
+        XAxisValueFormatter XAxisValueFormatter = new XAxisValueFormatter(days);
         DoubleValueFormatter doubleValueFormatter = new DoubleValueFormatter();
 
         BarChart chartWeightWeek = journalFragment.getChartWeightWeek();
@@ -92,7 +92,7 @@ public class JournalChartsWeightWeek {
 
         XAxis xAxisWeight = chartWeightWeek.getXAxis();
         xAxisWeight.setGranularity(1);
-        xAxisWeight.setValueFormatter(daysXAxisValueFormatter);
+        xAxisWeight.setValueFormatter(XAxisValueFormatter);
         xAxisWeight.setPosition(XAxis.XAxisPosition.BOTTOM);
     }
 }
