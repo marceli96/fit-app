@@ -41,7 +41,7 @@ import pl.edu.wat.fitapp.Database.Entity.Ingredient;
 import pl.edu.wat.fitapp.Database.Entity.Meal;
 import pl.edu.wat.fitapp.Database.Entity.Training;
 import pl.edu.wat.fitapp.Database.Entity.User;
-import pl.edu.wat.fitapp.JavaComponent.NonScrollListView;
+import pl.edu.wat.fitapp.AndroidComponent.NonScrollListView;
 import pl.edu.wat.fitapp.Main.MainActivity;
 import pl.edu.wat.fitapp.R;
 

@@ -1,4 +1,4 @@
-package pl.edu.wat.fitapp.JavaComponent;
+package pl.edu.wat.fitapp.AndroidComponent;
 
 import android.content.Context;
 import android.util.AttributeSet;
