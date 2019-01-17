@@ -207,42 +207,36 @@ public class HomeFragment extends Fragment {
                 hiddenBreakfast = layoutOnClick(hiddenBreakfast, lvBreakfast, imArrowBreakfast);
             }
         });
-
         llSecondBreakfast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 hiddenSecondBreakfast = layoutOnClick(hiddenSecondBreakfast, lvSecondBreakfast, imArrowSecondBreakfast);
             }
         });
-
         llLunch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 hiddenLunch = layoutOnClick(hiddenLunch, lvLunch, imArrowLunch);
             }
         });
-
         llDinner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 hiddenDinner = layoutOnClick(hiddenDinner, lvDinner, imArrowDinner);
             }
         });
-
         llSnack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 hiddenSnack = layoutOnClick(hiddenSnack, lvSnack, imArrowSnack);
             }
         });
-
         llSupper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 hiddenSupper = layoutOnClick(hiddenSupper, lvSupper, imArrowSupper);
             }
         });
-
         llTraining.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -256,42 +250,36 @@ public class HomeFragment extends Fragment {
                 openAddToFoodSystem(0);
             }
         });
-
         imAddSecondBreakfast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openAddToFoodSystem(1);
             }
         });
-
         imAddLunch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openAddToFoodSystem(2);
             }
         });
-
         imAddDinner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openAddToFoodSystem(3);
             }
         });
-
         imAddSnack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openAddToFoodSystem(4);
             }
         });
-
         imAddSupper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openAddToFoodSystem(5);
             }
         });
-
         imAddTraining.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

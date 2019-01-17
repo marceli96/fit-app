@@ -16,45 +16,29 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-
+import pl.edu.wat.fitapp.Database.Connection.UserConnection;
 import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.Main.MainActivity;
+import pl.edu.wat.fitapp.Mangement.UserSettingsManagement;
 import pl.edu.wat.fitapp.R;
 
 
 public class GoalsFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private EditText etWeight;
-    TextView tvCaloricDemand;
+    private TextView tvCaloricDemand;
     private Spinner spinnerLevelActivity;
     private RadioButton rbLose, rbKeep, rbGain;
     private RadioGroup rgGoal;
     private Button bCount, bSave;
 
     private User user;
-    private View v;
 
     private int calories;
     private String activityLevel;
 
     private ArrayAdapter<CharSequence> adapter;
 
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
 
     public GoalsFragment() {
         // Required empty public constructor
@@ -67,7 +51,6 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
         ((MainActivity) getActivity()).setActionBarTitle("Cele");
 
         View view = getLayoutInflater().inflate(R.layout.fragment_goals, container, false);
-        v = view;
 
         user = (User) getActivity().getIntent().getSerializableExtra("user");
 
@@ -106,14 +89,27 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
         bCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                calculateCalories();
+                if (!etWeight.getText().toString().isEmpty()) {
+                    UserSettingsManagement userMgn = new UserSettingsManagement();
+                    calories = userMgn.calculateCaloriesForExistingUser(rgGoal, getView(), user, activityLevel, Double.parseDouble(etWeight.getText().toString()));
+                    tvCaloricDemand.setText(String.valueOf(calories));
+                } else
+                    Toast.makeText(getActivity(), "Uzupełnij pole 'Masa ciała'", Toast.LENGTH_SHORT).show();
             }
         });
 
         bSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                save();
+                if (!etWeight.getText().toString().isEmpty()) {
+                    UserSettingsManagement userMgn = new UserSettingsManagement();
+                    calories = userMgn.calculateCaloriesForExistingUser(rgGoal, getView(), user, activityLevel, Double.parseDouble(etWeight.getText().toString()));
+                    tvCaloricDemand.setText(String.valueOf(calories));
+                    UserConnection userConnection = new UserConnection(GoalsFragment.this);
+                    userConnection.saveWeight(user, Double.parseDouble(etWeight.getText().toString()), userMgn.getGoalInt(rgGoal, getView()),
+                            calories, userMgn.getActivityLevelInt(activityLevel));
+                } else
+                    Toast.makeText(getActivity(), "Uzupełnij pole 'Masa ciała'", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -130,159 +126,10 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
 
     }
 
-    public void calculateCalories() {
-        String goal = getRadioButtonText(rgGoal);
-        int sex = user.getSex();
-        int age = user.getAge();
-        int height = user.getHeight();
-
-        if(etWeight.getText().toString().isEmpty()) {
-            Toast.makeText(getActivity(), "Uzupełnij pole 'Masa ciała'" , Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
-            double weight = Double.parseDouble(etWeight.getText().toString());
-            switch (sex)
-            {
-                case 0:
-                    calories = (int) Math.round(655 + (9.6 * weight) + (1.8 * height) - (4.7 * age));
-                    if (activityLevel.equals("Brak"))
-                        calories *= 1.2;
-                    else if (activityLevel.equals("Niska"))
-                        calories *= 1.3;
-                    else if (activityLevel.equals("Średnia"))
-                        calories *= 1.5;
-                    else if (activityLevel.equals("Wysoka"))
-                        calories *= 1.7;
-                    else if (activityLevel.equals("Bardzo wysoka"))
-                        calories *= 1.9;
-
-                    if (goal.equals("Utrata"))
-                        calories -= 250;
-                    else if (goal.equals("Przybranie"))
-                        calories += 250;
-
-                    tvCaloricDemand.setText(String.valueOf(calories));
-                    break;
-                case 1:
-                    calories = (int) Math.round(66 + (13.7 * weight) + (5 * height) - (6.76 * age));
-                    if (activityLevel.equals("Brak"))
-                        calories *= 1.2;
-                    else if (activityLevel.equals("Niska"))
-                        calories *= 1.3;
-                    else if (activityLevel.equals("Średnia"))
-                        calories *= 1.5;
-                    else if (activityLevel.equals("Wysoka"))
-                        calories *= 1.7;
-                    else if (activityLevel.equals("Bardzo wysoka"))
-                        calories *= 1.9;
-
-                    if (goal.equals("Utrata"))
-                        calories -= 250;
-                    else if (goal.equals("Przybranie"))
-                        calories += 250;
-
-                    tvCaloricDemand.setText(String.valueOf(calories));
-                    break;
-            }
-        }
-
-
-    }
-
-    public void save() {
-        if (!etWeight.getText().toString().isEmpty()) {
-            final int userID = user.getUserID();
-            final double weight = Double.parseDouble(etWeight.getText().toString());
-            final int goal = getGoalInt(getRadioButtonText(rgGoal));
-
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            final String date = df.format(Calendar.getInstance().getTime());
-
-            calculateCalories();
-
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            try {
-                                JSONObject jsonResponse = new JSONObject(response);
-                                boolean successUser = jsonResponse.getBoolean("successUser");
-                                boolean successWeight = jsonResponse.getBoolean("successWeight");
-                                if (successUser && successWeight) {
-                                    Toast.makeText(getActivity(), "Dane zaaktualizowane ", Toast.LENGTH_SHORT).show();
-                                    user.setWeight(weight);
-                                    user.setGoal(goal);
-                                    user.setCaloricDemand(calories);
-                                    user.setActivityLevel(getActivityLevelInt());
-                                    openHomeActivty();
-                                } else
-                                    Toast.makeText(getActivity(), "Nieoczkiwany błąd, powtórz wcześniej wprowadzone zmiany", Toast.LENGTH_SHORT).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                Toast.makeText(getActivity(), "Błąd połączenia z bazą" + e.toString(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getActivity(), "Błąd połączenia z bazą " + error.toString(), Toast.LENGTH_SHORT).show();
-                        }
-                    }) {
-                @Override
-                protected Map<String, String> getParams() {
-                    Map<String, String> params = new HashMap<>();
-                    params.put("operation", "setWeightGoalActivityLevel");
-                    params.put("userId", String.valueOf(userID));
-                    params.put("userWeight", String.valueOf(weight));
-                    params.put("weightDate", String.valueOf(date));
-                    params.put("caloricDemend", String.valueOf(calories));
-                    params.put("goal", String.valueOf(goal));
-                    params.put("activityLevel", String.valueOf(getActivityLevelInt()));
-                    return params;
-                }
-            };
-
-            RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-            requestQueue.add(stringRequest);
-        } else
-            Toast.makeText(getActivity(), "Uzupełnij pole 'Masa ciała'", Toast.LENGTH_SHORT).show();
-    }
-
-    public String getRadioButtonText(RadioGroup rg) {
-        int radioId = rg.getCheckedRadioButtonId();
-        RadioButton rb = v.findViewById(radioId);
-        return rb.getText().toString();
-    }
-
-    public int getGoalInt(String goal) {
-        if (goal.equals("Utrata"))
-            return 0;
-        else if (goal.equals("Przybranie"))
-            return 1;
-        else
-            return 2;
-    }
-
-    public int getActivityLevelInt() {
-        if (activityLevel.equals("Brak"))
-            return 0;
-        else if (activityLevel.equals("Niska"))
-            return 1;
-        else if (activityLevel.equals("Średnia"))
-            return 2;
-        else if (activityLevel.equals("Wysoka"))
-            return 3;
-        else
-            return 4;
-    }
-
-    public void openHomeActivty() {
+    public void openHomeActivity() {
         Intent openHomeScreen = new Intent(getActivity(), MainActivity.class);
         openHomeScreen.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         openHomeScreen.putExtra("user", user);
         startActivity(openHomeScreen);
     }
-
 }
