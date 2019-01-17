@@ -57,6 +57,49 @@ public class UserSettingsManagement {
         return calories;
     }
 
+    public int calculateCaloriesForNewUser(RadioGroup rgSex, RadioGroup rgGoal, View view, int age, double weight, int height, String activityLevel) {
+        int calories;
+        String sex = getRadioButtonText(rgSex, view);
+        String goal = getRadioButtonText(rgGoal, view);
+
+        if (sex.equals("Kobieta")) {
+            calories = (int) Math.round(655 + (9.6 * weight) + (1.8 * height) - (4.7 * age));
+            if (activityLevel.equals("Brak"))
+                calories *= 1.2;
+            else if (activityLevel.equals("Niska"))
+                calories *= 1.3;
+            else if (activityLevel.equals("Średnia"))
+                calories *= 1.5;
+            else if (activityLevel.equals("Wysoka"))
+                calories *= 1.7;
+            else if (activityLevel.equals("Bardzo wysoka"))
+                calories *= 1.9;
+
+            if (goal.equals("Utrata"))
+                calories -= 250;
+            else if (goal.equals("Przybranie"))
+                calories += 250;
+        } else {
+            calories = (int) Math.round(66 + (13.7 * weight) + (5 * height) - (6.76 * age));
+            if (activityLevel.equals("Brak"))
+                calories *= 1.2;
+            else if (activityLevel.equals("Niska"))
+                calories *= 1.3;
+            else if (activityLevel.equals("Średnia"))
+                calories *= 1.5;
+            else if (activityLevel.equals("Wysoka"))
+                calories *= 1.7;
+            else if (activityLevel.equals("Bardzo wysoka"))
+                calories *= 1.9;
+
+            if (goal.equals("Utrata"))
+                calories -= 250;
+            else if (goal.equals("Przybranie"))
+                calories += 250;
+        }
+        return calories;
+    }
+
     private String getRadioButtonText(RadioGroup radioGroup, View view) {
         int radioId = radioGroup.getCheckedRadioButtonId();
         RadioButton radioButton = view.findViewById(radioId);
@@ -70,6 +113,13 @@ public class UserSettingsManagement {
             return 1;
         else
             return 2;
+    }
+
+    public int getSexInt(RadioGroup radioGroup, View view) {
+        if (getRadioButtonText(radioGroup, view).equals("Kobieta"))
+            return 0;
+        else
+            return 1;
     }
 
     public int getActivityLevelInt(String activityLevel) {
