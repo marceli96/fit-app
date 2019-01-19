@@ -74,88 +74,87 @@ public class UserSettingsConnection {
     }
 
     public void changeEmail(final User user, final String newEmail) {
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            try {
-                                JSONObject jsonResponse = new JSONObject(response);
-                                boolean available = jsonResponse.getBoolean("available");
-                                if (available) {
-                                    boolean success = jsonResponse.getBoolean("success");
-                                    if (success) {
-                                        user.setEmail(newEmail);
-                                        settingsFragment.setUser(user);
-                                        Toast.makeText(settingsFragment.getActivity(), "E-mail zmieniony pomyślnie", Toast.LENGTH_LONG).show();
-                                        settingsFragment.openHomeActivity();
-                                    } else
-                                        Toast.makeText(settingsFragment.getActivity(), "Nieoczekiwany błąd", Toast.LENGTH_LONG).show();
-                                } else
-                                    Toast.makeText(settingsFragment.getActivity(), "E-mail jest zajęty", Toast.LENGTH_LONG).show();
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                Toast.makeText(settingsFragment.getActivity(), "Settings error! " + e.toString(), Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(settingsFragment.getActivity(), "Settings error! " + error.toString(), Toast.LENGTH_LONG).show();
-                        }
-                    }) {
-                @Override
-                protected Map<String, String> getParams() {
-                    Map<String, String> params = new HashMap<>();
-                    params.put("operation", "setEmail");
-                    params.put("userId", String.valueOf(user.getUserID()));
-                    params.put("email", newEmail);
-                    return params;
-                }
-            };
-
-            RequestQueue requestQueue = Volley.newRequestQueue(settingsFragment.getActivity());
-            requestQueue.add(stringRequest);
-    }
-
-    public void changePassword(final User user, final String newPassword) {
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            try {
-                                JSONObject jsonResponse = new JSONObject(response);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            boolean available = jsonResponse.getBoolean("available");
+                            if (available) {
                                 boolean success = jsonResponse.getBoolean("success");
                                 if (success) {
-                                    Toast.makeText(settingsFragment.getActivity(), "Hasło zmienione pomyślnie", Toast.LENGTH_LONG).show();
+                                    user.setEmail(newEmail);
+                                    settingsFragment.setUser(user);
+                                    Toast.makeText(settingsFragment.getActivity(), "E-mail zmieniony pomyślnie", Toast.LENGTH_LONG).show();
                                     settingsFragment.openHomeActivity();
                                 } else
                                     Toast.makeText(settingsFragment.getActivity(), "Nieoczekiwany błąd", Toast.LENGTH_LONG).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                Toast.makeText(settingsFragment.getActivity(), "Settings error! " + e.toString(), Toast.LENGTH_LONG).show();
-                            }
+                            } else
+                                Toast.makeText(settingsFragment.getActivity(), "E-mail jest zajęty", Toast.LENGTH_LONG).show();
 
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(settingsFragment.getActivity(), "Settings error! " + e.toString(), Toast.LENGTH_LONG).show();
                         }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(settingsFragment.getActivity(), "Settings error! " + error.toString(), Toast.LENGTH_LONG).show();
-                        }
-                    }) {
-                @Override
-                protected Map<String, String> getParams() {
-                    Map<String, String> params = new HashMap<>();
-                    params.put("operation", "setPassword");
-                    params.put("userId", String.valueOf(user.getUserID()));
-                    params.put("password", newPassword);
-                    return params;
-                }
-            };
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(settingsFragment.getActivity(), "Settings error! " + error.toString(), Toast.LENGTH_LONG).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("operation", "setEmail");
+                params.put("userId", String.valueOf(user.getUserID()));
+                params.put("email", newEmail);
+                return params;
+            }
+        };
 
-            RequestQueue requestQueue = Volley.newRequestQueue(settingsFragment.getActivity());
-            requestQueue.add(stringRequest);
+        RequestQueue requestQueue = Volley.newRequestQueue(settingsFragment.getActivity());
+        requestQueue.add(stringRequest);
+    }
+
+    public void changePassword(final User user, final String newPassword) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            boolean success = jsonResponse.getBoolean("success");
+                            if (success) {
+                                Toast.makeText(settingsFragment.getActivity(), "Hasło zmienione pomyślnie", Toast.LENGTH_LONG).show();
+                                settingsFragment.openHomeActivity();
+                            } else
+                                Toast.makeText(settingsFragment.getActivity(), "Nieoczekiwany błąd", Toast.LENGTH_LONG).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(settingsFragment.getActivity(), "Settings error! " + e.toString(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(settingsFragment.getActivity(), "Settings error! " + error.toString(), Toast.LENGTH_LONG).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("operation", "setPassword");
+                params.put("userId", String.valueOf(user.getUserID()));
+                params.put("password", newPassword);
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(settingsFragment.getActivity());
+        requestQueue.add(stringRequest);
     }
 }

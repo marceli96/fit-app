@@ -16,6 +16,8 @@ import com.github.mikephil.charting.charts.BarChart;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import pl.edu.wat.fitapp.Charts.JournalChartDay;
+import pl.edu.wat.fitapp.Charts.JournalChartsMacroWeek;
 import pl.edu.wat.fitapp.Database.Connection.FoodSystemDayConnection;
 import pl.edu.wat.fitapp.Database.Connection.FoodSystemWeekConnection;
 import pl.edu.wat.fitapp.Database.Connection.WeightConnection;
@@ -112,15 +114,27 @@ public class JournalFragment extends Fragment {
         foodSystemDate = new ArrayList<>();
         weightWeek = new ArrayList<>();
 
-        for(int i = 0; i < 7; i++){
+        for (int i = 0; i < 7; i++) {
             foodSystemWeek.add(new ArrayList<ArrayList<FoodSystem>>());
-            for(int j = 0; j < 6; j++){
+            for (int j = 0; j < 6; j++) {
                 foodSystemWeek.get(i).add(new ArrayList<FoodSystem>());
             }
         }
-        for (int i = 0; i < 6; i++){
+        for (int i = 0; i < 6; i++) {
             foodSystemDate.add(new ArrayList<FoodSystem>());
         }
+    }
+
+    public void drawChartsMacroDaily() {
+        pbLoadingDaily.setVisibility(View.GONE);
+        JournalChartDay journalChartDay = new JournalChartDay(this, foodSystemDate);
+        journalChartDay.drawChartsMacroDaily();
+    }
+
+    public void drawChartsMacroWeek(){
+        pbLoadingLastWeek.setVisibility(View.GONE);
+        JournalChartsMacroWeek journalChartsMacroWeek = new JournalChartsMacroWeek(this, foodSystemWeek);
+        journalChartsMacroWeek.drawChartsMacroWeek();
     }
 
     public void setWeightDay(double weightDay) {
@@ -137,14 +151,6 @@ public class JournalFragment extends Fragment {
 
     public void setWeightWeek(ArrayList<Double> weightWeek) {
         this.weightWeek = weightWeek;
-    }
-
-    public ProgressBar getPbLoadingDaily() {
-        return pbLoadingDaily;
-    }
-
-    public ProgressBar getPbLoadingLastWeek() {
-        return pbLoadingLastWeek;
     }
 
     public BarChart getChartCaloriesWeek() {

@@ -25,6 +25,7 @@ import pl.edu.wat.fitapp.Charts.JournalChartsMacroWeek;
 import pl.edu.wat.fitapp.Database.Entity.Ingredient;
 import pl.edu.wat.fitapp.Database.Entity.Meal;
 import pl.edu.wat.fitapp.Interface.FoodSystem;
+import pl.edu.wat.fitapp.Main.Fragment.ExportFragment;
 import pl.edu.wat.fitapp.Main.Fragment.JournalFragment;
 import pl.edu.wat.fitapp.Mangement.FoodSystemWeekManagement;
 
@@ -76,10 +77,10 @@ public class FoodSystemWeekConnection {
                                 foodSystemWeekManagement.addIngredientToFoodSystemListForDate(tempIngredient, date, row.getInt("MealTime"), foodSystemWeek);
                             }
                         }
-                        if(fragment.getClass() == JournalFragment.class){
-                            ((JournalFragment) fragment).getPbLoadingLastWeek().setVisibility(View.GONE);
-                            JournalChartsMacroWeek journalChartsMacroWeek = new JournalChartsMacroWeek((JournalFragment) fragment, foodSystemWeek);
-                            journalChartsMacroWeek.drawChartsMacroWeek();
+                        if (fragment.getClass() == JournalFragment.class) {
+                            ((JournalFragment) fragment).drawChartsMacroWeek();
+                        } else if (fragment.getClass() == ExportFragment.class) {
+                            ((ExportFragment) fragment).getTrainingSystemFromWeek();
                         }
 
                     } else

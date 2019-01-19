@@ -72,9 +72,7 @@ public class FoodSystemDayConnection {
                             }
                         }
                         if (fragment.getClass() == JournalFragment.class) {
-                            ((JournalFragment) fragment).getPbLoadingDaily().setVisibility(View.GONE);
-                            JournalChartDay journalChartDay = new JournalChartDay((JournalFragment) fragment, foodSystemDay);
-                            journalChartDay.drawChartsMacroDaily();
+                            ((JournalFragment) fragment).drawChartsMacroDaily();
                         } else if(fragment.getClass() == HomeFragment.class){
                             ((HomeFragment) fragment).showMealLayoutsAndUpdate();
                         }
