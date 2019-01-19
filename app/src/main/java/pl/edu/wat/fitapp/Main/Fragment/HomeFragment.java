@@ -290,14 +290,14 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    private boolean layoutOnClick(boolean hiddenMealTime, NonScrollListView lvMealTime, ImageView imArrowMealTime) {
-        if (hiddenMealTime) {
-            lvMealTime.setVisibility(View.VISIBLE);
-            imArrowMealTime.setImageResource(R.drawable.arrow_down);
+    private boolean layoutOnClick(boolean hidden, NonScrollListView listView, ImageView imArrow) {
+        if (hidden) {
+            listView.setVisibility(View.VISIBLE);
+            imArrow.setImageResource(R.drawable.arrow_down);
             return false;
         } else {
-            lvMealTime.setVisibility(View.GONE);
-            imArrowMealTime.setImageResource(R.drawable.arrow_up);
+            listView.setVisibility(View.GONE);
+            imArrow.setImageResource(R.drawable.arrow_up);
             return true;
         }
     }
