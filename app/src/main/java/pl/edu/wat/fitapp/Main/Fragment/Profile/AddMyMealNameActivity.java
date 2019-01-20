@@ -22,7 +22,7 @@ public class AddMyMealNameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_my_meal1);
+        setContentView(R.layout.activity_add_my_meal_name);
 
         user = (User) getIntent().getSerializableExtra("user");
 
@@ -32,7 +32,7 @@ public class AddMyMealNameActivity extends AppCompatActivity {
         bSecondStep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!etMealName.getText().toString().isEmpty()){
+                if (!etMealName.getText().toString().isEmpty()) {
                     Intent openAddMyMealActivity2 = new Intent(AddMyMealNameActivity.this, AddMyMealIngredientsActivity.class);
                     openAddMyMealActivity2.putExtra("user", user);
                     openAddMyMealActivity2.putExtra("mealName", etMealName.getText().toString());

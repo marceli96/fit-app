@@ -9,31 +9,48 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import pl.edu.wat.fitapp.Database.Entity.Ingredient;
 import pl.edu.wat.fitapp.R;
 
 public class IngredientsListAdapter extends ArrayAdapter<Ingredient> {
-    ArrayList<Ingredient> ingredientList;
+    private ArrayList<Ingredient> ingredients;
 
     public IngredientsListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Ingredient> objects) {
         super(context, resource, objects);
-        ingredientList = objects;
+        ingredients = objects;
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        convertView = inflater.inflate(R.layout.listview_adapter_ingredient_with_weight_simple, parent, false);
+        convertView = inflater.inflate(R.layout.listview_adapter_add_ingredient, parent, false);
 
         TextView tvIngredientName = convertView.findViewById(R.id.tvIngredientName);
-        TextView tvIngredientWeight = convertView.findViewById(R.id.tvIngredientWeight);
+        TextView tvIngredientCarbohydrates = convertView.findViewById(R.id.tvIngredientCarbohydrates);
+        TextView tvIngredientProtein = convertView.findViewById(R.id.tvIngredientProtein);
+        TextView tvIngredientFat = convertView.findViewById(R.id.tvIngredientFat);
+        TextView tvIngredientCalories = convertView.findViewById(R.id.tvIngredientCalories);
 
-        tvIngredientName.setText(ingredientList.get(position).getName());
-        String tempString = ingredientList.get(position).getWeight() + " g";
-        tvIngredientWeight.setText(tempString);
+        DecimalFormat decimalFormat = new DecimalFormat("0.0");
+
+        String tempString;
+        tvIngredientName.setText(ingredients.get(position).getName());
+
+        tempString = String.valueOf(decimalFormat.format(ingredients.get(position).getCarbohydrates())) + " g";
+        tvIngredientCarbohydrates.setText(tempString);
+
+        tempString = String.valueOf(decimalFormat.format(ingredients.get(position).getProtein())) + " g";
+        tvIngredientProtein.setText(tempString);
+
+        tempString = String.valueOf(decimalFormat.format(ingredients.get(position).getFat())) + " g";
+        tvIngredientFat.setText(tempString);
+
+        tempString = String.valueOf(ingredients.get(position).getCalories()) + " kcal";
+        tvIngredientCalories.setText(tempString);
 
         return convertView;
     }

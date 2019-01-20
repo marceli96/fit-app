@@ -127,4 +127,40 @@ public class MacrocomponentManagement {
         }
         return fat;
     }
+
+    public int getCaloriesForMeal(ArrayList<Ingredient> mealIngredients){
+        int calories = 0;
+        for(int i = 0; i < mealIngredients.size(); i++){
+            Ingredient ingredient = mealIngredients.get(i);
+            calories += ingredient.getCalories() * ingredient.getWeight() / 100;
+        }
+        return calories;
+    }
+
+    public double getCarbohydratesForMeal(ArrayList<Ingredient> mealIngredients){
+        double carbohydrates = 0;
+        for(int i = 0; i < mealIngredients.size(); i++){
+            Ingredient ingredient = mealIngredients.get(i);
+            carbohydrates += ingredient.getCarbohydrates() * ingredient.getWeight() / 100;
+        }
+        return carbohydrates;
+    }
+
+    public double getProteinForMeal(ArrayList<Ingredient> mealIngredients){
+        double protein = 0;
+        for(int i = 0; i < mealIngredients.size(); i++){
+            Ingredient ingredient = mealIngredients.get(i);
+            protein += ingredient.getProtein() * ingredient.getWeight() / 100;
+        }
+        return protein;
+    }
+
+    public double getFatForMeal(ArrayList<Ingredient> mealIngredients){
+        double fat = 0;
+        for(int i = 0; i < mealIngredients.size(); i++){
+            Ingredient ingredient = mealIngredients.get(i);
+            fat += ingredient.getFat() * ingredient.getWeight() / 100;
+        }
+        return fat;
+    }
 }

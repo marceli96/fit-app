@@ -12,7 +12,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.FoodSystemListAdapter;
-import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.IngredientsListAdapter;
+import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.SimpleIngredientsListAdapter;
 import pl.edu.wat.fitapp.Database.Connection.DeleteFoodSystemConnection;
 import pl.edu.wat.fitapp.Database.Entity.Meal;
 import pl.edu.wat.fitapp.Interface.FoodSystem;
@@ -70,7 +70,7 @@ public class FoodSystemOnClickDialog {
             tempString = String.valueOf(tempMeal.getTotalWeight()) + " g";
             tvTotalMealWeight.setText(tempString);
 
-            IngredientsListAdapter adapter = new IngredientsListAdapter(homeFragment.getActivity(), R.layout.listview_adapter_ingredient_with_weight_simple, tempMeal.getIngredientList());
+            SimpleIngredientsListAdapter adapter = new SimpleIngredientsListAdapter(homeFragment.getActivity(), R.layout.listview_adapter_ingredient_with_weight_simple, tempMeal.getIngredientList());
             lvIngredients.setAdapter(adapter);
         } else {
             tvIngredients.setVisibility(View.GONE);

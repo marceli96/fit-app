@@ -21,7 +21,7 @@ public class AddMyTrainingNameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_my_training1);
+        setContentView(R.layout.activity_add_my_training_name);
 
         user = (User) getIntent().getSerializableExtra("user");
 
@@ -31,7 +31,7 @@ public class AddMyTrainingNameActivity extends AppCompatActivity {
         bSecondStep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!etTrainingName.getText().toString().isEmpty()){
+                if (!etTrainingName.getText().toString().isEmpty()) {
                     Intent openAddMyTrainingActivity2 = new Intent(AddMyTrainingNameActivity.this, AddMyTrainingExercisesActivity.class);
                     openAddMyTrainingActivity2.putExtra("user", user);
                     openAddMyTrainingActivity2.putExtra("trainingName", etTrainingName.getText().toString());
