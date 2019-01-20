@@ -9,7 +9,7 @@ import android.widget.TextView;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.MealIngredientsListAdapter;
+import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.SimpleIngredientsListAdapter;
 import pl.edu.wat.fitapp.Database.Entity.Meal;
 import pl.edu.wat.fitapp.Main.Fragment.Profile.ProfileFragment;
 import pl.edu.wat.fitapp.R;
@@ -57,8 +57,8 @@ public class MyMealOnClickDialog {
         tempString = String.valueOf(myMeals.get(position).getIngredientList().size());
         tvIngredientAmount.setText(tempString);
 
-        MealIngredientsListAdapter ingredientsListAdapter = new MealIngredientsListAdapter(profileFragment.getActivity(), R.layout.listview_adapter_ingredient_with_weight_simple, myMeals.get(position).getIngredientList());
-        lvIngredients.setAdapter(ingredientsListAdapter);
+        SimpleIngredientsListAdapter simpleIngredientsListAdapter = new SimpleIngredientsListAdapter(profileFragment.getActivity(), R.layout.listview_adapter_ingredient_with_weight_simple, myMeals.get(position).getIngredientList());
+        lvIngredients.setAdapter(simpleIngredientsListAdapter);
 
         builder.setView(alertView);
         AlertDialog dialog = builder.create();

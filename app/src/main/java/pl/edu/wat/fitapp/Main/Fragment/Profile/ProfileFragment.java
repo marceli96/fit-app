@@ -36,10 +36,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.MealIngredientsListAdapter;
 import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.MyMealsListAdapter;
 import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.MyTrainingsListAdapter;
-import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.TrainingExercisesListAdapter;
 import pl.edu.wat.fitapp.Database.Connection.MyMealsConnection;
 import pl.edu.wat.fitapp.Database.Connection.MyTrainingsConnection;
 import pl.edu.wat.fitapp.Database.Entity.Exercise;

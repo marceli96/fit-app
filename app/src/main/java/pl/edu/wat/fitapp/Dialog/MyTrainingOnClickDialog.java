@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.TrainingExercisesListAdapter;
+import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.ExercisesListAdapter;
 import pl.edu.wat.fitapp.Database.Entity.Training;
 import pl.edu.wat.fitapp.Main.Fragment.Profile.ProfileFragment;
 import pl.edu.wat.fitapp.R;
@@ -32,7 +32,7 @@ public class MyTrainingOnClickDialog {
         tvTrainingName.setText(myTrainings.get(position).getName());
         tvExerciseAmount.setText(String.valueOf(myTrainings.get(position).getExerciseList().size()));
 
-        TrainingExercisesListAdapter exercisesListAdapter = new TrainingExercisesListAdapter(profileFragment.getActivity(), R.layout.listview_adapter_exercise_with_series_repetitions_simple, myTrainings.get(position).getExerciseList());
+        ExercisesListAdapter exercisesListAdapter = new ExercisesListAdapter(profileFragment.getActivity(), R.layout.listview_adapter_exercise_with_series_repetitions_simple, myTrainings.get(position).getExerciseList());
         lvExercises.setAdapter(exercisesListAdapter);
 
         builder.setView(alertView);
