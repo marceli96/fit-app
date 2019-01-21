@@ -22,10 +22,11 @@ import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.TrainingSystemListAdapter;
 import pl.edu.wat.fitapp.Database.Entity.Exercise;
 import pl.edu.wat.fitapp.Interface.TrainingSystem;
 import pl.edu.wat.fitapp.Main.Fragment.HomeFragment;
+import pl.edu.wat.fitapp.R;
 
 public class DeleteTrainingSystemConnection {
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
     private HomeFragment homeFragment;
+    private final String OPERATIONS_URL = homeFragment.getString(R.string.OPERATIONS_URL);
     private ArrayList<TrainingSystem> trainingSystemDay;
     private TrainingSystemListAdapter trainingSystemListAdapter;
 

@@ -18,10 +18,11 @@ import java.util.Map;
 
 import pl.edu.wat.fitapp.Database.Entity.Ingredient;
 import pl.edu.wat.fitapp.Main.Fragment.Profile.AddMyMealIngredientsActivity;
+import pl.edu.wat.fitapp.R;
 
 public class AddMyMealConnection {
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
     private AddMyMealIngredientsActivity addMyMealIngredientsActivity;
+    private final String OPERATIONS_URL = addMyMealIngredientsActivity.getString(R.string.OPERATIONS_URL);
     private ArrayList<Ingredient> mealIngredients;
 
     public AddMyMealConnection(AddMyMealIngredientsActivity addMyMealIngredientsActivity, ArrayList<Ingredient> mealIngredients) {

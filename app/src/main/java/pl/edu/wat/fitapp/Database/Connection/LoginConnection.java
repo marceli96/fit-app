@@ -19,12 +19,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import pl.edu.wat.fitapp.Database.Entity.User;
+import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Welcome.WelcomeActivity;
 
 public class LoginConnection {
-    private final String LOGIN_URL = "http://fitappliaction.cba.pl/login.php";
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
     private WelcomeActivity welcomeActivity;
+    private final String LOGIN_URL = welcomeActivity.getString(R.string.LOGIN_URL);
+    private final String OPERATIONS_URL = welcomeActivity.getString(R.string.OPERATIONS_URL);
 
     private String userName, password;
     private User user;

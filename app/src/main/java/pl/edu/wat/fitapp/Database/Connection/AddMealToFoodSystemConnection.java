@@ -19,10 +19,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import pl.edu.wat.fitapp.Main.Fragment.AddToSystem.AddMealToFoodSystemFragment;
+import pl.edu.wat.fitapp.R;
 
 public class AddMealToFoodSystemConnection {
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
     private Fragment fragment;
+    private final String OPERATIONS_URL = fragment.getString(R.string.OPERATIONS_URL);
 
     public AddMealToFoodSystemConnection(Fragment fragment) {
         this.fragment = fragment;

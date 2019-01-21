@@ -21,10 +21,11 @@ import java.util.Map;
 
 import pl.edu.wat.fitapp.Charts.JournalChartsWeightWeek;
 import pl.edu.wat.fitapp.Main.Fragment.JournalFragment;
+import pl.edu.wat.fitapp.R;
 
 public class WeightConnection {
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
     private JournalFragment journalFragment;
+    private final String OPERATIONS_URL = journalFragment.getString(R.string.OPERATIONS_URL);
     private ArrayList<Double> weightWeek;
 
     public WeightConnection(JournalFragment journalFragment, ArrayList<Double> weightWeek) {

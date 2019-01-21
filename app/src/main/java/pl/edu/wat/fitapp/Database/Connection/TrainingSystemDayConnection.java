@@ -24,10 +24,11 @@ import pl.edu.wat.fitapp.Database.Entity.Training;
 import pl.edu.wat.fitapp.Interface.TrainingSystem;
 import pl.edu.wat.fitapp.Main.Fragment.HomeFragment;
 import pl.edu.wat.fitapp.Mangement.TrainingSystemDayManagement;
+import pl.edu.wat.fitapp.R;
 
 public class TrainingSystemDayConnection {
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
     private HomeFragment homeFragment;
+    private final String OPERATIONS_URL = homeFragment.getString(R.string.OPERATIONS_URL);
     private ArrayList<TrainingSystem> trainingSystemDay;
 
     public TrainingSystemDayConnection(HomeFragment homeFragment, ArrayList<TrainingSystem> trainingSystemDay) {

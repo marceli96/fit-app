@@ -17,10 +17,11 @@ import java.util.Map;
 
 import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.Main.Fragment.SettingsFragment;
+import pl.edu.wat.fitapp.R;
 
 public class UserSettingsConnection {
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
     private SettingsFragment settingsFragment;
+    private final String OPERATIONS_URL = settingsFragment.getString(R.string.OPERATIONS_URL);
 
     public UserSettingsConnection(SettingsFragment settingsFragment) {
         this.settingsFragment = settingsFragment;

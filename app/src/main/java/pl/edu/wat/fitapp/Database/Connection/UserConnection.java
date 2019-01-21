@@ -12,19 +12,18 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.Main.Fragment.GoalsFragment;
+import pl.edu.wat.fitapp.R;
 
 public class UserConnection {
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
     private GoalsFragment goalsFragment;
+    private final String OPERATIONS_URL = goalsFragment.getString(R.string.OPERATIONS_URL);
 
     public UserConnection(GoalsFragment goalsFragment) {
         this.goalsFragment = goalsFragment;

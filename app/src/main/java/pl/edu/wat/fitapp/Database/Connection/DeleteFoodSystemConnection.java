@@ -22,10 +22,11 @@ import pl.edu.wat.fitapp.Database.Entity.Ingredient;
 import pl.edu.wat.fitapp.Interface.FoodSystem;
 import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.FoodSystemListAdapter;
 import pl.edu.wat.fitapp.Main.Fragment.HomeFragment;
+import pl.edu.wat.fitapp.R;
 
 public class DeleteFoodSystemConnection {
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
     private HomeFragment homeFragment;
+    private final String OPERATIONS_URL = homeFragment.getString(R.string.OPERATIONS_URL);
     private ArrayList<ArrayList<FoodSystem>> foodSystemDay;
     private ArrayList<FoodSystemListAdapter> foodSystemListAdapters;
 

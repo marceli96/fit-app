@@ -25,10 +25,11 @@ import pl.edu.wat.fitapp.Database.Entity.Training;
 import pl.edu.wat.fitapp.Interface.TrainingSystem;
 import pl.edu.wat.fitapp.Main.Fragment.ExportFragment;
 import pl.edu.wat.fitapp.Mangement.TrainingSystemWeekManagement;
+import pl.edu.wat.fitapp.R;
 
 public class TrainingSystemWeekConnection {
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
     private Fragment fragment;
+    private final String OPERATIONS_URL = fragment.getString(R.string.OPERATIONS_URL);
     private ArrayList<ArrayList<TrainingSystem>> trainingSystemWeek;
 
     public TrainingSystemWeekConnection(Fragment fragment, ArrayList<ArrayList<TrainingSystem>> trainingSystemWeek) {

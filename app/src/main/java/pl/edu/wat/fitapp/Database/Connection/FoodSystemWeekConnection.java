@@ -1,7 +1,6 @@
 package pl.edu.wat.fitapp.Database.Connection;
 
 import android.support.v4.app.Fragment;
-import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -21,17 +20,17 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import pl.edu.wat.fitapp.Charts.JournalChartsMacroWeek;
 import pl.edu.wat.fitapp.Database.Entity.Ingredient;
 import pl.edu.wat.fitapp.Database.Entity.Meal;
 import pl.edu.wat.fitapp.Interface.FoodSystem;
 import pl.edu.wat.fitapp.Main.Fragment.ExportFragment;
 import pl.edu.wat.fitapp.Main.Fragment.JournalFragment;
 import pl.edu.wat.fitapp.Mangement.FoodSystemWeekManagement;
+import pl.edu.wat.fitapp.R;
 
 public class FoodSystemWeekConnection {
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
     private Fragment fragment;
+    private final String OPERATIONS_URL = fragment.getString(R.string.OPERATIONS_URL);
     private ArrayList<ArrayList<ArrayList<FoodSystem>>> foodSystemWeek;
 
     public FoodSystemWeekConnection(Fragment fragment, ArrayList<ArrayList<ArrayList<FoodSystem>>> foodSystemWeek) {

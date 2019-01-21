@@ -18,10 +18,11 @@ import java.util.Map;
 
 import pl.edu.wat.fitapp.Database.Entity.Exercise;
 import pl.edu.wat.fitapp.Main.Fragment.Profile.AddMyTrainingExercisesActivity;
+import pl.edu.wat.fitapp.R;
 
 public class AddMyTrainingConnection {
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
     private AddMyTrainingExercisesActivity addMyTrainingExercisesActivity;
+    private final String OPERATIONS_URL = addMyTrainingExercisesActivity.getString(R.string.OPERATIONS_URL);
     private ArrayList<Exercise> trainingExercises;
 
     public AddMyTrainingConnection(AddMyTrainingExercisesActivity addMyTrainingExercisesActivity, ArrayList<Exercise> trainingExercises) {

@@ -19,10 +19,11 @@ import java.util.Map;
 
 import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.SimpleExercisesListAdapter;
 import pl.edu.wat.fitapp.Database.Entity.Exercise;
+import pl.edu.wat.fitapp.R;
 
 public class ExercisesConnection {
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
     private Activity activity;
+    private final String OPERATIONS_URL = activity.getString(R.string.OPERATIONS_URL);
     private ArrayList<Exercise> exercises;
 
     public ExercisesConnection(Activity activity, ArrayList<Exercise> exercises) {

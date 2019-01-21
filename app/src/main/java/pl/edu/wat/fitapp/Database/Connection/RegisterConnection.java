@@ -17,11 +17,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Register.RegisterActivity;
 
-public class RegisterConnection {
-    private final String REGISTER_URL = "http://fitappliaction.cba.pl/register.php";
+public class RegisterConnection
+{
     private RegisterActivity registerActivity;
+    private final String REGISTER_URL = registerActivity.getString(R.string.REGISTER_URL);
     private String userName, password, email;
     private int sex, age, height, activityLevel, goal, calories;
     private double weight;

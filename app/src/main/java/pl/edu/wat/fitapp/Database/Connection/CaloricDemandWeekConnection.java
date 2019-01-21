@@ -21,11 +21,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import pl.edu.wat.fitapp.Main.Fragment.ExportFragment;
+import pl.edu.wat.fitapp.R;
 
 
 public class CaloricDemandWeekConnection {
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
     private Fragment fragment;
+    private final String OPERATIONS_URL = fragment.getString(R.string.OPERATIONS_URL);
     private ArrayList<Integer> caloricDemandWeek;
 
     public CaloricDemandWeekConnection(Fragment fragment, ArrayList<Integer> caloricDemandWeek) {

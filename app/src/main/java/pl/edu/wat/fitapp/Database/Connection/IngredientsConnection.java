@@ -1,7 +1,6 @@
 package pl.edu.wat.fitapp.Database.Connection;
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -20,10 +19,11 @@ import java.util.Map;
 
 import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.IngredientsListAdapter;
 import pl.edu.wat.fitapp.Database.Entity.Ingredient;
+import pl.edu.wat.fitapp.R;
 
 public class IngredientsConnection {
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
     private Activity activity;
+    private final String OPERATIONS_URL = activity.getString(R.string.OPERATIONS_URL);
     private ArrayList<Ingredient> ingredients;
 
     public IngredientsConnection(Activity activity, ArrayList<Ingredient> ingredients) {
