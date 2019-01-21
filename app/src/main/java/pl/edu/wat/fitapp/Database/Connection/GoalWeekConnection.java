@@ -24,7 +24,6 @@ import pl.edu.wat.fitapp.R;
 
 public class GoalWeekConnection {
     private Fragment fragment;
-    private final String OPERATIONS_URL = fragment.getString(R.string.OPERATIONS_URL);
     private ArrayList<Integer> goalWeek;
 
     public GoalWeekConnection(Fragment fragment, ArrayList<Integer> goalWeek) {
@@ -33,7 +32,7 @@ public class GoalWeekConnection {
     }
 
     public void getGoalFromWeek(final int userID) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, fragment.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

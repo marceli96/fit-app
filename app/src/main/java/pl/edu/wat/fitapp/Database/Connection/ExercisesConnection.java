@@ -23,7 +23,6 @@ import pl.edu.wat.fitapp.R;
 
 public class ExercisesConnection {
     private Activity activity;
-    private final String OPERATIONS_URL = activity.getString(R.string.OPERATIONS_URL);
     private ArrayList<Exercise> exercises;
 
     public ExercisesConnection(Activity activity, ArrayList<Exercise> exercises) {
@@ -32,7 +31,7 @@ public class ExercisesConnection {
     }
 
     public void getExercises(final SimpleExercisesListAdapter simpleExercisesListAdapter) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, activity.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

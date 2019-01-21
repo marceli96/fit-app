@@ -22,7 +22,6 @@ import pl.edu.wat.fitapp.R;
 
 public class AddMyTrainingConnection {
     private AddMyTrainingExercisesActivity addMyTrainingExercisesActivity;
-    private final String OPERATIONS_URL = addMyTrainingExercisesActivity.getString(R.string.OPERATIONS_URL);
     private ArrayList<Exercise> trainingExercises;
 
     public AddMyTrainingConnection(AddMyTrainingExercisesActivity addMyTrainingExercisesActivity, ArrayList<Exercise> trainingExercises) {
@@ -49,7 +48,7 @@ public class AddMyTrainingConnection {
         final String finalExerciseIds = exerciseIds;
         final String finalExerciseSeries = exerciseSeries;
         final String finalExerciseRepetitions = exerciseRepetitions;
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, addMyTrainingExercisesActivity.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

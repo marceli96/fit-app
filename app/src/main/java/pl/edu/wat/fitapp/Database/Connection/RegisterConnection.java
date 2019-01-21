@@ -23,7 +23,6 @@ import pl.edu.wat.fitapp.Register.RegisterActivity;
 public class RegisterConnection
 {
     private RegisterActivity registerActivity;
-    private final String REGISTER_URL = registerActivity.getString(R.string.REGISTER_URL);
     private String userName, password, email;
     private int sex, age, height, activityLevel, goal, calories;
     private double weight;
@@ -43,7 +42,7 @@ public class RegisterConnection
     }
 
     public void register() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, REGISTER_URL,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, registerActivity.getString(R.string.REGISTER_URL),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

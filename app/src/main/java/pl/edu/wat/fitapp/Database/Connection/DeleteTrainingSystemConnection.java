@@ -26,7 +26,6 @@ import pl.edu.wat.fitapp.R;
 
 public class DeleteTrainingSystemConnection {
     private HomeFragment homeFragment;
-    private final String OPERATIONS_URL = homeFragment.getString(R.string.OPERATIONS_URL);
     private ArrayList<TrainingSystem> trainingSystemDay;
     private TrainingSystemListAdapter trainingSystemListAdapter;
 
@@ -37,7 +36,7 @@ public class DeleteTrainingSystemConnection {
     }
 
     public void deleteFromTrainingSystem(final TrainingSystem training, final int userID) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, homeFragment.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

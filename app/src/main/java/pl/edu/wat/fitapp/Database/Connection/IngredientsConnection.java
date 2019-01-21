@@ -23,7 +23,6 @@ import pl.edu.wat.fitapp.R;
 
 public class IngredientsConnection {
     private Activity activity;
-    private final String OPERATIONS_URL = activity.getString(R.string.OPERATIONS_URL);
     private ArrayList<Ingredient> ingredients;
 
     public IngredientsConnection(Activity activity, ArrayList<Ingredient> ingredients) {
@@ -32,7 +31,7 @@ public class IngredientsConnection {
     }
 
     public void getIngredients(final IngredientsListAdapter ingredientsListAdapter) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, activity.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

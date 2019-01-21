@@ -23,14 +23,13 @@ import pl.edu.wat.fitapp.R;
 
 public class UserConnection {
     private GoalsFragment goalsFragment;
-    private final String OPERATIONS_URL = goalsFragment.getString(R.string.OPERATIONS_URL);
 
     public UserConnection(GoalsFragment goalsFragment) {
         this.goalsFragment = goalsFragment;
     }
 
     public void saveWeight(final User user, final double weight, final int goal, final int calories, final int activityLevel) {
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL,
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, goalsFragment.getString(R.string.OPERATIONS_URL),
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {

@@ -26,7 +26,6 @@ import pl.edu.wat.fitapp.R;
 
 public class CaloricDemandWeekConnection {
     private Fragment fragment;
-    private final String OPERATIONS_URL = fragment.getString(R.string.OPERATIONS_URL);
     private ArrayList<Integer> caloricDemandWeek;
 
     public CaloricDemandWeekConnection(Fragment fragment, ArrayList<Integer> caloricDemandWeek) {
@@ -35,7 +34,7 @@ public class CaloricDemandWeekConnection {
     }
 
     public void getCaloricDemandFromWeek(final int userID) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, fragment.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

@@ -24,8 +24,6 @@ import pl.edu.wat.fitapp.Welcome.WelcomeActivity;
 
 public class LoginConnection {
     private WelcomeActivity welcomeActivity;
-    private final String LOGIN_URL = welcomeActivity.getString(R.string.LOGIN_URL);
-    private final String OPERATIONS_URL = welcomeActivity.getString(R.string.OPERATIONS_URL);
 
     private String userName, password;
     private User user;
@@ -38,7 +36,7 @@ public class LoginConnection {
     }
 
     public void moveWeight() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, welcomeActivity.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 login();
@@ -65,7 +63,7 @@ public class LoginConnection {
     }
 
     private void login() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, LOGIN_URL,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, welcomeActivity.getString(R.string.LOGIN_URL),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

@@ -27,7 +27,6 @@ import pl.edu.wat.fitapp.R;
 
 public class FoodSystemDayConnection {
     private Fragment fragment;
-    private final String OPERATIONS_URL = fragment.getString(R.string.OPERATIONS_URL);
     private ArrayList<ArrayList<FoodSystem>> foodSystemDay;
 
     public FoodSystemDayConnection(Fragment fragment, ArrayList<ArrayList<FoodSystem>> foodSystemDay) {
@@ -36,7 +35,7 @@ public class FoodSystemDayConnection {
     }
 
     public void getFoodSystemFromDay(final int userID, final String date) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, fragment.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

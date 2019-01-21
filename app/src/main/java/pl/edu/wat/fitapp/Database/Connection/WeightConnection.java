@@ -25,7 +25,6 @@ import pl.edu.wat.fitapp.R;
 
 public class WeightConnection {
     private JournalFragment journalFragment;
-    private final String OPERATIONS_URL = journalFragment.getString(R.string.OPERATIONS_URL);
     private ArrayList<Double> weightWeek;
 
     public WeightConnection(JournalFragment journalFragment, ArrayList<Double> weightWeek) {
@@ -34,7 +33,7 @@ public class WeightConnection {
     }
 
     public void getWeightFromDay(final int userID, final String date) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, journalFragment.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -76,7 +75,7 @@ public class WeightConnection {
     }
 
     public void getWeightFromWeek(final int userID) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, journalFragment.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

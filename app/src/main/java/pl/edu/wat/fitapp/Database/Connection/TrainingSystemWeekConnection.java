@@ -29,7 +29,6 @@ import pl.edu.wat.fitapp.R;
 
 public class TrainingSystemWeekConnection {
     private Fragment fragment;
-    private final String OPERATIONS_URL = fragment.getString(R.string.OPERATIONS_URL);
     private ArrayList<ArrayList<TrainingSystem>> trainingSystemWeek;
 
     public TrainingSystemWeekConnection(Fragment fragment, ArrayList<ArrayList<TrainingSystem>> trainingSystemWeek) {
@@ -38,7 +37,7 @@ public class TrainingSystemWeekConnection {
     }
 
     public void getTrainingSystemFromWeek(final int userID) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, fragment.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

@@ -23,14 +23,13 @@ import pl.edu.wat.fitapp.R;
 
 public class AddMealToFoodSystemConnection {
     private Fragment fragment;
-    private final String OPERATIONS_URL = fragment.getString(R.string.OPERATIONS_URL);
 
     public AddMealToFoodSystemConnection(Fragment fragment) {
         this.fragment = fragment;
     }
 
     public void addMealToFoodSystem(final int mealId, final int userId, final int mealTime, final String weight) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, fragment.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
