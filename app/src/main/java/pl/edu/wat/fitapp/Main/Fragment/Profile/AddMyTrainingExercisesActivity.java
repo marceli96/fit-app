@@ -34,6 +34,7 @@ import pl.edu.wat.fitapp.Database.Connection.AddMyTrainingConnection;
 import pl.edu.wat.fitapp.Database.Connection.ExercisesConnection;
 import pl.edu.wat.fitapp.Database.Entity.Exercise;
 import pl.edu.wat.fitapp.Database.Entity.User;
+import pl.edu.wat.fitapp.Dialog.AddMyTrainingExerciseOnClickDialog;
 import pl.edu.wat.fitapp.Main.MainActivity;
 import pl.edu.wat.fitapp.R;
 
@@ -94,51 +95,11 @@ public class AddMyTrainingExercisesActivity extends AppCompatActivity {
             }
         });
 
-        // TODO czy dialog może zostać?
         lvExercises.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                Toast.makeText(AddMyTrainingExercisesActivity.this, "Wybrales ćwiczenie o nazwie = " + exercises.get(position).getName(), Toast.LENGTH_SHORT).show();
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(AddMyTrainingExercisesActivity.this);
-                View alertView = getLayoutInflater().inflate(R.layout.dialog_choose_series_repetitions_exercise, null);
-
-                TextView tvExerciseName = alertView.findViewById(R.id.tvExerciseName);
-                final EditText etSeries = alertView.findViewById(R.id.etSeries);
-                final EditText etRepetitions = alertView.findViewById(R.id.etRepetitions);
-                Button bAddExerciseToTraining = alertView.findViewById(R.id.bAddExerciseToTraining);
-
-                tvExerciseName.setText(exercises.get(position).getName());
-
-                builder.setView(alertView);
-                final AlertDialog dialog = builder.create();
-                dialog.show();
-
-                bAddExerciseToTraining.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String series = etSeries.getText().toString();
-                        String repetitions = etRepetitions.getText().toString();
-                        if (!series.isEmpty() && !repetitions.isEmpty()) {
-                            Exercise tempExercise = null;
-                            try {
-                                tempExercise = (Exercise) exercises.get(position).clone();
-                            } catch (CloneNotSupportedException e) {
-                                e.printStackTrace();
-                            }
-                            tempExercise.setSeries(Integer.parseInt(series));
-                            tempExercise.setRepetitions(Integer.parseInt(repetitions));
-                            addExercise(tempExercise);
-                            tvExerciseAmount.setText(String.valueOf(trainingExercises.size()));
-                            dialog.dismiss();
-                        } else {
-                            if (series.isEmpty())
-                                Toast.makeText(AddMyTrainingExercisesActivity.this, "Wpisz liczbę serii!", Toast.LENGTH_SHORT).show();
-                            else
-                                Toast.makeText(AddMyTrainingExercisesActivity.this, "Wpisz liczbę powtórzeń!", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                AddMyTrainingExerciseOnClickDialog addMyTrainingExerciseOnClickDialog = new AddMyTrainingExerciseOnClickDialog(AddMyTrainingExercisesActivity.this);
+                addMyTrainingExerciseOnClickDialog.build(position, exercises);
             }
         });
 
@@ -167,7 +128,7 @@ public class AddMyTrainingExercisesActivity extends AppCompatActivity {
         startActivity(openMeFragment);
     }
 
-    private void addExercise(Exercise exercise) {
+    public void addExercise(Exercise exercise) {
         for (int i = 0; i < trainingExercises.size(); i++) {
             if (trainingExercises.get(i).getID() == exercise.getID()) {
                 trainingExercises.get(i).setSeries(trainingExercises.get(i).getSeries() + exercise.getSeries());
@@ -177,6 +138,7 @@ public class AddMyTrainingExercisesActivity extends AppCompatActivity {
             }
         }
         trainingExercises.add(exercise);
+        tvExerciseAmount.setText(String.valueOf(trainingExercises.size()));
     }
 
     public void deleteExercise(Exercise exercise) {
