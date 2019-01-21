@@ -21,6 +21,7 @@ import java.util.Map;
 
 import pl.edu.wat.fitapp.Database.Entity.Ingredient;
 import pl.edu.wat.fitapp.Database.Entity.Meal;
+import pl.edu.wat.fitapp.Main.Fragment.AddToSystem.AddMealToFoodSystemFragment;
 import pl.edu.wat.fitapp.Main.Fragment.Profile.ProfileFragment;
 import pl.edu.wat.fitapp.Mangement.MyMealManagement;
 import pl.edu.wat.fitapp.R;
@@ -63,6 +64,8 @@ public class MyMealsConnection {
                         }
                         if (fragment.getClass() == ProfileFragment.class)
                             ((ProfileFragment) fragment).showMyMeals();
+                        else if(fragment.getClass() == AddMealToFoodSystemFragment.class)
+                            ((AddMealToFoodSystemFragment) fragment).showMyMeals();
                     } else
                         Toast.makeText(fragment.getActivity(), "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {

@@ -41,9 +41,6 @@ import pl.edu.wat.fitapp.R;
 
 
 public class AddIngredientToFoodSystemFragment extends Fragment {
-
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
-
     private ListView lvIngredients;
     private ArrayList<Ingredient> ingredientList;
     private IngredientsListAdapter ingredientsListAdapter;
