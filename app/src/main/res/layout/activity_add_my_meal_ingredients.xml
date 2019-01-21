@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="2/2 Dodawanie składników"
+            android:text="@string/secondPartMealSelected"
             android:textColor="@android:color/black"
             android:textSize="20sp" />
 
@@ -36,7 +36,7 @@
             android:layout_height="35dp"
             android:layout_gravity="end"
             android:background="@drawable/button_add"
-            android:text="Dodaj" />
+            android:text="@string/add" />
     </LinearLayout>
 
     <LinearLayout
@@ -54,14 +54,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Kalorie: " />
+                android:text="@string/calories" />
 
             <TextView
                 android:id="@+id/tvMealCalories"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="0" />
+                android:text="@string/zero" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -69,14 +69,14 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:text="/" />
+                android:text="@string/slash" />
 
             <TextView
                 android:id="@+id/tvReqCalories"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="9999" />
+                android:text="@string/reqCalorie" />
 
         </LinearLayout>
 
@@ -111,7 +111,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Węgl.: "
+                        android:text="@string/carbohydrates"
                         android:textSize="11sp" />
 
                     <TextView
@@ -119,14 +119,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="0,0"
+                        android:text="@string/floatZero"
                         android:textSize="11sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="/"
+                        android:text="@string/slash"
                         android:textSize="11sp" />
 
                     <TextView
@@ -134,7 +134,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="999-999"
+                        android:text="@string/reqMinerals"
                         android:textSize="11sp" />
                 </LinearLayout>
 
@@ -164,7 +164,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Białko: "
+                        android:text="@string/protein"
                         android:textSize="11sp" />
 
                     <TextView
@@ -172,14 +172,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="0,0"
+                        android:text="@string/floatZero"
                         android:textSize="11sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="/"
+                        android:text="@string/slash"
                         android:textSize="11sp" />
 
                     <TextView
@@ -187,7 +187,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="999-999"
+                        android:text="@string/reqMinerals"
                         android:textSize="11sp" />
                 </LinearLayout>
 
@@ -216,7 +216,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Tłuszcz: "
+                        android:text="@string/fat"
                         android:textSize="11sp" />
 
                     <TextView
@@ -224,14 +224,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="0,0"
+                        android:text="@string/floatZero"
                         android:textSize="11sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="/"
+                        android:text="@string/slash"
                         android:textSize="11sp" />
 
                     <TextView
@@ -239,7 +239,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="999-999"
+                        android:text="@string/reqMinerals"
                         android:textSize="11sp" />
                 </LinearLayout>
 
@@ -273,7 +273,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="Wybrane składniki ("
+            android:text="@string/selectedIngredients"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
 
@@ -281,14 +281,14 @@
             android:id="@+id/tvIngredientAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text="@string/zero"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=") do posiłku:"
+            android:text="@string/selectedIngredients2"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
     </LinearLayout>
@@ -302,7 +302,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Składniki do wyboru:"
+        android:text="@string/toChooseIngredients"
         android:textColor="@android:color/black"
         android:textSize="16sp" />
 

@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Nazwa składnika"
+        android:text="@string/nameOfIngredient"
         android:textColor="@android:color/black"
         android:textSize="20sp" />
 
@@ -17,6 +17,6 @@
         android:id="@+id/tvIngredientWeight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Waga"
+        android:text="@string/weight2"
         android:textSize="16sp" />
 </LinearLayout>

@@ -16,7 +16,7 @@
         android:layout_gravity="center"
         android:backgroundTint="@color/colorWhite"
         android:ems="10"
-        android:hint="Login"
+        android:hint="@string/login"
         android:inputType="textPersonName"
         android:textColor="@color/colorWhite"
         android:textColorHint="@color/colorShyWhite" />
@@ -28,7 +28,7 @@
         android:layout_gravity="center"
         android:backgroundTint="@color/colorWhite"
         android:ems="10"
-        android:hint="Hasło"
+        android:hint="@string/password"
         android:inputType="textPassword"
         android:textColor="@color/colorWhite"
         android:textColorHint="@color/colorShyWhite" />
@@ -40,7 +40,7 @@
         android:layout_gravity="center"
         android:backgroundTint="@color/colorWhite"
         android:ems="10"
-        android:hint="E-mail"
+        android:hint="@string/e_mail"
         android:inputType="textEmailAddress"
         android:textColor="@color/colorWhite"
         android:textColorHint="@color/colorShyWhite" />
@@ -56,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Płeć:"
+            android:text="@string/sex"
             android:textColor="@color/colorWhite"
             android:textSize="18sp" />
 
@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:checked="true"
-                android:text="Kobieta"
+                android:text="@string/woman"
                 android:textColor="@color/colorWhite" />
 
             <RadioButton
@@ -81,7 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Mężczyzna"
+                android:text="@string/man"
                 android:textColor="@color/colorWhite" />
         </RadioGroup>
     </LinearLayout>
@@ -97,7 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Waga:"
+            android:text="@string/weight"
             android:textColor="@color/colorWhite"
             android:textSize="18sp" />
 
@@ -116,7 +116,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Wzrost:"
+            android:text="@string/height"
             android:textColor="@color/colorWhite"
             android:textSize="18sp"
             android:layout_marginLeft="5dp"/>
@@ -137,7 +137,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Wiek:"
+            android:text="@string/age"
             android:textColor="@color/colorWhite"
             android:textSize="18sp"
             android:layout_marginLeft="5dp"/>
@@ -166,7 +166,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Poziom aktywności:"
+            android:text="@string/activityLevel"
             android:textColor="@color/colorWhite"
             android:textSize="18sp" />
 
@@ -190,7 +190,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="Cel wagi:"
+            android:text="@string/goal"
             android:textColor="@color/colorWhite"
             android:textSize="20sp" />
 
@@ -207,7 +207,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:checked="true"
-                android:text="Utrata"
+                android:text="@string/lose"
                 android:textColor="@color/colorWhite" />
 
             <RadioButton
@@ -215,7 +215,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Utrzymanie"
+                android:text="@string/keep"
                 android:textColor="@color/colorWhite" />
 
             <RadioButton
@@ -223,7 +223,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Przybranie"
+                android:text="@string/gain"
                 android:textColor="@color/colorWhite" />
 
         </RadioGroup>
@@ -247,7 +247,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Zapotrzebowanie:"
+                android:text="@string/caloricDemand"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp" />
 
@@ -268,7 +268,7 @@
             android:layout_height="40dp"
             android:layout_weight="1"
             android:background="@drawable/button_welcome"
-            android:text="Oblicz" />
+            android:text="@string/count" />
 
     </LinearLayout>
 
@@ -279,7 +279,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:background="@drawable/button_welcome"
-        android:text="Zarejestruj"
+        android:text="@string/register"
         android:textColor="@color/colorBlue"
         android:textStyle="bold" />
 

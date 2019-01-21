@@ -11,7 +11,7 @@
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nazwa"
+        android:text="@string/name"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="italic" />
@@ -25,7 +25,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Liczba ćwiczeń: "
+            android:text="@string/numberOfExercises"
             android:textSize="14sp" />
 
         <TextView
@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="0" />
+            android:text="@string/zero" />
     </LinearLayout>
 
     <LinearLayout
@@ -46,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Serie: " />
+            android:text="@string/series" />
 
         <TextView
             android:id="@+id/tvSeries"
@@ -54,20 +54,20 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:text="0" />
+            android:text="@string/zero" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Powtórzenia: " />
+            android:text="@string/Repetitions" />
 
         <TextView
             android:id="@+id/tvRepetitions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="0" />
+            android:text="@string/zero" />
     </LinearLayout>
 
 </LinearLayout>

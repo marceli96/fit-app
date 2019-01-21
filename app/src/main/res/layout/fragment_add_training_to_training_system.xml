@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:padding="5dp"
-            android:text="Wybierz trening, który chcesz dodać." />
+            android:text="@string/selectTrainingToAdd" />
 
         <ListView
             android:id="@+id/lvTrainings"

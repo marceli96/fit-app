@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:gravity="center"
-        android:text="1/2 Wybranie nazwy posiłku"
+        android:text="@string/firstPartMealSelected"
         android:textColor="@android:color/black"
         android:textSize="20sp" />
 
@@ -28,14 +28,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text='Nazwij swój posiłek, np.: "Kanapka z serem", "Kurczak z ryżem"' />
+        android:text="@string/setNameYourMeal" />
 
     <EditText
         android:id="@+id/etMealName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Nazwa posiłku"
+        android:hint="@string/nameOfMeal"
         android:inputType="textPersonName" />
 
     <Button
@@ -45,7 +45,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:background="@drawable/button_next"
-        android:text="Dalej"
+        android:text="@string/next"
         android:textColor="@color/colorWhite" />
 
 </LinearLayout>

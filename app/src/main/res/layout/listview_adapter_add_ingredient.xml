@@ -9,7 +9,7 @@
         android:id="@+id/tvIngredientName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nazwa składnika"
+        android:text="@string/nameOfIngredient"
         android:textColor="@android:color/black"
         android:textSize="22sp" />
 
@@ -23,14 +23,14 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
-            android:text="w 100g:" />
+            android:text="@string/in100g" />
 
         <TextView
             android:id="@+id/tvIngredientCarbohydrates"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="0g" />
+            android:text="@string/zeroG" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -38,14 +38,14 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
-            android:text="|" />
+            android:text="@string/line" />
 
         <TextView
             android:id="@+id/tvIngredientProtein"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="0g" />
+            android:text="@string/zeroG" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -53,14 +53,14 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
-            android:text="|" />
+            android:text="@string/line" />
 
         <TextView
             android:id="@+id/tvIngredientFat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="0g" />
+            android:text="@string/zeroG" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -68,13 +68,13 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
-            android:text="|" />
+            android:text="@string/line" />
 
         <TextView
             android:id="@+id/tvIngredientCalories"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="0 kcal" />
+            android:text="@string/zeroKcal" />
     </LinearLayout>
 </LinearLayout>

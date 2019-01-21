@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Edycja danych:"
+            android:text="@string/editData"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textSize="22sp" />
 
@@ -31,7 +31,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Masa ciała :" />
+                android:text="@string/bodyWeight" />
 
             <EditText
                 android:id="@+id/etWeight"
@@ -51,7 +51,7 @@
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Poziom aktywności:" />
+                android:text="@string/activityLevel" />
 
             <Spinner
                 android:id="@+id/spinnerLevelActivity"
@@ -65,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Cel wagi:"
+            android:text="@string/goal"
             android:layout_marginTop="5dp"/>
 
         <RadioGroup
@@ -77,19 +77,19 @@
                 android:id="@+id/rbLose"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Utrata" />
+                android:text="@string/lose" />
 
             <RadioButton
                 android:id="@+id/rbKeep"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Utrzymanie" />
+                android:text="@string/keep" />
 
             <RadioButton
                 android:id="@+id/rbGain"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Przybranie" />
+                android:text="@string/gain" />
         </RadioGroup>
 
         <LinearLayout
@@ -107,7 +107,7 @@
                     android:id="@+id/textView10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Zapotrzebowanie:" />
+                    android:text="@string/caloricDemand" />
 
                 <TextView
                     android:id="@+id/tvCaloricDemand"
@@ -124,7 +124,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:background="@drawable/button_welcome"
-                android:text="Oblicz"
+                android:text="@string/count"
                 android:textColor="@android:color/black"
                 android:layout_marginTop="5dp"/>
 
@@ -137,7 +137,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/button_add"
             android:ems="12"
-            android:text="Zapisz"
+            android:text="@string/save"
             android:textColor="@android:color/black" />
 
     </LinearLayout>

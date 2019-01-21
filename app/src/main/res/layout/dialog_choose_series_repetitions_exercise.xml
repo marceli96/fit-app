@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Wpisz serie i liczbę powtórzeń"
+        android:text="@string/fillSeriesAndRepetitions"
         android:textColor="@android:color/black"
         android:textSize="20sp" />
 
@@ -25,7 +25,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dodawanie: "
+            android:text="@string/adding"
             android:textColor="@android:color/black"
             android:textSize="18sp" />
 
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="nazwa ćwiczenia"
+            android:text="@string/nameOfExercise"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Serie:"
+            android:text="@string/series"
             android:textColor="@android:color/black"
             android:textSize="18sp" />
 
@@ -79,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Powtórzenia:"
+            android:text="@string/Repetitions"
             android:textColor="@android:color/black"
             android:textSize="18sp" />
 
@@ -101,5 +101,5 @@
         android:layout_marginTop="10dp"
         android:layout_weight="1"
         android:background="@drawable/button_add"
-        android:text="Dodaj" />
+        android:text="@string/add" />
 </LinearLayout>

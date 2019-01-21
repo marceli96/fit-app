@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="2/2 Dodawanie ćwiczeń"
+            android:text="@string/secondPartTrainingSelected"
             android:textColor="@android:color/black"
             android:textSize="20sp" />
 
@@ -36,7 +36,7 @@
             android:layout_height="35dp"
             android:layout_gravity="end"
             android:background="@drawable/button_add"
-            android:text="Dodaj" />
+            android:text="@string/add" />
     </LinearLayout>
 
     <LinearLayout
@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="Wybrane ćwiczenia ("
+            android:text="@string/selectedExercises"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
 
@@ -65,14 +65,14 @@
             android:id="@+id/tvExerciseAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text="@string/zero"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=") do treningu:"
+            android:text="@string/selectedExercises2"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
     </LinearLayout>
@@ -86,7 +86,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ćwiczenia do wyboru:"
+        android:text="@string/toChooseExercises"
         android:textColor="@android:color/black"
         android:textSize="16sp" />
 

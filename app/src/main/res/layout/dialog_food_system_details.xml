@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Nazwa produktu/posiłku"
+        android:text="@string/nameOfProductOrMeal"
         android:textColor="@android:color/black"
         android:textSize="22sp" />
 
@@ -18,7 +18,7 @@
         android:id="@+id/tvIn100"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="w 100g:" />
+        android:text="@string/in100g" />
 
     <LinearLayout
         android:id="@+id/llMeal"
@@ -29,21 +29,21 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="w całym posiłku (" />
+            android:text="@string/inWholeMeal" />
 
         <TextView
             android:id="@+id/tvTotalMealWeight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="waga posiłku" />
+            android:text="@string/mealWeight" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="): " />
+            android:text="@string/closeBracket" />
     </LinearLayout>
 
     <LinearLayout
@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Węglowodany: " />
+            android:text="@string/carbohydrates" />
 
         <TextView
             android:id="@+id/tvCarbohydrates"
@@ -77,7 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Białko: " />
+            android:text="@string/protein" />
 
         <TextView
             android:id="@+id/tvProtein"
@@ -97,7 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Tłuszcze: " />
+            android:text="@string/fat" />
 
         <TextView
             android:id="@+id/tvFat"
@@ -117,7 +117,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Kalorie: " />
+            android:text="@string/calories" />
 
         <TextView
             android:id="@+id/tvCalories"
@@ -131,7 +131,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Składniki:" />
+        android:text="@string/ingredients" />
 
     <ListView
         android:id="@+id/lvIngredients"
@@ -145,7 +145,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:background="@drawable/button_delete"
-        android:text="Usuń"
+        android:text="@string/erase"
         android:textColor="@color/colorWhite" />
 
 </LinearLayout>

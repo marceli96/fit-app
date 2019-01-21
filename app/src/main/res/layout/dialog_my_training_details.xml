@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Nazwa treningu"
+        android:text="@string/nameOfTraining"
         android:textColor="@android:color/black"
         android:textSize="22sp" />
 
@@ -23,25 +23,25 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ćwiczenia" />
+            android:text="@string/exercises2" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" (" />
+            android:text="@string/openBracket" />
 
         <TextView
             android:id="@+id/tvExerciseAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="0" />
+            android:text="@string/zero" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="):" />
+            android:text="@string/closeBracket" />
     </LinearLayout>
 
     <ListView

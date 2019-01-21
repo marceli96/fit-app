@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:gravity="center"
-        android:text="1/2 Wybranie nazwy treningu"
+        android:text="@string/firstPartTrainingSelected"
         android:textColor="@android:color/black"
         android:textSize="20sp" />
 
@@ -28,14 +28,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text='Nazwij swój trening, np.: "FBW", "Push-pull", "Cardio"' />
+        android:text="@string/setNameYourTraining" />
 
     <EditText
         android:id="@+id/etTrainingName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Nazwa treningu"
+        android:hint="@string/nameOfTraining"
         android:inputType="textPersonName" />
 
     <Button
@@ -45,6 +45,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:background="@drawable/button_next"
-        android:text="Dalej"
+        android:text="@string/next"
         android:textColor="@color/colorWhite" />
 </LinearLayout>

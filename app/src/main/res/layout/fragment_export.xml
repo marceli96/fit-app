@@ -12,14 +12,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Eksportowanie szczegółowych danych z ostatniego tygodnia do pliku Excel"
+        android:text="@string/infoExporting"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="18sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Wybór danych:"
+        android:text="@string/selectingData"
         android:layout_marginTop="10dp"/>
 
     <LinearLayout
@@ -33,49 +33,49 @@
             android:id="@+id/cbBreakfast"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Śniadanie" />
+            android:text="@string/breakfast" />
 
         <CheckBox
             android:id="@+id/cbSecondBreakfast"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Drugie śniadanie" />
+            android:text="@string/secondBreakfast" />
 
         <CheckBox
             android:id="@+id/cbLunch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Lunch" />
+            android:text="@string/lunch" />
 
         <CheckBox
             android:id="@+id/cbDinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Obiad" />
+            android:text="@string/dinner" />
 
         <CheckBox
             android:id="@+id/cbSnack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Przekąska" />
+            android:text="@string/snack" />
 
         <CheckBox
             android:id="@+id/cbSupper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Kolacja" />
+            android:text="@string/supper" />
 
         <CheckBox
             android:id="@+id/cbTraining"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Trening" />
+            android:text="@string/training" />
 
         <CheckBox
             android:id="@+id/cbSummary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Podsumowanie dnia" />
+            android:text="@string/toSumUpDay" />
 
         <Button
             android:id="@+id/bGenerate"
@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/button_next"
-            android:text="Wygeneruj"
+            android:text="@string/create"
             android:textColor="@color/colorWhite" />
     </LinearLayout>
 

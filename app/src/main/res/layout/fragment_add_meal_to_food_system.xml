@@ -14,7 +14,7 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Wybierz posiłek, który chcesz dodać, a nastepnie wybierz wagę."
+            android:text="@string/selectMealToAdd"
             android:padding="5dp"
             android:layout_marginBottom="5dp"/>
 

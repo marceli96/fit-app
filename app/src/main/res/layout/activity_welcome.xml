@@ -18,7 +18,7 @@
         android:layout_marginTop="30dp"
         android:backgroundTint="@color/colorWhite"
         android:ems="10"
-        android:hint="Login"
+        android:hint="@string/login"
         android:inputType="textPersonName"
         android:textColor="@color/colorWhite"
         android:textColorHint="@color/colorShyWhite" />
@@ -31,7 +31,7 @@
         android:layout_marginTop="10dp"
         android:backgroundTint="@color/colorWhite"
         android:ems="10"
-        android:hint="Hasło"
+        android:hint="@string/password"
         android:inputType="textPassword"
         android:textColor="@color/colorWhite"
         android:textColorHint="@color/colorShyWhite" />
@@ -43,7 +43,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:background="@drawable/button_welcome"
-        android:text="Zaloguj"
+        android:text="@string/logIn"
         android:textSize="15sp" />
 
     <Button
@@ -53,7 +53,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:background="@drawable/button_welcome"
-        android:text="Zarejestruj"
+        android:text="@string/register"
         android:textColor="@color/colorBlue"
         android:textSize="15sp"
         android:textStyle="bold" />

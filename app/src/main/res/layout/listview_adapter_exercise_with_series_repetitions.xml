@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Nazwa ćwiczenia"
+            android:text="@string/nameOfExercise2"
             android:textColor="@android:color/black"
             android:textSize="22sp" />
 
@@ -37,27 +37,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Serie: " />
+            android:text="@string/series" />
 
         <TextView
             android:id="@+id/tvSeries"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="0"
+            android:text="@string/zero"
             android:layout_marginRight="10dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Powtórzenia: " />
+            android:text="@string/Repetitions" />
 
         <TextView
             android:id="@+id/tvRepetitions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="0" />
+            android:text="@string/zero" />
     </LinearLayout>
 </LinearLayout>

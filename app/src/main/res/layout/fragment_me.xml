@@ -40,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
-                android:text="Moje posiłki"
+                android:text="@string/myMeals"
                 android:textColor="@android:color/black"
                 android:textSize="25sp" />
 
@@ -57,7 +57,7 @@
             android:id="@+id/tvMyMealsEmpty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nie dodałeś jeszcze żadnych posiłków"
+            android:text="@string/mealNotAdd"
             android:visibility="gone" />
 
         <ProgressBar
@@ -100,7 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
-                android:text="Moje treningi"
+                android:text="@string/myTrainings"
                 android:textColor="@android:color/black"
                 android:textSize="25sp" />
 
@@ -117,7 +117,7 @@
             android:id="@+id/tvMyTrainingsEmpty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nie dodałeś jeszcze żadnych treningów"
+            android:text="@string/trainingsNotAdd"
             android:visibility="gone" />
 
         <pl.edu.wat.fitapp.AndroidComponent.NonScrollListView

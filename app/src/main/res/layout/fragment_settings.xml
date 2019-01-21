@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Obecne dane:"
+        android:text="@string/currentData"
         android:textColor="@android:color/black"
         android:textSize="22sp" />
 
@@ -24,13 +24,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login: " />
+            android:text="@string/login2" />
 
         <TextView
             android:id="@+id/tvLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="login" />
+            android:text="@string/login" />
 
     </LinearLayout>
 
@@ -42,13 +42,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="E-mail: " />
+            android:text="@string/e_mail2" />
 
         <TextView
             android:id="@+id/tvEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="e-mail" />
+            android:text="@string/e_mail" />
     </LinearLayout>
 
     <EditText
@@ -56,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:hint="Wpisz nowy login"
+        android:hint="@string/fillNewLogin"
         android:inputType="textPersonName" />
 
     <Button
@@ -64,7 +64,7 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:background="@drawable/button_next"
-        android:text="Zmień login"
+        android:text="@string/changeLogin"
         android:textColor="@color/colorWhite" />
 
     <EditText
@@ -72,7 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:hint="Wpisz nowy e-mail"
+        android:hint="@string/fillNewE_mail"
         android:inputType="textEmailAddress" />
 
     <Button
@@ -80,7 +80,7 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:background="@drawable/button_next"
-        android:text="Zmień e-mail"
+        android:text="@string/changeE_mail"
         android:textColor="@color/colorWhite" />
 
     <EditText
@@ -88,14 +88,14 @@
         android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:hint="Wpisz nowe hasło"
+        android:hint="@string/fillNewPassword"
         android:inputType="textPassword" />
 
     <EditText
         android:id="@+id/etPassword2"
         android:layout_width="190dp"
         android:layout_height="wrap_content"
-        android:hint="Potwierdź nowe hasło"
+        android:hint="@string/confirmNewPassword"
         android:inputType="textPassword" />
 
     <Button
@@ -103,7 +103,7 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:background="@drawable/button_next"
-        android:text="Zmień hasło"
+        android:text="@string/changePassword"
         android:textColor="@color/colorWhite" />
 
 </LinearLayout>

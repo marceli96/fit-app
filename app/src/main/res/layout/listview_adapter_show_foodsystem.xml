@@ -11,7 +11,7 @@
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nazwa"
+        android:text="@string/name"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="italic" />
@@ -20,7 +20,7 @@
         android:id="@+id/tvWeight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Waga"
+        android:text="@string/weight2"
         android:textSize="14sp" />
 
     <LinearLayout
@@ -32,45 +32,45 @@
             android:id="@+id/tvCarbohydrates"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0 g" />
+            android:text="@string/zeroG" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:text="|" />
+            android:text="@string/line" />
 
         <TextView
             android:id="@+id/tvProtein"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0 g" />
+            android:text="@string/zeroG" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:text="|" />
+            android:text="@string/line" />
 
         <TextView
             android:id="@+id/tvFat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0 g" />
+            android:text="@string/zeroG" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:text="|" />
+            android:text="@string/line" />
 
         <TextView
             android:id="@+id/tvCalories"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0 kcal" />
+            android:text="@string/zeroKcal" />
     </LinearLayout>
 </LinearLayout>
