@@ -20,6 +20,7 @@ import java.util.Map;
 
 import pl.edu.wat.fitapp.Database.Entity.Exercise;
 import pl.edu.wat.fitapp.Database.Entity.Training;
+import pl.edu.wat.fitapp.Main.Fragment.AddToSystem.AddTrainingToTrainingSystemFragment;
 import pl.edu.wat.fitapp.Main.Fragment.Profile.ProfileFragment;
 import pl.edu.wat.fitapp.Mangement.MyTrainingManagement;
 
@@ -61,6 +62,8 @@ public class MyTrainingsConnection {
                         }
                         if(fragment.getClass() == ProfileFragment.class)
                             ((ProfileFragment) fragment).showMyTrainings();
+                        else if(fragment.getClass() == AddTrainingToTrainingSystemFragment.class)
+                            ((AddTrainingToTrainingSystemFragment) fragment).showMyTrainings();
                     } else
                         Toast.makeText(fragment.getActivity(), "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
