@@ -21,7 +21,7 @@
         android:hint="Login"
         android:inputType="textPersonName"
         android:textColor="@color/colorWhite"
-        android:textColorHint="#cccccc" />
+        android:textColorHint="@color/colorShyWhite" />
 
     <EditText
         android:id="@+id/etPassword"
@@ -34,7 +34,7 @@
         android:hint="Hasło"
         android:inputType="textPassword"
         android:textColor="@color/colorWhite"
-        android:textColorHint="#cccccc" />
+        android:textColorHint="@color/colorShyWhite" />
 
     <Button
         android:id="@+id/bLogin"
@@ -54,7 +54,7 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/button_welcome"
         android:text="Zarejestruj"
-        android:textColor="#253692"
+        android:textColor="@color/colorBlue"
         android:textSize="15sp"
         android:textStyle="bold" />
 
