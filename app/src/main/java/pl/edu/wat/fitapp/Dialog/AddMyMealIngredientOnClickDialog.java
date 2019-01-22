@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import pl.edu.wat.fitapp.Database.Entity.Ingredient;
 import pl.edu.wat.fitapp.Main.Fragment.Profile.AddMyMealIngredientsActivity;
 import pl.edu.wat.fitapp.R;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class AddMyMealIngredientOnClickDialog {
     private AddMyMealIngredientsActivity addMyMealIngredientsActivity;
@@ -41,7 +42,7 @@ public class AddMyMealIngredientOnClickDialog {
                 EditText etWeight = alertView.findViewById(R.id.etWeight);
                 String weight = etWeight.getText().toString();
                 if (weight.isEmpty())
-                    Toast.makeText(addMyMealIngredientsActivity, "Wpisz wagę!", Toast.LENGTH_SHORT).show();
+                    ToastUtils.shortToast(addMyMealIngredientsActivity, "Wpisz wagę!");
                 else {
                     Ingredient tempIngredient = null;
                     try {

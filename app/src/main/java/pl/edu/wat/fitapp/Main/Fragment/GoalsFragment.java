@@ -21,6 +21,7 @@ import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.Main.MainActivity;
 import pl.edu.wat.fitapp.Mangement.UserSettingsManagement;
 import pl.edu.wat.fitapp.R;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 
 public class GoalsFragment extends Fragment implements AdapterView.OnItemSelectedListener {
@@ -94,7 +95,7 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
                     calories = userMgn.calculateCaloriesForExistingUser(rgGoal, getView(), user, activityLevel, Double.parseDouble(etWeight.getText().toString()));
                     tvCaloricDemand.setText(String.valueOf(calories));
                 } else
-                    Toast.makeText(getActivity(), "Uzupełnij pole 'Masa ciała'", Toast.LENGTH_SHORT).show();
+                    ToastUtils.shortToast(getActivity(), "Uzupełnij pole 'Masa ciała'");
             }
         });
 
@@ -109,7 +110,7 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
                     userConnection.saveWeight(user, Double.parseDouble(etWeight.getText().toString()), userMgn.getGoalInt(rgGoal, getView()),
                             calories, userMgn.getActivityLevelInt(activityLevel));
                 } else
-                    Toast.makeText(getActivity(), "Uzupełnij pole 'Masa ciała'", Toast.LENGTH_SHORT).show();
+                    ToastUtils.shortToast(getActivity(), "Uzupełnij pole 'Masa ciała'");
             }
         });
 

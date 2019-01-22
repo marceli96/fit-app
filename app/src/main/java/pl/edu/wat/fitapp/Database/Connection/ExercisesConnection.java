@@ -20,6 +20,7 @@ import java.util.Map;
 import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.SimpleExercisesListAdapter;
 import pl.edu.wat.fitapp.Database.Entity.Exercise;
 import pl.edu.wat.fitapp.R;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class ExercisesConnection {
     private Activity activity;
@@ -44,16 +45,16 @@ public class ExercisesConnection {
                         }
                         simpleExercisesListAdapter.notifyDataSetChanged();
                     } else
-                        Toast.makeText(activity, "Wystąpił błąd podczas pobierania ćwiczeń", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(activity, "Wystąpił błąd podczas pobierania ćwiczeń");
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(activity, "Wystąpił błąd podczas pobierania ćwiczeń " + e.toString(), Toast.LENGTH_SHORT).show();
+                    ToastUtils.shortToast(activity, "Wystąpił błąd podczas pobierania ćwiczeń " + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(activity, "Wystąpił błąd podczas pobierania ćwiczeń " + error.toString(), Toast.LENGTH_SHORT).show();
+                ToastUtils.shortToast(activity, "Wystąpił błąd podczas pobierania ćwiczeń " + error.toString());
             }
         }) {
             @Override

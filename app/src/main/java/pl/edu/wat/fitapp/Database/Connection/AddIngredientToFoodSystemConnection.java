@@ -20,6 +20,7 @@ import java.util.Map;
 
 import pl.edu.wat.fitapp.Main.Fragment.AddToSystem.AddIngredientToFoodSystemFragment;
 import pl.edu.wat.fitapp.R;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class AddIngredientToFoodSystemConnection {
     private Fragment fragment;
@@ -36,27 +37,27 @@ public class AddIngredientToFoodSystemConnection {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean message = jsonResponse.getBoolean("message");
                     if (!message) {
-                        Toast.makeText(fragment.getActivity(), "Dany składnik został już dodany w tej porze jedzenia", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(fragment.getActivity(), "Dany składnik został już dodany w tej porze jedzenia");
                     } else {
                         boolean success = jsonResponse.getBoolean("success");
                         if (success) {
-                            Toast.makeText(fragment.getActivity(), "Dodano pomyślnie", Toast.LENGTH_SHORT).show();
+                            ToastUtils.shortToast(fragment.getActivity(), "Dodano pomyślnie");
                             if(fragment.getClass() == AddIngredientToFoodSystemFragment.class){
                                 ((AddIngredientToFoodSystemFragment) fragment).openMainActivity();
                             }
                         } else {
-                            Toast.makeText(fragment.getActivity(), "Błąd podczas dodawania", Toast.LENGTH_SHORT).show();
+                            ToastUtils.shortToast(fragment.getActivity(), "Błąd podczas dodawania");
                         }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(fragment.getActivity(), "Błąd podczas dodawania " + e.toString(), Toast.LENGTH_SHORT).show();
+                    ToastUtils.shortToast(fragment.getActivity(), "Błąd podczas dodawania " + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(fragment.getActivity(), "Błąd podczas dodawania " + error.toString(), Toast.LENGTH_SHORT).show();
+                ToastUtils.shortToast(fragment.getActivity(), "Błąd podczas dodawania " + error.toString());
             }
         }) {
             @Override

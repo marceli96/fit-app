@@ -18,6 +18,7 @@ import java.util.Map;
 import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.Main.Fragment.SettingsFragment;
 import pl.edu.wat.fitapp.R;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class UserSettingsConnection {
     private SettingsFragment settingsFragment;
@@ -39,23 +40,22 @@ public class UserSettingsConnection {
                                 if (success) {
                                     user.setUserName(newUserName);
                                     settingsFragment.setUser(user);
-                                    Toast.makeText(settingsFragment.getActivity(), "Login zmieniony pomyślnie", Toast.LENGTH_LONG).show();
+                                    ToastUtils.shortToast(settingsFragment.getActivity(), "Login zmieniony pomyślnie");
                                     settingsFragment.openHomeActivity();
                                 } else
-                                    Toast.makeText(settingsFragment.getActivity(), "Nieoczekiwany błąd", Toast.LENGTH_LONG).show();
+                                    ToastUtils.shortToast(settingsFragment.getActivity(), "Nieoczekiwany błąd");
                             } else
-                                Toast.makeText(settingsFragment.getActivity(), "Nazwa użytkownika jest zajęta", Toast.LENGTH_LONG).show();
-
+                                ToastUtils.shortToast(settingsFragment.getActivity(), "Nazwa użytkownika jest zajęta");
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(settingsFragment.getActivity(), "Settings error! " + e.toString(), Toast.LENGTH_LONG).show();
+                            ToastUtils.shortToast(settingsFragment.getActivity(), "Settings error! " + e.toString());
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(settingsFragment.getActivity(), "Settings error! " + error.toString(), Toast.LENGTH_LONG).show();
+                        ToastUtils.shortToast(settingsFragment.getActivity(), "Settings error! " + error.toString());
                     }
                 }) {
             @Override
@@ -86,23 +86,22 @@ public class UserSettingsConnection {
                                 if (success) {
                                     user.setEmail(newEmail);
                                     settingsFragment.setUser(user);
-                                    Toast.makeText(settingsFragment.getActivity(), "E-mail zmieniony pomyślnie", Toast.LENGTH_LONG).show();
+                                    ToastUtils.shortToast(settingsFragment.getActivity(), "E-mail zmieniony pomyślnie");
                                     settingsFragment.openHomeActivity();
                                 } else
-                                    Toast.makeText(settingsFragment.getActivity(), "Nieoczekiwany błąd", Toast.LENGTH_LONG).show();
+                                    ToastUtils.shortToast(settingsFragment.getActivity(), "Nieoczekiwany błąd");
                             } else
-                                Toast.makeText(settingsFragment.getActivity(), "E-mail jest zajęty", Toast.LENGTH_LONG).show();
-
+                                ToastUtils.shortToast(settingsFragment.getActivity(), "E-mail jest zajęty");
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(settingsFragment.getActivity(), "Settings error! " + e.toString(), Toast.LENGTH_LONG).show();
+                            ToastUtils.shortToast(settingsFragment.getActivity(), "Settings error! " + e.toString());
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(settingsFragment.getActivity(), "Settings error! " + error.toString(), Toast.LENGTH_LONG).show();
+                        ToastUtils.shortToast(settingsFragment.getActivity(), "Settings error! " + error.toString());
                     }
                 }) {
             @Override
@@ -128,20 +127,20 @@ public class UserSettingsConnection {
                             JSONObject jsonResponse = new JSONObject(response);
                             boolean success = jsonResponse.getBoolean("success");
                             if (success) {
-                                Toast.makeText(settingsFragment.getActivity(), "Hasło zmienione pomyślnie", Toast.LENGTH_LONG).show();
+                                ToastUtils.shortToast(settingsFragment.getActivity(), "Hasło zmienione pomyślnie");
                                 settingsFragment.openHomeActivity();
                             } else
-                                Toast.makeText(settingsFragment.getActivity(), "Nieoczekiwany błąd", Toast.LENGTH_LONG).show();
+                                ToastUtils.shortToast(settingsFragment.getActivity(), "Nieoczekiwany błąd");
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(settingsFragment.getActivity(), "Settings error! " + e.toString(), Toast.LENGTH_LONG).show();
+                            ToastUtils.shortToast(settingsFragment.getActivity(), "Settings error! " + e.toString());
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(settingsFragment.getActivity(), "Settings error! " + error.toString(), Toast.LENGTH_LONG).show();
+                        ToastUtils.shortToast(settingsFragment.getActivity(), "Settings error! " + error.toString());
                     }
                 }) {
             @Override

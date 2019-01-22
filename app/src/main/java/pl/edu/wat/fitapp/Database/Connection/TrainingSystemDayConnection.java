@@ -25,6 +25,7 @@ import pl.edu.wat.fitapp.Interface.TrainingSystem;
 import pl.edu.wat.fitapp.Main.Fragment.HomeFragment;
 import pl.edu.wat.fitapp.Mangement.TrainingSystemDayManagement;
 import pl.edu.wat.fitapp.R;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class TrainingSystemDayConnection {
     private HomeFragment homeFragment;
@@ -72,16 +73,16 @@ public class TrainingSystemDayConnection {
                         homeFragment.getTrainingSystemListAdapter().notifyDataSetChanged();
                         homeFragment.updateExerciseAmount();
                     } else
-                        Toast.makeText(homeFragment.getActivity(), "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(homeFragment.getActivity(), "Błąd połączenia z bazą");
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(homeFragment.getActivity(), "Błąd połączenia z bazą " + e.toString(), Toast.LENGTH_SHORT).show();
+                    ToastUtils.shortToast(homeFragment.getActivity(), "Błąd połączenia z bazą " + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(homeFragment.getActivity(), "Błąd połączenia z bazą " + error.toString(), Toast.LENGTH_SHORT).show();
+                ToastUtils.shortToast(homeFragment.getActivity(), "Błąd połączenia z bazą " + error.toString());
             }
         }) {
             @Override

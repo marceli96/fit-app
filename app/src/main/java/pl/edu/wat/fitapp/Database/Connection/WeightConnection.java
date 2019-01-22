@@ -22,6 +22,7 @@ import java.util.Map;
 import pl.edu.wat.fitapp.Charts.JournalChartsWeightWeek;
 import pl.edu.wat.fitapp.Main.Fragment.JournalFragment;
 import pl.edu.wat.fitapp.R;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class WeightConnection {
     private JournalFragment journalFragment;
@@ -48,17 +49,17 @@ public class WeightConnection {
                             journalFragment.getLlWeightDay().setVisibility(View.VISIBLE);
                         }
                     } else {
-                        Toast.makeText(journalFragment.getActivity(), "Błąd podczas pobierania wagi z dnia", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(journalFragment.getActivity(), "Błąd podczas pobierania wagi z dnia");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(journalFragment.getActivity(), "Błąd połączenia z bazą! " + e.toString(), Toast.LENGTH_LONG).show();
+                    ToastUtils.shortToast(journalFragment.getActivity(), "Błąd połączenia z bazą! " + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(journalFragment.getActivity(), "Błąd połączenia z bazą! " + error.toString(), Toast.LENGTH_LONG).show();
+                ToastUtils.shortToast(journalFragment.getActivity(), "Błąd połączenia z bazą! " + error.toString());
             }
         }) {
             @Override
@@ -90,16 +91,16 @@ public class WeightConnection {
                         JournalChartsWeightWeek journalChartsWeightWeek = new JournalChartsWeightWeek(journalFragment, weightWeek);
                         journalChartsWeightWeek.drawChartsWeightWeek();
                     } else
-                        Toast.makeText(journalFragment.getActivity(), "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(journalFragment.getActivity(), "Błąd połączenia z bazą");
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(journalFragment.getActivity(), "Błąd połączenia z bazą " + e.toString(), Toast.LENGTH_SHORT).show();
+                    ToastUtils.shortToast(journalFragment.getActivity(), "Błąd połączenia z bazą " + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(journalFragment.getActivity(), "Błąd połączenia z bazą " + error.toString(), Toast.LENGTH_SHORT).show();
+                ToastUtils.shortToast(journalFragment.getActivity(), "Błąd połączenia z bazą " + error.toString());
             }
         }) {
             @Override

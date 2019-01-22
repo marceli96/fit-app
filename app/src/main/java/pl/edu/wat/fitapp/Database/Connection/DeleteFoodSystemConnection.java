@@ -23,6 +23,7 @@ import pl.edu.wat.fitapp.Interface.FoodSystem;
 import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.FoodSystemListAdapter;
 import pl.edu.wat.fitapp.Main.Fragment.HomeFragment;
 import pl.edu.wat.fitapp.R;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class DeleteFoodSystemConnection {
     private HomeFragment homeFragment;
@@ -69,20 +70,20 @@ public class DeleteFoodSystemConnection {
                                 foodSystemListAdapters.get(5).notifyDataSetChanged();
                                 break;
                         }
-                        Toast.makeText(homeFragment.getActivity(), "Pomyślnie usunięto", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(homeFragment.getActivity(), "Pomyślnie usunięto");
                         homeFragment.updateMacrosOnMealTimes();
                         homeFragment.updateEatenMacros();
                     } else
-                        Toast.makeText(homeFragment.getActivity(), "Błąd podczas usuwania", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(homeFragment.getActivity(), "Błąd podczas usuwania");
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(homeFragment.getActivity(), "Błąd podczas usuwania " + e.toString(), Toast.LENGTH_SHORT).show();
+                    ToastUtils.shortToast(homeFragment.getActivity(), "Błąd podczas usuwania " + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(homeFragment.getActivity(), "Błąd podczas usuwania " + error.toString(), Toast.LENGTH_SHORT).show();
+                ToastUtils.shortToast(homeFragment.getActivity(), "Błąd podczas usuwania " + error.toString());
             }
         }) {
             @Override

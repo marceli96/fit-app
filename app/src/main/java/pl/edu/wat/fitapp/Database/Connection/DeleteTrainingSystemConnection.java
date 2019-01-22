@@ -23,6 +23,7 @@ import pl.edu.wat.fitapp.Database.Entity.Exercise;
 import pl.edu.wat.fitapp.Interface.TrainingSystem;
 import pl.edu.wat.fitapp.Main.Fragment.HomeFragment;
 import pl.edu.wat.fitapp.R;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class DeleteTrainingSystemConnection {
     private HomeFragment homeFragment;
@@ -43,21 +44,21 @@ public class DeleteTrainingSystemConnection {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
                     if (success) {
-                        Toast.makeText(homeFragment.getActivity(), "Pomyślnie usunięto", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(homeFragment.getActivity(), "Pomyślnie usunięto");
                         trainingSystemDay.remove(training);
                         trainingSystemListAdapter.notifyDataSetChanged();
                         homeFragment.updateExerciseAmount();
                     } else
-                        Toast.makeText(homeFragment.getActivity(), "Błąd podczas usuwania", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(homeFragment.getActivity(), "Błąd podczas usuwania");
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(homeFragment.getActivity(), "Błąd podczas usuwania " + e.toString(), Toast.LENGTH_SHORT).show();
+                    ToastUtils.shortToast(homeFragment.getActivity(), "Błąd podczas usuwania " + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(homeFragment.getActivity(), "Błąd podczas usuwania " + error.toString(), Toast.LENGTH_SHORT).show();
+                ToastUtils.shortToast(homeFragment.getActivity(), "Błąd podczas usuwania " + error.toString());
             }
         }) {
             @Override

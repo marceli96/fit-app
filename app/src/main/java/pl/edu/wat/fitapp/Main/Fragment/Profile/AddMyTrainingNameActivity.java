@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.R;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class AddMyTrainingNameActivity extends AppCompatActivity {
 
@@ -37,7 +38,7 @@ public class AddMyTrainingNameActivity extends AppCompatActivity {
                     openAddMyTrainingActivity2.putExtra("trainingName", etTrainingName.getText().toString());
                     startActivity(openAddMyTrainingActivity2);
                 } else
-                    Toast.makeText(AddMyTrainingNameActivity.this, "Wpisz nazwę treningu", Toast.LENGTH_SHORT).show();
+                    ToastUtils.shortToast(AddMyTrainingNameActivity.this, "Wpisz nazwę treningu");
             }
         });
     }

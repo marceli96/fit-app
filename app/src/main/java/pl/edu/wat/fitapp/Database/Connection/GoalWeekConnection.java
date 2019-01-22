@@ -21,6 +21,7 @@ import java.util.Map;
 
 import pl.edu.wat.fitapp.Main.Fragment.ExportFragment;
 import pl.edu.wat.fitapp.R;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class GoalWeekConnection {
     private Fragment fragment;
@@ -47,16 +48,16 @@ public class GoalWeekConnection {
                             ((ExportFragment) fragment).showOptions();
                         }
                     } else
-                        Toast.makeText(fragment.getActivity(), "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(fragment.getActivity(), "Błąd połączenia z bazą");
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(fragment.getActivity(), "Błąd połączenia z bazą " + e.toString(), Toast.LENGTH_SHORT).show();
+                    ToastUtils.shortToast(fragment.getActivity(), "Błąd połączenia z bazą " + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(fragment.getActivity(), "Błąd połączenia z bazą " + error.toString(), Toast.LENGTH_SHORT).show();
+                ToastUtils.shortToast(fragment.getActivity(), "Błąd połączenia z bazą " + error.toString());
             }
         }) {
             @Override

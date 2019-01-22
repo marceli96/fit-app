@@ -16,6 +16,7 @@ import android.widget.Toast;
 import pl.edu.wat.fitapp.Database.Connection.RegisterConnection;
 import pl.edu.wat.fitapp.Mangement.UserSettingsManagement;
 import pl.edu.wat.fitapp.R;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 import pl.edu.wat.fitapp.Welcome.WelcomeActivity;
 
 public class RegisterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -79,21 +80,21 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                     registerConnection.register();
                 } else {
                     if (etLogin.getText().toString().isEmpty())
-                        Toast.makeText(RegisterActivity.this, "Wprowadź login", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(RegisterActivity.this, "Wprowadź login");
                     else if (etPassword.getText().toString().isEmpty())
-                        Toast.makeText(RegisterActivity.this, "Wprowadź hasło", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(RegisterActivity.this, "Wprowadź hasło");
                     else if (etEmail.getText().toString().isEmpty())
-                        Toast.makeText(RegisterActivity.this, "Wprowadź e-mail", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(RegisterActivity.this, "Wprowadź e-mail");
                     else if (etAge.getText().toString().isEmpty())
-                        Toast.makeText(RegisterActivity.this, "Wprowadź swój wiek", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(RegisterActivity.this, "Wprowadź swój wiek");
                     else if (etHeight.getText().toString().isEmpty())
-                        Toast.makeText(RegisterActivity.this, "Wprowadź swój wzrost", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(RegisterActivity.this, "Wprowadź swój wzrost");
                     else if (etWeight.getText().toString().isEmpty())
-                        Toast.makeText(RegisterActivity.this, "Wprowadź swoją wagę", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(RegisterActivity.this, "Wprowadź swoją wagę");
                     else if (etLogin.getText().toString().length() <= 5)
-                        Toast.makeText(RegisterActivity.this, "Login musi mieć conajmniej 6 znaków", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(RegisterActivity.this, "Login musi mieć conajmniej 6 znaków");
                     else if (etPassword.getText().toString().length() <= 5)
-                        Toast.makeText(RegisterActivity.this, "Hasło musi mieć conajmniej 6 znaków", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(RegisterActivity.this, "Hasło musi mieć conajmniej 6 znaków");
                 }
             }
         });
@@ -108,11 +109,11 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                     tvCalories.setText(String.valueOf(calories));
                 } else {
                     if (etAge.getText().toString().isEmpty())
-                        Toast.makeText(RegisterActivity.this, "Wprowadź swój wiek", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(RegisterActivity.this, "Wprowadź swój wiek");
                     else if (etWeight.getText().toString().isEmpty())
-                        Toast.makeText(RegisterActivity.this, "Wprowadź swoją wagę", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(RegisterActivity.this, "Wprowadź swoją wagę");
                     else if (etHeight.getText().toString().isEmpty())
-                        Toast.makeText(RegisterActivity.this, "Wprowadź swój wzrost", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(RegisterActivity.this, "Wprowadź swój wzrost");
                 }
             }
         });

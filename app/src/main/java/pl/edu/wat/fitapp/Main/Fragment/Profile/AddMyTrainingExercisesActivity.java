@@ -37,6 +37,7 @@ import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.Dialog.AddMyTrainingExerciseOnClickDialog;
 import pl.edu.wat.fitapp.Main.MainActivity;
 import pl.edu.wat.fitapp.R;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class AddMyTrainingExercisesActivity extends AppCompatActivity {
     private Button bAddMyTraining;
@@ -91,7 +92,7 @@ public class AddMyTrainingExercisesActivity extends AppCompatActivity {
                     addMyTrainingConnection.addMyTraining(user.getUserID(), trainingName);
                 }
                 else
-                    Toast.makeText(AddMyTrainingExercisesActivity.this, "Najpierw dodaj ćwiczenia do treningu", Toast.LENGTH_SHORT).show();
+                    ToastUtils.shortToast(AddMyTrainingExercisesActivity.this, "Najpierw dodaj ćwiczenia do treningu");
             }
         });
 

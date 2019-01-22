@@ -38,6 +38,7 @@ import pl.edu.wat.fitapp.Database.Entity.Training;
 import pl.edu.wat.fitapp.Interface.FoodSystem;
 import pl.edu.wat.fitapp.Interface.TrainingSystem;
 import pl.edu.wat.fitapp.Mangement.MacrocomponentManagement;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class PDFGenerator {
     private Fragment fragment;
@@ -408,10 +409,10 @@ public class PDFGenerator {
             excel.write();
             excel.close();
 
-            Toast.makeText(fragment.getActivity(), "Wygenerowanie plik do: " + file.getAbsolutePath(), Toast.LENGTH_LONG).show();
+            ToastUtils.longToast(fragment.getActivity(), "Wygenerowanie plik do: " + file.getAbsolutePath());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            Toast.makeText(fragment.getActivity(), "Brak uprawnień, spróbuj jeszcze raz", Toast.LENGTH_SHORT).show();
+            ToastUtils.shortToast(fragment.getActivity(), "Brak uprawnień, spróbuj jeszcze raz");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (WriteException e) {

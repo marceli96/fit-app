@@ -27,6 +27,7 @@ import pl.edu.wat.fitapp.Main.Fragment.JournalFragment;
 import pl.edu.wat.fitapp.Main.Fragment.Profile.ProfileFragment;
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Main.Fragment.SettingsFragment;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 import pl.edu.wat.fitapp.Welcome.WelcomeActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -132,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent openWelcomeScreen = new Intent(MainActivity.this, WelcomeActivity.class);
                 openWelcomeScreen.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(openWelcomeScreen);
-                Toast.makeText(MainActivity.this, "Wylogowano pomyślnie", Toast.LENGTH_SHORT).show();
+                ToastUtils.shortToast(MainActivity.this, "Wylogowano pomyślnie");
                 MainActivity.this.finish();
                 break;
         }

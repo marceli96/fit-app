@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.R;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class AddMyMealNameActivity extends AppCompatActivity {
 
@@ -38,8 +39,7 @@ public class AddMyMealNameActivity extends AppCompatActivity {
                     openAddMyMealActivity2.putExtra("mealName", etMealName.getText().toString());
                     startActivity(openAddMyMealActivity2);
                 } else
-                    Toast.makeText(AddMyMealNameActivity.this, "Wpisz nazwę posiłku", Toast.LENGTH_SHORT).show();
-
+                    ToastUtils.shortToast(AddMyMealNameActivity.this, "Wpisz nazwę posiłku");
             }
         });
 

@@ -14,6 +14,7 @@ import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.Main.MainActivity;
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Register.RegisterActivity;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class WelcomeActivity extends AppCompatActivity {
     private EditText etLogin, etPassword;
@@ -56,16 +57,16 @@ public class WelcomeActivity extends AppCompatActivity {
                 } else {
                     pbLogin.setVisibility(View.INVISIBLE);
                     if (etLogin.getText().toString().isEmpty())
-                        Toast.makeText(WelcomeActivity.this, "Wpisz login", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(WelcomeActivity.this, "Wpisz login");
                     else if (etPassword.getText().toString().isEmpty())
-                        Toast.makeText(WelcomeActivity.this, "Wpisz hasło", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(WelcomeActivity.this, "Wpisz hasło");
                 }
             }
         });
     }
 
     public void openMainActivity() {
-        Toast.makeText(WelcomeActivity.this, "Zalogowano pomyślnie", Toast.LENGTH_SHORT).show();
+        ToastUtils.shortToast(WelcomeActivity.this, "Zalogowano pomyślnie");
         Intent openMainActivity = new Intent(WelcomeActivity.this, MainActivity.class);
         openMainActivity.putExtra("user", user);
         startActivity(openMainActivity);

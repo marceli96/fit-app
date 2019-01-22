@@ -20,6 +20,7 @@ import java.util.Map;
 import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.Main.Fragment.GoalsFragment;
 import pl.edu.wat.fitapp.R;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class UserConnection {
     private GoalsFragment goalsFragment;
@@ -38,24 +39,24 @@ public class UserConnection {
                                 boolean successUser = jsonResponse.getBoolean("successUser");
                                 boolean successWeight = jsonResponse.getBoolean("successWeight");
                                 if (successUser && successWeight) {
-                                    Toast.makeText(goalsFragment.getActivity(), "Dane zaaktualizowane ", Toast.LENGTH_SHORT).show();
+                                    ToastUtils.shortToast(goalsFragment.getActivity(), "Dane zaaktualizowane");
                                     user.setWeight(weight);
                                     user.setGoal(goal);
                                     user.setCaloricDemand(calories);
                                     user.setActivityLevel(activityLevel);
                                     goalsFragment.openHomeActivity();
                                 } else
-                                    Toast.makeText(goalsFragment.getActivity(), "Nieoczkiwany błąd, powtórz wcześniej wprowadzone zmiany", Toast.LENGTH_SHORT).show();
+                                    ToastUtils.shortToast(goalsFragment.getActivity(), "Nieoczkiwany błąd, powtórz wcześniej wprowadzone zmiany");
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                                Toast.makeText(goalsFragment.getActivity(), "Błąd połączenia z bazą" + e.toString(), Toast.LENGTH_SHORT).show();
+                                ToastUtils.shortToast(goalsFragment.getActivity(), "Błąd połączenia z bazą" + e.toString());
                             }
                         }
                     },
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(goalsFragment.getActivity(), "Błąd połączenia z bazą " + error.toString(), Toast.LENGTH_SHORT).show();
+                            ToastUtils.shortToast(goalsFragment.getActivity(), "Błąd połączenia z bazą " + error.toString());
                         }
                     }) {
                 @Override

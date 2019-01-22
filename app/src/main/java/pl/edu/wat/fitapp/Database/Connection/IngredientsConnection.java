@@ -20,6 +20,7 @@ import java.util.Map;
 import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.IngredientsListAdapter;
 import pl.edu.wat.fitapp.Database.Entity.Ingredient;
 import pl.edu.wat.fitapp.R;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class IngredientsConnection {
     private Activity activity;
@@ -46,17 +47,16 @@ public class IngredientsConnection {
                         }
                         ingredientsListAdapter.notifyDataSetChanged();
                     } else
-                        Toast.makeText(activity, "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(activity, "Błąd połączenia z bazą");
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(activity, "Błąd połączenia z bazą " + e.toString(), Toast.LENGTH_SHORT).show();
+                    ToastUtils.shortToast(activity, "Błąd połączenia z bazą " + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(activity, "Błąd połączenia z bazą " + error.toString(), Toast.LENGTH_SHORT).show();
-
+                ToastUtils.shortToast(activity, "Błąd połączenia z bazą " + error.toString());
             }
         }) {
             @Override

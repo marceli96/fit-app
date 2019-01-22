@@ -67,6 +67,7 @@ import pl.edu.wat.fitapp.Interface.FoodSystem;
 import pl.edu.wat.fitapp.Interface.TrainingSystem;
 import pl.edu.wat.fitapp.Main.MainActivity;
 import pl.edu.wat.fitapp.R;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 
 public class ExportFragment extends Fragment {
@@ -121,7 +122,7 @@ public class ExportFragment extends Fragment {
             public void onClick(View v) {
                 if (!cbBreakfast.isChecked() && !cbSecondBreakfast.isChecked() && !cbLunch.isChecked() && !cbDinner.isChecked() &&
                         !cbSnack.isChecked() && !cbSupper.isChecked() && !cbSummary.isChecked() && !cbTraining.isChecked()) {
-                    Toast.makeText(getActivity(), "Wybierz którąś z opcji", Toast.LENGTH_SHORT).show();
+                    ToastUtils.shortToast(getActivity(), "Wybierz którąś z opcji");
                 } else {
                     PDFGenerator pdf = new PDFGenerator(ExportFragment.this);
                     ArrayList<Boolean> exportOptions = new ArrayList<>();

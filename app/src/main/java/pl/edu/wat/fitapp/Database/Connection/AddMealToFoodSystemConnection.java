@@ -20,6 +20,7 @@ import java.util.Map;
 
 import pl.edu.wat.fitapp.Main.Fragment.AddToSystem.AddMealToFoodSystemFragment;
 import pl.edu.wat.fitapp.R;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class AddMealToFoodSystemConnection {
     private Fragment fragment;
@@ -36,19 +37,19 @@ public class AddMealToFoodSystemConnection {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean message = jsonResponse.getBoolean("message");
                     if (!message) {
-                        Toast.makeText(fragment.getActivity(), "Dany posiłek został już dodany w tej porze jedzenia", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(fragment.getActivity(), "Dany posiłek został już dodany w tej porze jedzenia");
                     } else {
                         boolean success = jsonResponse.getBoolean("success");
                         if (success) {
-                            Toast.makeText(fragment.getActivity(), "Dodano pomyślnie", Toast.LENGTH_SHORT).show();
+                            ToastUtils.shortToast(fragment.getActivity(), "Dodano pomyślnie");
                             if (fragment.getClass() == AddMealToFoodSystemFragment.class)
                                 ((AddMealToFoodSystemFragment) fragment).openMainActivity();
                         } else
-                            Toast.makeText(fragment.getActivity(), "Błąd podczas dodawania", Toast.LENGTH_LONG).show();
+                            ToastUtils.shortToast(fragment.getActivity(), "Błąd podczas dodawania");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(fragment.getActivity(), "Błąd podczas dodawania " + e.toString(), Toast.LENGTH_LONG).show();
+                    ToastUtils.shortToast(fragment.getActivity(), "Błąd podczas dodawania " + e.toString());
                 }
             }
         }, new Response.ErrorListener()
@@ -56,7 +57,7 @@ public class AddMealToFoodSystemConnection {
         {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(fragment.getActivity(), "Błąd podczas dodawania " + error.toString(), Toast.LENGTH_SHORT).show();
+                ToastUtils.shortToast(fragment.getActivity(), "Błąd podczas dodawania " + error.toString());
             }
         }) {
             @Override

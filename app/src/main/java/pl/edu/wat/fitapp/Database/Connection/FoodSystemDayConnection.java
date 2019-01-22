@@ -24,6 +24,7 @@ import pl.edu.wat.fitapp.Main.Fragment.HomeFragment;
 import pl.edu.wat.fitapp.Main.Fragment.JournalFragment;
 import pl.edu.wat.fitapp.Mangement.FoodSystemDayManagement;
 import pl.edu.wat.fitapp.R;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class FoodSystemDayConnection {
     private Fragment fragment;
@@ -75,17 +76,17 @@ public class FoodSystemDayConnection {
                             ((HomeFragment) fragment).showMealLayoutsAndUpdate();
                         }
                     } else {
-                        Toast.makeText(fragment.getActivity(), "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(fragment.getActivity(), "Błąd połączenia z bazą");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(fragment.getActivity(), "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
+                    ToastUtils.shortToast(fragment.getActivity(), "Błąd połączenia z bazą " + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(fragment.getActivity(), "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
+                ToastUtils.shortToast(fragment.getActivity(), "Błąd połączenia z bazą " + error.toString());
             }
         }) {
             @Override

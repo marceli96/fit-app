@@ -19,6 +19,7 @@ import java.util.Map;
 import pl.edu.wat.fitapp.Database.Entity.Ingredient;
 import pl.edu.wat.fitapp.Main.Fragment.Profile.AddMyMealIngredientsActivity;
 import pl.edu.wat.fitapp.R;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class AddMyMealConnection {
     private AddMyMealIngredientsActivity addMyMealIngredientsActivity;
@@ -51,20 +52,20 @@ public class AddMyMealConnection {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
                     if (success) {
-                        Toast.makeText(addMyMealIngredientsActivity, "Dodano posiłek", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(addMyMealIngredientsActivity, "Dodano posiłek");
                         addMyMealIngredientsActivity.openMeFragment();
                     } else {
-                        Toast.makeText(addMyMealIngredientsActivity, "Blad podczas dodawania posiłku", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(addMyMealIngredientsActivity, "Blad podczas dodawania posiłku");
                     }
                 } catch (JSONException e) {
-                    Toast.makeText(addMyMealIngredientsActivity, "Blad podczas dodawania posiłku " + e.toString(), Toast.LENGTH_SHORT).show();
+                    ToastUtils.shortToast(addMyMealIngredientsActivity, "Blad podczas dodawania posiłku " + e.toString());
                     e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(addMyMealIngredientsActivity, "Blad podczas dodawania posiłku " + error.toString(), Toast.LENGTH_SHORT).show();
+                ToastUtils.shortToast(addMyMealIngredientsActivity, "Blad podczas dodawania posiłku " + error.toString());
             }
         }) {
             @Override

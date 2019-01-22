@@ -23,6 +23,7 @@ import pl.edu.wat.fitapp.Main.Fragment.AddToSystem.AddMealToFoodSystemFragment;
 import pl.edu.wat.fitapp.Main.Fragment.Profile.ProfileFragment;
 import pl.edu.wat.fitapp.Mangement.MyMealManagement;
 import pl.edu.wat.fitapp.R;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class MyMealsConnection {
     private Fragment fragment;
@@ -64,16 +65,16 @@ public class MyMealsConnection {
                         else if(fragment.getClass() == AddMealToFoodSystemFragment.class)
                             ((AddMealToFoodSystemFragment) fragment).showMyMeals();
                     } else
-                        Toast.makeText(fragment.getActivity(), "Błąd połączenia z bazą", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(fragment.getActivity(), "Błąd połączenia z bazą");
                 } catch (JSONException e) {
-                    Toast.makeText(fragment.getActivity(), "Błąd połączenia z bazą " + e.toString(), Toast.LENGTH_SHORT).show();
+                    ToastUtils.shortToast(fragment.getActivity(), "Błąd połączenia z bazą " + e.toString());
                     e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(fragment.getContext(), "Błąd połączenia z bazą " + error.toString(), Toast.LENGTH_SHORT).show();
+                ToastUtils.shortToast(fragment.getContext(), "Błąd połączenia z bazą " + error.toString());
             }
         }) {
             @Override

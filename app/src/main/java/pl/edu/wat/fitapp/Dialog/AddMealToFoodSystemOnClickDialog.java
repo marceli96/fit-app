@@ -16,6 +16,7 @@ import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.SimpleIngredientsListAdapt
 import pl.edu.wat.fitapp.Database.Connection.AddMealToFoodSystemConnection;
 import pl.edu.wat.fitapp.Database.Entity.Meal;
 import pl.edu.wat.fitapp.R;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class AddMealToFoodSystemOnClickDialog {
     private Fragment fragment;
@@ -48,7 +49,7 @@ public class AddMealToFoodSystemOnClickDialog {
                 EditText etWeight = alertView.findViewById(R.id.etWeight);
                 String weight = etWeight.getText().toString();
                 if (weight.isEmpty())
-                    Toast.makeText(fragment.getActivity(), "Wpisz wagę!", Toast.LENGTH_SHORT).show();
+                    ToastUtils.shortToast(fragment.getActivity(), "Wpisz wagę!");
                 else {
                     AddMealToFoodSystemConnection addConnection = new AddMealToFoodSystemConnection(fragment);
                     addConnection.addMealToFoodSystem(mealList.get(position).getID(), userID, mealTime, weight);

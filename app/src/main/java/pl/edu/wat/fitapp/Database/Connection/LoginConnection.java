@@ -20,6 +20,7 @@ import java.util.Map;
 
 import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.R;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 import pl.edu.wat.fitapp.Welcome.WelcomeActivity;
 
 public class LoginConnection {
@@ -80,12 +81,12 @@ public class LoginConnection {
                                 welcomeActivity.setUser(user);
                                 welcomeActivity.openMainActivity();
                             } else {
-                                Toast.makeText(welcomeActivity, "Błędne dane", Toast.LENGTH_LONG).show();
+                                ToastUtils.shortToast(welcomeActivity, "Błędne dane");
                                 welcomeActivity.getPbLogin().setVisibility(View.INVISIBLE);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(welcomeActivity, "Błąd połączenia z bazą! " + e.toString(), Toast.LENGTH_LONG).show();
+                            ToastUtils.shortToast(welcomeActivity, "Błąd połączenia z bazą! " + e.toString());
                             welcomeActivity.getPbLogin().setVisibility(View.INVISIBLE);
                         }
                     }
@@ -93,7 +94,7 @@ public class LoginConnection {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(welcomeActivity, "Błąd połączenia z bazą! " + error.toString(), Toast.LENGTH_LONG).show();
+                        ToastUtils.shortToast(welcomeActivity, "Błąd połączenia z bazą! " + error.toString());
                         welcomeActivity.getPbLogin().setVisibility(View.INVISIBLE);
                     }
                 }) {

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import pl.edu.wat.fitapp.Database.Connection.AddExerciseToTrainingSystemConnection;
 import pl.edu.wat.fitapp.Database.Entity.Exercise;
 import pl.edu.wat.fitapp.R;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class AddExerciseToTrainingSystemOnClickDialog {
     private Fragment fragment;
@@ -49,9 +50,9 @@ public class AddExerciseToTrainingSystemOnClickDialog {
                     dialog.dismiss();
                 } else {
                     if (series.isEmpty())
-                        Toast.makeText(fragment.getActivity(), "Wpisz liczbę serii!", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(fragment.getActivity(), "Wpisz liczbę serii!");
                     else
-                        Toast.makeText(fragment.getActivity(), "Wpisz liczbę powtórzeń!", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(fragment.getActivity(), "Wpisz liczbę powtórzeń!");
                 }
             }
         });

@@ -26,6 +26,7 @@ import pl.edu.wat.fitapp.Dialog.AddMyMealIngredientOnClickDialog;
 import pl.edu.wat.fitapp.Main.MainActivity;
 import pl.edu.wat.fitapp.Mangement.MacrocomponentManagement;
 import pl.edu.wat.fitapp.R;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class AddMyMealIngredientsActivity extends AppCompatActivity {
     private Button bAddMyMeal;
@@ -94,7 +95,7 @@ public class AddMyMealIngredientsActivity extends AppCompatActivity {
                     addMyMealConnection = new AddMyMealConnection(AddMyMealIngredientsActivity.this, mealIngredients);
                     addMyMealConnection.addMyMeal(user.getUserID(), mealName);
                 } else
-                    Toast.makeText(AddMyMealIngredientsActivity.this, "Najpierw dodaj składniki do posiłku", Toast.LENGTH_SHORT).show();
+                    ToastUtils.shortToast(AddMyMealIngredientsActivity.this, "Najpierw dodaj składniki do posiłku");
             }
         });
 

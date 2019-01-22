@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import pl.edu.wat.fitapp.Database.Entity.Exercise;
 import pl.edu.wat.fitapp.Main.Fragment.Profile.AddMyTrainingExercisesActivity;
 import pl.edu.wat.fitapp.R;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class AddMyTrainingExerciseOnClickDialog {
     private AddMyTrainingExercisesActivity addMyTrainingExercisesActivity;
@@ -55,9 +56,9 @@ public class AddMyTrainingExerciseOnClickDialog {
                     dialog.dismiss();
                 } else {
                     if (series.isEmpty())
-                        Toast.makeText(addMyTrainingExercisesActivity, "Wpisz liczbę serii!", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(addMyTrainingExercisesActivity, "Wpisz liczbę serii!");
                     else
-                        Toast.makeText(addMyTrainingExercisesActivity, "Wpisz liczbę powtórzeń!", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(addMyTrainingExercisesActivity, "Wpisz liczbę powtórzeń!");
                 }
             }
         });

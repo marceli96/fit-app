@@ -19,6 +19,7 @@ import java.util.Map;
 import pl.edu.wat.fitapp.Database.Entity.Exercise;
 import pl.edu.wat.fitapp.Main.Fragment.Profile.AddMyTrainingExercisesActivity;
 import pl.edu.wat.fitapp.R;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class AddMyTrainingConnection {
     private AddMyTrainingExercisesActivity addMyTrainingExercisesActivity;
@@ -55,19 +56,19 @@ public class AddMyTrainingConnection {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
                     if (success) {
-                        Toast.makeText(addMyTrainingExercisesActivity, "Dodano trening", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(addMyTrainingExercisesActivity, "Dodano trening");
                         addMyTrainingExercisesActivity.openMeFragment();
                     } else
-                        Toast.makeText(addMyTrainingExercisesActivity, "Błąd podczas dodawania treningu", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(addMyTrainingExercisesActivity, "Błąd podczas dodawania treningu");
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(addMyTrainingExercisesActivity, "Błąd podczas dodawania treningu " + e.toString(), Toast.LENGTH_SHORT).show();
+                    ToastUtils.shortToast(addMyTrainingExercisesActivity, "Błąd podczas dodawania treningu " + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(addMyTrainingExercisesActivity, "Błąd podczas dodawania treningu " + error.toString(), Toast.LENGTH_SHORT).show();
+                ToastUtils.shortToast(addMyTrainingExercisesActivity, "Błąd podczas dodawania treningu " + error.toString());
             }
         }) {
             @Override

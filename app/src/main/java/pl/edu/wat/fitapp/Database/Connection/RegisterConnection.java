@@ -19,9 +19,9 @@ import java.util.Map;
 
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Register.RegisterActivity;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 
-public class RegisterConnection
-{
+public class RegisterConnection {
     private RegisterActivity registerActivity;
     private String userName, password, email;
     private int sex, age, height, activityLevel, goal, calories;
@@ -56,27 +56,27 @@ public class RegisterConnection
                                 if (success) {
                                     registerActivity.openLoginActivity();
                                     registerActivity.finish();
-                                    Toast.makeText(registerActivity, "Jesteś nowym użytkownikiem! Zaloguj się do serwisu!", Toast.LENGTH_SHORT).show();
+                                    ToastUtils.shortToast(registerActivity, "Jesteś nowym użytkownikiem! Zaloguj się do serwisu!");
                                 } else {
-                                    Toast.makeText(registerActivity, "Nieoczekiwany błąd rejestracji", Toast.LENGTH_SHORT).show();
+                                    ToastUtils.shortToast(registerActivity, "Nieoczekiwany błąd rejestracji");
                                 }
                             } else if (!availableUserName && availableEmail)
-                                Toast.makeText(registerActivity, "Nazwa użytkownika jest zajęta", Toast.LENGTH_SHORT).show();
+                                ToastUtils.shortToast(registerActivity, "Nazwa użytkownika jest zajęta");
                             else if (!availableEmail)
-                                Toast.makeText(registerActivity, "E-mail jest zajęty", Toast.LENGTH_SHORT).show();
+                                ToastUtils.shortToast(registerActivity, "E-mail jest zajęty");
                             else
-                                Toast.makeText(registerActivity, "Błąd połączenia", Toast.LENGTH_SHORT).show();
+                                ToastUtils.shortToast(registerActivity, "Błąd połączenia");
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(registerActivity, "Błąd połączenia z bazą! " + e.toString(), Toast.LENGTH_SHORT).show();
+                            ToastUtils.shortToast(registerActivity, "Błąd połączenia z bazą! " + e.toString());
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(registerActivity, "Błąd połączenia z bazą! " + error.toString(), Toast.LENGTH_LONG).show();
+                        ToastUtils.shortToast(registerActivity, "Błąd połączenia z bazą! " + error.toString());
                     }
                 }) {
             @Override

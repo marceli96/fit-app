@@ -16,6 +16,7 @@ import pl.edu.wat.fitapp.Database.Connection.UserSettingsConnection;
 import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.Main.MainActivity;
 import pl.edu.wat.fitapp.R;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 
 public class SettingsFragment extends Fragment {
@@ -64,9 +65,9 @@ public class SettingsFragment extends Fragment {
                     userSettingsConnection.changeLogin(user, etLogin.getText().toString());
                 } else {
                     if (etLogin.getText().toString().isEmpty())
-                        Toast.makeText(getActivity(), "Wprowadź login", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(getActivity(), "Wprowadź login");
                     else if (etLogin.getText().toString().length() <= 5)
-                        Toast.makeText(getActivity(), "Login musi mieć conajmniej 6 znaków", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(getActivity(), "Login musi mieć conajmniej 6 znaków");
                 }
             }
         });
@@ -78,7 +79,7 @@ public class SettingsFragment extends Fragment {
                     userSettingsConnection = new UserSettingsConnection(SettingsFragment.this);
                     userSettingsConnection.changeEmail(user, etEmail.getText().toString());
                 } else {
-                    Toast.makeText(getActivity(), "Wprowadź e-mail", Toast.LENGTH_SHORT).show();
+                    ToastUtils.shortToast(getActivity(), "Wprowadź e-mail");
                 }
             }
         });
@@ -92,11 +93,11 @@ public class SettingsFragment extends Fragment {
                     userSettingsConnection.changePassword(user, etPassword1.getText().toString());
                 } else {
                     if (etPassword1.getText().toString().isEmpty())
-                        Toast.makeText(getActivity(), "Wprowadź hasło", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(getActivity(), "Wprowadź hasło");
                     else if (!etPassword1.getText().toString().equals(etPassword2.getText().toString()))
-                        Toast.makeText(getActivity(), "Hasła się różnią", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(getActivity(), "Hasła się różnią");
                     else if (etPassword1.getText().toString().length() <= 5)
-                        Toast.makeText(getActivity(), "Hasło musi mieć conajmniej 6 znaków", Toast.LENGTH_SHORT).show();
+                        ToastUtils.shortToast(getActivity(), "Hasło musi mieć conajmniej 6 znaków");
                 }
             }
 
