@@ -1,8 +1,6 @@
 package pl.edu.wat.fitapp.Database.Connection;
 
 import android.support.v4.app.Fragment;
-import android.view.View;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -27,7 +25,6 @@ import pl.edu.wat.fitapp.Mangement.MyMealManagement;
 import pl.edu.wat.fitapp.R;
 
 public class MyMealsConnection {
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
     private Fragment fragment;
     private ArrayList<Meal> myMeals;
 
@@ -37,7 +34,7 @@ public class MyMealsConnection {
     }
 
     public void getMyMeals(final int userID) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, fragment.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

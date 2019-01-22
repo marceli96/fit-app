@@ -18,9 +18,9 @@ import java.util.Map;
 
 import pl.edu.wat.fitapp.Database.Entity.Ingredient;
 import pl.edu.wat.fitapp.Main.Fragment.Profile.AddMyMealIngredientsActivity;
+import pl.edu.wat.fitapp.R;
 
 public class AddMyMealConnection {
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
     private AddMyMealIngredientsActivity addMyMealIngredientsActivity;
     private ArrayList<Ingredient> mealIngredients;
 
@@ -44,7 +44,7 @@ public class AddMyMealConnection {
 
         final String finalIngredientWeights = ingredientWeights;
         final String finalIngredientIds = ingredientIds;
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, addMyMealIngredientsActivity.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

@@ -21,9 +21,9 @@ import java.util.Map;
 
 import pl.edu.wat.fitapp.Charts.JournalChartsWeightWeek;
 import pl.edu.wat.fitapp.Main.Fragment.JournalFragment;
+import pl.edu.wat.fitapp.R;
 
 public class WeightConnection {
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
     private JournalFragment journalFragment;
     private ArrayList<Double> weightWeek;
 
@@ -33,7 +33,7 @@ public class WeightConnection {
     }
 
     public void getWeightFromDay(final int userID, final String date) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, journalFragment.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -75,7 +75,7 @@ public class WeightConnection {
     }
 
     public void getWeightFromWeek(final int userID) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, journalFragment.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

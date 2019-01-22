@@ -19,9 +19,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import pl.edu.wat.fitapp.Main.Fragment.AddToSystem.AddExerciseToTrainingSystemFragment;
+import pl.edu.wat.fitapp.R;
 
 public class AddExerciseToTrainingSystemConnection {
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
     private Fragment fragment;
 
     public AddExerciseToTrainingSystemConnection(Fragment fragment) {
@@ -29,7 +29,7 @@ public class AddExerciseToTrainingSystemConnection {
     }
 
     public void addExerciseToTrainingSystem(final int exerciseId, final int userID, final String series, final String repetitions) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, fragment.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

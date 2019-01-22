@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">FitApp</string>
     <string name="nav_home">Strona główna</string>
@@ -10,6 +11,14 @@
     <string name="nav_logOut">Wyloguj</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
+    <string name="OPERATIONS_URL">http://fitappliaction.cba.pl/operations.php</string>
+
+    <string name="LOGIN_URL">http://fitappliaction.cba.pl/login.php</string>
+
+    <string name="REGISTER_URL">http://fitappliaction.cba.pl/register.php</string>
+
 
     <string-array name="activityLevel">
         <item>Brak</item>

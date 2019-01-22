@@ -18,9 +18,9 @@ import java.util.Map;
 
 import pl.edu.wat.fitapp.Database.Entity.Exercise;
 import pl.edu.wat.fitapp.Main.Fragment.Profile.AddMyTrainingExercisesActivity;
+import pl.edu.wat.fitapp.R;
 
 public class AddMyTrainingConnection {
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
     private AddMyTrainingExercisesActivity addMyTrainingExercisesActivity;
     private ArrayList<Exercise> trainingExercises;
 
@@ -48,7 +48,7 @@ public class AddMyTrainingConnection {
         final String finalExerciseIds = exerciseIds;
         final String finalExerciseSeries = exerciseSeries;
         final String finalExerciseRepetitions = exerciseRepetitions;
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, addMyTrainingExercisesActivity.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

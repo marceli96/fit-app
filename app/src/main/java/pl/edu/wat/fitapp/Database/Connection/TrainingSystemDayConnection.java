@@ -24,9 +24,9 @@ import pl.edu.wat.fitapp.Database.Entity.Training;
 import pl.edu.wat.fitapp.Interface.TrainingSystem;
 import pl.edu.wat.fitapp.Main.Fragment.HomeFragment;
 import pl.edu.wat.fitapp.Mangement.TrainingSystemDayManagement;
+import pl.edu.wat.fitapp.R;
 
 public class TrainingSystemDayConnection {
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
     private HomeFragment homeFragment;
     private ArrayList<TrainingSystem> trainingSystemDay;
 
@@ -36,7 +36,7 @@ public class TrainingSystemDayConnection {
     }
 
     public void getTrainingSystem(final int userID) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, homeFragment.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

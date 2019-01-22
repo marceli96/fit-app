@@ -19,9 +19,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import pl.edu.wat.fitapp.Main.Fragment.AddToSystem.AddMealToFoodSystemFragment;
+import pl.edu.wat.fitapp.R;
 
 public class AddMealToFoodSystemConnection {
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
     private Fragment fragment;
 
     public AddMealToFoodSystemConnection(Fragment fragment) {
@@ -29,7 +29,7 @@ public class AddMealToFoodSystemConnection {
     }
 
     public void addMealToFoodSystem(final int mealId, final int userId, final int mealTime, final String weight) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, fragment.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

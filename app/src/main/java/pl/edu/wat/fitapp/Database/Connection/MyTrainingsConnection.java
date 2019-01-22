@@ -1,7 +1,6 @@
 package pl.edu.wat.fitapp.Database.Connection;
 
 import android.support.v4.app.Fragment;
-import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -23,9 +22,9 @@ import pl.edu.wat.fitapp.Database.Entity.Training;
 import pl.edu.wat.fitapp.Main.Fragment.AddToSystem.AddTrainingToTrainingSystemFragment;
 import pl.edu.wat.fitapp.Main.Fragment.Profile.ProfileFragment;
 import pl.edu.wat.fitapp.Mangement.MyTrainingManagement;
+import pl.edu.wat.fitapp.R;
 
 public class MyTrainingsConnection {
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
     private Fragment fragment;
     private ArrayList<Training> myTrainings;
 
@@ -35,7 +34,7 @@ public class MyTrainingsConnection {
     }
 
     public void getMyTrainings(final int userID) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, fragment.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

@@ -17,9 +17,9 @@ import java.util.Map;
 
 import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.Main.Fragment.SettingsFragment;
+import pl.edu.wat.fitapp.R;
 
 public class UserSettingsConnection {
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
     private SettingsFragment settingsFragment;
 
     public UserSettingsConnection(SettingsFragment settingsFragment) {
@@ -27,7 +27,7 @@ public class UserSettingsConnection {
     }
 
     public void changeLogin(final User user, final String newUserName) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, settingsFragment.getString(R.string.OPERATIONS_URL),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -74,7 +74,7 @@ public class UserSettingsConnection {
     }
 
     public void changeEmail(final User user, final String newEmail) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, settingsFragment.getString(R.string.OPERATIONS_URL),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -120,7 +120,7 @@ public class UserSettingsConnection {
     }
 
     public void changePassword(final User user, final String newPassword) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, settingsFragment.getString(R.string.OPERATIONS_URL),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

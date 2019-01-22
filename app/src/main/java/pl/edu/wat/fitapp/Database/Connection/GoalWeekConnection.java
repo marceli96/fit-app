@@ -1,7 +1,6 @@
 package pl.edu.wat.fitapp.Database.Connection;
 
 import android.support.v4.app.Fragment;
-import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -14,7 +13,6 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,9 +20,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import pl.edu.wat.fitapp.Main.Fragment.ExportFragment;
+import pl.edu.wat.fitapp.R;
 
 public class GoalWeekConnection {
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
     private Fragment fragment;
     private ArrayList<Integer> goalWeek;
 
@@ -34,7 +32,7 @@ public class GoalWeekConnection {
     }
 
     public void getGoalFromWeek(final int userID) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, fragment.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

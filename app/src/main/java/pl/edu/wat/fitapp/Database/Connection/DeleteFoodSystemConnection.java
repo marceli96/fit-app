@@ -22,9 +22,9 @@ import pl.edu.wat.fitapp.Database.Entity.Ingredient;
 import pl.edu.wat.fitapp.Interface.FoodSystem;
 import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.FoodSystemListAdapter;
 import pl.edu.wat.fitapp.Main.Fragment.HomeFragment;
+import pl.edu.wat.fitapp.R;
 
 public class DeleteFoodSystemConnection {
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
     private HomeFragment homeFragment;
     private ArrayList<ArrayList<FoodSystem>> foodSystemDay;
     private ArrayList<FoodSystemListAdapter> foodSystemListAdapters;
@@ -36,7 +36,7 @@ public class DeleteFoodSystemConnection {
     }
 
     public void deleteFromFoodSystem(final FoodSystem food, final int userId, final int mealTime, final int weight) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, homeFragment.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

@@ -1,7 +1,6 @@
 package pl.edu.wat.fitapp.Database.Connection;
 
 import android.support.v4.app.Fragment;
-import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -18,16 +17,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import pl.edu.wat.fitapp.Charts.JournalChartDay;
 import pl.edu.wat.fitapp.Database.Entity.Ingredient;
 import pl.edu.wat.fitapp.Database.Entity.Meal;
 import pl.edu.wat.fitapp.Interface.FoodSystem;
 import pl.edu.wat.fitapp.Main.Fragment.HomeFragment;
 import pl.edu.wat.fitapp.Main.Fragment.JournalFragment;
 import pl.edu.wat.fitapp.Mangement.FoodSystemDayManagement;
+import pl.edu.wat.fitapp.R;
 
 public class FoodSystemDayConnection {
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
     private Fragment fragment;
     private ArrayList<ArrayList<FoodSystem>> foodSystemDay;
 
@@ -37,7 +35,7 @@ public class FoodSystemDayConnection {
     }
 
     public void getFoodSystemFromDay(final int userID, final String date) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, OPERATIONS_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, fragment.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
