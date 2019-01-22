@@ -35,13 +35,6 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private AboutFragment aboutFragment;
-    private ExportFragment exportFragment;
-    private GoalsFragment goalsFragment;
-    private HomeFragment homeFragment;
-    private JournalFragment journalFragment;
-    private ProfileFragment profileFragment;
-    private SettingsFragment settingsFragment;
     private TextView tvUserName, tvEmail;
 
     private User user;
@@ -59,14 +52,6 @@ public class MainActivity extends AppCompatActivity {
             action = (String) intent.getSerializableExtra("action");
         }
 
-        aboutFragment = new AboutFragment();
-        exportFragment = new ExportFragment();
-        goalsFragment = new GoalsFragment();
-        homeFragment = new HomeFragment();
-        journalFragment = new JournalFragment();
-        profileFragment = new ProfileFragment();
-        settingsFragment = new SettingsFragment();
-
         toolbar = findViewById(R.id.toolbar);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
@@ -82,11 +67,11 @@ public class MainActivity extends AppCompatActivity {
         toggle.syncState();
 
         if (action != null && action.equals("openMeFragment")) {
-            setFragment(profileFragment);
+            setFragment(new ProfileFragment());
             navigationView.setCheckedItem(R.id.drawer_me);
             mainNavigation.setSelectedItemId(R.id.navMe);
         } else {
-            setFragment(homeFragment);
+            setFragment(new HomeFragment());
             navigationView.setCheckedItem(R.id.drawer_home);
         }
 
@@ -116,31 +101,31 @@ public class MainActivity extends AppCompatActivity {
 
         switch (menuItem.getItemId()) {
             case R.id.drawer_home:
-                setFragment(homeFragment);
+                setFragment(new HomeFragment());
                 mainNavigation.setSelectedItemId(R.id.navHome);
                 break;
             case R.id.drawer_journal:
-                setFragment(journalFragment);
+                setFragment(new JournalFragment());
                 mainNavigation.setSelectedItemId(R.id.navJournal);
                 break;
             case R.id.drawer_me:
-                setFragment(profileFragment);
+                setFragment(new ProfileFragment());
                 mainNavigation.setSelectedItemId(R.id.navMe);
                 break;
             case R.id.drawer_goals:
-                setFragment(goalsFragment);
+                setFragment(new GoalsFragment());
                 mainNavigation.getMenu().setGroupCheckable(0, false, true);
                 break;
             case R.id.drawer_settings:
-                setFragment(settingsFragment);
+                setFragment(new SettingsFragment());
                 mainNavigation.getMenu().setGroupCheckable(0, false, true);
                 break;
             case R.id.drawer_export:
-                setFragment(exportFragment);
+                setFragment(new ExportFragment());
                 mainNavigation.getMenu().setGroupCheckable(0, false, true);
                 break;
             case R.id.drawer_about:
-                setFragment(aboutFragment);
+                setFragment(new AboutFragment());
                 mainNavigation.getMenu().setGroupCheckable(0, false, true);
                 break;
             case R.id.drawer_logout:
@@ -159,17 +144,17 @@ public class MainActivity extends AppCompatActivity {
         switch (menuItem.getItemId()) {
             case R.id.navHome:
                 mainNavigation.getMenu().setGroupCheckable(0, true, true);
-                setFragment(homeFragment);
+                setFragment(new HomeFragment());
                 navigationView.setCheckedItem(R.id.drawer_home);
                 return true;
             case R.id.navJournal:
                 mainNavigation.getMenu().setGroupCheckable(0, true, true);
-                setFragment(journalFragment);
+                setFragment(new JournalFragment());
                 navigationView.setCheckedItem(R.id.drawer_journal);
                 return true;
             case R.id.navMe:
                 mainNavigation.getMenu().setGroupCheckable(0, true, true);
-                setFragment(profileFragment);
+                setFragment(new ProfileFragment());
                 navigationView.setCheckedItem(R.id.drawer_me);
                 return true;
             default:
@@ -181,8 +166,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START))
             drawerLayout.closeDrawer(GravityCompat.START);
-        else
-        {
+        else {
             super.onBackPressed();
         }
     }
