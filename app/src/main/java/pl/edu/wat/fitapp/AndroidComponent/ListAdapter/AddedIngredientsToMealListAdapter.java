@@ -14,7 +14,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import pl.edu.wat.fitapp.Database.Entity.Ingredient;
-import pl.edu.wat.fitapp.Main.Fragment.Profile.AddMyMealIngredientsActivity;
+import pl.edu.wat.fitapp.View.Main.Fragment.Profile.AddMyMealIngredientsActivity;
 import pl.edu.wat.fitapp.R;
 
 public class AddedIngredientsToMealListAdapter extends ArrayAdapter<Ingredient> {

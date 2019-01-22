@@ -1,4 +1,4 @@
-package pl.edu.wat.fitapp.Main.Fragment.Profile;
+package pl.edu.wat.fitapp.View.Main.Fragment.Profile;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -23,7 +23,7 @@ import pl.edu.wat.fitapp.Database.Connection.IngredientsConnection;
 import pl.edu.wat.fitapp.Database.Entity.Ingredient;
 import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.Dialog.AddMyMealIngredientOnClickDialog;
-import pl.edu.wat.fitapp.Main.MainActivity;
+import pl.edu.wat.fitapp.View.Main.MainActivity;
 import pl.edu.wat.fitapp.Mangement.MacrocomponentManagement;
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Utils.ToastUtils;

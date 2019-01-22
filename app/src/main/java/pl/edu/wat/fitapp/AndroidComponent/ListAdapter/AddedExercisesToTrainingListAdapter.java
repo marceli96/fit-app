@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import pl.edu.wat.fitapp.Database.Entity.Exercise;
-import pl.edu.wat.fitapp.Main.Fragment.Profile.AddMyTrainingExercisesActivity;
+import pl.edu.wat.fitapp.View.Main.Fragment.Profile.AddMyTrainingExercisesActivity;
 import pl.edu.wat.fitapp.R;
 
 public class AddedExercisesToTrainingListAdapter extends ArrayAdapter<Exercise> {

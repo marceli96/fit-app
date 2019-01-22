@@ -1,4 +1,4 @@
-package pl.edu.wat.fitapp.Main.Fragment;
+package pl.edu.wat.fitapp.View.Main.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import pl.edu.wat.fitapp.Database.Connection.UserConnection;
 import pl.edu.wat.fitapp.Database.Entity.User;
-import pl.edu.wat.fitapp.Main.MainActivity;
+import pl.edu.wat.fitapp.View.Main.MainActivity;
 import pl.edu.wat.fitapp.Mangement.UserSettingsManagement;
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Utils.ToastUtils;

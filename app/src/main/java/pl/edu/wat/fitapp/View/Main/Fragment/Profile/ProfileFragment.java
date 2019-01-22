@@ -1,4 +1,4 @@
-package pl.edu.wat.fitapp.Main.Fragment.Profile;
+package pl.edu.wat.fitapp.View.Main.Fragment.Profile;
 
 
 import android.app.AlertDialog;
@@ -48,7 +48,7 @@ import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.AndroidComponent.NonScrollListView;
 import pl.edu.wat.fitapp.Dialog.MyMealOnClickDialog;
 import pl.edu.wat.fitapp.Dialog.MyTrainingOnClickDialog;
-import pl.edu.wat.fitapp.Main.MainActivity;
+import pl.edu.wat.fitapp.View.Main.MainActivity;
 import pl.edu.wat.fitapp.R;
 
 

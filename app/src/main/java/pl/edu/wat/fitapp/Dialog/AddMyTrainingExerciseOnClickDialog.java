@@ -11,7 +11,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import pl.edu.wat.fitapp.Database.Entity.Exercise;
-import pl.edu.wat.fitapp.Main.Fragment.Profile.AddMyTrainingExercisesActivity;
+import pl.edu.wat.fitapp.View.Main.Fragment.Profile.AddMyTrainingExercisesActivity;
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Utils.ToastUtils;
 

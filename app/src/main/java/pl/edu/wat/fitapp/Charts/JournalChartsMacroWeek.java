@@ -17,7 +17,7 @@ import java.util.Date;
 import pl.edu.wat.fitapp.Charts.ChartComponent.XAxisValueFormatter;
 import pl.edu.wat.fitapp.Charts.ChartComponent.DoubleValueFormatter;
 import pl.edu.wat.fitapp.Interface.FoodSystem;
-import pl.edu.wat.fitapp.Main.Fragment.JournalFragment;
+import pl.edu.wat.fitapp.View.Main.Fragment.JournalFragment;
 import pl.edu.wat.fitapp.Mangement.MacrocomponentManagement;
 
 public class JournalChartsMacroWeek {

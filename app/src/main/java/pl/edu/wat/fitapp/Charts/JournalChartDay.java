@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import pl.edu.wat.fitapp.Charts.ChartComponent.DoubleValueFormatter;
 import pl.edu.wat.fitapp.Charts.ChartComponent.XAxisValueFormatter;
 import pl.edu.wat.fitapp.Interface.FoodSystem;
-import pl.edu.wat.fitapp.Main.Fragment.JournalFragment;
+import pl.edu.wat.fitapp.View.Main.Fragment.JournalFragment;
 import pl.edu.wat.fitapp.Mangement.MacrocomponentManagement;
 import pl.edu.wat.fitapp.R;
 

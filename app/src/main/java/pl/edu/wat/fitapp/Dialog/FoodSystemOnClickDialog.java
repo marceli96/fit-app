@@ -16,7 +16,7 @@ import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.SimpleIngredientsListAdapt
 import pl.edu.wat.fitapp.Database.Connection.DeleteFoodSystemConnection;
 import pl.edu.wat.fitapp.Database.Entity.Meal;
 import pl.edu.wat.fitapp.Interface.FoodSystem;
-import pl.edu.wat.fitapp.Main.Fragment.HomeFragment;
+import pl.edu.wat.fitapp.View.Main.Fragment.HomeFragment;
 import pl.edu.wat.fitapp.R;
 
 public class FoodSystemOnClickDialog {

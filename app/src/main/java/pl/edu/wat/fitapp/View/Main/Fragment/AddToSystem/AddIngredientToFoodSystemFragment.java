@@ -1,4 +1,4 @@
-package pl.edu.wat.fitapp.Main.Fragment.AddToSystem;
+package pl.edu.wat.fitapp.View.Main.Fragment.AddToSystem;
 
 
 import android.app.AlertDialog;
@@ -36,7 +36,7 @@ import pl.edu.wat.fitapp.Database.Connection.IngredientsConnection;
 import pl.edu.wat.fitapp.Database.Entity.Ingredient;
 import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.Dialog.AddIngredientToFoodSystemOnClickDialog;
-import pl.edu.wat.fitapp.Main.MainActivity;
+import pl.edu.wat.fitapp.View.Main.MainActivity;
 import pl.edu.wat.fitapp.R;
 
 

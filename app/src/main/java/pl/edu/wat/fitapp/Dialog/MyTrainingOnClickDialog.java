@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.ExercisesListAdapter;
 import pl.edu.wat.fitapp.Database.Entity.Training;
-import pl.edu.wat.fitapp.Main.Fragment.Profile.ProfileFragment;
+import pl.edu.wat.fitapp.View.Main.Fragment.Profile.ProfileFragment;
 import pl.edu.wat.fitapp.R;
 
 public class MyTrainingOnClickDialog {

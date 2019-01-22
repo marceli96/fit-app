@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import pl.edu.wat.fitapp.Database.Entity.User;
-import pl.edu.wat.fitapp.Main.Fragment.SettingsFragment;
+import pl.edu.wat.fitapp.View.Main.Fragment.SettingsFragment;
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Utils.ToastUtils;
 

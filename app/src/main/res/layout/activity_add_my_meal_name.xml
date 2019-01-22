@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingHorizontal="5dp"
-    tools:context=".Main.Fragment.Profile.AddMyMealNameActivity">
+    tools:context=".View.Main.Fragment.Profile.AddMyMealNameActivity">
 
 
     <ImageView

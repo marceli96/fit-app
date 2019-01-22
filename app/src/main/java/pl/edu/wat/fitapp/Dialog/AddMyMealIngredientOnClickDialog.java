@@ -11,7 +11,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import pl.edu.wat.fitapp.Database.Entity.Ingredient;
-import pl.edu.wat.fitapp.Main.Fragment.Profile.AddMyMealIngredientsActivity;
+import pl.edu.wat.fitapp.View.Main.Fragment.Profile.AddMyMealIngredientsActivity;
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Utils.ToastUtils;
 

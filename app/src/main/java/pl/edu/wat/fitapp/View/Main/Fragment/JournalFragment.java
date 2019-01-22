@@ -1,4 +1,4 @@
-package pl.edu.wat.fitapp.Main.Fragment;
+package pl.edu.wat.fitapp.View.Main.Fragment;
 
 
 import android.os.Bundle;
@@ -23,7 +23,7 @@ import pl.edu.wat.fitapp.Database.Connection.FoodSystemWeekConnection;
 import pl.edu.wat.fitapp.Database.Connection.WeightConnection;
 import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.Interface.FoodSystem;
-import pl.edu.wat.fitapp.Main.MainActivity;
+import pl.edu.wat.fitapp.View.Main.MainActivity;
 import pl.edu.wat.fitapp.R;
 
 

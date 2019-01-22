@@ -16,7 +16,7 @@ import java.util.Date;
 
 import pl.edu.wat.fitapp.Charts.ChartComponent.XAxisValueFormatter;
 import pl.edu.wat.fitapp.Charts.ChartComponent.DoubleValueFormatter;
-import pl.edu.wat.fitapp.Main.Fragment.JournalFragment;
+import pl.edu.wat.fitapp.View.Main.Fragment.JournalFragment;
 
 public class JournalChartsWeightWeek {
     private JournalFragment journalFragment;

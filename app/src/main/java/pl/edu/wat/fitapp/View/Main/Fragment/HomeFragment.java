@@ -1,4 +1,4 @@
-package pl.edu.wat.fitapp.Main.Fragment;
+package pl.edu.wat.fitapp.View.Main.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,15 +23,15 @@ import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.FoodSystemListAdapter;
 import pl.edu.wat.fitapp.Database.Connection.TrainingSystemDayConnection;
 import pl.edu.wat.fitapp.Dialog.FoodSystemOnClickDialog;
 import pl.edu.wat.fitapp.Dialog.TrainingSystemOnClickDialog;
-import pl.edu.wat.fitapp.Main.Fragment.AddToSystem.AddToFoodSystemActivity;
-import pl.edu.wat.fitapp.Main.Fragment.AddToSystem.AddToTrainingSystemActivity;
+import pl.edu.wat.fitapp.View.Main.Fragment.AddToSystem.AddToFoodSystemActivity;
+import pl.edu.wat.fitapp.View.Main.Fragment.AddToSystem.AddToTrainingSystemActivity;
 import pl.edu.wat.fitapp.Database.Entity.Exercise;
 import pl.edu.wat.fitapp.Database.Entity.Training;
 import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.Interface.FoodSystem;
 import pl.edu.wat.fitapp.Interface.TrainingSystem;
 import pl.edu.wat.fitapp.AndroidComponent.NonScrollListView;
-import pl.edu.wat.fitapp.Main.MainActivity;
+import pl.edu.wat.fitapp.View.Main.MainActivity;
 import pl.edu.wat.fitapp.Mangement.MacrocomponentManagement;
 import pl.edu.wat.fitapp.R;
 

@@ -19,8 +19,8 @@ import java.util.Map;
 
 import pl.edu.wat.fitapp.Database.Entity.Ingredient;
 import pl.edu.wat.fitapp.Database.Entity.Meal;
-import pl.edu.wat.fitapp.Main.Fragment.AddToSystem.AddMealToFoodSystemFragment;
-import pl.edu.wat.fitapp.Main.Fragment.Profile.ProfileFragment;
+import pl.edu.wat.fitapp.View.Main.Fragment.AddToSystem.AddMealToFoodSystemFragment;
+import pl.edu.wat.fitapp.View.Main.Fragment.Profile.ProfileFragment;
 import pl.edu.wat.fitapp.Mangement.MyMealManagement;
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Utils.ToastUtils;

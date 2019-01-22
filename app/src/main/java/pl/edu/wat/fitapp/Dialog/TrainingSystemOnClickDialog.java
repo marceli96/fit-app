@@ -16,7 +16,7 @@ import pl.edu.wat.fitapp.Database.Connection.DeleteTrainingSystemConnection;
 import pl.edu.wat.fitapp.Database.Entity.Exercise;
 import pl.edu.wat.fitapp.Database.Entity.Training;
 import pl.edu.wat.fitapp.Interface.TrainingSystem;
-import pl.edu.wat.fitapp.Main.Fragment.HomeFragment;
+import pl.edu.wat.fitapp.View.Main.Fragment.HomeFragment;
 import pl.edu.wat.fitapp.R;
 
 public class TrainingSystemOnClickDialog {

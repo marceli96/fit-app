@@ -1,4 +1,4 @@
-package pl.edu.wat.fitapp.Welcome;
+package pl.edu.wat.fitapp.View.Welcome;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,14 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import pl.edu.wat.fitapp.Database.Connection.LoginConnection;
 import pl.edu.wat.fitapp.Database.Entity.User;
-import pl.edu.wat.fitapp.Main.MainActivity;
+import pl.edu.wat.fitapp.View.Main.MainActivity;
 import pl.edu.wat.fitapp.R;
-import pl.edu.wat.fitapp.Register.RegisterActivity;
 import pl.edu.wat.fitapp.Utils.ToastUtils;
+import pl.edu.wat.fitapp.View.Register.RegisterActivity;
 
 public class WelcomeActivity extends AppCompatActivity {
     private EditText etLogin, etPassword;
@@ -35,10 +34,6 @@ public class WelcomeActivity extends AppCompatActivity {
         bLogin = findViewById(R.id.bLogin);
         bRegister = findViewById(R.id.bRegister);
         pbLogin = findViewById(R.id.pbLogin);
-
-        //TODO do testowania
-        etLogin.setText("admin");
-        etPassword.setText("admin");
 
         bRegister.setOnClickListener(new View.OnClickListener() {
             @Override

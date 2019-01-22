@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.SimpleIngredientsListAdapter;
 import pl.edu.wat.fitapp.Database.Entity.Meal;
-import pl.edu.wat.fitapp.Main.Fragment.Profile.ProfileFragment;
+import pl.edu.wat.fitapp.View.Main.Fragment.Profile.ProfileFragment;
 import pl.edu.wat.fitapp.R;
 
 public class MyMealOnClickDialog {

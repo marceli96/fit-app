@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import pl.edu.wat.fitapp.Main.Fragment.ExportFragment;
+import pl.edu.wat.fitapp.View.Main.Fragment.ExportFragment;
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Utils.ToastUtils;
 

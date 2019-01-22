@@ -29,7 +29,6 @@ public class Training implements Serializable, TrainingSystem {
         return exerciseList;
     }
 
-
     public void addExerciseToList(Exercise exercise){
         exerciseList.add(exercise);
     }

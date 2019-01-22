@@ -1,4 +1,4 @@
-package pl.edu.wat.fitapp.Register;
+package pl.edu.wat.fitapp.View.Register;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,13 +11,12 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import pl.edu.wat.fitapp.Database.Connection.RegisterConnection;
 import pl.edu.wat.fitapp.Mangement.UserSettingsManagement;
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Utils.ToastUtils;
-import pl.edu.wat.fitapp.Welcome.WelcomeActivity;
+import pl.edu.wat.fitapp.View.Welcome.WelcomeActivity;
 
 public class RegisterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private EditText etLogin, etPassword, etEmail, etAge, etWeight, etHeight;

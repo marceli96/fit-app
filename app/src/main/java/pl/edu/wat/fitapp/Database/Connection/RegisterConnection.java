@@ -1,7 +1,5 @@
 package pl.edu.wat.fitapp.Database.Connection;
 
-import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -18,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import pl.edu.wat.fitapp.R;
-import pl.edu.wat.fitapp.Register.RegisterActivity;
+import pl.edu.wat.fitapp.View.Register.RegisterActivity;
 import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class RegisterConnection {
@@ -54,9 +52,9 @@ public class RegisterConnection {
                             if (availableUserName && availableEmail) {
                                 boolean success = jsonResponse.getBoolean("success");
                                 if (success) {
+                                    ToastUtils.shortToast(registerActivity, "Jesteś nowym użytkownikiem! Zaloguj się do serwisu!");
                                     registerActivity.openLoginActivity();
                                     registerActivity.finish();
-                                    ToastUtils.shortToast(registerActivity, "Jesteś nowym użytkownikiem! Zaloguj się do serwisu!");
                                 } else {
                                     ToastUtils.shortToast(registerActivity, "Nieoczekiwany błąd rejestracji");
                                 }

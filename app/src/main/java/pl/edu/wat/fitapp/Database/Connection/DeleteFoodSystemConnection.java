@@ -21,7 +21,7 @@ import java.util.Map;
 import pl.edu.wat.fitapp.Database.Entity.Ingredient;
 import pl.edu.wat.fitapp.Interface.FoodSystem;
 import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.FoodSystemListAdapter;
-import pl.edu.wat.fitapp.Main.Fragment.HomeFragment;
+import pl.edu.wat.fitapp.View.Main.Fragment.HomeFragment;
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Utils.ToastUtils;
 

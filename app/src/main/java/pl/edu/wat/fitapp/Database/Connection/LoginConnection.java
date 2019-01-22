@@ -1,7 +1,6 @@
 package pl.edu.wat.fitapp.Database.Connection;
 
 import android.view.View;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -21,7 +20,7 @@ import java.util.Map;
 import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Utils.ToastUtils;
-import pl.edu.wat.fitapp.Welcome.WelcomeActivity;
+import pl.edu.wat.fitapp.View.Welcome.WelcomeActivity;
 
 public class LoginConnection {
     private WelcomeActivity welcomeActivity;

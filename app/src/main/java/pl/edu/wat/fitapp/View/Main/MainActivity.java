@@ -1,4 +1,4 @@
-package pl.edu.wat.fitapp.Main;
+package pl.edu.wat.fitapp.View.Main;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -16,19 +16,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import pl.edu.wat.fitapp.Main.Fragment.AboutFragment;
+import pl.edu.wat.fitapp.View.Main.Fragment.AboutFragment;
 import pl.edu.wat.fitapp.Database.Entity.User;
-import pl.edu.wat.fitapp.Main.Fragment.ExportFragment;
-import pl.edu.wat.fitapp.Main.Fragment.GoalsFragment;
-import pl.edu.wat.fitapp.Main.Fragment.HomeFragment;
-import pl.edu.wat.fitapp.Main.Fragment.JournalFragment;
-import pl.edu.wat.fitapp.Main.Fragment.Profile.ProfileFragment;
+import pl.edu.wat.fitapp.View.Main.Fragment.ExportFragment;
+import pl.edu.wat.fitapp.View.Main.Fragment.GoalsFragment;
+import pl.edu.wat.fitapp.View.Main.Fragment.HomeFragment;
+import pl.edu.wat.fitapp.View.Main.Fragment.JournalFragment;
+import pl.edu.wat.fitapp.View.Main.Fragment.Profile.ProfileFragment;
 import pl.edu.wat.fitapp.R;
-import pl.edu.wat.fitapp.Main.Fragment.SettingsFragment;
+import pl.edu.wat.fitapp.View.Main.Fragment.SettingsFragment;
 import pl.edu.wat.fitapp.Utils.ToastUtils;
-import pl.edu.wat.fitapp.Welcome.WelcomeActivity;
+import pl.edu.wat.fitapp.View.Welcome.WelcomeActivity;
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView mainNavigation;

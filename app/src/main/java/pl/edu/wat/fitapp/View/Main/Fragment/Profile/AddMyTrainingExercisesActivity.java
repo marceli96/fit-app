@@ -1,4 +1,4 @@
-package pl.edu.wat.fitapp.Main.Fragment.Profile;
+package pl.edu.wat.fitapp.View.Main.Fragment.Profile;
 
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -35,7 +35,7 @@ import pl.edu.wat.fitapp.Database.Connection.ExercisesConnection;
 import pl.edu.wat.fitapp.Database.Entity.Exercise;
 import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.Dialog.AddMyTrainingExerciseOnClickDialog;
-import pl.edu.wat.fitapp.Main.MainActivity;
+import pl.edu.wat.fitapp.View.Main.MainActivity;
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Utils.ToastUtils;
 

@@ -19,8 +19,8 @@ import java.util.Map;
 
 import pl.edu.wat.fitapp.Database.Entity.Exercise;
 import pl.edu.wat.fitapp.Database.Entity.Training;
-import pl.edu.wat.fitapp.Main.Fragment.AddToSystem.AddTrainingToTrainingSystemFragment;
-import pl.edu.wat.fitapp.Main.Fragment.Profile.ProfileFragment;
+import pl.edu.wat.fitapp.View.Main.Fragment.AddToSystem.AddTrainingToTrainingSystemFragment;
+import pl.edu.wat.fitapp.View.Main.Fragment.Profile.ProfileFragment;
 import pl.edu.wat.fitapp.Mangement.MyTrainingManagement;
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Utils.ToastUtils;

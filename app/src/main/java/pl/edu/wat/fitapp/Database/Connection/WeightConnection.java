@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import pl.edu.wat.fitapp.Charts.JournalChartsWeightWeek;
-import pl.edu.wat.fitapp.Main.Fragment.JournalFragment;
+import pl.edu.wat.fitapp.View.Main.Fragment.JournalFragment;
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Utils.ToastUtils;
 

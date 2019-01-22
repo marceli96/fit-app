@@ -7,7 +7,7 @@
     android:background="@drawable/background"
     android:gravity="center_vertical"
     android:orientation="vertical"
-    tools:context=".Register.RegisterActivity">
+    tools:context=".View.Register.RegisterActivity">
 
     <EditText
         android:id="@+id/etLogin"

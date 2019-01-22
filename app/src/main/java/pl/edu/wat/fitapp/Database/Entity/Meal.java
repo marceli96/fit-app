@@ -3,8 +3,8 @@ package pl.edu.wat.fitapp.Database.Entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import pl.edu.wat.fitapp.Database.Entity.Ingredient;
 import pl.edu.wat.fitapp.Interface.FoodSystem;
+import pl.edu.wat.fitapp.Mangement.MealManagement;
 
 public class Meal implements Serializable, FoodSystem {
     private int ID;
@@ -19,10 +19,8 @@ public class Meal implements Serializable, FoodSystem {
     }
 
     public int getTotalWeight(){
-        int weight = 0;
-        for(int i = 0; i < ingredientList.size(); i++)
-            weight += ingredientList.get(i).getWeight();
-        return weight;
+        MealManagement mealManagement = new MealManagement(this);
+        return mealManagement.getTotalWeight();
     }
 
     public ArrayList<Ingredient> getIngredientList() {
@@ -46,31 +44,23 @@ public class Meal implements Serializable, FoodSystem {
     }
 
     public double getCarbohydrates() {
-        double sum = 0;
-        for (int i = 0; i < ingredientList.size(); i++)
-            sum += ingredientList.get(i).getCarbohydrates() * ingredientList.get(i).getWeight() / 100;
-        return sum;
+        MealManagement mealManagement = new MealManagement(this);
+        return mealManagement.getCarbohydrates();
     }
 
     public double getProtein() {
-        double sum = 0;
-        for (int i = 0; i < ingredientList.size(); i++)
-            sum += ingredientList.get(i).getProtein() * ingredientList.get(i).getWeight() / 100;
-        return sum;
+        MealManagement mealManagement = new MealManagement(this);
+        return mealManagement.getProtein();
     }
 
     public double getFat() {
-        double sum = 0;
-        for (int i = 0; i < ingredientList.size(); i++)
-            sum += ingredientList.get(i).getFat() * ingredientList.get(i).getWeight() / 100;
-        return sum;
+        MealManagement mealManagement = new MealManagement(this);
+        return mealManagement.getFat();
     }
 
     public int getCalories() {
-        int sum = 0;
-        for (int i = 0; i < ingredientList.size(); i++)
-            sum += ingredientList.get(i).getCalories() * ingredientList.get(i).getWeight() / 100;
-        return sum;
+        MealManagement mealManagement = new MealManagement(this);
+        return mealManagement.getCalories();
     }
 
     public void addIngredientToList(Ingredient ingredient) {
