@@ -16,10 +16,6 @@ import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Register.RegisterActivity;
 
 public class WelcomeActivity extends AppCompatActivity {
-
-    private final String LOGIN_URL = "http://fitappliaction.cba.pl/login.php";
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
-
     private EditText etLogin, etPassword;
     private Button bLogin, bRegister;
     private ProgressBar pbLogin;

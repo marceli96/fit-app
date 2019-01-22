@@ -28,9 +28,6 @@ import pl.edu.wat.fitapp.R;
 
 
 public class JournalFragment extends Fragment {
-
-    private final String OPERATIONS_URL = "http://fitappliaction.cba.pl/operations.php";
-
     private TextView tvDate, tvWeightDay;
     private LinearLayout llCaloriesWeekly, llCarbohydratesWeekly, llProteinWeekly, llFatWeekly, llWeightWeekly, llWeightDay;
     private BarChart chartCaloriesWeek, chartCarbohydratesWeek, chartProteinWeek, chartFatWeek, chartDaily, chartWeightWeek;

@@ -19,9 +19,6 @@ import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Welcome.WelcomeActivity;
 
 public class RegisterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-
-    private final String REGISTER_URL = "http://fitappliaction.cba.pl/register.php";
-
     private EditText etLogin, etPassword, etEmail, etAge, etWeight, etHeight;
     private RadioGroup rgSex, rgGoal;
     private TextView tvCalories;
