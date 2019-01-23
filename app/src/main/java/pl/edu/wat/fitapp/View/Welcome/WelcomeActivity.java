@@ -35,6 +35,10 @@ public class WelcomeActivity extends AppCompatActivity {
         bRegister = findViewById(R.id.bRegister);
         pbLogin = findViewById(R.id.pbLogin);
 
+        // TODO do testowania
+        etLogin.setText("admin");
+        etPassword.setText("admin");
+
         bRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

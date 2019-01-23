@@ -88,6 +88,7 @@ public class JournalChartsWeightWeek {
         barDataSetWeight.setValueTextSize(10);
 
         BarData dataWeight = new BarData(barDataSetWeight);
+        dataWeight.setHighlightEnabled(false);
         chartWeightWeek.setData(dataWeight);
 
         XAxis xAxisWeight = chartWeightWeek.getXAxis();

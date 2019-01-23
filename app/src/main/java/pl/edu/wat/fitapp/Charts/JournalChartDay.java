@@ -69,6 +69,7 @@ public class JournalChartDay {
         barDataSetDaily.setValueTextSize(12);
 
         BarData dataDaily = new BarData(barDataSetDaily);
+        dataDaily.setHighlightEnabled(false);
         chartDaily.setData(dataDaily);
 
         XAxis xAxis = chartDaily.getXAxis();

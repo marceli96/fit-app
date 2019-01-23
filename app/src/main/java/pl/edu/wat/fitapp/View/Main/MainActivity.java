@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -68,11 +69,9 @@ public class MainActivity extends AppCompatActivity {
 
         if (action != null && action.equals("openMeFragment")) {
             setFragment(new ProfileFragment());
-            navigationView.setCheckedItem(R.id.drawer_me);
             mainNavigation.setSelectedItemId(R.id.navMe);
         } else {
             setFragment(new HomeFragment());
-            navigationView.setCheckedItem(R.id.drawer_home);
         }
 
         View headerView = navigationView.getHeaderView(0);
@@ -98,34 +97,22 @@ public class MainActivity extends AppCompatActivity {
 
 
     private boolean changeDrawerNavigationItem(MenuItem menuItem) {
-
+        Fragment selectedFragment = null;
         switch (menuItem.getItemId()) {
-            case R.id.drawer_home:
-                setFragment(new HomeFragment());
-                mainNavigation.setSelectedItemId(R.id.navHome);
-                break;
-            case R.id.drawer_journal:
-                setFragment(new JournalFragment());
-                mainNavigation.setSelectedItemId(R.id.navJournal);
-                break;
-            case R.id.drawer_me:
-                setFragment(new ProfileFragment());
-                mainNavigation.setSelectedItemId(R.id.navMe);
-                break;
             case R.id.drawer_goals:
-                setFragment(new GoalsFragment());
+                selectedFragment = new GoalsFragment();
                 mainNavigation.getMenu().setGroupCheckable(0, false, true);
                 break;
             case R.id.drawer_settings:
-                setFragment(new SettingsFragment());
+                selectedFragment = new SettingsFragment();
                 mainNavigation.getMenu().setGroupCheckable(0, false, true);
                 break;
             case R.id.drawer_export:
-                setFragment(new ExportFragment());
+                selectedFragment = new ExportFragment();
                 mainNavigation.getMenu().setGroupCheckable(0, false, true);
                 break;
             case R.id.drawer_about:
-                setFragment(new AboutFragment());
+                selectedFragment = new AboutFragment();
                 mainNavigation.getMenu().setGroupCheckable(0, false, true);
                 break;
             case R.id.drawer_logout:
@@ -135,31 +122,34 @@ public class MainActivity extends AppCompatActivity {
                 ToastUtils.shortToast(MainActivity.this, "Wylogowano pomyślnie");
                 MainActivity.this.finish();
                 break;
+            default:
+                return false;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
+        setFragment(selectedFragment);
         return true;
     }
 
     private boolean changeBottomNavigationItem(MenuItem menuItem) {
+        Fragment selectedFragment;
         switch (menuItem.getItemId()) {
             case R.id.navHome:
                 mainNavigation.getMenu().setGroupCheckable(0, true, true);
-                setFragment(new HomeFragment());
-                navigationView.setCheckedItem(R.id.drawer_home);
-                return true;
+                selectedFragment = new HomeFragment();
+                break;
             case R.id.navJournal:
                 mainNavigation.getMenu().setGroupCheckable(0, true, true);
-                setFragment(new JournalFragment());
-                navigationView.setCheckedItem(R.id.drawer_journal);
-                return true;
+                selectedFragment = new JournalFragment();
+                break;
             case R.id.navMe:
                 mainNavigation.getMenu().setGroupCheckable(0, true, true);
-                setFragment(new ProfileFragment());
-                navigationView.setCheckedItem(R.id.drawer_me);
-                return true;
+                selectedFragment = new ProfileFragment();
+                break;
             default:
                 return false;
         }
+        setFragment(selectedFragment);
+        return true;
     }
 
     @Override

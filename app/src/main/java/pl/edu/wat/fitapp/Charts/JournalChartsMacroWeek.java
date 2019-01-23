@@ -102,6 +102,7 @@ public class JournalChartsMacroWeek {
         barDataSetCalories.setValueTextSize(10);
 
         BarData dataCalories = new BarData(barDataSetCalories);
+        dataCalories.setHighlightEnabled(false);
         chartCaloriesWeek.setData(dataCalories);
 
         XAxis xAxisCalories = chartCaloriesWeek.getXAxis();
@@ -134,6 +135,7 @@ public class JournalChartsMacroWeek {
         barDataSetCarbohydrates.setValueTextSize(10);
 
         BarData dataCarbohydrates = new BarData(barDataSetCarbohydrates);
+        dataCarbohydrates.setHighlightEnabled(false);
         chartCarbohydratesWeek.setData(dataCarbohydrates);
 
         XAxis xAxisCarbohydrates = chartCarbohydratesWeek.getXAxis();
@@ -166,6 +168,7 @@ public class JournalChartsMacroWeek {
         barDataSetProtein.setValueTextSize(10);
 
         BarData dataProtein = new BarData(barDataSetProtein);
+        dataProtein.setHighlightEnabled(false);
         chartProteinWeek.setData(dataProtein);
 
         XAxis xAxisProtein = chartProteinWeek.getXAxis();
@@ -198,6 +201,7 @@ public class JournalChartsMacroWeek {
         barDataSetFat.setValueTextSize(10);
 
         BarData dataFat = new BarData(barDataSetFat);
+        dataFat.setHighlightEnabled(false);
         chartFatWeek.setData(dataFat);
 
         XAxis xAxisFat = chartFatWeek.getXAxis();
