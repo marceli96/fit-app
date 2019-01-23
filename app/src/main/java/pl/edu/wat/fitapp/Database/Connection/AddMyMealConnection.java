@@ -17,16 +17,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 import pl.edu.wat.fitapp.Database.Entity.Ingredient;
+import pl.edu.wat.fitapp.Interface.AddMyMealConnectionCallback;
 import pl.edu.wat.fitapp.View.Main.Fragment.Profile.AddMyMealIngredientsActivity;
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class AddMyMealConnection {
-    private AddMyMealIngredientsActivity addMyMealIngredientsActivity;
+    private AddMyMealConnectionCallback callback;
     private ArrayList<Ingredient> mealIngredients;
 
-    public AddMyMealConnection(AddMyMealIngredientsActivity addMyMealIngredientsActivity, ArrayList<Ingredient> mealIngredients) {
-        this.addMyMealIngredientsActivity = addMyMealIngredientsActivity;
+    public AddMyMealConnection(AddMyMealConnectionCallback callback, ArrayList<Ingredient> mealIngredients) {
+        this.callback = callback;
         this.mealIngredients = mealIngredients;
     }
 
@@ -45,27 +46,26 @@ public class AddMyMealConnection {
 
         final String finalIngredientWeights = ingredientWeights;
         final String finalIngredientIds = ingredientIds;
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, addMyMealIngredientsActivity.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, callback.activity().getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
                     if (success) {
-                        ToastUtils.shortToast(addMyMealIngredientsActivity, "Dodano posiłek");
-                        addMyMealIngredientsActivity.openMeFragment();
+                        callback.onSuccessAddMyMeal();
                     } else {
-                        ToastUtils.shortToast(addMyMealIngredientsActivity, "Blad podczas dodawania posiłku");
+                        callback.onFailure("Blad podczas dodawania posiłku");
                     }
                 } catch (JSONException e) {
-                    ToastUtils.shortToast(addMyMealIngredientsActivity, "Blad podczas dodawania posiłku " + e.toString());
+                    callback.onFailure("Blad podczas dodawania posiłku " + e.toString());
                     e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                ToastUtils.shortToast(addMyMealIngredientsActivity, "Blad podczas dodawania posiłku " + error.toString());
+                callback.onFailure("Blad podczas dodawania posiłku " + error.toString());
             }
         }) {
             @Override
@@ -79,7 +79,7 @@ public class AddMyMealConnection {
                 return params;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(addMyMealIngredientsActivity);
+        RequestQueue requestQueue = Volley.newRequestQueue(callback.activity());
         requestQueue.add(stringRequest);
     }
 }

@@ -1,6 +1,7 @@
 package pl.edu.wat.fitapp.View.Main.Fragment.Profile;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -48,14 +49,13 @@ import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.AndroidComponent.NonScrollListView;
 import pl.edu.wat.fitapp.Dialog.MyMealOnClickDialog;
 import pl.edu.wat.fitapp.Dialog.MyTrainingOnClickDialog;
+import pl.edu.wat.fitapp.Interface.MyMealsConnectionCallback;
+import pl.edu.wat.fitapp.Interface.MyTrainingsConnectionCallback;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 import pl.edu.wat.fitapp.View.Main.MainActivity;
 import pl.edu.wat.fitapp.R;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements MyMealsConnectionCallback, MyTrainingsConnectionCallback {
     private ImageView imAddMyMeal, imAddMyTraining, imArrowMeals, imArrowTrainings;
     private TextView tvMyMealsEmpty, tvMyTrainingsEmpty;
     private NonScrollListView lvMyMeals, lvMyTrainings;
@@ -158,27 +158,6 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
-    public void showMyTrainings() {
-        if (myTrainings.size() == 0)
-            tvMyTrainingsEmpty.setVisibility(View.VISIBLE);
-        pbLoadingTrainings.setVisibility(View.GONE);
-        myTrainingsListAdapter.notifyDataSetChanged();
-    }
-
-    public void showMyMeals() {
-        if (myMeals.size() == 0)
-            tvMyMealsEmpty.setVisibility(View.VISIBLE);
-        pbLoadingMeals.setVisibility(View.GONE);
-        myMealsListAdapter.notifyDataSetChanged();
-        final ScrollView scrollView = getView().findViewById(R.id.scrollView);
-        scrollView.post(new Runnable() {
-            @Override
-            public void run() {
-                scrollView.fullScroll(ScrollView.FOCUS_UP);
-            }
-        });
-    }
-
     private void openAddMyMealNameActivity() {
         Intent openAddMyMealNameActivity = new Intent(getContext(), AddMyMealNameActivity.class);
         openAddMyMealNameActivity.putExtra("user", user);
@@ -201,5 +180,38 @@ public class ProfileFragment extends Fragment {
             imArrow.setImageResource(R.drawable.arrow_up);
             return true;
         }
+    }
+
+    @Override
+    public void onSuccessMyMeals() {
+        if (myMeals.size() == 0)
+            tvMyMealsEmpty.setVisibility(View.VISIBLE);
+        pbLoadingMeals.setVisibility(View.GONE);
+        myMealsListAdapter.notifyDataSetChanged();
+        final ScrollView scrollView = getView().findViewById(R.id.scrollView);
+        scrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.fullScroll(ScrollView.FOCUS_UP);
+            }
+        });
+    }
+
+    @Override
+    public void onSuccessMyTrainings() {
+        if (myTrainings.size() == 0)
+            tvMyTrainingsEmpty.setVisibility(View.VISIBLE);
+        pbLoadingTrainings.setVisibility(View.GONE);
+        myTrainingsListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onFailure(String message) {
+        ToastUtils.shortToast(getActivity(), message);
+    }
+
+    @Override
+    public Activity activity() {
+        return getActivity();
     }
 }

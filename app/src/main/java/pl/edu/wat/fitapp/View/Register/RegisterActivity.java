@@ -1,5 +1,6 @@
 package pl.edu.wat.fitapp.View.Register;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,12 +14,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import pl.edu.wat.fitapp.Database.Connection.RegisterConnection;
+import pl.edu.wat.fitapp.Interface.ConnectionCallback;
 import pl.edu.wat.fitapp.Mangement.UserSettingsManagement;
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Utils.ToastUtils;
 import pl.edu.wat.fitapp.View.Welcome.WelcomeActivity;
 
-public class RegisterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class RegisterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, ConnectionCallback {
     private EditText etLogin, etPassword, etEmail, etAge, etWeight, etHeight;
     private RadioGroup rgSex, rgGoal;
     private TextView tvCalories;
@@ -131,5 +133,22 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     public void openLoginActivity() {
         Intent openLoginActivity = new Intent(this, WelcomeActivity.class);
         startActivity(openLoginActivity);
+    }
+
+    @Override
+    public void onSuccess() {
+        ToastUtils.shortToast(RegisterActivity.this, "Jesteś nowym użytkownikiem! Zaloguj się do serwisu!");
+        openLoginActivity();
+        this.finish();
+    }
+
+    @Override
+    public void onFailure(String message) {
+        ToastUtils.shortToast(RegisterActivity.this, message);
+    }
+
+    @Override
+    public Activity activity() {
+        return RegisterActivity.this;
     }
 }

@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(openWelcomeScreen);
                 ToastUtils.shortToast(MainActivity.this, "Wylogowano pomyślnie");
                 MainActivity.this.finish();
-                break;
+                return true;
             default:
                 return false;
         }

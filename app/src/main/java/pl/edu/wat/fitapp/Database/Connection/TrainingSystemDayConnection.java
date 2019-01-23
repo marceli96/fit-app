@@ -21,6 +21,7 @@ import java.util.Map;
 
 import pl.edu.wat.fitapp.Database.Entity.Exercise;
 import pl.edu.wat.fitapp.Database.Entity.Training;
+import pl.edu.wat.fitapp.Interface.ConnectionCallback;
 import pl.edu.wat.fitapp.Interface.TrainingSystem;
 import pl.edu.wat.fitapp.View.Main.Fragment.HomeFragment;
 import pl.edu.wat.fitapp.Mangement.TrainingSystemDayManagement;
@@ -28,16 +29,16 @@ import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class TrainingSystemDayConnection {
-    private HomeFragment homeFragment;
+    private ConnectionCallback callback;
     private ArrayList<TrainingSystem> trainingSystemDay;
 
-    public TrainingSystemDayConnection(HomeFragment homeFragment, ArrayList<TrainingSystem> trainingSystemDay) {
-        this.homeFragment = homeFragment;
+    public TrainingSystemDayConnection(ConnectionCallback callback, ArrayList<TrainingSystem> trainingSystemDay) {
+        this.callback = callback;
         this.trainingSystemDay = trainingSystemDay;
     }
 
     public void getTrainingSystem(final int userID) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, homeFragment.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, callback.activity().getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -69,20 +70,18 @@ public class TrainingSystemDayConnection {
                                 trainingSystemDay.add(tempExercise);
                             }
                         }
-                        homeFragment.getLlTraining().setVisibility(View.VISIBLE);
-                        homeFragment.getTrainingSystemListAdapter().notifyDataSetChanged();
-                        homeFragment.updateExerciseAmount();
+                        callback.onSuccess();
                     } else
-                        ToastUtils.shortToast(homeFragment.getActivity(), "Błąd połączenia z bazą");
+                        callback.onFailure("Błąd połączenia z bazą");
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ToastUtils.shortToast(homeFragment.getActivity(), "Błąd połączenia z bazą " + e.toString());
+                    callback.onFailure("Błąd połączenia z bazą " + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                ToastUtils.shortToast(homeFragment.getActivity(), "Błąd połączenia z bazą " + error.toString());
+                callback.onFailure("Błąd połączenia z bazą " + error.toString());
             }
         }) {
             @Override
@@ -96,7 +95,7 @@ public class TrainingSystemDayConnection {
                 return params;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(homeFragment.getActivity());
+        RequestQueue requestQueue = Volley.newRequestQueue(callback.activity());
         requestQueue.add(stringRequest);
     }
 }

@@ -63,14 +63,19 @@ import pl.edu.wat.fitapp.Database.Entity.Ingredient;
 import pl.edu.wat.fitapp.Database.Entity.Meal;
 import pl.edu.wat.fitapp.Database.Entity.Training;
 import pl.edu.wat.fitapp.Database.Entity.User;
+import pl.edu.wat.fitapp.Interface.CaloricDemandWeekConnectionCallback;
 import pl.edu.wat.fitapp.Interface.FoodSystem;
+import pl.edu.wat.fitapp.Interface.FoodSystemWeekConnectionCallback;
+import pl.edu.wat.fitapp.Interface.GoalWeekConnectionCallback;
 import pl.edu.wat.fitapp.Interface.TrainingSystem;
+import pl.edu.wat.fitapp.Interface.TrainingSystemWeekConnectionCallback;
 import pl.edu.wat.fitapp.View.Main.MainActivity;
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 
-public class ExportFragment extends Fragment {
+public class ExportFragment extends Fragment implements FoodSystemWeekConnectionCallback,
+        TrainingSystemWeekConnectionCallback, CaloricDemandWeekConnectionCallback, GoalWeekConnectionCallback {
     private CheckBox cbBreakfast, cbSecondBreakfast, cbLunch, cbDinner, cbSnack, cbSupper, cbSummary, cbTraining;
     private Button bGenerate;
     private LinearLayout llOptions;
@@ -166,23 +171,37 @@ public class ExportFragment extends Fragment {
         }
     }
 
-    public void getTrainingSystemFromWeek() {
+    @Override
+    public void onSuccessFoodSystemWeek() {
         trainingSystemWeekConnection = new TrainingSystemWeekConnection(this, trainingSystemWeek);
         trainingSystemWeekConnection.getTrainingSystemFromWeek(user.getUserID());
     }
 
-    public void getCaloricDemandFromWeek() {
+    @Override
+    public void onSuccessTrainingSystemWeek() {
         caloricDemandWeekConnection = new CaloricDemandWeekConnection(this, caloricDemandWeek);
         caloricDemandWeekConnection.getCaloricDemandFromWeek(user.getUserID());
     }
 
-    public void getGoalFromWeek() {
+    @Override
+    public void onSuccessCaloricDemandWeek() {
         goalWeekConnection = new GoalWeekConnection(this, goalWeek);
         goalWeekConnection.getGoalFromWeek(user.getUserID());
     }
 
-    public void showOptions() {
+    @Override
+    public void onSuccessGoalWeek() {
         pbLoading.setVisibility(View.GONE);
         llOptions.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onFailure(String message) {
+        ToastUtils.shortToast(getActivity(), message);
+    }
+
+    @Override
+    public Activity activity() {
+        return getActivity();
     }
 }

@@ -1,5 +1,6 @@
 package pl.edu.wat.fitapp.View.Main.Fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,6 +24,9 @@ import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.FoodSystemListAdapter;
 import pl.edu.wat.fitapp.Database.Connection.TrainingSystemDayConnection;
 import pl.edu.wat.fitapp.Dialog.FoodSystemOnClickDialog;
 import pl.edu.wat.fitapp.Dialog.TrainingSystemOnClickDialog;
+import pl.edu.wat.fitapp.Interface.ConnectionCallback;
+import pl.edu.wat.fitapp.Interface.FoodSystemDayConnectionCallback;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 import pl.edu.wat.fitapp.View.Main.Fragment.AddToSystem.AddToFoodSystemActivity;
 import pl.edu.wat.fitapp.View.Main.Fragment.AddToSystem.AddToTrainingSystemActivity;
 import pl.edu.wat.fitapp.Database.Entity.Exercise;
@@ -35,7 +39,7 @@ import pl.edu.wat.fitapp.View.Main.MainActivity;
 import pl.edu.wat.fitapp.Mangement.MacrocomponentManagement;
 import pl.edu.wat.fitapp.R;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements FoodSystemDayConnectionCallback, ConnectionCallback {
     private TextView tvEatenCalories, tvReqCalories, tvEatenCarbohydrates, tvReqCarbohydrates, tvEatenProtein, tvReqProtein, tvEatenFat, tvReqFat, tvExerciseAmount;
     private ProgressBar pbCalories, pbCarbohydrates, pbProtein, pbFat, pbLoading;
     private NonScrollListView lvBreakfast, lvSecondBreakfast, lvLunch, lvDinner, lvSnack, lvSupper, lvTraining;
@@ -312,22 +316,6 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    public void showMealLayoutsAndUpdate() {
-        pbLoading.setVisibility(View.GONE);
-        llProgressBars.setVisibility(View.VISIBLE);
-        llBreakfast.setVisibility(View.VISIBLE);
-        llSecondBreakfast.setVisibility(View.VISIBLE);
-        llLunch.setVisibility(View.VISIBLE);
-        llDinner.setVisibility(View.VISIBLE);
-        llSnack.setVisibility(View.VISIBLE);
-        llSupper.setVisibility(View.VISIBLE);
-
-        for (int i = 0; i < 6; i++)
-            foodSystemMealTimeAdapters.get(i).notifyDataSetChanged();
-        updateMacrosOnMealTimes();
-        updateEatenMacros();
-    }
-
     public void updateMacrosOnMealTimes() {
         DecimalFormat decFormat = new DecimalFormat("0.0");
         MacrocomponentManagement macroMg = new MacrocomponentManagement();
@@ -463,7 +451,37 @@ public class HomeFragment extends Fragment {
         return llTraining;
     }
 
-    public TrainingSystemListAdapter getTrainingSystemListAdapter() {
-        return trainingSystemListAdapter;
+    @Override
+    public void onSuccessFoodSystemDay() {
+        pbLoading.setVisibility(View.GONE);
+        llProgressBars.setVisibility(View.VISIBLE);
+        llBreakfast.setVisibility(View.VISIBLE);
+        llSecondBreakfast.setVisibility(View.VISIBLE);
+        llLunch.setVisibility(View.VISIBLE);
+        llDinner.setVisibility(View.VISIBLE);
+        llSnack.setVisibility(View.VISIBLE);
+        llSupper.setVisibility(View.VISIBLE);
+
+        for (int i = 0; i < 6; i++)
+            foodSystemMealTimeAdapters.get(i).notifyDataSetChanged();
+        updateMacrosOnMealTimes();
+        updateEatenMacros();
+    }
+
+    @Override
+    public void onSuccess() {
+        llTraining.setVisibility(View.VISIBLE);
+        trainingSystemListAdapter.notifyDataSetChanged();
+        updateExerciseAmount();
+    }
+
+    @Override
+    public void onFailure(String message) {
+        ToastUtils.shortToast(getActivity(), message);
+    }
+
+    @Override
+    public Activity activity() {
+        return getActivity();
     }
 }

@@ -1,6 +1,7 @@
 package pl.edu.wat.fitapp.View.Main.Fragment;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -18,16 +19,22 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import pl.edu.wat.fitapp.Charts.JournalChartDay;
 import pl.edu.wat.fitapp.Charts.JournalChartsMacroWeek;
+import pl.edu.wat.fitapp.Charts.JournalChartsWeightWeek;
 import pl.edu.wat.fitapp.Database.Connection.FoodSystemDayConnection;
 import pl.edu.wat.fitapp.Database.Connection.FoodSystemWeekConnection;
 import pl.edu.wat.fitapp.Database.Connection.WeightConnection;
 import pl.edu.wat.fitapp.Database.Entity.User;
+import pl.edu.wat.fitapp.Interface.ConnectionCallback;
 import pl.edu.wat.fitapp.Interface.FoodSystem;
+import pl.edu.wat.fitapp.Interface.FoodSystemDayConnectionCallback;
+import pl.edu.wat.fitapp.Interface.FoodSystemWeekConnectionCallback;
+import pl.edu.wat.fitapp.Interface.WeightConnectionCallback;
+import pl.edu.wat.fitapp.Utils.ToastUtils;
 import pl.edu.wat.fitapp.View.Main.MainActivity;
 import pl.edu.wat.fitapp.R;
 
 
-public class JournalFragment extends Fragment {
+public class JournalFragment extends Fragment implements WeightConnectionCallback, FoodSystemDayConnectionCallback, FoodSystemWeekConnectionCallback {
     private TextView tvDate, tvWeightDay;
     private LinearLayout llCaloriesWeekly, llCarbohydratesWeekly, llProteinWeekly, llFatWeekly, llWeightWeekly, llWeightDay;
     private BarChart chartCaloriesWeek, chartCarbohydratesWeek, chartProteinWeek, chartFatWeek, chartDaily, chartWeightWeek;
@@ -122,32 +129,12 @@ public class JournalFragment extends Fragment {
         }
     }
 
-    public void drawChartsMacroDaily() {
-        pbLoadingDaily.setVisibility(View.GONE);
-        JournalChartDay journalChartDay = new JournalChartDay(this, foodSystemDate);
-        journalChartDay.drawChartsMacroDaily();
-    }
-
-    public void drawChartsMacroWeek(){
-        pbLoadingLastWeek.setVisibility(View.GONE);
-        JournalChartsMacroWeek journalChartsMacroWeek = new JournalChartsMacroWeek(this, foodSystemWeek);
-        journalChartsMacroWeek.drawChartsMacroWeek();
-    }
-
-    public void setWeightDay(double weightDay) {
-        this.weightDay = weightDay;
-    }
-
     public TextView getTvWeightDay() {
         return tvWeightDay;
     }
 
     public LinearLayout getLlWeightDay() {
         return llWeightDay;
-    }
-
-    public void setWeightWeek(ArrayList<Double> weightWeek) {
-        this.weightWeek = weightWeek;
     }
 
     public BarChart getChartCaloriesWeek() {
@@ -192,5 +179,44 @@ public class JournalFragment extends Fragment {
 
     public LinearLayout getLlWeightWeekly() {
         return llWeightWeekly;
+    }
+
+
+    @Override
+    public void onSuccessWeightDay(Double weightDay) {
+        this.weightDay = weightDay;
+        tvWeightDay.setText(String.valueOf(weightDay));
+        llWeightDay.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onSuccessWeightWeek(ArrayList<Double> weightWeek) {
+        this.weightWeek = weightWeek;
+        JournalChartsWeightWeek journalChartsWeightWeek = new JournalChartsWeightWeek(this, weightWeek);
+        journalChartsWeightWeek.drawChartsWeightWeek();
+    }
+
+    @Override
+    public void onFailure(String message) {
+        ToastUtils.shortToast(getActivity(), message);
+    }
+
+    @Override
+    public void onSuccessFoodSystemDay() {
+        pbLoadingDaily.setVisibility(View.GONE);
+        JournalChartDay journalChartDay = new JournalChartDay(this, foodSystemDate);
+        journalChartDay.drawChartsMacroDaily();
+    }
+
+    @Override
+    public void onSuccessFoodSystemWeek() {
+        pbLoadingLastWeek.setVisibility(View.GONE);
+        JournalChartsMacroWeek journalChartsMacroWeek = new JournalChartsMacroWeek(this, foodSystemWeek);
+        journalChartsMacroWeek.drawChartsMacroWeek();
+    }
+
+    @Override
+    public Activity activity() {
+        return getActivity();
     }
 }

@@ -1,7 +1,5 @@
 package pl.edu.wat.fitapp.Database.Connection;
 
-import android.view.View;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -18,25 +16,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 import pl.edu.wat.fitapp.Database.Entity.User;
+import pl.edu.wat.fitapp.Interface.UserConnectionCallback;
 import pl.edu.wat.fitapp.R;
-import pl.edu.wat.fitapp.Utils.ToastUtils;
-import pl.edu.wat.fitapp.View.Welcome.WelcomeActivity;
 
 public class LoginConnection {
-    private WelcomeActivity welcomeActivity;
+    private UserConnectionCallback callback;
 
     private String userName, password;
     private User user;
 
-    public LoginConnection(WelcomeActivity welcomeActivity, String userName, String password, User user) {
-        this.welcomeActivity = welcomeActivity;
+    public LoginConnection(UserConnectionCallback callback, String userName, String password, User user) {
+        this.callback = callback;
         this.userName = userName;
         this.password = password;
         this.user = user;
     }
 
     public void moveWeight() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, welcomeActivity.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, callback.activity().getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 login();
@@ -44,11 +41,11 @@ public class LoginConnection {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                callback.onFailure("Błąd połączenia z bazą! " + error.toString());
             }
         }) {
             @Override
-            protected Map<String, String> getParams(){
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 Date date = new Date();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -58,47 +55,42 @@ public class LoginConnection {
                 return params;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(welcomeActivity);
+        RequestQueue requestQueue = Volley.newRequestQueue(callback.activity());
         requestQueue.add(stringRequest);
     }
 
     private void login() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, welcomeActivity.getString(R.string.LOGIN_URL),
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonResponse = new JSONObject(response);
-                            boolean success = jsonResponse.getBoolean("success");
-                            if (success) {
-                                JSONObject jsonObject = jsonResponse.getJSONObject("0");
-                                JSONObject jsonObject1 = jsonResponse.getJSONObject("1");
-                                user = new User(jsonObject.getInt("ID_User"), jsonObject.getString("UserName"),
-                                        jsonObject.getString("Email"), jsonObject.getInt("Sex"), jsonObject.getInt("Age"),
-                                        jsonObject.getInt("Height"), jsonObject.getInt("ActivityLevel"), jsonObject1.getDouble("UserWeight"),
-                                        jsonObject1.getInt("CaloricDemend"), jsonObject1.getInt("Goal"));
-                                welcomeActivity.setUser(user);
-                                welcomeActivity.openMainActivity();
-                            } else {
-                                ToastUtils.shortToast(welcomeActivity, "Błędne dane");
-                                welcomeActivity.getPbLogin().setVisibility(View.INVISIBLE);
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            ToastUtils.shortToast(welcomeActivity, "Błąd połączenia z bazą! " + e.toString());
-                            welcomeActivity.getPbLogin().setVisibility(View.INVISIBLE);
-                        }
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, callback.activity().getString(R.string.LOGIN_URL), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
+                    boolean success = jsonResponse.getBoolean("success");
+                    if (success) {
+                        JSONObject jsonObject = jsonResponse.getJSONObject("0");
+                        JSONObject jsonObject1 = jsonResponse.getJSONObject("1");
+                        user = new User(jsonObject.getInt("ID_User"), jsonObject.getString("UserName"),
+                                jsonObject.getString("Email"), jsonObject.getInt("Sex"), jsonObject.getInt("Age"),
+                                jsonObject.getInt("Height"), jsonObject.getInt("ActivityLevel"), jsonObject1.getDouble("UserWeight"),
+                                jsonObject1.getInt("CaloricDemend"), jsonObject1.getInt("Goal"));
+                        callback.onSuccess(user);
+                    } else {
+                        callback.onFailure("Błędne dane");
                     }
-                },
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    callback.onFailure("Błąd połączenia z bazą! " + e.toString());
+                }
+            }
+        },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        ToastUtils.shortToast(welcomeActivity, "Błąd połączenia z bazą! " + error.toString());
-                        welcomeActivity.getPbLogin().setVisibility(View.INVISIBLE);
+                        callback.onFailure("Błąd połączenia z bazą! " + error.toString());
                     }
                 }) {
             @Override
-            protected Map<String, String> getParams(){
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("userName", userName);
                 params.put("password", password);
@@ -106,7 +98,7 @@ public class LoginConnection {
             }
         };
 
-        RequestQueue requestQueue = Volley.newRequestQueue(welcomeActivity);
+        RequestQueue requestQueue = Volley.newRequestQueue(callback.activity());
         requestQueue.add(stringRequest);
     }
 }

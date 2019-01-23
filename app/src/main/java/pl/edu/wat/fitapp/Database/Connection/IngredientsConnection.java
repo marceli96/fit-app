@@ -19,20 +19,21 @@ import java.util.Map;
 
 import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.IngredientsListAdapter;
 import pl.edu.wat.fitapp.Database.Entity.Ingredient;
+import pl.edu.wat.fitapp.Interface.IngredientsConnectionCallback;
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class IngredientsConnection {
-    private Activity activity;
+    private IngredientsConnectionCallback callback;
     private ArrayList<Ingredient> ingredients;
 
-    public IngredientsConnection(Activity activity, ArrayList<Ingredient> ingredients) {
-        this.activity = activity;
+    public IngredientsConnection(IngredientsConnectionCallback callback, ArrayList<Ingredient> ingredients) {
+        this.callback = callback;
         this.ingredients = ingredients;
     }
 
-    public void getIngredients(final IngredientsListAdapter ingredientsListAdapter) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, activity.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
+    public void getIngredients() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, callback.activity().getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -45,18 +46,18 @@ public class IngredientsConnection {
                                     ingredient.getDouble("Carbohydrates"), ingredient.getDouble("Protein"), ingredient.getDouble("Fat"),
                                     ingredient.getInt("Calories")));
                         }
-                        ingredientsListAdapter.notifyDataSetChanged();
+                        callback.onSuccessIngredients();
                     } else
-                        ToastUtils.shortToast(activity, "Błąd połączenia z bazą");
+                        callback.onFailure("Błąd połączenia z bazą");
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ToastUtils.shortToast(activity, "Błąd połączenia z bazą " + e.toString());
+                    callback.onFailure("Błąd połączenia z bazą " + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                ToastUtils.shortToast(activity, "Błąd połączenia z bazą " + error.toString());
+                callback.onFailure("Błąd połączenia z bazą " + error.toString());
             }
         }) {
             @Override
@@ -67,7 +68,7 @@ public class IngredientsConnection {
             }
         };
 
-        RequestQueue requestQueue = Volley.newRequestQueue(activity);
+        RequestQueue requestQueue = Volley.newRequestQueue(callback.activity());
         requestQueue.add(stringRequest);
     }
 }

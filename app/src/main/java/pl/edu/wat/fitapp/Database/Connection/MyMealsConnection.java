@@ -19,6 +19,7 @@ import java.util.Map;
 
 import pl.edu.wat.fitapp.Database.Entity.Ingredient;
 import pl.edu.wat.fitapp.Database.Entity.Meal;
+import pl.edu.wat.fitapp.Interface.MyMealsConnectionCallback;
 import pl.edu.wat.fitapp.View.Main.Fragment.AddToSystem.AddMealToFoodSystemFragment;
 import pl.edu.wat.fitapp.View.Main.Fragment.Profile.ProfileFragment;
 import pl.edu.wat.fitapp.Mangement.MyMealManagement;
@@ -26,16 +27,16 @@ import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class MyMealsConnection {
-    private Fragment fragment;
+    private MyMealsConnectionCallback callback;
     private ArrayList<Meal> myMeals;
 
-    public MyMealsConnection(Fragment fragment, ArrayList<Meal> myMeals) {
-        this.fragment = fragment;
+    public MyMealsConnection(MyMealsConnectionCallback callback, ArrayList<Meal> myMeals) {
+        this.callback = callback;
         this.myMeals = myMeals;
     }
 
     public void getMyMeals(final int userID) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, fragment.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, callback.activity().getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -60,21 +61,22 @@ public class MyMealsConnection {
                                 myMeals.get(mealPosition).addIngredientToList(tempIngredient);
                             }
                         }
-                        if (fragment.getClass() == ProfileFragment.class)
-                            ((ProfileFragment) fragment).showMyMeals();
-                        else if(fragment.getClass() == AddMealToFoodSystemFragment.class)
-                            ((AddMealToFoodSystemFragment) fragment).showMyMeals();
+//                        if (fragment.getClass() == ProfileFragment.class)
+//                            ((ProfileFragment) fragment).showMyMeals();
+//                        else if(fragment.getClass() == AddMealToFoodSystemFragment.class)
+//                            ((AddMealToFoodSystemFragment) fragment).showMyMeals();
+                        callback.onSuccessMyMeals();
                     } else
-                        ToastUtils.shortToast(fragment.getActivity(), "Błąd połączenia z bazą");
+                        callback.onFailure("Błąd połączenia z bazą");
                 } catch (JSONException e) {
-                    ToastUtils.shortToast(fragment.getActivity(), "Błąd połączenia z bazą " + e.toString());
+                    callback.onFailure("Błąd połączenia z bazą " + e.toString());
                     e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                ToastUtils.shortToast(fragment.getContext(), "Błąd połączenia z bazą " + error.toString());
+                callback.onFailure("Błąd połączenia z bazą " + error.toString());
             }
         }) {
             @Override
@@ -86,7 +88,7 @@ public class MyMealsConnection {
             }
         };
 
-        RequestQueue requestQueue = Volley.newRequestQueue(fragment.getContext());
+        RequestQueue requestQueue = Volley.newRequestQueue(callback.activity());
         requestQueue.add(stringRequest);
     }
 }

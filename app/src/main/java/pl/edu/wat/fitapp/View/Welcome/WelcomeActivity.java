@@ -1,5 +1,6 @@
 package pl.edu.wat.fitapp.View.Welcome;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,12 +11,13 @@ import android.widget.ProgressBar;
 
 import pl.edu.wat.fitapp.Database.Connection.LoginConnection;
 import pl.edu.wat.fitapp.Database.Entity.User;
+import pl.edu.wat.fitapp.Interface.UserConnectionCallback;
 import pl.edu.wat.fitapp.View.Main.MainActivity;
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Utils.ToastUtils;
 import pl.edu.wat.fitapp.View.Register.RegisterActivity;
 
-public class WelcomeActivity extends AppCompatActivity {
+public class WelcomeActivity extends AppCompatActivity implements UserConnectionCallback {
     private EditText etLogin, etPassword;
     private Button bLogin, bRegister;
     private ProgressBar pbLogin;
@@ -64,7 +66,7 @@ public class WelcomeActivity extends AppCompatActivity {
         });
     }
 
-    public void openMainActivity() {
+    private void openMainActivity() {
         ToastUtils.shortToast(WelcomeActivity.this, "Zalogowano pomyślnie");
         Intent openMainActivity = new Intent(WelcomeActivity.this, MainActivity.class);
         openMainActivity.putExtra("user", user);
@@ -77,11 +79,22 @@ public class WelcomeActivity extends AppCompatActivity {
         startActivity(openRegisterActivity);
     }
 
-    public void setUser(User user) {
+    @Override
+    public void onSuccess(User user) {
         this.user = user;
+        openMainActivity();
     }
 
-    public ProgressBar getPbLogin() {
-        return pbLogin;
+    @Override
+    public void onFailure(String message) {
+        ToastUtils.shortToast(WelcomeActivity.this, message);
+        pbLogin.setVisibility(View.INVISIBLE);
     }
+
+
+    @Override
+    public Activity activity() {
+        return WelcomeActivity.this;
+    }
+
 }

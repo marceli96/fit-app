@@ -1,6 +1,7 @@
 package pl.edu.wat.fitapp.View.Main.Fragment;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,12 +15,15 @@ import android.widget.Toast;
 
 import pl.edu.wat.fitapp.Database.Connection.UserSettingsConnection;
 import pl.edu.wat.fitapp.Database.Entity.User;
+import pl.edu.wat.fitapp.Interface.ConnectionCallback;
+import pl.edu.wat.fitapp.Interface.UserConnectionCallback;
 import pl.edu.wat.fitapp.View.Main.MainActivity;
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Utils.ToastUtils;
+import pl.edu.wat.fitapp.View.Register.RegisterActivity;
 
 
-public class SettingsFragment extends Fragment {
+public class SettingsFragment extends Fragment implements UserConnectionCallback {
 
     private EditText etLogin, etEmail, etPassword1, etPassword2;
     private Button bChangeLogin, bChangeEmail, bChangePassword;
@@ -115,5 +119,23 @@ public class SettingsFragment extends Fragment {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+
+    @Override
+    public void onSuccess(User user) {
+        this.user = user;
+        ToastUtils.shortToast(getActivity(), "Dane zmienione pomyślnie");
+        openHomeActivity();
+    }
+
+    @Override
+    public void onFailure(String message) {
+        ToastUtils.shortToast(getActivity(), message);
+    }
+
+    @Override
+    public Activity activity() {
+        return getActivity();
     }
 }

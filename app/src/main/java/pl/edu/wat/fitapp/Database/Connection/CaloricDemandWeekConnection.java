@@ -1,8 +1,5 @@
 package pl.edu.wat.fitapp.Database.Connection;
 
-import android.support.v4.app.Fragment;
-import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -13,29 +10,27 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import pl.edu.wat.fitapp.View.Main.Fragment.ExportFragment;
+import pl.edu.wat.fitapp.Interface.CaloricDemandWeekConnectionCallback;
 import pl.edu.wat.fitapp.R;
-import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 
 public class CaloricDemandWeekConnection {
-    private Fragment fragment;
+    private CaloricDemandWeekConnectionCallback callback;
     private ArrayList<Integer> caloricDemandWeek;
 
-    public CaloricDemandWeekConnection(Fragment fragment, ArrayList<Integer> caloricDemandWeek) {
-        this.fragment = fragment;
+    public CaloricDemandWeekConnection(CaloricDemandWeekConnectionCallback callback, ArrayList<Integer> caloricDemandWeek) {
+        this.callback = callback;
         this.caloricDemandWeek = caloricDemandWeek;
     }
 
     public void getCaloricDemandFromWeek(final int userID) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, fragment.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, callback.activity().getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -46,21 +41,18 @@ public class CaloricDemandWeekConnection {
                             JSONObject row = jsonResponse.getJSONObject(String.valueOf(i));
                             caloricDemandWeek.add(row.getInt("CaloricDemend"));
                         }
-                        if (fragment.getClass() == ExportFragment.class) {
-                            ((ExportFragment) fragment).getGoalFromWeek();
-                        }
+                        callback.onSuccessCaloricDemandWeek();
                     } else
-                        ToastUtils.shortToast(fragment.getActivity(), "Błąd połączenia z bazą");
+                        callback.onFailure("Błąd połączenia z bazą");
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ToastUtils.shortToast(fragment.getActivity(), "Błąd połączenia z bazą " + e.toString());
+                    callback.onFailure("Błąd połączenia z bazą " + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                ToastUtils.shortToast(fragment.getActivity(), "Błąd połączenia z bazą " + error.toString());
-            }
+                callback.onFailure("Błąd połączenia z bazą " + error.toString()); }
         }) {
             @Override
             protected Map<String, String> getParams() {
@@ -73,7 +65,7 @@ public class CaloricDemandWeekConnection {
                 return params;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(fragment.getActivity());
+        RequestQueue requestQueue = Volley.newRequestQueue(callback.activity());
         requestQueue.add(stringRequest);
     }
 }

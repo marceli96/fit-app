@@ -1,5 +1,6 @@
 package pl.edu.wat.fitapp.View.Main.Fragment.Profile;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -35,11 +36,13 @@ import pl.edu.wat.fitapp.Database.Connection.ExercisesConnection;
 import pl.edu.wat.fitapp.Database.Entity.Exercise;
 import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.Dialog.AddMyTrainingExerciseOnClickDialog;
+import pl.edu.wat.fitapp.Interface.AddMyTrainingConnectionCallback;
+import pl.edu.wat.fitapp.Interface.ExercisesConnectionCallback;
 import pl.edu.wat.fitapp.View.Main.MainActivity;
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Utils.ToastUtils;
 
-public class AddMyTrainingExercisesActivity extends AppCompatActivity {
+public class AddMyTrainingExercisesActivity extends AppCompatActivity implements ExercisesConnectionCallback, AddMyTrainingConnectionCallback {
     private Button bAddMyTraining;
     private LinearLayout llShowListView;
     private ImageView imArrow;
@@ -82,7 +85,7 @@ public class AddMyTrainingExercisesActivity extends AppCompatActivity {
         lvTrainingExercises.setAdapter(addedExercisesToTrainingListAdapter);
 
         exercisesConnection = new ExercisesConnection(AddMyTrainingExercisesActivity.this, exercises);
-        exercisesConnection.getExercises(simpleExercisesListAdapter);
+        exercisesConnection.getExercises();
 
         bAddMyTraining.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,5 +149,26 @@ public class AddMyTrainingExercisesActivity extends AppCompatActivity {
         trainingExercises.remove(exercise);
         addedExercisesToTrainingListAdapter.notifyDataSetChanged();
         tvExerciseAmount.setText(String.valueOf(trainingExercises.size()));
+    }
+
+    @Override
+    public void onSuccessExercises() {
+        simpleExercisesListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onSuccessAddMyTraining() {
+        ToastUtils.shortToast(AddMyTrainingExercisesActivity.this, "Dodano trening");
+        openMeFragment();
+    }
+
+    @Override
+    public void onFailure(String message) {
+        ToastUtils.shortToast(AddMyTrainingExercisesActivity.this, message);
+    }
+
+    @Override
+    public Activity activity() {
+        return AddMyTrainingExercisesActivity.this;
     }
 }

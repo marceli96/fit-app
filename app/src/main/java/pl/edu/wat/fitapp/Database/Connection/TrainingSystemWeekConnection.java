@@ -22,23 +22,25 @@ import java.util.Map;
 
 import pl.edu.wat.fitapp.Database.Entity.Exercise;
 import pl.edu.wat.fitapp.Database.Entity.Training;
+import pl.edu.wat.fitapp.Interface.FoodSystemWeekConnectionCallback;
 import pl.edu.wat.fitapp.Interface.TrainingSystem;
+import pl.edu.wat.fitapp.Interface.TrainingSystemWeekConnectionCallback;
 import pl.edu.wat.fitapp.View.Main.Fragment.ExportFragment;
 import pl.edu.wat.fitapp.Mangement.TrainingSystemWeekManagement;
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class TrainingSystemWeekConnection {
-    private Fragment fragment;
+    private TrainingSystemWeekConnectionCallback callback;
     private ArrayList<ArrayList<TrainingSystem>> trainingSystemWeek;
 
-    public TrainingSystemWeekConnection(Fragment fragment, ArrayList<ArrayList<TrainingSystem>> trainingSystemWeek) {
-        this.fragment = fragment;
+    public TrainingSystemWeekConnection(TrainingSystemWeekConnectionCallback callback, ArrayList<ArrayList<TrainingSystem>> trainingSystemWeek) {
+        this.callback = callback;
         this.trainingSystemWeek = trainingSystemWeek;
     }
 
     public void getTrainingSystemFromWeek(final int userID) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, fragment.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, callback.activity().getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -73,14 +75,12 @@ public class TrainingSystemWeekConnection {
                                 trainingSystemWeekManagement.addExerciseToFoodSystemListForDate(tempExercise, date, trainingSystemWeek);
                             }
                         }
-                        if(fragment.getClass() == ExportFragment.class){
-                            ((ExportFragment) fragment).getCaloricDemandFromWeek();
-                        }
+                        callback.onSuccessTrainingSystemWeek();
                     } else
-                        ToastUtils.shortToast(fragment.getActivity(), "Błąd połączenia z bazą");
+                        callback.onFailure("Błąd połączenia z bazą");
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ToastUtils.shortToast(fragment.getActivity(), "Błąd połączenia z bazą " + e.toString());
+                    callback.onFailure("Błąd połączenia z bazą " + e.toString());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -88,7 +88,7 @@ public class TrainingSystemWeekConnection {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                ToastUtils.shortToast(fragment.getActivity(), "Błąd połączenia z bazą " + error.toString());
+                callback.onFailure("Błąd połączenia z bazą " + error.toString());
             }
         }) {
             @Override
@@ -102,7 +102,7 @@ public class TrainingSystemWeekConnection {
                 return params;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(fragment.getActivity());
+        RequestQueue requestQueue = Volley.newRequestQueue(callback.activity());
         requestQueue.add(stringRequest);
     }
 }

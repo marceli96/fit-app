@@ -19,6 +19,7 @@ import java.util.Map;
 
 import pl.edu.wat.fitapp.Database.Entity.Exercise;
 import pl.edu.wat.fitapp.Database.Entity.Training;
+import pl.edu.wat.fitapp.Interface.MyTrainingsConnectionCallback;
 import pl.edu.wat.fitapp.View.Main.Fragment.AddToSystem.AddTrainingToTrainingSystemFragment;
 import pl.edu.wat.fitapp.View.Main.Fragment.Profile.ProfileFragment;
 import pl.edu.wat.fitapp.Mangement.MyTrainingManagement;
@@ -26,16 +27,16 @@ import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class MyTrainingsConnection {
-    private Fragment fragment;
+    private MyTrainingsConnectionCallback callback;
     private ArrayList<Training> myTrainings;
 
-    public MyTrainingsConnection(Fragment fragment, ArrayList<Training> myTrainings) {
-        this.fragment = fragment;
+    public MyTrainingsConnection(MyTrainingsConnectionCallback callback, ArrayList<Training> myTrainings) {
+        this.callback = callback;
         this.myTrainings = myTrainings;
     }
 
     public void getMyTrainings(final int userID) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, fragment.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, callback.activity().getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -60,21 +61,22 @@ public class MyTrainingsConnection {
                                 myTrainings.get(trainingPosition).addExerciseToList(tempExercise);
                             }
                         }
-                        if(fragment.getClass() == ProfileFragment.class)
-                            ((ProfileFragment) fragment).showMyTrainings();
-                        else if(fragment.getClass() == AddTrainingToTrainingSystemFragment.class)
-                            ((AddTrainingToTrainingSystemFragment) fragment).showMyTrainings();
+//                        if(fragment.getClass() == ProfileFragment.class)
+//                            ((ProfileFragment) fragment).showMyTrainings();
+//                        else if(fragment.getClass() == AddTrainingToTrainingSystemFragment.class)
+//                            ((AddTrainingToTrainingSystemFragment) fragment).showMyTrainings();
+                        callback.onSuccessMyTrainings();
                     } else
-                        ToastUtils.shortToast(fragment.getActivity(), "Błąd połączenia z bazą");
+                        callback.onFailure("Błąd połączenia z bazą");
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ToastUtils.shortToast(fragment.getActivity(), "Błąd połączenia z bazą " + e.toString());
+                    callback.onFailure("Błąd połączenia z bazą " + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                ToastUtils.shortToast(fragment.getActivity(), "Błąd połączenia z bazą " + error.toString());
+                callback.onFailure("Błąd połączenia z bazą " + error.toString());
             }
         }) {
             @Override
@@ -85,7 +87,7 @@ public class MyTrainingsConnection {
                 return params;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(fragment.getActivity());
+        RequestQueue requestQueue = Volley.newRequestQueue(callback.activity());
         requestQueue.add(stringRequest);
     }
 }

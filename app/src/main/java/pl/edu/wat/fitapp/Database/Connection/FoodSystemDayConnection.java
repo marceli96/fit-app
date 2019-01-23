@@ -19,7 +19,9 @@ import java.util.Map;
 
 import pl.edu.wat.fitapp.Database.Entity.Ingredient;
 import pl.edu.wat.fitapp.Database.Entity.Meal;
+import pl.edu.wat.fitapp.Interface.ConnectionCallback;
 import pl.edu.wat.fitapp.Interface.FoodSystem;
+import pl.edu.wat.fitapp.Interface.FoodSystemDayConnectionCallback;
 import pl.edu.wat.fitapp.View.Main.Fragment.HomeFragment;
 import pl.edu.wat.fitapp.View.Main.Fragment.JournalFragment;
 import pl.edu.wat.fitapp.Mangement.FoodSystemDayManagement;
@@ -27,16 +29,16 @@ import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class FoodSystemDayConnection {
-    private Fragment fragment;
+    private FoodSystemDayConnectionCallback callback;
     private ArrayList<ArrayList<FoodSystem>> foodSystemDay;
 
-    public FoodSystemDayConnection(Fragment fragment, ArrayList<ArrayList<FoodSystem>> foodSystemDay) {
-        this.fragment = fragment;
+    public FoodSystemDayConnection(FoodSystemDayConnectionCallback callback, ArrayList<ArrayList<FoodSystem>> foodSystemDay) {
+        this.callback = callback;
         this.foodSystemDay = foodSystemDay;
     }
 
     public void getFoodSystemFromDay(final int userID, final String date) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, fragment.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, callback.activity().getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -70,23 +72,19 @@ public class FoodSystemDayConnection {
                                 foodSystemManagement.addIngredientToFoodSystemList(tempIngredient, row.getInt("MealTime"), foodSystemDay);
                             }
                         }
-                        if (fragment.getClass() == JournalFragment.class) {
-                            ((JournalFragment) fragment).drawChartsMacroDaily();
-                        } else if(fragment.getClass() == HomeFragment.class){
-                            ((HomeFragment) fragment).showMealLayoutsAndUpdate();
-                        }
+                        callback.onSuccessFoodSystemDay();
                     } else {
-                        ToastUtils.shortToast(fragment.getActivity(), "Błąd połączenia z bazą");
+                        callback.onFailure("Błąd połączenia z bazą");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ToastUtils.shortToast(fragment.getActivity(), "Błąd połączenia z bazą " + e.toString());
+                    callback.onFailure("Błąd połączenia z bazą " + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                ToastUtils.shortToast(fragment.getActivity(), "Błąd połączenia z bazą " + error.toString());
+                callback.onFailure("Błąd połączenia z bazą " + error.toString());
             }
         }) {
             @Override
@@ -98,7 +96,7 @@ public class FoodSystemDayConnection {
                 return params;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(fragment.getActivity());
+        RequestQueue requestQueue = Volley.newRequestQueue(callback.activity());
         requestQueue.add(stringRequest);
     }
 

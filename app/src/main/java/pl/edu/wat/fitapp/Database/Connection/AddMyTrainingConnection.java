@@ -17,16 +17,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 import pl.edu.wat.fitapp.Database.Entity.Exercise;
+import pl.edu.wat.fitapp.Interface.AddMyTrainingConnectionCallback;
 import pl.edu.wat.fitapp.View.Main.Fragment.Profile.AddMyTrainingExercisesActivity;
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class AddMyTrainingConnection {
-    private AddMyTrainingExercisesActivity addMyTrainingExercisesActivity;
+    private AddMyTrainingConnectionCallback callback;
     private ArrayList<Exercise> trainingExercises;
 
-    public AddMyTrainingConnection(AddMyTrainingExercisesActivity addMyTrainingExercisesActivity, ArrayList<Exercise> trainingExercises) {
-        this.addMyTrainingExercisesActivity = addMyTrainingExercisesActivity;
+    public AddMyTrainingConnection(AddMyTrainingConnectionCallback callback, ArrayList<Exercise> trainingExercises) {
+        this.callback = callback;
         this.trainingExercises = trainingExercises;
     }
 
@@ -49,26 +50,25 @@ public class AddMyTrainingConnection {
         final String finalExerciseIds = exerciseIds;
         final String finalExerciseSeries = exerciseSeries;
         final String finalExerciseRepetitions = exerciseRepetitions;
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, addMyTrainingExercisesActivity.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, callback.activity().getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
                     if (success) {
-                        ToastUtils.shortToast(addMyTrainingExercisesActivity, "Dodano trening");
-                        addMyTrainingExercisesActivity.openMeFragment();
+                        callback.onSuccessAddMyTraining();
                     } else
-                        ToastUtils.shortToast(addMyTrainingExercisesActivity, "Błąd podczas dodawania treningu");
+                        callback.onFailure("Błąd podczas dodawania treningu");
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ToastUtils.shortToast(addMyTrainingExercisesActivity, "Błąd podczas dodawania treningu " + e.toString());
+                    callback.onFailure("Błąd podczas dodawania treningu " + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                ToastUtils.shortToast(addMyTrainingExercisesActivity, "Błąd podczas dodawania treningu " + error.toString());
+                callback.onFailure("Błąd podczas dodawania treningu " + error.toString());
             }
         }) {
             @Override
@@ -83,7 +83,7 @@ public class AddMyTrainingConnection {
                 return params;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(addMyTrainingExercisesActivity);
+        RequestQueue requestQueue = Volley.newRequestQueue(callback.activity());
         requestQueue.add(stringRequest);
     }
 }

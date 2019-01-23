@@ -20,21 +20,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 import pl.edu.wat.fitapp.Charts.JournalChartsWeightWeek;
+import pl.edu.wat.fitapp.Interface.WeightConnectionCallback;
 import pl.edu.wat.fitapp.View.Main.Fragment.JournalFragment;
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class WeightConnection {
-    private JournalFragment journalFragment;
+    private WeightConnectionCallback callback;
     private ArrayList<Double> weightWeek;
 
-    public WeightConnection(JournalFragment journalFragment, ArrayList<Double> weightWeek) {
-        this.journalFragment = journalFragment;
+    public WeightConnection(WeightConnectionCallback callback, ArrayList<Double> weightWeek) {
+        this.callback = callback;
         this.weightWeek = weightWeek;
     }
 
     public void getWeightFromDay(final int userID, final String date) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, journalFragment.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, callback.activity().getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -44,22 +45,20 @@ public class WeightConnection {
                         if (jsonResponse.length() == 2) {
                             JSONObject row = jsonResponse.getJSONObject(String.valueOf(0));
                             double weightDay = Double.parseDouble(row.getString("UserWeight"));
-                            journalFragment.setWeightDay(weightDay);
-                            journalFragment.getTvWeightDay().setText(String.valueOf(weightDay));
-                            journalFragment.getLlWeightDay().setVisibility(View.VISIBLE);
+                            callback.onSuccessWeightDay(weightDay);
                         }
                     } else {
-                        ToastUtils.shortToast(journalFragment.getActivity(), "Błąd podczas pobierania wagi z dnia");
+                        callback.onFailure("Błąd podczas pobierania wagi z dnia");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ToastUtils.shortToast(journalFragment.getActivity(), "Błąd połączenia z bazą! " + e.toString());
+                    callback.onFailure("Błąd połączenia z bazą! " + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                ToastUtils.shortToast(journalFragment.getActivity(), "Błąd połączenia z bazą! " + error.toString());
+                callback.onFailure("Błąd połączenia z bazą! " + error.toString());
             }
         }) {
             @Override
@@ -71,12 +70,12 @@ public class WeightConnection {
                 return params;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(journalFragment.getActivity());
+        RequestQueue requestQueue = Volley.newRequestQueue(callback.activity());
         requestQueue.add(stringRequest);
     }
 
     public void getWeightFromWeek(final int userID) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, journalFragment.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, callback.activity().getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -87,20 +86,18 @@ public class WeightConnection {
                             JSONObject row = jsonResponse.getJSONObject(String.valueOf(i));
                             weightWeek.add(row.getDouble("UserWeight"));
                         }
-                        journalFragment.setWeightWeek(weightWeek);
-                        JournalChartsWeightWeek journalChartsWeightWeek = new JournalChartsWeightWeek(journalFragment, weightWeek);
-                        journalChartsWeightWeek.drawChartsWeightWeek();
+                        callback.onSuccessWeightWeek(weightWeek);
                     } else
-                        ToastUtils.shortToast(journalFragment.getActivity(), "Błąd połączenia z bazą");
+                        callback.onFailure("Błąd połączenia z bazą");
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ToastUtils.shortToast(journalFragment.getActivity(), "Błąd połączenia z bazą " + e.toString());
+                    callback.onFailure("Błąd połączenia z bazą " + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                ToastUtils.shortToast(journalFragment.getActivity(), "Błąd połączenia z bazą " + error.toString());
+                callback.onFailure("Błąd połączenia z bazą " + error.toString());
             }
         }) {
             @Override
@@ -114,7 +111,7 @@ public class WeightConnection {
                 return params;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(journalFragment.getActivity());
+        RequestQueue requestQueue = Volley.newRequestQueue(callback.activity());
         requestQueue.add(stringRequest);
     }
 }

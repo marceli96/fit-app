@@ -22,7 +22,9 @@ import java.util.Map;
 
 import pl.edu.wat.fitapp.Database.Entity.Ingredient;
 import pl.edu.wat.fitapp.Database.Entity.Meal;
+import pl.edu.wat.fitapp.Interface.ConnectionCallback;
 import pl.edu.wat.fitapp.Interface.FoodSystem;
+import pl.edu.wat.fitapp.Interface.FoodSystemWeekConnectionCallback;
 import pl.edu.wat.fitapp.View.Main.Fragment.ExportFragment;
 import pl.edu.wat.fitapp.View.Main.Fragment.JournalFragment;
 import pl.edu.wat.fitapp.Mangement.FoodSystemWeekManagement;
@@ -30,16 +32,16 @@ import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class FoodSystemWeekConnection {
-    private Fragment fragment;
+    private FoodSystemWeekConnectionCallback callback;
     private ArrayList<ArrayList<ArrayList<FoodSystem>>> foodSystemWeek;
 
-    public FoodSystemWeekConnection(Fragment fragment, ArrayList<ArrayList<ArrayList<FoodSystem>>> foodSystemWeek) {
-        this.fragment = fragment;
+    public FoodSystemWeekConnection(FoodSystemWeekConnectionCallback callback, ArrayList<ArrayList<ArrayList<FoodSystem>>> foodSystemWeek) {
+        this.callback = callback;
         this.foodSystemWeek = foodSystemWeek;
     }
 
     public void getFoodSystemFromWeek(final int userID) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, fragment.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, callback.activity().getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -76,17 +78,12 @@ public class FoodSystemWeekConnection {
                                 foodSystemWeekManagement.addIngredientToFoodSystemListForDate(tempIngredient, date, row.getInt("MealTime"), foodSystemWeek);
                             }
                         }
-                        if (fragment.getClass() == JournalFragment.class) {
-                            ((JournalFragment) fragment).drawChartsMacroWeek();
-                        } else if (fragment.getClass() == ExportFragment.class) {
-                            ((ExportFragment) fragment).getTrainingSystemFromWeek();
-                        }
-
+                        callback.onSuccessFoodSystemWeek();
                     } else
-                        ToastUtils.shortToast(fragment.getActivity(), "Błąd połączenia z bazą");
+                        callback.onFailure("Błąd połączenia z bazą");
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ToastUtils.shortToast(fragment.getActivity(), "Błąd połączenia z bazą " + e.toString());
+                    callback.onFailure("Błąd połączenia z bazą " + e.toString());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -94,7 +91,7 @@ public class FoodSystemWeekConnection {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                ToastUtils.shortToast(fragment.getActivity(), "Błąd połączenia z bazą " + error.toString());
+                callback.onFailure("Błąd połączenia z bazą " + error.toString());
             }
         }) {
             @Override
@@ -108,7 +105,7 @@ public class FoodSystemWeekConnection {
                 return params;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(fragment.getActivity());
+        RequestQueue requestQueue = Volley.newRequestQueue(callback.activity());
         requestQueue.add(stringRequest);
     }
 }

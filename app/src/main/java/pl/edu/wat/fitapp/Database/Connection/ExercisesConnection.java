@@ -19,20 +19,21 @@ import java.util.Map;
 
 import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.SimpleExercisesListAdapter;
 import pl.edu.wat.fitapp.Database.Entity.Exercise;
+import pl.edu.wat.fitapp.Interface.ExercisesConnectionCallback;
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class ExercisesConnection {
-    private Activity activity;
+    private ExercisesConnectionCallback callback;
     private ArrayList<Exercise> exercises;
 
-    public ExercisesConnection(Activity activity, ArrayList<Exercise> exercises) {
-        this.activity = activity;
+    public ExercisesConnection(ExercisesConnectionCallback callback, ArrayList<Exercise> exercises) {
+        this.callback = callback;
         this.exercises = exercises;
     }
 
-    public void getExercises(final SimpleExercisesListAdapter simpleExercisesListAdapter) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, activity.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
+    public void getExercises() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, callback.activity().getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -43,18 +44,18 @@ public class ExercisesConnection {
                             JSONObject exercise = jsonResponse.getJSONObject(String.valueOf(i));
                             exercises.add(new Exercise(exercise.getInt("ID_Exercise"), exercise.getString("ExerciseName")));
                         }
-                        simpleExercisesListAdapter.notifyDataSetChanged();
+                        callback.onSuccessExercises();
                     } else
-                        ToastUtils.shortToast(activity, "Wystąpił błąd podczas pobierania ćwiczeń");
+                        callback.onFailure("Wystąpił błąd podczas pobierania ćwiczeń");
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ToastUtils.shortToast(activity, "Wystąpił błąd podczas pobierania ćwiczeń " + e.toString());
+                    callback.onFailure("Wystąpił błąd podczas pobierania ćwiczeń " + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                ToastUtils.shortToast(activity, "Wystąpił błąd podczas pobierania ćwiczeń " + error.toString());
+                callback.onFailure("Wystąpił błąd podczas pobierania ćwiczeń " + error.toString());
             }
         }) {
             @Override
@@ -64,7 +65,7 @@ public class ExercisesConnection {
                 return params;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(activity);
+        RequestQueue requestQueue = Volley.newRequestQueue(callback.activity());
         requestQueue.add(stringRequest);
     }
 

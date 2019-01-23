@@ -1,5 +1,6 @@
 package pl.edu.wat.fitapp.View.Main.Fragment.Profile;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,12 +24,14 @@ import pl.edu.wat.fitapp.Database.Connection.IngredientsConnection;
 import pl.edu.wat.fitapp.Database.Entity.Ingredient;
 import pl.edu.wat.fitapp.Database.Entity.User;
 import pl.edu.wat.fitapp.Dialog.AddMyMealIngredientOnClickDialog;
+import pl.edu.wat.fitapp.Interface.AddMyMealConnectionCallback;
+import pl.edu.wat.fitapp.Interface.IngredientsConnectionCallback;
 import pl.edu.wat.fitapp.View.Main.MainActivity;
 import pl.edu.wat.fitapp.Mangement.MacrocomponentManagement;
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.Utils.ToastUtils;
 
-public class AddMyMealIngredientsActivity extends AppCompatActivity {
+public class AddMyMealIngredientsActivity extends AppCompatActivity implements IngredientsConnectionCallback, AddMyMealConnectionCallback {
     private Button bAddMyMeal;
     private TextView tvMealCalories, tvReqCalories, tvMealCarbohydrates, tvReqCarbohydrates, tvMealProtein,
             tvReqProtein, tvMealFat, tvReqFat, tvIngredientAmount;
@@ -86,7 +89,7 @@ public class AddMyMealIngredientsActivity extends AppCompatActivity {
         lvMealIngredients.setAdapter(addedIngredientsToMealListAdapter);
 
         ingredientsConnection = new IngredientsConnection(AddMyMealIngredientsActivity.this, ingredients);
-        ingredientsConnection.getIngredients(ingredientsListAdapter);
+        ingredientsConnection.getIngredients();
 
         bAddMyMeal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,5 +190,26 @@ public class AddMyMealIngredientsActivity extends AppCompatActivity {
         pbCarbohydrates.setProgress((int) Math.round(mealCarbohydrates));
         pbProtein.setProgress((int) Math.round(mealProtein));
         pbFat.setProgress((int) Math.round(mealFat));
+    }
+
+    @Override
+    public void onSuccessIngredients() {
+        ingredientsListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onSuccessAddMyMeal() {
+        ToastUtils.shortToast(AddMyMealIngredientsActivity.this, "Dodano posiłek");
+        openMeFragment();
+    }
+
+    @Override
+    public void onFailure(String message) {
+        ToastUtils.shortToast(AddMyMealIngredientsActivity.this, message);
+    }
+
+    @Override
+    public Activity activity() {
+        return AddMyMealIngredientsActivity.this;
     }
 }
