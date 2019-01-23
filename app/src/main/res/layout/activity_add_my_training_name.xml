@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingHorizontal="5dp"
-    tools:context=".View.Main.Fragment.Profile.AddMyTrainingNameActivity">
+    tools:context=".view.main.fragment.profile.AddMyTrainingNameActivity">
 
     <ImageView
         android:layout_width="match_parent"
