@@ -1,4 +1,4 @@
-package pl.edu.wat.fitapp.Database.Connection;
+package pl.edu.wat.fitapp.database.connection;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -15,8 +15,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import pl.edu.wat.fitapp.Database.Entity.User;
-import pl.edu.wat.fitapp.Interface.UserConnectionCallback;
+import pl.edu.wat.fitapp.database.entity.User;
+import pl.edu.wat.fitapp.interfaces.callback.UserConnectionCallback;
 import pl.edu.wat.fitapp.R;
 
 public class LoginConnection {

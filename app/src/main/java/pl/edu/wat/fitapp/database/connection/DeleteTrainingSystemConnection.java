@@ -1,6 +1,4 @@
-package pl.edu.wat.fitapp.Database.Connection;
-
-import android.widget.Toast;
+package pl.edu.wat.fitapp.database.connection;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -18,47 +16,43 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.TrainingSystemListAdapter;
-import pl.edu.wat.fitapp.Database.Entity.Exercise;
-import pl.edu.wat.fitapp.Interface.TrainingSystem;
-import pl.edu.wat.fitapp.View.Main.Fragment.HomeFragment;
+import pl.edu.wat.fitapp.androidComponent.listAdapter.TrainingSystemListAdapter;
+import pl.edu.wat.fitapp.database.entity.Exercise;
+import pl.edu.wat.fitapp.interfaces.TrainingSystem;
+import pl.edu.wat.fitapp.interfaces.callback.TrainingSystemCallback;
 import pl.edu.wat.fitapp.R;
-import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class DeleteTrainingSystemConnection {
-    private HomeFragment homeFragment;
+    private TrainingSystemCallback callback;
     private ArrayList<TrainingSystem> trainingSystemDay;
     private TrainingSystemListAdapter trainingSystemListAdapter;
 
-    public DeleteTrainingSystemConnection(HomeFragment homeFragment, ArrayList<TrainingSystem> trainingSystemDay, TrainingSystemListAdapter trainingSystemListAdapter) {
-        this.homeFragment = homeFragment;
+    public DeleteTrainingSystemConnection(TrainingSystemCallback callback, ArrayList<TrainingSystem> trainingSystemDay, TrainingSystemListAdapter trainingSystemListAdapter) {
+        this.callback = callback;
         this.trainingSystemDay = trainingSystemDay;
         this.trainingSystemListAdapter = trainingSystemListAdapter;
     }
 
     public void deleteFromTrainingSystem(final TrainingSystem training, final int userID) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, homeFragment.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, callback.activity().getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
                     if (success) {
-                        ToastUtils.shortToast(homeFragment.getActivity(), "Pomyślnie usunięto");
-                        trainingSystemDay.remove(training);
-                        trainingSystemListAdapter.notifyDataSetChanged();
-                        homeFragment.updateExerciseAmount();
+                        callback.onSuccessTrainingSystem(training);
                     } else
-                        ToastUtils.shortToast(homeFragment.getActivity(), "Błąd podczas usuwania");
+                        callback.onFailure("Błąd podczas usuwania");
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ToastUtils.shortToast(homeFragment.getActivity(), "Błąd podczas usuwania " + e.toString());
+                    callback.onFailure("Błąd podczas usuwania " + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                ToastUtils.shortToast(homeFragment.getActivity(), "Błąd podczas usuwania " + error.toString());
+                callback.onFailure("Błąd podczas usuwania " + error.toString());
             }
         }) {
             @Override
@@ -79,7 +73,7 @@ public class DeleteTrainingSystemConnection {
                 return params;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(homeFragment.getActivity());
+        RequestQueue requestQueue = Volley.newRequestQueue(callback.activity());
         requestQueue.add(stringRequest);
     }
 }

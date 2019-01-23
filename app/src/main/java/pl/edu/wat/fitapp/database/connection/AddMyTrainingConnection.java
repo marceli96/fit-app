@@ -1,6 +1,4 @@
-package pl.edu.wat.fitapp.Database.Connection;
-
-import android.widget.Toast;
+package pl.edu.wat.fitapp.database.connection;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -16,11 +14,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import pl.edu.wat.fitapp.Database.Entity.Exercise;
-import pl.edu.wat.fitapp.Interface.AddMyTrainingConnectionCallback;
-import pl.edu.wat.fitapp.View.Main.Fragment.Profile.AddMyTrainingExercisesActivity;
+import pl.edu.wat.fitapp.database.entity.Exercise;
+import pl.edu.wat.fitapp.interfaces.callback.AddMyTrainingConnectionCallback;
 import pl.edu.wat.fitapp.R;
-import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class AddMyTrainingConnection {
     private AddMyTrainingConnectionCallback callback;

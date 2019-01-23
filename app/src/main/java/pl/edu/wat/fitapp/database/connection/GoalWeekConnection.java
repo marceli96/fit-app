@@ -1,7 +1,4 @@
-package pl.edu.wat.fitapp.Database.Connection;
-
-import android.support.v4.app.Fragment;
-import android.widget.Toast;
+package pl.edu.wat.fitapp.database.connection;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,10 +16,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import pl.edu.wat.fitapp.Interface.GoalWeekConnectionCallback;
-import pl.edu.wat.fitapp.View.Main.Fragment.ExportFragment;
+import pl.edu.wat.fitapp.interfaces.callback.GoalWeekConnectionCallback;
 import pl.edu.wat.fitapp.R;
-import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class GoalWeekConnection {
     private GoalWeekConnectionCallback callback;

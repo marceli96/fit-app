@@ -1,7 +1,4 @@
-package pl.edu.wat.fitapp.Database.Connection;
-
-import android.support.v4.app.Fragment;
-import android.widget.Toast;
+package pl.edu.wat.fitapp.database.connection;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -18,44 +15,42 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import pl.edu.wat.fitapp.View.Main.Fragment.AddToSystem.AddExerciseToTrainingSystemFragment;
+import pl.edu.wat.fitapp.interfaces.callback.ConnectionCallback;
 import pl.edu.wat.fitapp.R;
-import pl.edu.wat.fitapp.Utils.ToastUtils;
+
 
 public class AddExerciseToTrainingSystemConnection {
-    private Fragment fragment;
+    private ConnectionCallback callback;
 
-    public AddExerciseToTrainingSystemConnection(Fragment fragment) {
-        this.fragment = fragment;
+    public AddExerciseToTrainingSystemConnection(ConnectionCallback callback) {
+        this.callback = callback;
     }
 
     public void addExerciseToTrainingSystem(final int exerciseId, final int userID, final String series, final String repetitions) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, fragment.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, callback.activity().getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean message = jsonResponse.getBoolean("message");
                     if (!message) {
-                        ToastUtils.shortToast(fragment.getActivity(), "Dane ćwiczenie zostało już dodane w tym dniu");
+                        callback.onFailure("Dane ćwiczenie zostało już dodane w tym dniu");
                     } else {
                         boolean success = jsonResponse.getBoolean("success");
                         if (success) {
-                            ToastUtils.shortToast(fragment.getActivity(), "Dodano pomyślnie");
-                            if(fragment.getClass() == AddExerciseToTrainingSystemFragment.class)
-                                ((AddExerciseToTrainingSystemFragment) fragment).openMainActivity();
+                            callback.onSuccess();
                         } else
-                            ToastUtils.shortToast(fragment.getActivity(),"Błąd podczas dodawania");
+                            callback.onFailure("Błąd podczas dodawania");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ToastUtils.shortToast(fragment.getActivity(), "Błąd podczas dodawania " + e.toString());
+                    callback.onFailure("Błąd podczas dodawania " + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                ToastUtils.shortToast(fragment.getActivity(), "Błąd podczas dodawania " + error.toString());
+                callback.onFailure("Błąd podczas dodawania " + error.toString());
             }
         }) {
             @Override
@@ -72,7 +67,7 @@ public class AddExerciseToTrainingSystemConnection {
                 return params;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(fragment.getActivity());
+        RequestQueue requestQueue = Volley.newRequestQueue(callback.activity());
         requestQueue.add(stringRequest);
     }
 

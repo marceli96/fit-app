@@ -1,7 +1,4 @@
-package pl.edu.wat.fitapp.Database.Connection;
-
-import android.view.View;
-import android.widget.Toast;
+package pl.edu.wat.fitapp.database.connection;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,20 +16,18 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import pl.edu.wat.fitapp.Database.Entity.Exercise;
-import pl.edu.wat.fitapp.Database.Entity.Training;
-import pl.edu.wat.fitapp.Interface.ConnectionCallback;
-import pl.edu.wat.fitapp.Interface.TrainingSystem;
-import pl.edu.wat.fitapp.View.Main.Fragment.HomeFragment;
-import pl.edu.wat.fitapp.Mangement.TrainingSystemDayManagement;
+import pl.edu.wat.fitapp.database.entity.Exercise;
+import pl.edu.wat.fitapp.database.entity.Training;
+import pl.edu.wat.fitapp.interfaces.TrainingSystem;
+import pl.edu.wat.fitapp.interfaces.callback.TrainingSystemDayConnectionCallback;
+import pl.edu.wat.fitapp.mangement.TrainingSystemDayManagement;
 import pl.edu.wat.fitapp.R;
-import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class TrainingSystemDayConnection {
-    private ConnectionCallback callback;
+    private TrainingSystemDayConnectionCallback callback;
     private ArrayList<TrainingSystem> trainingSystemDay;
 
-    public TrainingSystemDayConnection(ConnectionCallback callback, ArrayList<TrainingSystem> trainingSystemDay) {
+    public TrainingSystemDayConnection(TrainingSystemDayConnectionCallback callback, ArrayList<TrainingSystem> trainingSystemDay) {
         this.callback = callback;
         this.trainingSystemDay = trainingSystemDay;
     }
@@ -70,7 +65,7 @@ public class TrainingSystemDayConnection {
                                 trainingSystemDay.add(tempExercise);
                             }
                         }
-                        callback.onSuccess();
+                        callback.onSuccessTrainingSystemDay();
                     } else
                         callback.onFailure("Błąd połączenia z bazą");
                 } catch (JSONException e) {

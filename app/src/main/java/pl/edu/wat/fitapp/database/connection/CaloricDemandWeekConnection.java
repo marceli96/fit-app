@@ -1,4 +1,4 @@
-package pl.edu.wat.fitapp.Database.Connection;
+package pl.edu.wat.fitapp.database.connection;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import pl.edu.wat.fitapp.Interface.CaloricDemandWeekConnectionCallback;
+import pl.edu.wat.fitapp.interfaces.callback.CaloricDemandWeekConnectionCallback;
 import pl.edu.wat.fitapp.R;
 
 
@@ -52,7 +52,8 @@ public class CaloricDemandWeekConnection {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                callback.onFailure("Błąd połączenia z bazą " + error.toString()); }
+                callback.onFailure("Błąd połączenia z bazą " + error.toString());
+            }
         }) {
             @Override
             protected Map<String, String> getParams() {

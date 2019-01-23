@@ -1,6 +1,4 @@
-package pl.edu.wat.fitapp.Database.Connection;
-
-import android.widget.Toast;
+package pl.edu.wat.fitapp.database.connection;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -18,72 +16,43 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import pl.edu.wat.fitapp.Database.Entity.Ingredient;
-import pl.edu.wat.fitapp.Interface.FoodSystem;
-import pl.edu.wat.fitapp.AndroidComponent.ListAdapter.FoodSystemListAdapter;
-import pl.edu.wat.fitapp.View.Main.Fragment.HomeFragment;
+import pl.edu.wat.fitapp.database.entity.Ingredient;
+import pl.edu.wat.fitapp.interfaces.FoodSystem;
+import pl.edu.wat.fitapp.androidComponent.listAdapter.FoodSystemListAdapter;
+import pl.edu.wat.fitapp.interfaces.callback.FoodSystemCallback;
 import pl.edu.wat.fitapp.R;
-import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class DeleteFoodSystemConnection {
-    private HomeFragment homeFragment;
+    private FoodSystemCallback callback;
     private ArrayList<ArrayList<FoodSystem>> foodSystemDay;
     private ArrayList<FoodSystemListAdapter> foodSystemListAdapters;
 
-    public DeleteFoodSystemConnection(HomeFragment homeFragment, ArrayList<ArrayList<FoodSystem>> foodSystemDay, ArrayList<FoodSystemListAdapter> foodSystemMealTimeAdapters) {
-        this.homeFragment = homeFragment;
+    public DeleteFoodSystemConnection(FoodSystemCallback callback, ArrayList<ArrayList<FoodSystem>> foodSystemDay, ArrayList<FoodSystemListAdapter> foodSystemListAdapters) {
+        this.callback = callback;
         this.foodSystemDay = foodSystemDay;
-        this.foodSystemListAdapters = foodSystemMealTimeAdapters;
+        this.foodSystemListAdapters = foodSystemListAdapters;
     }
 
     public void deleteFromFoodSystem(final FoodSystem food, final int userId, final int mealTime, final int weight) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, homeFragment.getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, callback.activity().getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
                     if (success) {
-                        switch (mealTime) {
-                            case 0:
-                                foodSystemDay.get(0).remove(food);
-                                foodSystemListAdapters.get(0).notifyDataSetChanged();
-                                break;
-                            case 1:
-                                foodSystemDay.get(1).remove(food);
-                                foodSystemListAdapters.get(1).notifyDataSetChanged();
-                                break;
-                            case 2:
-                                foodSystemDay.get(2).remove(food);
-                                foodSystemListAdapters.get(2).notifyDataSetChanged();
-                                break;
-                            case 3:
-                                foodSystemDay.get(3).remove(food);
-                                foodSystemListAdapters.get(3).notifyDataSetChanged();
-                                break;
-                            case 4:
-                                foodSystemDay.get(4).remove(food);
-                                foodSystemListAdapters.get(4).notifyDataSetChanged();
-                                break;
-                            case 5:
-                                foodSystemDay.get(5).remove(food);
-                                foodSystemListAdapters.get(5).notifyDataSetChanged();
-                                break;
-                        }
-                        ToastUtils.shortToast(homeFragment.getActivity(), "Pomyślnie usunięto");
-                        homeFragment.updateMacrosOnMealTimes();
-                        homeFragment.updateEatenMacros();
+                        callback.onSuccessFoodSystem(mealTime, food);
                     } else
-                        ToastUtils.shortToast(homeFragment.getActivity(), "Błąd podczas usuwania");
+                        callback.onFailure("Błąd podczas usuwania");
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ToastUtils.shortToast(homeFragment.getActivity(), "Błąd podczas usuwania " + e.toString());
+                    callback.onFailure("Błąd podczas usuwania " + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                ToastUtils.shortToast(homeFragment.getActivity(), "Błąd podczas usuwania " + error.toString());
+                callback.onFailure("Błąd podczas usuwania " + error.toString());
             }
         }) {
             @Override
@@ -107,7 +76,7 @@ public class DeleteFoodSystemConnection {
             }
         };
 
-        RequestQueue requestQueue = Volley.newRequestQueue(homeFragment.getActivity());
+        RequestQueue requestQueue = Volley.newRequestQueue(callback.activity());
         requestQueue.add(stringRequest);
     }
 

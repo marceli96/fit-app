@@ -1,6 +1,4 @@
-package pl.edu.wat.fitapp.Database.Connection;
-
-import android.widget.Toast;
+package pl.edu.wat.fitapp.database.connection;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -15,12 +13,9 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import pl.edu.wat.fitapp.Database.Entity.User;
-import pl.edu.wat.fitapp.Interface.ConnectionCallback;
-import pl.edu.wat.fitapp.Interface.UserConnectionCallback;
-import pl.edu.wat.fitapp.View.Main.Fragment.SettingsFragment;
+import pl.edu.wat.fitapp.database.entity.User;
+import pl.edu.wat.fitapp.interfaces.callback.UserConnectionCallback;
 import pl.edu.wat.fitapp.R;
-import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class UserSettingsConnection {
     private UserConnectionCallback callback;

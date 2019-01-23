@@ -1,7 +1,4 @@
-package pl.edu.wat.fitapp.Database.Connection;
-
-import android.support.v4.app.Fragment;
-import android.widget.Toast;
+package pl.edu.wat.fitapp.database.connection;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -17,14 +14,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import pl.edu.wat.fitapp.Database.Entity.Ingredient;
-import pl.edu.wat.fitapp.Database.Entity.Meal;
-import pl.edu.wat.fitapp.Interface.MyMealsConnectionCallback;
-import pl.edu.wat.fitapp.View.Main.Fragment.AddToSystem.AddMealToFoodSystemFragment;
-import pl.edu.wat.fitapp.View.Main.Fragment.Profile.ProfileFragment;
-import pl.edu.wat.fitapp.Mangement.MyMealManagement;
+import pl.edu.wat.fitapp.database.entity.Ingredient;
+import pl.edu.wat.fitapp.database.entity.Meal;
+import pl.edu.wat.fitapp.interfaces.callback.MyMealsConnectionCallback;
+import pl.edu.wat.fitapp.mangement.MyMealManagement;
 import pl.edu.wat.fitapp.R;
-import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class MyMealsConnection {
     private MyMealsConnectionCallback callback;
@@ -61,10 +55,6 @@ public class MyMealsConnection {
                                 myMeals.get(mealPosition).addIngredientToList(tempIngredient);
                             }
                         }
-//                        if (fragment.getClass() == ProfileFragment.class)
-//                            ((ProfileFragment) fragment).showMyMeals();
-//                        else if(fragment.getClass() == AddMealToFoodSystemFragment.class)
-//                            ((AddMealToFoodSystemFragment) fragment).showMyMeals();
                         callback.onSuccessMyMeals();
                     } else
                         callback.onFailure("Błąd połączenia z bazą");

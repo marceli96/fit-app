@@ -1,7 +1,4 @@
-package pl.edu.wat.fitapp.Database.Connection;
-
-import android.support.v4.app.Fragment;
-import android.widget.Toast;
+package pl.edu.wat.fitapp.database.connection;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -20,15 +17,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import pl.edu.wat.fitapp.Database.Entity.Exercise;
-import pl.edu.wat.fitapp.Database.Entity.Training;
-import pl.edu.wat.fitapp.Interface.FoodSystemWeekConnectionCallback;
-import pl.edu.wat.fitapp.Interface.TrainingSystem;
-import pl.edu.wat.fitapp.Interface.TrainingSystemWeekConnectionCallback;
-import pl.edu.wat.fitapp.View.Main.Fragment.ExportFragment;
-import pl.edu.wat.fitapp.Mangement.TrainingSystemWeekManagement;
+import pl.edu.wat.fitapp.database.entity.Exercise;
+import pl.edu.wat.fitapp.database.entity.Training;
+import pl.edu.wat.fitapp.interfaces.TrainingSystem;
+import pl.edu.wat.fitapp.interfaces.callback.TrainingSystemWeekConnectionCallback;
+import pl.edu.wat.fitapp.mangement.TrainingSystemWeekManagement;
 import pl.edu.wat.fitapp.R;
-import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class TrainingSystemWeekConnection {
     private TrainingSystemWeekConnectionCallback callback;

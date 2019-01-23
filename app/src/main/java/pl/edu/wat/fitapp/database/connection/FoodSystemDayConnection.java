@@ -1,7 +1,4 @@
-package pl.edu.wat.fitapp.Database.Connection;
-
-import android.support.v4.app.Fragment;
-import android.widget.Toast;
+package pl.edu.wat.fitapp.database.connection;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -17,16 +14,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import pl.edu.wat.fitapp.Database.Entity.Ingredient;
-import pl.edu.wat.fitapp.Database.Entity.Meal;
-import pl.edu.wat.fitapp.Interface.ConnectionCallback;
-import pl.edu.wat.fitapp.Interface.FoodSystem;
-import pl.edu.wat.fitapp.Interface.FoodSystemDayConnectionCallback;
-import pl.edu.wat.fitapp.View.Main.Fragment.HomeFragment;
-import pl.edu.wat.fitapp.View.Main.Fragment.JournalFragment;
-import pl.edu.wat.fitapp.Mangement.FoodSystemDayManagement;
+import pl.edu.wat.fitapp.database.entity.Ingredient;
+import pl.edu.wat.fitapp.database.entity.Meal;
+import pl.edu.wat.fitapp.interfaces.FoodSystem;
+import pl.edu.wat.fitapp.interfaces.callback.FoodSystemDayConnectionCallback;
+import pl.edu.wat.fitapp.mangement.FoodSystemDayManagement;
 import pl.edu.wat.fitapp.R;
-import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class FoodSystemDayConnection {
     private FoodSystemDayConnectionCallback callback;

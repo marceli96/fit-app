@@ -1,7 +1,4 @@
-package pl.edu.wat.fitapp.Database.Connection;
-
-import android.view.View;
-import android.widget.Toast;
+package pl.edu.wat.fitapp.database.connection;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,11 +16,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import pl.edu.wat.fitapp.Charts.JournalChartsWeightWeek;
-import pl.edu.wat.fitapp.Interface.WeightConnectionCallback;
-import pl.edu.wat.fitapp.View.Main.Fragment.JournalFragment;
+import pl.edu.wat.fitapp.interfaces.callback.WeightConnectionCallback;
 import pl.edu.wat.fitapp.R;
-import pl.edu.wat.fitapp.Utils.ToastUtils;
 
 public class WeightConnection {
     private WeightConnectionCallback callback;
@@ -84,7 +78,7 @@ public class WeightConnection {
                     if (success) {
                         for (int i = 0; i < jsonResponse.length() - 1; i++) {
                             JSONObject row = jsonResponse.getJSONObject(String.valueOf(i));
-                            weightWeek.add(row.getDouble("UserWeight"));
+                            weightWeek.set(i, row.getDouble("UserWeight"));
                         }
                         callback.onSuccessWeightWeek(weightWeek);
                     } else
