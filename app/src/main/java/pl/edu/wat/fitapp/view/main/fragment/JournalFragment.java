@@ -1,6 +1,5 @@
 package pl.edu.wat.fitapp.view.main.fragment;
 
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -31,7 +30,6 @@ import pl.edu.wat.fitapp.interfaces.callback.WeightConnectionCallback;
 import pl.edu.wat.fitapp.utils.ToastUtils;
 import pl.edu.wat.fitapp.view.main.MainActivity;
 import pl.edu.wat.fitapp.R;
-
 
 public class JournalFragment extends Fragment implements WeightConnectionCallback, FoodSystemDayConnectionCallback, FoodSystemWeekConnectionCallback {
     private TextView tvDate, tvWeightDay;

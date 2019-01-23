@@ -5,7 +5,6 @@ import pl.edu.wat.fitapp.database.entity.Meal;
 
 public class MealManagement {
     private Meal meal;
-    private IngredientManagement ingredientManagement;
 
     public MealManagement(Meal meal) {
         this.meal = meal;

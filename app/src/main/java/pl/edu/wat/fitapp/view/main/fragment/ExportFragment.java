@@ -1,6 +1,5 @@
 package pl.edu.wat.fitapp.view.main.fragment;
 
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -31,7 +30,6 @@ import pl.edu.wat.fitapp.interfaces.callback.TrainingSystemWeekConnectionCallbac
 import pl.edu.wat.fitapp.view.main.MainActivity;
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.utils.ToastUtils;
-
 
 public class ExportFragment extends Fragment implements FoodSystemWeekConnectionCallback,
         TrainingSystemWeekConnectionCallback, CaloricDemandWeekConnectionCallback, GoalWeekConnectionCallback {

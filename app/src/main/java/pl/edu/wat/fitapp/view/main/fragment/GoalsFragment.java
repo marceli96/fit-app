@@ -24,7 +24,6 @@ import pl.edu.wat.fitapp.mangement.UserSettingsManagement;
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.utils.ToastUtils;
 
-
 public class GoalsFragment extends Fragment implements AdapterView.OnItemSelectedListener, UserConnectionCallback {
 
     private EditText etWeight;

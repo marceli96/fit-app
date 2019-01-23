@@ -1,6 +1,5 @@
 package pl.edu.wat.fitapp.view.main.fragment;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +17,6 @@ import pl.edu.wat.fitapp.interfaces.callback.UserConnectionCallback;
 import pl.edu.wat.fitapp.view.main.MainActivity;
 import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.utils.ToastUtils;
-
 
 public class SettingsFragment extends Fragment implements UserConnectionCallback {
 

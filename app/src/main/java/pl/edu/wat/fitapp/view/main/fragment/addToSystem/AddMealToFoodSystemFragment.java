@@ -1,6 +1,5 @@
 package pl.edu.wat.fitapp.view.main.fragment.addToSystem;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

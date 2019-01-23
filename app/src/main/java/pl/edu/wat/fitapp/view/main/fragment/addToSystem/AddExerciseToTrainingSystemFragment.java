@@ -1,6 +1,5 @@
 package pl.edu.wat.fitapp.view.main.fragment.addToSystem;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,7 +22,6 @@ import pl.edu.wat.fitapp.interfaces.callback.ExercisesConnectionCallback;
 import pl.edu.wat.fitapp.utils.ToastUtils;
 import pl.edu.wat.fitapp.view.main.MainActivity;
 import pl.edu.wat.fitapp.R;
-
 
 public class AddExerciseToTrainingSystemFragment extends Fragment implements ExercisesConnectionCallback, ConnectionCallback {
     private ListView lvExercises;
