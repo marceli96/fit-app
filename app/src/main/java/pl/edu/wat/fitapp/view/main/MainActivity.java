@@ -96,8 +96,20 @@ public class MainActivity extends AppCompatActivity {
 
 
     private boolean changeDrawerNavigationItem(MenuItem menuItem) {
-        Fragment selectedFragment = null;
+        Fragment selectedFragment;
         switch (menuItem.getItemId()) {
+            case R.id.drawer_home:
+                selectedFragment = new HomeFragment();
+                mainNavigation.getMenu().getItem(0).setChecked(true);
+                break;
+            case R.id.drawer_journal:
+                selectedFragment = new JournalFragment();
+                mainNavigation.getMenu().getItem(1).setChecked(true);
+                break;
+            case R.id.drawer_me:
+                selectedFragment = new ProfileFragment();
+                mainNavigation.getMenu().getItem(2).setChecked(true);
+                break;
             case R.id.drawer_goals:
                 selectedFragment = new GoalsFragment();
                 mainNavigation.getMenu().setGroupCheckable(0, false, true);
@@ -135,14 +147,17 @@ public class MainActivity extends AppCompatActivity {
             case R.id.navHome:
                 mainNavigation.getMenu().setGroupCheckable(0, true, true);
                 selectedFragment = new HomeFragment();
+                navigationView.setCheckedItem(R.id.drawer_home);
                 break;
             case R.id.navJournal:
                 mainNavigation.getMenu().setGroupCheckable(0, true, true);
                 selectedFragment = new JournalFragment();
+                navigationView.setCheckedItem(R.id.drawer_journal);
                 break;
             case R.id.navMe:
                 mainNavigation.getMenu().setGroupCheckable(0, true, true);
                 selectedFragment = new ProfileFragment();
+                navigationView.setCheckedItem(R.id.drawer_me);
                 break;
             default:
                 return false;
