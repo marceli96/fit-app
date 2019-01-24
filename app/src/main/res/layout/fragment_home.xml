@@ -38,6 +38,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:text="@string/calories" />
 
@@ -95,6 +96,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginRight="1dp"
                             android:layout_weight="1"
                             android:text="@string/carbohydrates"
                             android:textSize="11sp" />
@@ -148,6 +150,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginRight="1dp"
                             android:layout_weight="1"
                             android:text="@string/protein"
                             android:textSize="11sp" />
@@ -200,6 +203,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginRight="1dp"
                             android:layout_weight="1"
                             android:text="@string/fat"
                             android:textSize="11sp" />
@@ -1019,7 +1023,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="@string/numberOfExercises" />
+                                android:text="@string/numberOfExercises"
+                                android:layout_marginRight="3dp"/>
 
                             <TextView
                                 android:id="@+id/tvExerciseAmount"

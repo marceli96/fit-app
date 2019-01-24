@@ -83,7 +83,8 @@
     <string name="in100g">w 100g:</string>
     <string name="inWholeMeal">w całym posiłku (</string>
     <string name="mealWeight">waga posiłku</string>
-    <string name="ingredients">Składniki:</string>
+    <string name="ingredients_colon">Składniki:</string>
+    <string name="ingredients">Składniki</string>
     <string name="erase">Usuń</string>
     <string name="openBracket"> (</string>
     <string name="exercises2">Ćwiczenia</string>

@@ -27,7 +27,8 @@
             android:layout_height="wrap_content"
             android:text="@string/adding"
             android:textColor="@android:color/black"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:layout_marginRight="5dp"/>
 
         <TextView
             android:id="@+id/tvExerciseName"
