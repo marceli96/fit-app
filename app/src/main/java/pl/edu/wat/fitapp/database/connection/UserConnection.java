@@ -41,24 +41,24 @@ public class UserConnection {
                                 user.setActivityLevel(activityLevel);
                                 callback.onSuccess(user);
                             } else
-                                callback.onFailure("Nieoczkiwany błąd, powtórz wcześniej wprowadzone zmiany");
+                                callback.onFailure(callback.activity().getString(R.string.saveChangeError));
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            callback.onFailure("Błąd połączenia z bazą" + e.toString());
+                            callback.onFailure(callback.activity().getString(R.string.connectionError) + e.toString());
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        callback.onFailure("Błąd połączenia z bazą " + error.toString());
+                        callback.onFailure(callback.activity().getString(R.string.connectionError) + error.toString());
                     }
                 }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 Date date = new Date();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat dateFormat = new SimpleDateFormat(callback.activity().getString(R.string.formatDate));
                 params.put("operation", "setWeightGoalActivityLevel");
                 params.put("userId", String.valueOf(user.getUserID()));
                 params.put("userWeight", String.valueOf(weight));

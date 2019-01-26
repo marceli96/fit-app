@@ -43,23 +43,23 @@ public class DeleteFoodSystemConnection {
                     if (success) {
                         callback.onSuccessFoodSystem(mealTime, food);
                     } else
-                        callback.onFailure("Błąd podczas usuwania");
+                        callback.onFailure(callback.activity().getString(R.string.eraseError));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    callback.onFailure("Błąd podczas usuwania " + e.toString());
+                    callback.onFailure(callback.activity().getString(R.string.eraseError)+ e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                callback.onFailure("Błąd podczas usuwania " + error.toString());
+                callback.onFailure(callback.activity().getString(R.string.eraseError) + error.toString());
             }
         }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 Date date = new Date();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat dateFormat = new SimpleDateFormat(callback.activity().getString(R.string.formatDate));
                 if (food.getClass() == Ingredient.class) {
                     params.put("operation", "deleteIngredientFromFoodSystem");
                     params.put("ingredientId", String.valueOf(food.getID()));

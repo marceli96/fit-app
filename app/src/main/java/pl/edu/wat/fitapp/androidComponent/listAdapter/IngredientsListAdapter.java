@@ -35,21 +35,21 @@ public class IngredientsListAdapter extends ArrayAdapter<Ingredient> {
         TextView tvIngredientFat = convertView.findViewById(R.id.tvIngredientFat);
         TextView tvIngredientCalories = convertView.findViewById(R.id.tvIngredientCalories);
 
-        DecimalFormat decimalFormat = new DecimalFormat("0.0");
+        DecimalFormat decimalFormat = new DecimalFormat(getContext().getString(R.string.floatZero));
 
         String tempString;
         tvIngredientName.setText(ingredients.get(position).getName());
 
-        tempString = String.valueOf(decimalFormat.format(ingredients.get(position).getCarbohydrates())) + " g";
+        tempString = String.valueOf(decimalFormat.format(ingredients.get(position).getCarbohydrates())) + getContext().getString(R.string.g);
         tvIngredientCarbohydrates.setText(tempString);
 
-        tempString = String.valueOf(decimalFormat.format(ingredients.get(position).getProtein())) + " g";
+        tempString = String.valueOf(decimalFormat.format(ingredients.get(position).getProtein())) + getContext().getString(R.string.g);
         tvIngredientProtein.setText(tempString);
 
-        tempString = String.valueOf(decimalFormat.format(ingredients.get(position).getFat())) + " g";
+        tempString = String.valueOf(decimalFormat.format(ingredients.get(position).getFat())) + getContext().getString(R.string.g);
         tvIngredientFat.setText(tempString);
 
-        tempString = String.valueOf(ingredients.get(position).getCalories()) + " kcal";
+        tempString = String.valueOf(ingredients.get(position).getCalories()) + getContext().getString(R.string.kcal);
         tvIngredientCalories.setText(tempString);
 
         return convertView;

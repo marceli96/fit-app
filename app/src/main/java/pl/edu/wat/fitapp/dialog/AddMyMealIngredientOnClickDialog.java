@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import pl.edu.wat.fitapp.database.entity.Ingredient;
 import pl.edu.wat.fitapp.interfaces.callback.AddMyMealIngredientCallback;
 import pl.edu.wat.fitapp.R;
+import pl.edu.wat.fitapp.interfaces.callback.CaloricDemandWeekConnectionCallback;
 
 public class AddMyMealIngredientOnClickDialog {
     private AddMyMealIngredientCallback addMyMealIngredientCallback;
@@ -40,7 +41,7 @@ public class AddMyMealIngredientOnClickDialog {
                 EditText etWeight = alertView.findViewById(R.id.etWeight);
                 String weight = etWeight.getText().toString();
                 if (weight.isEmpty())
-                    addMyMealIngredientCallback.onFailure("Wpisz wagę!");
+                    addMyMealIngredientCallback.onFailure(addMyMealIngredientCallback.activity().getString(R.string.fillWeightError));
                 else {
                     Ingredient tempIngredient = null;
                     try {

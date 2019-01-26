@@ -48,9 +48,9 @@ public class AddExerciseToTrainingSystemOnClickDialog {
                     dialog.dismiss();
                 } else {
                     if (series.isEmpty())
-                        callback.onFailure("Wpisz liczbę serii!");
+                        callback.onFailure(callback.activity().getString(R.string.fillSeriesError));
                     else
-                        callback.onFailure("Wpisz liczbę powtórzeń!");
+                        callback.onFailure(callback.activity().getString(R.string.fillRepetiotionsError));
                 }
             }
         });

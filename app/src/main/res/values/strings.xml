@@ -20,6 +20,60 @@
     <string name="REGISTER_URL">http://fitappliaction.cba.pl/register.php</string>
 
 
+
+    <string name="kcal"> kcal</string>
+    <string name="g"> g</string>
+    <string name="day">Dzień</string>
+    <string name="test">Test</string>
+    <string name="message">message</string>
+    <string name="comunicat1">"Dane ćwiczenie zostało już dodane w tym dniu"</string>
+    <string name="addError">Błąd podczas dodawania </string>
+    <string name="formatDate">yyyy-MM-dd</string>
+    <string name="comunicat2">Dany składnik został już dodany w tej porze jedzenia</string>
+    <string name="comunicat3">Dany posiłek został już dodany w tej porze jedzenia</string>
+    <string name="empty"> </string>
+    <string name="comunical4">Dany trening został już dodany w tym dniu</string>
+    <string name="eraseError">Błąd podczas usuwania </string>
+    <string name="exerciseError">"Wystąpił błąd podczas pobierania ćwiczeń"</string>
+    <string name="connectionError">Błąd połączenia z bazą</string>
+    <string name="wrongDataComunicat">Błędne dane</string>
+    <string name="registerError">Nieoczekiwany błąd rejestracji</string>
+    <string name="usernameError">Nazwa użytkownika jest zajęta</string>
+    <string name="emailError">E-mail jest zajęty</string>
+    <string name="saveChangeError">Nieoczkiwany błąd, powtórz wcześniej wprowadzone zmiany</string>
+    <string name="unexpectedError">Nieoczekiwany błąd</string>
+    <string name="downloadWeightError">Błąd podczas pobierania wagi z dnia</string>
+    <string name="fillSeriesError">Wpisz liczbę serii!</string>
+    <string name="fillRepetiotionsError">Wpisz liczbę powtórzeń!</string>
+    <string name="fillWeightError">Wpisz wagę!</string>
+    <string name="comunicat5">Usuń posiłek z sekcji \'Śniadanie\'</string>
+    <string name="comunicat6">Usuń produkt z sekcji \'Śniadanie\'</string>
+    <string name="comunicat7">Usuń ćwiczenie</string>
+    <string name="comunicat8">Usuń trening</string>
+    <string name="toSumUp">Podsumowanie</string>
+    <string name="toSumUpDays">Podsumowanie z dni:</string>
+    <string name="date">Data</string>
+    <string name="goal2">Cel</string>
+    <string name="lose2">Utrata wagi</string>
+    <string name="gain2">Przybranie wagi</string>
+    <string name="keep2">Utrzymanie wagi</string>
+    <string name="lackOfData">Brak danych</string>
+    <string name="ingredientOrMeal">Składnik / posiłek</string>
+    <string name="repetitions2">Powtórzenia</string>
+    <string name="series2">Serie</string>
+    <string name="exercisesOrTraining">Ćwiczenie / trening</string>
+    <string name="eaten">Zjedzone</string>
+    <string name="min">Minimum</string>
+    <string name="max">Maksimum</string>
+    <string name="generateToFile">Wygenerowanie plik do: </string>
+    <string name="lackOfPermitions">Brak uprawnień, spróbuj jeszcze raz</string>
+    <string name="dash">-</string>
+    <string name="dash2"> - </string>
+    <string name=""></string>
+    <string name=""></string>
+
+
+
     <string-array name="activityLevel">
         <item>Brak</item>
         <item>Niska</item>
@@ -27,6 +81,8 @@
         <item>Wysoka</item>
         <item>Bardzo wysoka</item>
     </string-array>
+
+
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="firstPartMealSelected">1/2 Wybranie nazwy posiłku</string>
@@ -39,7 +95,7 @@
     <string name="slash">/</string>
     <string name="reqCalorie">9999</string>
     <string name="carbohydrates">Węgl.: </string>
-    <string name="floatZero">0,0</string>
+    <string name="floatZero">0.0</string>
     <string name="reqMinerals">999-999</string>
     <string name="protein">Białko: </string>
     <string name="fat">Tłuszcz: </string>
@@ -111,7 +167,7 @@
     <string name="editData">Edycja danych:</string>
     <string name="bodyWeight">Masa ciała :</string>
     <string name="save">Zapisz</string>
-    <string name="floatZeroG">0,0 g</string>
+    <string name="floatZeroG">0.0 g</string>
     <string name="zeroKcal">0 kcal</string>
     <string name="numberOfExercises">Liczba ćwiczeń: </string>
     <string name="toSumUpLastWeek">Podsumowanie ostatniego tygodnia</string>

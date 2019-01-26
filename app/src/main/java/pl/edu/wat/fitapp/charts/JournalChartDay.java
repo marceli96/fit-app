@@ -40,10 +40,10 @@ public class JournalChartDay {
         chartDaily.setVisibility(View.VISIBLE);
 
         ArrayList<String> xLabels = new ArrayList<>();
-        xLabels.add("Kalorie");
-        xLabels.add("Węglowodany");
-        xLabels.add("Białko");
-        xLabels.add("Tłuszcz");
+        xLabels.add(journalFragment.getString(R.string.calories2));
+        xLabels.add(journalFragment.getString(R.string.carbohydrates2));
+        xLabels.add(journalFragment.getString(R.string.protein2));
+        xLabels.add(journalFragment.getString(R.string.fat2));
 
         chartDaily.getDescription().setEnabled(false);
         chartDaily.getLegend().setEnabled(false);
@@ -63,7 +63,7 @@ public class JournalChartDay {
         barEntriesDaily.add(new BarEntry(2, (float) macroMg.getProteinFromDay(foodSystemDay)));
         barEntriesDaily.add(new BarEntry(3, (float) macroMg.getFatFromDay(foodSystemDay)));
 
-        BarDataSet barDataSetDaily = new BarDataSet(barEntriesDaily, "Dzień");
+        BarDataSet barDataSetDaily = new BarDataSet(barEntriesDaily, journalFragment.getString(R.string.day));
         barDataSetDaily.setValueFormatter(new DoubleValueFormatter());
         barDataSetDaily.setColors(colorCalories, colorCarbohydrates, colorProtein, colorFat);
         barDataSetDaily.setValueTextSize(12);

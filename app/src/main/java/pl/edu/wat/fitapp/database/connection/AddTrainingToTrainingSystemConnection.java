@@ -33,30 +33,30 @@ public class AddTrainingToTrainingSystemConnection {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean message = jsonResponse.getBoolean("message");
                     if (!message) {
-                        callback.onFailure("Dany trening został już dodany w tym dniu");
+                        callback.onFailure(callback.activity().getString(R.string.comunical4));
                     } else {
                         boolean success = jsonResponse.getBoolean("success");
                         if (success) {
                             callback.onSuccess();
                         } else
-                            callback.onFailure("Błąd podczas dodawania");
+                            callback.onFailure(callback.activity().getString(R.string.addError));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    callback.onFailure("Błąd podczas dodawania " + e.toString());
+                    callback.onFailure(callback.activity().getString(R.string.addError) + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                callback.onFailure("Błąd podczas dodawania " + error.toString());
+                callback.onFailure(callback.activity().getString(R.string.addError) + error.toString());
             }
         }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 Date date = new Date();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat dateFormat = new SimpleDateFormat(callback.activity().getString(R.string.formatDate));
                 params.put("operation", "addTrainingToTrainingSystem");
                 params.put("userId", String.valueOf(userID));
                 params.put("myTrainingId", String.valueOf(trainingId));

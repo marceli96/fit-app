@@ -41,7 +41,7 @@ public class AddIngredientToFoodSystemOnClickDialog {
                 EditText etWeight = alertView.findViewById(R.id.etWeight);
                 String weight = etWeight.getText().toString();
                 if (weight.isEmpty())
-                    callback.onFailure("Wpisz wagę!");
+                    callback.onFailure(callback.activity().getString(R.string.fillWeightError));
                 else {
                     AddIngredientToFoodSystemConnection addConnection = new AddIngredientToFoodSystemConnection(callback);
                     addConnection.addIngredientToFoodSystem(ingredientList.get(position).getID(), userID, mealTime, weight);

@@ -67,17 +67,17 @@ public class FoodSystemDayConnection {
                         }
                         callback.onSuccessFoodSystemDay();
                     } else {
-                        callback.onFailure("Błąd połączenia z bazą");
+                        callback.onFailure(callback.activity().getString(R.string.connectionError));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    callback.onFailure("Błąd połączenia z bazą " + e.toString());
+                    callback.onFailure(callback.activity().getString(R.string.connectionError) + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                callback.onFailure("Błąd połączenia z bazą " + error.toString());
+                callback.onFailure(callback.activity().getString(R.string.connectionError) + error.toString());
             }
         }) {
             @Override

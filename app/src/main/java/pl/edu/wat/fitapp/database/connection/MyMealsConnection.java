@@ -57,16 +57,16 @@ public class MyMealsConnection {
                         }
                         callback.onSuccessMyMeals();
                     } else
-                        callback.onFailure("Błąd połączenia z bazą");
+                        callback.onFailure(callback.activity().getString(R.string.connectionError));
                 } catch (JSONException e) {
-                    callback.onFailure("Błąd połączenia z bazą " + e.toString());
+                    callback.onFailure(callback.activity().getString(R.string.connectionError) + e.toString());
                     e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                callback.onFailure("Błąd połączenia z bazą " + error.toString());
+                callback.onFailure(callback.activity().getString(R.string.connectionError) + error.toString());
             }
         }) {
             @Override

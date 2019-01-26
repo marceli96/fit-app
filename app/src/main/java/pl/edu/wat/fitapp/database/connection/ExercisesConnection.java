@@ -41,16 +41,16 @@ public class ExercisesConnection {
                         }
                         callback.onSuccessExercises();
                     } else
-                        callback.onFailure("Wystąpił błąd podczas pobierania ćwiczeń");
+                        callback.onFailure(callback.activity().getString(R.string.exerciseError));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    callback.onFailure("Wystąpił błąd podczas pobierania ćwiczeń " + e.toString());
+                    callback.onFailure(callback.activity().getString(R.string.exerciseError) + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                callback.onFailure("Wystąpił błąd podczas pobierania ćwiczeń " + error.toString());
+                callback.onFailure(callback.activity().getString(R.string.exerciseError) + error.toString());
             }
         }) {
             @Override

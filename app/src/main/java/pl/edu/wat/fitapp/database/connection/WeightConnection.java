@@ -42,17 +42,17 @@ public class WeightConnection {
                             callback.onSuccessWeightDay(weightDay);
                         }
                     } else {
-                        callback.onFailure("Błąd podczas pobierania wagi z dnia");
+                        callback.onFailure(callback.activity().getString(R.string.downloadWeightError));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    callback.onFailure("Błąd połączenia z bazą! " + e.toString());
+                    callback.onFailure(callback.activity().getString(R.string.connectionError) + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                callback.onFailure("Błąd połączenia z bazą! " + error.toString());
+                callback.onFailure(callback.activity().getString(R.string.connectionError) + error.toString());
             }
         }) {
             @Override
@@ -82,23 +82,23 @@ public class WeightConnection {
                         }
                         callback.onSuccessWeightWeek(weightWeek);
                     } else
-                        callback.onFailure("Błąd połączenia z bazą");
+                        callback.onFailure(callback.activity().getString(R.string.connectionError));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    callback.onFailure("Błąd połączenia z bazą " + e.toString());
+                    callback.onFailure(callback.activity().getString(R.string.connectionError) + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                callback.onFailure("Błąd połączenia z bazą " + error.toString());
+                callback.onFailure(callback.activity().getString(R.string.connectionError) + error.toString());
             }
         }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 Date date = new Date();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat dateFormat = new SimpleDateFormat(callback.activity().getString(R.string.formatDate));
                 params.put("operation", "getWeightFromWeek");
                 params.put("userId", String.valueOf(userID));
                 params.put("dateNow", dateFormat.format(date));

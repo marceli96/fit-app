@@ -29,6 +29,7 @@ import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
+import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.database.entity.Exercise;
 import pl.edu.wat.fitapp.database.entity.Ingredient;
 import pl.edu.wat.fitapp.database.entity.Meal;
@@ -76,7 +77,7 @@ public class PDFGenerator {
         verifyStoragePermissions(fragment.getActivity());
         try {
             MacrocomponentManagement macroMgn = new MacrocomponentManagement();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat dateFormat = new SimpleDateFormat(fragment.getString(R.string.formatDate));
             String path = Environment.getExternalStorageDirectory().getAbsolutePath();
 
             File file = new File(path, "excel.xls");
@@ -97,32 +98,32 @@ public class PDFGenerator {
             noDataFont.setColour(Colour.RED);
             WritableCellFormat noDataCell = new WritableCellFormat(noDataFont);
 
-            NumberFormat decimal = new NumberFormat("0.0");
+            NumberFormat decimal = new NumberFormat(fragment.getString(R.string.floatZero));
             WritableCellFormat decimalCell = new WritableCellFormat(decimal);
 
             WritableCellFormat integerCell = new WritableCellFormat(NumberFormats.INTEGER);
 
             WritableWorkbook excel = Workbook.createWorkbook(file);
-            WritableSheet sheet = excel.createSheet("Podsumowanie", 0);
+            WritableSheet sheet = excel.createSheet(fragment.getString(R.string.toSumUp), 0);
 
             int row = 0;
-            sheet.addCell(new Label(0, row, "Podsumowanie z dni:", dateCell));
-            sheet.addCell(new Label(0, ++row, dateFormat.format(dates.get(dates.size() - 1)) + " - " + dateFormat.format(dates.get(0)), dateCell));
+            sheet.addCell(new Label(0, row, fragment.getString(R.string.toSumUpDays), dateCell));
+            sheet.addCell(new Label(0, ++row, dateFormat.format(dates.get(dates.size() - 1)) + fragment.getString(R.string.dash2) + dateFormat.format(dates.get(0)), dateCell));
 
             for (int i = 0; i < 7; i++) {
-                sheet.addCell(new Label(0, row += 2, "Data", dateCell));
+                sheet.addCell(new Label(0, row += 2, fragment.getString(R.string.date), dateCell));
                 sheet.addCell(new Label(1, row, dateFormat.format(dates.get(i)), dateCell));
 
-                sheet.addCell(new Label(0, ++row, "Cel"));
+                sheet.addCell(new Label(0, ++row, fragment.getString(R.string.goal2)));
                 switch (goalWeek.get(i)) {
                     case 0:
-                        sheet.addCell(new Label(1, row, "Utrata wagi"));
+                        sheet.addCell(new Label(1, row, fragment.getString(R.string.lose2)));
                         break;
                     case 1:
-                        sheet.addCell(new Label(1, row, "Przybranie wagi"));
+                        sheet.addCell(new Label(1, row, fragment.getString(R.string.gain2)));
                         break;
                     case 2:
-                        sheet.addCell(new Label(1, row, "Utrzymanie wagi"));
+                        sheet.addCell(new Label(1, row, fragment.getString(R.string.keep2)));
                         break;
                 }
 
@@ -133,17 +134,17 @@ public class PDFGenerator {
 
                     row++;
                     sheet.mergeCells(0, row, 1, row);
-                    sheet.addCell(new Label(0, row, "Śniadanie", mealTimeCell));
+                    sheet.addCell(new Label(0, row, fragment.getString(R.string.breakfast), mealTimeCell));
 
                     if (foodSystemXDayBeforeBreakfast.size() == 0)
-                        sheet.addCell(new Label(0, ++row, "Brak danych", noDataCell));
+                        sheet.addCell(new Label(0, ++row, fragment.getString(R.string.lackOfData), noDataCell));
                     else {
-                        sheet.addCell(new Label(0, ++row, "Składnik / posiłek", headerInMealTimeCell));
-                        sheet.addCell(new Label(1, row, "Waga", headerInMealTimeCell));
-                        sheet.addCell(new Label(2, row, "Węglowodany", headerInMealTimeCell));
-                        sheet.addCell(new Label(3, row, "Białko", headerInMealTimeCell));
-                        sheet.addCell(new Label(4, row, "Tłuszcz", headerInMealTimeCell));
-                        sheet.addCell(new Label(5, row, "Kalorie", headerInMealTimeCell));
+                        sheet.addCell(new Label(0, ++row, fragment.getString(R.string.ingredientOrMeal), headerInMealTimeCell));
+                        sheet.addCell(new Label(1, row, fragment.getString(R.string.weight2), headerInMealTimeCell));
+                        sheet.addCell(new Label(2, row, fragment.getString(R.string.carbohydrates2), headerInMealTimeCell));
+                        sheet.addCell(new Label(3, row, fragment.getString(R.string.protein2), headerInMealTimeCell));
+                        sheet.addCell(new Label(4, row, fragment.getString(R.string.fat2), headerInMealTimeCell));
+                        sheet.addCell(new Label(5, row, fragment.getString(R.string.calories2), headerInMealTimeCell));
                         for (int j = 0; j < foodSystemXDayBeforeBreakfast.size(); j++) {
                             sheet.addCell(new Label(0, ++row, foodSystemXDayBeforeBreakfast.get(j).getName()));
                             sheet.addCell(new Number(1, row, foodSystemXDayBeforeBreakfast.get(j).getWeight(), integerCell));
@@ -168,17 +169,17 @@ public class PDFGenerator {
 
                     row++;
                     sheet.mergeCells(0, row, 1, row);
-                    sheet.addCell(new Label(0, row, "Drugie śniadanie", mealTimeCell));
+                    sheet.addCell(new Label(0, row, fragment.getString(R.string.secondBreakfast), mealTimeCell));
 
                     if (foodSystemXDayBeforeSecondBreakfast.size() == 0)
-                        sheet.addCell(new Label(0, ++row, "Brak danych", noDataCell));
+                        sheet.addCell(new Label(0, ++row, fragment.getString(R.string.lackOfData), noDataCell));
                     else {
-                        sheet.addCell(new Label(0, ++row, "Składnik / posiłek", headerInMealTimeCell));
-                        sheet.addCell(new Label(1, row, "Waga", headerInMealTimeCell));
-                        sheet.addCell(new Label(2, row, "Węglowodany", headerInMealTimeCell));
-                        sheet.addCell(new Label(3, row, "Białko", headerInMealTimeCell));
-                        sheet.addCell(new Label(4, row, "Tłuszcz", headerInMealTimeCell));
-                        sheet.addCell(new Label(5, row, "Kalorie", headerInMealTimeCell));
+                        sheet.addCell(new Label(0, ++row, fragment.getString(R.string.ingredientOrMeal), headerInMealTimeCell));
+                        sheet.addCell(new Label(1, row, fragment.getString(R.string.weight2), headerInMealTimeCell));
+                        sheet.addCell(new Label(2, row, fragment.getString(R.string.carbohydrates2), headerInMealTimeCell));
+                        sheet.addCell(new Label(3, row, fragment.getString(R.string.protein2), headerInMealTimeCell));
+                        sheet.addCell(new Label(4, row, fragment.getString(R.string.fat2), headerInMealTimeCell));
+                        sheet.addCell(new Label(5, row, fragment.getString(R.string.calories2), headerInMealTimeCell));
                         for (int j = 0; j < foodSystemXDayBeforeSecondBreakfast.size(); j++) {
                             sheet.addCell(new Label(0, ++row, foodSystemXDayBeforeSecondBreakfast.get(j).getName()));
                             sheet.addCell(new Number(1, row, foodSystemXDayBeforeSecondBreakfast.get(j).getWeight(), integerCell));
@@ -203,17 +204,17 @@ public class PDFGenerator {
 
                     row++;
                     sheet.mergeCells(0, row, 1, row);
-                    sheet.addCell(new Label(0, row, "Lunch", mealTimeCell));
+                    sheet.addCell(new Label(0, row, fragment.getString(R.string.lunch), mealTimeCell));
 
                     if (foodSystemXDayBeforeLunch.size() == 0)
-                        sheet.addCell(new Label(0, ++row, "Brak danych", noDataCell));
+                        sheet.addCell(new Label(0, ++row, fragment.getString(R.string.lackOfData), noDataCell));
                     else {
-                        sheet.addCell(new Label(0, ++row, "Składnik / posiłek", headerInMealTimeCell));
-                        sheet.addCell(new Label(1, row, "Waga", headerInMealTimeCell));
-                        sheet.addCell(new Label(2, row, "Węglowodany", headerInMealTimeCell));
-                        sheet.addCell(new Label(3, row, "Białko", headerInMealTimeCell));
-                        sheet.addCell(new Label(4, row, "Tłuszcz", headerInMealTimeCell));
-                        sheet.addCell(new Label(5, row, "Kalorie", headerInMealTimeCell));
+                        sheet.addCell(new Label(0, ++row, fragment.getString(R.string.ingredientOrMeal), headerInMealTimeCell));
+                        sheet.addCell(new Label(1, row, fragment.getString(R.string.weight2), headerInMealTimeCell));
+                        sheet.addCell(new Label(2, row, fragment.getString(R.string.carbohydrates2), headerInMealTimeCell));
+                        sheet.addCell(new Label(3, row, fragment.getString(R.string.protein2), headerInMealTimeCell));
+                        sheet.addCell(new Label(4, row, fragment.getString(R.string.fat2), headerInMealTimeCell));
+                        sheet.addCell(new Label(5, row, fragment.getString(R.string.calories2), headerInMealTimeCell));
                         for (int j = 0; j < foodSystemXDayBeforeLunch.size(); j++) {
                             sheet.addCell(new Label(0, ++row, foodSystemXDayBeforeLunch.get(j).getName()));
                             sheet.addCell(new Number(1, row, foodSystemXDayBeforeLunch.get(j).getWeight(), integerCell));
@@ -238,17 +239,17 @@ public class PDFGenerator {
 
                     row++;
                     sheet.mergeCells(0, row, 1, row);
-                    sheet.addCell(new Label(0, row, "Obiad", mealTimeCell));
+                    sheet.addCell(new Label(0, row, fragment.getString(R.string.dinner), mealTimeCell));
 
                     if (foodSystemXDayBeforeDinner.size() == 0)
-                        sheet.addCell(new Label(0, ++row, "Brak danych", noDataCell));
+                        sheet.addCell(new Label(0, ++row, fragment.getString(R.string.lackOfData), noDataCell));
                     else {
-                        sheet.addCell(new Label(0, ++row, "Składnik / posiłek", headerInMealTimeCell));
-                        sheet.addCell(new Label(1, row, "Waga", headerInMealTimeCell));
-                        sheet.addCell(new Label(2, row, "Węglowodany", headerInMealTimeCell));
-                        sheet.addCell(new Label(3, row, "Białko", headerInMealTimeCell));
-                        sheet.addCell(new Label(4, row, "Tłuszcz", headerInMealTimeCell));
-                        sheet.addCell(new Label(5, row, "Kalorie", headerInMealTimeCell));
+                        sheet.addCell(new Label(0, ++row, fragment.getString(R.string.ingredientOrMeal), headerInMealTimeCell));
+                        sheet.addCell(new Label(1, row, fragment.getString(R.string.weight2), headerInMealTimeCell));
+                        sheet.addCell(new Label(2, row, fragment.getString(R.string.carbohydrates2), headerInMealTimeCell));
+                        sheet.addCell(new Label(3, row, fragment.getString(R.string.protein2), headerInMealTimeCell));
+                        sheet.addCell(new Label(4, row, fragment.getString(R.string.fat2), headerInMealTimeCell));
+                        sheet.addCell(new Label(5, row, fragment.getString(R.string.calories2), headerInMealTimeCell));
                         for (int j = 0; j < foodSystemXDayBeforeDinner.size(); j++) {
                             sheet.addCell(new Label(0, ++row, foodSystemXDayBeforeDinner.get(j).getName()));
                             sheet.addCell(new Number(1, row, foodSystemXDayBeforeDinner.get(j).getWeight(), integerCell));
@@ -273,17 +274,17 @@ public class PDFGenerator {
 
                     row++;
                     sheet.mergeCells(0, row, 1, row);
-                    sheet.addCell(new Label(0, row, "Przekąska", mealTimeCell));
+                    sheet.addCell(new Label(0, row, fragment.getString(R.string.snack), mealTimeCell));
 
                     if (foodSystemXDayBeforeSnack.size() == 0)
-                        sheet.addCell(new Label(0, ++row, "Brak danych", noDataCell));
+                        sheet.addCell(new Label(0, ++row, fragment.getString(R.string.lackOfData), noDataCell));
                     else {
-                        sheet.addCell(new Label(0, ++row, "Składnik / posiłek", headerInMealTimeCell));
-                        sheet.addCell(new Label(1, row, "Waga", headerInMealTimeCell));
-                        sheet.addCell(new Label(2, row, "Węglowodany", headerInMealTimeCell));
-                        sheet.addCell(new Label(3, row, "Białko", headerInMealTimeCell));
-                        sheet.addCell(new Label(4, row, "Tłuszcz", headerInMealTimeCell));
-                        sheet.addCell(new Label(5, row, "Kalorie", headerInMealTimeCell));
+                        sheet.addCell(new Label(0, ++row, fragment.getString(R.string.ingredientOrMeal), headerInMealTimeCell));
+                        sheet.addCell(new Label(1, row, fragment.getString(R.string.weight2), headerInMealTimeCell));
+                        sheet.addCell(new Label(2, row, fragment.getString(R.string.carbohydrates2), headerInMealTimeCell));
+                        sheet.addCell(new Label(3, row, fragment.getString(R.string.protein2), headerInMealTimeCell));
+                        sheet.addCell(new Label(4, row, fragment.getString(R.string.fat2), headerInMealTimeCell));
+                        sheet.addCell(new Label(5, row, fragment.getString(R.string.calories2), headerInMealTimeCell));
                         for (int j = 0; j < foodSystemXDayBeforeSnack.size(); j++) {
                             sheet.addCell(new Label(0, ++row, foodSystemXDayBeforeSnack.get(j).getName()));
                             sheet.addCell(new Number(1, row, foodSystemXDayBeforeSnack.get(j).getWeight(), integerCell));
@@ -308,17 +309,17 @@ public class PDFGenerator {
 
                     row++;
                     sheet.mergeCells(0, row, 1, row);
-                    sheet.addCell(new Label(0, row, "Kolacja", mealTimeCell));
+                    sheet.addCell(new Label(0, row, fragment.getString(R.string.supper), mealTimeCell));
 
                     if (foodSystemXDayBeforeSupper.size() == 0)
-                        sheet.addCell(new Label(0, ++row, "Brak danych", noDataCell));
+                        sheet.addCell(new Label(0, ++row, fragment.getString(R.string.lackOfData), noDataCell));
                     else {
-                        sheet.addCell(new Label(0, ++row, "Składnik / posiłek", headerInMealTimeCell));
-                        sheet.addCell(new Label(1, row, "Waga", headerInMealTimeCell));
-                        sheet.addCell(new Label(2, row, "Węglowodany", headerInMealTimeCell));
-                        sheet.addCell(new Label(3, row, "Białko", headerInMealTimeCell));
-                        sheet.addCell(new Label(4, row, "Tłuszcz", headerInMealTimeCell));
-                        sheet.addCell(new Label(5, row, "Kalorie", headerInMealTimeCell));
+                        sheet.addCell(new Label(0, ++row, fragment.getString(R.string.ingredientOrMeal), headerInMealTimeCell));
+                        sheet.addCell(new Label(1, row, fragment.getString(R.string.weight2), headerInMealTimeCell));
+                        sheet.addCell(new Label(2, row, fragment.getString(R.string.carbohydrates2), headerInMealTimeCell));
+                        sheet.addCell(new Label(3, row, fragment.getString(R.string.protein2), headerInMealTimeCell));
+                        sheet.addCell(new Label(4, row, fragment.getString(R.string.fat2), headerInMealTimeCell));
+                        sheet.addCell(new Label(5, row, fragment.getString(R.string.calories2), headerInMealTimeCell));
                         for (int j = 0; j < foodSystemXDayBeforeSupper.size(); j++) {
                             sheet.addCell(new Label(0, ++row, foodSystemXDayBeforeSupper.get(j).getName()));
                             sheet.addCell(new Number(1, row, foodSystemXDayBeforeSupper.get(j).getWeight(), integerCell));
@@ -341,14 +342,14 @@ public class PDFGenerator {
                 if (options.get(6)) {
                     row++;
                     sheet.mergeCells(0, row, 1, row);
-                    sheet.addCell(new Label(0, row, "Trening", mealTimeCell));
+                    sheet.addCell(new Label(0, row, fragment.getString(R.string.training), mealTimeCell));
 
                     if (trainingSystemXDayBefore.size() == 0)
-                        sheet.addCell(new Label(0, ++row, "Brak danych", noDataCell));
+                        sheet.addCell(new Label(0, ++row, fragment.getString(R.string.lackOfData), noDataCell));
                     else {
-                        sheet.addCell(new Label(0, ++row, "Ćwiczenie / trening", headerInMealTimeCell));
-                        sheet.addCell(new Label(1, row, "Serie", headerInMealTimeCell));
-                        sheet.addCell(new Label(2, row, "Powtórzenia", headerInMealTimeCell));
+                        sheet.addCell(new Label(0, ++row, fragment.getString(R.string.exercisesOrTraining), headerInMealTimeCell));
+                        sheet.addCell(new Label(1, row, fragment.getString(R.string.series2), headerInMealTimeCell));
+                        sheet.addCell(new Label(2, row, fragment.getString(R.string.repetitions2), headerInMealTimeCell));
 
                         for (int j = 0; j < trainingSystemXDayBefore.size(); j++) {
                             if (trainingSystemXDayBefore.get(j).getClass() == Exercise.class) {
@@ -362,8 +363,8 @@ public class PDFGenerator {
                         for (int j = 0; j < trainingSystemXDayBefore.size(); j++) {
                             if (trainingSystemXDayBefore.get(j).getClass() == Training.class) {
                                 sheet.addCell(new Label(0, ++row, trainingSystemXDayBefore.get(j).getName()));
-                                sheet.addCell(new Label(1, row, "-"));
-                                sheet.addCell(new Label(2, row, "-"));
+                                sheet.addCell(new Label(1, row, fragment.getString(R.string.dash)));
+                                sheet.addCell(new Label(2, row, fragment.getString(R.string.dash)));
                             }
                         }
                     }
@@ -371,28 +372,28 @@ public class PDFGenerator {
                 if (options.get(7)) {
                     row++;
                     sheet.mergeCells(0, row, 1, row);
-                    sheet.addCell(new Label(0, row, "Podsumowanie dnia", mealTimeCell));
+                    sheet.addCell(new Label(0, row, fragment.getString(R.string.toSumUpDay), mealTimeCell));
 
-                    sheet.addCell(new Label(1, ++row, "Zjedzone", headerInMealTimeCell));
-                    sheet.addCell(new Label(2, row, "Minimum", headerInMealTimeCell));
-                    sheet.addCell(new Label(3, row, "Maksimum", headerInMealTimeCell));
+                    sheet.addCell(new Label(1, ++row, fragment.getString(R.string.eaten), headerInMealTimeCell));
+                    sheet.addCell(new Label(2, row, fragment.getString(R.string.min), headerInMealTimeCell));
+                    sheet.addCell(new Label(3, row, fragment.getString(R.string.max), headerInMealTimeCell));
 
-                    sheet.addCell(new Label(0, ++row, "Węglowodany", headerInMealTimeCell));
+                    sheet.addCell(new Label(0, ++row, fragment.getString(R.string.carbohydrates2), headerInMealTimeCell));
                     sheet.addCell(new Number(1, row, macroMgn.getCarbohydratesFromDay(foodSystemXDayBefore), decimalCell));
                     sheet.addCell(new Number(2, row, 0.5 * caloricDemandWeek.get(i) / 4, integerCell));
                     sheet.addCell(new Number(3, row, 0.65 * caloricDemandWeek.get(i) / 4, integerCell));
 
-                    sheet.addCell(new Label(0, ++row, "Białko", headerInMealTimeCell));
+                    sheet.addCell(new Label(0, ++row, fragment.getString(R.string.protein2), headerInMealTimeCell));
                     sheet.addCell(new Number(1, row, macroMgn.getProteinFromDay(foodSystemXDayBefore), decimalCell));
                     sheet.addCell(new Number(2, row, 0.15 * caloricDemandWeek.get(i) / 4, integerCell));
                     sheet.addCell(new Number(3, row, 0.25 * caloricDemandWeek.get(i) / 4, integerCell));
 
-                    sheet.addCell(new Label(0, ++row, "Tłuszcz", headerInMealTimeCell));
+                    sheet.addCell(new Label(0, ++row, fragment.getString(R.string.fat2), headerInMealTimeCell));
                     sheet.addCell(new Number(1, row, macroMgn.getFatFromDay(foodSystemXDayBefore), decimalCell));
                     sheet.addCell(new Number(2, row, 0.2 * caloricDemandWeek.get(i) / 9, integerCell));
                     sheet.addCell(new Number(3, row, 0.3 * caloricDemandWeek.get(i) / 9, integerCell));
 
-                    sheet.addCell(new Label(0, ++row, "Kalorie", headerInMealTimeCell));
+                    sheet.addCell(new Label(0, ++row, fragment.getString(R.string.calories2), headerInMealTimeCell));
                     sheet.addCell(new Number(1, row, macroMgn.getCaloriesFromDay(foodSystemXDayBefore), integerCell));
                     sheet.addCell(new Number(2, row, caloricDemandWeek.get(i), integerCell));
                     sheet.addCell(new Number(3, row, caloricDemandWeek.get(i), integerCell));
@@ -407,10 +408,10 @@ public class PDFGenerator {
             excel.write();
             excel.close();
 
-            ToastUtils.longToast(fragment.getActivity(), "Wygenerowanie plik do: " + file.getAbsolutePath());
+            ToastUtils.longToast(fragment.getActivity(), fragment.getString(R.string.generateToFile) + file.getAbsolutePath());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            ToastUtils.shortToast(fragment.getActivity(), "Brak uprawnień, spróbuj jeszcze raz");
+            ToastUtils.shortToast(fragment.getActivity(), fragment.getString(R.string.lackOfPermitions));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (WriteException e) {

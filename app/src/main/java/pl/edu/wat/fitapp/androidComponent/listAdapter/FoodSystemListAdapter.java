@@ -19,7 +19,7 @@ import pl.edu.wat.fitapp.R;
 
 public class FoodSystemListAdapter extends ArrayAdapter<FoodSystem> {
     private ArrayList<FoodSystem> foodList;
-    private DecimalFormat format = new DecimalFormat("0.0");
+    private DecimalFormat format = new DecimalFormat(getContext().getString(R.string.g));
 
     public FoodSystemListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<FoodSystem> objects) {
         super(context, resource, objects);
@@ -40,26 +40,26 @@ public class FoodSystemListAdapter extends ArrayAdapter<FoodSystem> {
         TextView tvCalories = convertView.findViewById(R.id.tvCalories);
 
         tvName.setText(foodList.get(position).getName());
-        String tempString = String.valueOf(foodList.get(position).getWeight()) + " g";
+        String tempString = String.valueOf(foodList.get(position).getWeight()) + getContext().getString(R.string.g);
         tvWeight.setText(tempString);
         if (foodList.get(position).getClass() == Ingredient.class) {
-            tempString = String.valueOf(format.format(foodList.get(position).getCarbohydrates() * foodList.get(position).getWeight() / 100)) + " g";
+            tempString = String.valueOf(format.format(foodList.get(position).getCarbohydrates() * foodList.get(position).getWeight() / 100)) + getContext().getString(R.string.g);
             tvCarbohydrates.setText(tempString);
-            tempString = String.valueOf(format.format(foodList.get(position).getProtein() * foodList.get(position).getWeight() / 100)) + " g";
+            tempString = String.valueOf(format.format(foodList.get(position).getProtein() * foodList.get(position).getWeight() / 100)) + getContext().getString(R.string.g);
             tvProtein.setText(tempString);
-            tempString = String.valueOf(format.format(foodList.get(position).getFat() * foodList.get(position).getWeight() / 100)) + " g";
+            tempString = String.valueOf(format.format(foodList.get(position).getFat() * foodList.get(position).getWeight() / 100)) + getContext().getString(R.string.g);
             tvFat.setText(tempString);
-            tempString = String.valueOf(foodList.get(position).getCalories() * foodList.get(position).getWeight() / 100) + " kcal";
+            tempString = String.valueOf(foodList.get(position).getCalories() * foodList.get(position).getWeight() / 100) + getContext().getString(R.string.kcal);
             tvCalories.setText(tempString);
         } else {
             Meal tempMeal = (Meal) foodList.get(position);
-            tempString = String.valueOf(format.format(tempMeal.getCarbohydrates() * tempMeal.getWeight() / tempMeal.getTotalWeight())) + " g";
+            tempString = String.valueOf(format.format(tempMeal.getCarbohydrates() * tempMeal.getWeight() / tempMeal.getTotalWeight())) + getContext().getString(R.string.g);
             tvCarbohydrates.setText(tempString);
-            tempString = String.valueOf(format.format(tempMeal.getProtein() * tempMeal.getWeight() / tempMeal.getTotalWeight())) + " g";
+            tempString = String.valueOf(format.format(tempMeal.getProtein() * tempMeal.getWeight() / tempMeal.getTotalWeight())) + getContext().getString(R.string.g);
             tvProtein.setText(tempString);
-            tempString = String.valueOf(format.format(tempMeal.getFat() * tempMeal.getWeight() / tempMeal.getTotalWeight())) + " g";
+            tempString = String.valueOf(format.format(tempMeal.getFat() * tempMeal.getWeight() / tempMeal.getTotalWeight())) + getContext().getString(R.string.g);
             tvFat.setText(tempString);
-            tempString = String.valueOf(tempMeal.getCalories() * tempMeal.getWeight() / tempMeal.getTotalWeight()) + " kcal";
+            tempString = String.valueOf(tempMeal.getCalories() * tempMeal.getWeight() / tempMeal.getTotalWeight()) + getContext().getString(R.string.kcal);
             tvCalories.setText(tempString);
         }
 

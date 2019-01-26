@@ -47,27 +47,27 @@ public class FoodSystemOnClickDialog {
         ListView lvIngredients = alertView.findViewById(R.id.lvIngredients);
         Button bDelete = alertView.findViewById(R.id.bDelete);
 
-        DecimalFormat decimalFormat = new DecimalFormat("0.0");
+        DecimalFormat decimalFormat = new DecimalFormat(callback.activity().getString(R.string.floatZero));
 
         tvName.setText(tempList.get(position).getName());
 
-        String tempString = String.valueOf(decimalFormat.format(tempList.get(position).getCarbohydrates())) + " g";
+        String tempString = String.valueOf(decimalFormat.format(tempList.get(position).getCarbohydrates())) + callback.activity().getString(R.string.g);
         tvCarbohydrates.setText(tempString);
 
-        tempString = String.valueOf(decimalFormat.format(tempList.get(position).getProtein())) + " g";
+        tempString = String.valueOf(decimalFormat.format(tempList.get(position).getProtein())) + callback.activity().getString(R.string.g);
         tvProtein.setText(tempString);
 
-        tempString = String.valueOf(decimalFormat.format(tempList.get(position).getFat())) + " g";
+        tempString = String.valueOf(decimalFormat.format(tempList.get(position).getFat())) + callback.activity().getString(R.string.g);
         tvFat.setText(tempString);
 
-        tempString = String.valueOf(tempList.get(position).getCalories()) + " g";
+        tempString = String.valueOf(tempList.get(position).getCalories()) + callback.activity().getString(R.string.g);
         tvCalories.setText(tempString);
 
         if (tempList.get(position).getClass() == Meal.class) {
             tvIn100.setVisibility(View.GONE);
-            bDelete.setText("Usuń posiłek z sekcji 'Śniadanie'");
+            bDelete.setText(callback.activity().getString(R.string.comunicat5));
             final Meal tempMeal = (Meal) tempList.get(position);
-            tempString = String.valueOf(tempMeal.getTotalWeight()) + " g";
+            tempString = String.valueOf(tempMeal.getTotalWeight()) + callback.activity().getString(R.string.g);
             tvTotalMealWeight.setText(tempString);
 
             SimpleIngredientsListAdapter adapter = new SimpleIngredientsListAdapter(callback.activity(), R.layout.listview_adapter_ingredient_with_weight_simple, tempMeal.getIngredientList());
@@ -75,7 +75,7 @@ public class FoodSystemOnClickDialog {
         } else {
             tvIngredients.setVisibility(View.GONE);
             llMeal.setVisibility(View.GONE);
-            bDelete.setText("Usuń produkt z sekcji 'Śniadanie'");
+            bDelete.setText(callback.activity().getString(R.string.comunicat6));
             lvIngredients.setVisibility(View.GONE);
         }
 

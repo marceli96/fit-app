@@ -41,26 +41,26 @@ public class AddedIngredientsToMealListAdapter extends ArrayAdapter<Ingredient> 
         TextView tvIngredientCalories = convertView.findViewById(R.id.tvIngredientCalories);
         ImageView imDeleteIngredient = convertView.findViewById(R.id.imDeleteIngredient);
 
-        DecimalFormat decimalFormat = new DecimalFormat("0.0");
+        DecimalFormat decimalFormat = new DecimalFormat(getContext().getString(R.string.floatZero));
         String tempString;
 
         final Ingredient ingredient = mealIngredients.get(position);
 
         tvIngredientName.setText(ingredient.getName());
 
-        tempString = String.valueOf(ingredient.getWeight()) + " g";
+        tempString = String.valueOf(ingredient.getWeight()) + getContext().getString(R.string.g);
         tvIngredientWeight.setText(tempString);
 
-        tempString = String.valueOf(decimalFormat.format(ingredient.getCarbohydrates() * ingredient.getWeight() / 100)) + " g";
+        tempString = String.valueOf(decimalFormat.format(ingredient.getCarbohydrates() * ingredient.getWeight() / 100)) + getContext().getString(R.string.g);
         tvIngredientCarbohydrates.setText(tempString);
 
-        tempString = String.valueOf(decimalFormat.format(ingredient.getProtein() * ingredient.getWeight() / 100)) + " g";
+        tempString = String.valueOf(decimalFormat.format(ingredient.getProtein() * ingredient.getWeight() / 100)) + getContext().getString(R.string.g);
         tvIngredientProtein.setText(tempString);
 
-        tempString = String.valueOf(decimalFormat.format(ingredient.getFat() * ingredient.getWeight() / 100)) + " g";
+        tempString = String.valueOf(decimalFormat.format(ingredient.getFat() * ingredient.getWeight() / 100)) + getContext().getString(R.string.g);
         tvIngredientFat.setText(tempString);
 
-        tempString = String.valueOf(ingredient.getCalories() * ingredient.getWeight() / 100) + " kcal";
+        tempString = String.valueOf(ingredient.getCalories() * ingredient.getWeight() / 100) + getContext().getString(R.string.kcal);
         tvIngredientCalories.setText(tempString);
 
         imDeleteIngredient.setOnClickListener(new View.OnClickListener() {

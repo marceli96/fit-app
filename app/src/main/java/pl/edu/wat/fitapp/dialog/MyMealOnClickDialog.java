@@ -35,23 +35,23 @@ public class MyMealOnClickDialog {
         TextView tvIngredientAmount = alertView.findViewById(R.id.tvIngredientAmount);
         ListView lvIngredients = alertView.findViewById(R.id.lvIngredients);
 
-        DecimalFormat decimalFormat = new DecimalFormat("0.0");
+        DecimalFormat decimalFormat = new DecimalFormat(callback.activity().getString(R.string.floatZero));
 
         tvName.setText(myMeals.get(position).getName());
 
-        String tempString = String.valueOf(myMeals.get(position).getTotalWeight()) + " g";
+        String tempString = String.valueOf(myMeals.get(position).getTotalWeight()) + callback.activity().getString(R.string.g);
         tvTotalMealWeight.setText(tempString);
 
-        tempString = String.valueOf(decimalFormat.format(myMeals.get(position).getCarbohydrates())) + " g";
+        tempString = String.valueOf(decimalFormat.format(myMeals.get(position).getCarbohydrates())) + callback.activity().getString(R.string.g);
         tvCarbohydrates.setText(tempString);
 
-        tempString = String.valueOf(decimalFormat.format(myMeals.get(position).getProtein())) + " g";
+        tempString = String.valueOf(decimalFormat.format(myMeals.get(position).getProtein())) + callback.activity().getString(R.string.g);
         tvProtein.setText(tempString);
 
-        tempString = String.valueOf(decimalFormat.format(myMeals.get(position).getFat())) + " g";
+        tempString = String.valueOf(decimalFormat.format(myMeals.get(position).getFat())) + callback.activity().getString(R.string.g);
         tvFat.setText(tempString);
 
-        tempString = String.valueOf(myMeals.get(position).getCalories()) + " g";
+        tempString = String.valueOf(myMeals.get(position).getCalories()) + callback.activity().getString(R.string.g);
         tvCalories.setText(tempString);
 
         tempString = String.valueOf(myMeals.get(position).getIngredientList().size());

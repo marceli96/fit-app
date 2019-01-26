@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.charts.chartComponent.XAxisValueFormatter;
 import pl.edu.wat.fitapp.charts.chartComponent.DoubleValueFormatter;
 import pl.edu.wat.fitapp.view.main.fragment.JournalFragment;
@@ -39,19 +40,19 @@ public class JournalChartsWeightWeek {
         calendar.set(Calendar.SECOND, 0);
 
         calendar.add(Calendar.DAY_OF_MONTH, -1);
-        days.add(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1));
+        days.add(calendar.get(Calendar.DAY_OF_MONTH) + journalFragment.getString(R.string.slash) + (calendar.get(Calendar.MONTH) + 1));
         calendar.add(Calendar.DAY_OF_MONTH, -1);
-        days.add(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1));
+        days.add(calendar.get(Calendar.DAY_OF_MONTH) + journalFragment.getString(R.string.slash) + (calendar.get(Calendar.MONTH) + 1));
         calendar.add(Calendar.DAY_OF_MONTH, -1);
-        days.add(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1));
+        days.add(calendar.get(Calendar.DAY_OF_MONTH) + journalFragment.getString(R.string.slash) + (calendar.get(Calendar.MONTH) + 1));
         calendar.add(Calendar.DAY_OF_MONTH, -1);
-        days.add(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1));
+        days.add(calendar.get(Calendar.DAY_OF_MONTH) + journalFragment.getString(R.string.slash) + (calendar.get(Calendar.MONTH) + 1));
         calendar.add(Calendar.DAY_OF_MONTH, -1);
-        days.add(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1));
+        days.add(calendar.get(Calendar.DAY_OF_MONTH) + journalFragment.getString(R.string.slash) + (calendar.get(Calendar.MONTH) + 1));
         calendar.add(Calendar.DAY_OF_MONTH, -1);
-        days.add(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1));
+        days.add(calendar.get(Calendar.DAY_OF_MONTH) + journalFragment.getString(R.string.slash) + (calendar.get(Calendar.MONTH) + 1));
         calendar.add(Calendar.DAY_OF_MONTH, -1);
-        days.add(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1));
+        days.add(calendar.get(Calendar.DAY_OF_MONTH) + journalFragment.getString(R.string.slash) + (calendar.get(Calendar.MONTH) + 1));
     }
 
     public void drawChartsWeightWeek(){
@@ -82,7 +83,7 @@ public class JournalChartsWeightWeek {
             barEntriesWeight.add(new BarEntry(i, weightWeek.get(i).floatValue()));
         }
 
-        BarDataSet barDataSetWeight = new BarDataSet(barEntriesWeight, "Test");
+        BarDataSet barDataSetWeight = new BarDataSet(barEntriesWeight, journalFragment.getString(R.string.test));
         barDataSetWeight.setValueFormatter(doubleValueFormatter);
         barDataSetWeight.setColors(colorWeight);
         barDataSetWeight.setValueTextSize(10);
