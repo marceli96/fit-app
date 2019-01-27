@@ -35,8 +35,8 @@ public class AddToFoodSystemActivity extends AppCompatActivity {
         sectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
 
         viewPager = findViewById(R.id.container);
-        sectionsPageAdapter.addFragment(addIngredientToFoodSystemFragment, "Składniki");
-        sectionsPageAdapter.addFragment(addMealToFoodSystemFragment, "Moje posiłki");
+        sectionsPageAdapter.addFragment(addIngredientToFoodSystemFragment, getString(R.string.ingredients2));
+        sectionsPageAdapter.addFragment(addMealToFoodSystemFragment, getString(R.string.myMeals));
         viewPager.setAdapter(sectionsPageAdapter);
 
         tabLayout = findViewById(R.id.tabs);

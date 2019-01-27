@@ -49,7 +49,7 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ((MainActivity) getActivity()).setActionBarTitle("Cele");
+        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.nav_goals));
 
         View view = getLayoutInflater().inflate(R.layout.fragment_goals, container, false);
 
@@ -95,7 +95,7 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
                     calories = userMgn.calculateCaloriesForExistingUser(rgGoal, getView(), user, activityLevel, Double.parseDouble(etWeight.getText().toString()));
                     tvCaloricDemand.setText(String.valueOf(calories));
                 } else
-                    ToastUtils.shortToast(getActivity(), "Uzupełnij pole 'Masa ciała'");
+                    ToastUtils.shortToast(getActivity(), getString(R.string.fillWeight));
             }
         });
 
@@ -110,7 +110,7 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
                     userConnection.saveWeight(user, Double.parseDouble(etWeight.getText().toString()), userMgn.getGoalInt(rgGoal, getView()),
                             calories, userMgn.getActivityLevelInt(activityLevel));
                 } else
-                    ToastUtils.shortToast(getActivity(), "Uzupełnij pole 'Masa ciała'");
+                    ToastUtils.shortToast(getActivity(), getString(R.string.fillWeight));
             }
         });
 
@@ -136,7 +136,7 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
 
     @Override
     public void onSuccess(User user) {
-        ToastUtils.shortToast(getActivity(), "Dane zaaktualizowane");
+        ToastUtils.shortToast(getActivity(), getString(R.string.updateData));
         this.user = user;
         openHomeActivity();
     }

@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        if (action != null && action.equals("openMeFragment")) {
+        if (action != null && action.equals(getString(R.string.openMe))) {
             setFragment(new ProfileFragment());
             mainNavigation.setSelectedItemId(R.id.navMe);
         } else {
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent openWelcomeScreen = new Intent(MainActivity.this, WelcomeActivity.class);
                 openWelcomeScreen.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(openWelcomeScreen);
-                ToastUtils.shortToast(MainActivity.this, "Wylogowano pomyślnie");
+                ToastUtils.shortToast(MainActivity.this, getString(R.string.successLogOut));
                 MainActivity.this.finish();
                 return true;
             default:

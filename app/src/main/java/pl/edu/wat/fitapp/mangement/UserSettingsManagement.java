@@ -1,9 +1,11 @@
 package pl.edu.wat.fitapp.mangement;
 
+import android.content.res.Resources;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.database.entity.User;
 
 public class UserSettingsManagement {
@@ -15,42 +17,43 @@ public class UserSettingsManagement {
         int sex = user.getSex();
         int age = user.getAge();
         int height = user.getHeight();
+        String[] activityLevelR = Resources.getSystem().getStringArray(R.array.activityLevel);
 
         switch (sex) {
             case 0:
                 calories = (int) Math.round(655 + (9.6 * weight) + (1.8 * height) - (4.7 * age));
-                if (activityLevel.equals("Brak"))
+                if (activityLevel.equals(activityLevelR[0]))
                     calories *= 1.2;
-                else if (activityLevel.equals("Niska"))
+                else if (activityLevel.equals(activityLevelR[1]))
                     calories *= 1.3;
-                else if (activityLevel.equals("Średnia"))
+                else if (activityLevel.equals(activityLevelR[2]))
                     calories *= 1.5;
-                else if (activityLevel.equals("Wysoka"))
+                else if (activityLevel.equals(activityLevelR[3]))
                     calories *= 1.7;
-                else if (activityLevel.equals("Bardzo wysoka"))
+                else if (activityLevel.equals(activityLevelR[4]))
                     calories *= 1.9;
 
-                if (goal.equals("Utrata"))
+                if (goal.equals(Resources.getSystem().getString(R.string.lose)))
                     calories -= 250;
-                else if (goal.equals("Przybranie"))
+                else if (goal.equals(Resources.getSystem().getString(R.string.gain)))
                     calories += 250;
                 break;
             case 1:
                 calories = (int) Math.round(66 + (13.7 * weight) + (5 * height) - (6.76 * age));
-                if (activityLevel.equals("Brak"))
+                if (activityLevel.equals(activityLevelR[0]))
                     calories *= 1.2;
-                else if (activityLevel.equals("Niska"))
+                else if (activityLevel.equals(activityLevelR[1]))
                     calories *= 1.3;
-                else if (activityLevel.equals("Średnia"))
+                else if (activityLevel.equals(activityLevelR[2]))
                     calories *= 1.5;
-                else if (activityLevel.equals("Wysoka"))
+                else if (activityLevel.equals(activityLevelR[3]))
                     calories *= 1.7;
-                else if (activityLevel.equals("Bardzo wysoka"))
+                else if (activityLevel.equals(activityLevelR[4]))
                     calories *= 1.9;
 
-                if (goal.equals("Utrata"))
+                if (goal.equals(Resources.getSystem().getString(R.string.lose)))
                     calories -= 250;
-                else if (goal.equals("Przybranie"))
+                else if (goal.equals(Resources.getSystem().getString(R.string.gain)))
                     calories += 250;
                 break;
         }
@@ -61,40 +64,41 @@ public class UserSettingsManagement {
         int calories;
         String sex = getRadioButtonText(rgSex, view);
         String goal = getRadioButtonText(rgGoal, view);
+        String[] activityLevelR = Resources.getSystem().getStringArray(R.array.activityLevel);
 
-        if (sex.equals("Kobieta")) {
+        if (sex.equals(Resources.getSystem().getString(R.string.woman))) {
             calories = (int) Math.round(655 + (9.6 * weight) + (1.8 * height) - (4.7 * age));
-            if (activityLevel.equals("Brak"))
+            if (activityLevel.equals(activityLevelR[0]))
                 calories *= 1.2;
-            else if (activityLevel.equals("Niska"))
+            else if (activityLevel.equals(activityLevelR[1]))
                 calories *= 1.3;
-            else if (activityLevel.equals("Średnia"))
+            else if (activityLevel.equals(activityLevelR[2]))
                 calories *= 1.5;
-            else if (activityLevel.equals("Wysoka"))
+            else if (activityLevel.equals(activityLevelR[3]))
                 calories *= 1.7;
-            else if (activityLevel.equals("Bardzo wysoka"))
+            else if (activityLevel.equals(activityLevelR[4]))
                 calories *= 1.9;
 
-            if (goal.equals("Utrata"))
+            if (goal.equals(Resources.getSystem().getString(R.string.lose)))
                 calories -= 250;
-            else if (goal.equals("Przybranie"))
+            else if (goal.equals(Resources.getSystem().getString(R.string.gain)))
                 calories += 250;
         } else {
             calories = (int) Math.round(66 + (13.7 * weight) + (5 * height) - (6.76 * age));
-            if (activityLevel.equals("Brak"))
+            if (activityLevel.equals(activityLevelR[0]))
                 calories *= 1.2;
-            else if (activityLevel.equals("Niska"))
+            else if (activityLevel.equals(activityLevelR[1]))
                 calories *= 1.3;
-            else if (activityLevel.equals("Średnia"))
+            else if (activityLevel.equals(activityLevelR[2]))
                 calories *= 1.5;
-            else if (activityLevel.equals("Wysoka"))
+            else if (activityLevel.equals(activityLevelR[3]))
                 calories *= 1.7;
-            else if (activityLevel.equals("Bardzo wysoka"))
+            else if (activityLevel.equals(activityLevelR[4]))
                 calories *= 1.9;
 
-            if (goal.equals("Utrata"))
+            if (goal.equals(Resources.getSystem().getString(R.string.lose)))
                 calories -= 250;
-            else if (goal.equals("Przybranie"))
+            else if (goal.equals(Resources.getSystem().getString(R.string.gain)))
                 calories += 250;
         }
         return calories;
@@ -107,29 +111,30 @@ public class UserSettingsManagement {
     }
 
     public int getGoalInt(RadioGroup radioGroup, View view) {
-        if (getRadioButtonText(radioGroup, view).equals("Utrata"))
+        if (getRadioButtonText(radioGroup, view).equals(Resources.getSystem().getString(R.string.lose)))
             return 0;
-        else if (getRadioButtonText(radioGroup, view).equals("Przybranie"))
+        else if (getRadioButtonText(radioGroup, view).equals(Resources.getSystem().getString(R.string.gain)))
             return 1;
         else
             return 2;
     }
 
     public int getSexInt(RadioGroup radioGroup, View view) {
-        if (getRadioButtonText(radioGroup, view).equals("Kobieta"))
+        if (getRadioButtonText(radioGroup, view).equals(Resources.getSystem().getString(R.string.woman)))
             return 0;
         else
             return 1;
     }
 
     public int getActivityLevelInt(String activityLevel) {
-        if (activityLevel.equals("Brak"))
+        String[] activityLevelR = Resources.getSystem().getStringArray(R.array.activityLevel);
+        if (activityLevel.equals(activityLevelR[0]))
             return 0;
-        else if (activityLevel.equals("Niska"))
+        else if (activityLevel.equals(activityLevelR[1]))
             return 1;
-        else if (activityLevel.equals("Średnia"))
+        else if (activityLevel.equals(activityLevelR[2]))
             return 2;
-        else if (activityLevel.equals("Wysoka"))
+        else if (activityLevel.equals(activityLevelR[3]))
             return 3;
         else
             return 4;

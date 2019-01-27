@@ -19,7 +19,7 @@ public class AboutFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ((MainActivity) getActivity()).setActionBarTitle("O nas");
+        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.nav_about));
 
         return inflater.inflate(R.layout.fragment_about, container, false);
     }

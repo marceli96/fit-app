@@ -58,16 +58,16 @@ public class WelcomeActivity extends AppCompatActivity implements UserConnection
                 } else {
                     pbLogin.setVisibility(View.INVISIBLE);
                     if (etLogin.getText().toString().isEmpty())
-                        ToastUtils.shortToast(WelcomeActivity.this, "Wpisz login");
+                        ToastUtils.shortToast(WelcomeActivity.this, getString(R.string.fillLogin));
                     else if (etPassword.getText().toString().isEmpty())
-                        ToastUtils.shortToast(WelcomeActivity.this, "Wpisz hasło");
+                        ToastUtils.shortToast(WelcomeActivity.this, getString(R.string.fillPassword));
                 }
             }
         });
     }
 
     private void openMainActivity() {
-        ToastUtils.shortToast(WelcomeActivity.this, "Zalogowano pomyślnie");
+        ToastUtils.shortToast(WelcomeActivity.this, getString(R.string.successLogIn));
         Intent openMainActivity = new Intent(WelcomeActivity.this, MainActivity.class);
         openMainActivity.putExtra("user", user);
         startActivity(openMainActivity);

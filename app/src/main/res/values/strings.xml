@@ -20,7 +20,6 @@
     <string name="REGISTER_URL">http://fitappliaction.cba.pl/register.php</string>
 
 
-
     <string name="kcal"> kcal</string>
     <string name="g"> g</string>
     <string name="day">Dzień</string>
@@ -69,9 +68,26 @@
     <string name="lackOfPermitions">Brak uprawnień, spróbuj jeszcze raz</string>
     <string name="dash">-</string>
     <string name="dash2"> - </string>
-    <!--<string name=""></string>-->
-    <!--<string name=""></string>-->
-
+    <string name="successAdd">Dodano pomyślnie</string>
+    <string name="ingredients2">Składniki</string>
+    <string name="training2">Treningi</string>
+    <string name="selectAny">Wybierz którąś z opcji</string>
+    <string name="fillWeight">Uzupełnij pole \'Masa ciała\'</string>
+    <string name="updateData">Dane zaaktualizowane</string>
+    <string name="successDelete">Pomyślnie usunięto</string>
+    <string name="fillLogin">Wprowadź login</string>
+    <string name="reqLogin">Login musi mieć conajmniej 6 znaków</string>
+    <string name="fillEmail">Wprowadź e-mail</string>
+    <string name="fillPassword">Wprowadź hasło</string>
+    <string name="notSamePassword">Hasła się różnią</string>
+    <string name="reqPassword">Hasło musi mieć conajmniej 6 znaków</string>
+    <string name="successChange">Dane zmienione pomyślnie</string>
+    <string name="openMe">openMeFragment</string>
+    <string name="successLogOut">Wylogowano pomyślnie</string>
+    <string name="fillAge">Wprowadź swój wiek</string>
+    <string name="fillHeight">Wprowadź swój wzrost</string>
+    <string name="welcomeInApp">Jesteś nowym użytkownikiem! Zaloguj się do serwisu!</string>
+    <string name="successLogIn">Zalogowano pomyślnie</string>
 
 
     <string-array name="activityLevel">

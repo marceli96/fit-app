@@ -98,7 +98,7 @@ public class JournalChartsMacroWeek {
         for (int i = 0; i < 7; i++)
             barEntriesCalories.add(new BarEntry(i, macroMg.getCaloriesFromDay(foodSystemWeek.get(i))));
 
-        BarDataSet barDataSetCalories = new BarDataSet(barEntriesCalories, "Test");
+        BarDataSet barDataSetCalories = new BarDataSet(barEntriesCalories, journalFragment.getString(R.string.test));
         barDataSetCalories.setColors(colorCalories);
         barDataSetCalories.setValueTextSize(10);
 

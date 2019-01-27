@@ -64,12 +64,12 @@ public class HomeFragment extends Fragment implements FoodSystemDayConnectionCal
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ((MainActivity) getActivity()).setActionBarTitle("Strona główna");
+        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.nav_home));
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat(getString(R.string.formatDate));
         user = (User) getActivity().getIntent().getSerializableExtra("user");
 
         initializeArrays();
@@ -190,16 +190,16 @@ public class HomeFragment extends Fragment implements FoodSystemDayConnectionCal
             }
         });
 
-        String tempString = String.valueOf(user.getCaloricDemand()) + " kcal";
+        String tempString = String.valueOf(user.getCaloricDemand()) + getString(R.string.kcal);
         tvReqCalories.setText(tempString);
 
-        tempString = String.valueOf((int) (0.5 * user.getCaloricDemand() / 4)) + "-" + String.valueOf((int) (0.65 * user.getCaloricDemand() / 4));
+        tempString = String.valueOf((int) (0.5 * user.getCaloricDemand() / 4)) + getString(R.string.dash) + String.valueOf((int) (0.65 * user.getCaloricDemand() / 4));
         tvReqCarbohydrates.setText(tempString);
 
-        tempString = String.valueOf((int) (0.15 * user.getCaloricDemand() / 4)) + "-" + String.valueOf((int) (0.25 * user.getCaloricDemand() / 4));
+        tempString = String.valueOf((int) (0.15 * user.getCaloricDemand() / 4)) + getString(R.string.dash) + String.valueOf((int) (0.25 * user.getCaloricDemand() / 4));
         tvReqProtein.setText(tempString);
 
-        tempString = String.valueOf((int) (0.2 * user.getCaloricDemand() / 9)) + "-" + String.valueOf((int) (0.3 * user.getCaloricDemand() / 9));
+        tempString = String.valueOf((int) (0.2 * user.getCaloricDemand() / 9)) + getString(R.string.dash) + String.valueOf((int) (0.3 * user.getCaloricDemand() / 9));
         tvReqFat.setText(tempString);
 
         pbCalories.setMax(user.getCaloricDemand());
@@ -319,7 +319,7 @@ public class HomeFragment extends Fragment implements FoodSystemDayConnectionCal
     }
 
     public void updateMacrosOnMealTimes() {
-        DecimalFormat decFormat = new DecimalFormat("0.0");
+        DecimalFormat decFormat = new DecimalFormat(getString(R.string.floatZero));
         MacrocomponentManagement macroMg = new MacrocomponentManagement();
         View view = getView();
 
@@ -328,13 +328,13 @@ public class HomeFragment extends Fragment implements FoodSystemDayConnectionCal
         TextView tvFatBreakfast = view.findViewById(R.id.tvFatBreakfast);
         TextView tvCaloriesBreakfast = view.findViewById(R.id.tvCaloriesBreakfast);
 
-        String tempString = String.valueOf(decFormat.format(macroMg.getCarbohydratesForMealTimeFromDay(foodSystemDay.get(0)))) + " g";
+        String tempString = String.valueOf(decFormat.format(macroMg.getCarbohydratesForMealTimeFromDay(foodSystemDay.get(0)))) + getString(R.string.g);
         tvCarbohydratesBreakfast.setText(tempString);
-        tempString = String.valueOf(decFormat.format(macroMg.getProteinForMealTimeFromDay(foodSystemDay.get(0)))) + " g";
+        tempString = String.valueOf(decFormat.format(macroMg.getProteinForMealTimeFromDay(foodSystemDay.get(0)))) + getString(R.string.g);
         tvProteinBreakfast.setText(tempString);
-        tempString = String.valueOf(decFormat.format(macroMg.getFatForMealTimeFromDay(foodSystemDay.get(0)))) + " g";
+        tempString = String.valueOf(decFormat.format(macroMg.getFatForMealTimeFromDay(foodSystemDay.get(0)))) + getString(R.string.g);
         tvFatBreakfast.setText(tempString);
-        tempString = String.valueOf(macroMg.getCaloriesForMealTimeFromDay(foodSystemDay.get(0))) + " kcal";
+        tempString = String.valueOf(macroMg.getCaloriesForMealTimeFromDay(foodSystemDay.get(0))) + getString(R.string.kcal);
         tvCaloriesBreakfast.setText(tempString);
 
         TextView tvCarbohydratesSecondBreakfast = view.findViewById(R.id.tvCarbohydratesSecondBreakfast);
@@ -342,13 +342,13 @@ public class HomeFragment extends Fragment implements FoodSystemDayConnectionCal
         TextView tvFatSecondBreakfast = view.findViewById(R.id.tvFatSecondBreakfast);
         TextView tvCaloriesSecondBreakfast = view.findViewById(R.id.tvCaloriesSecondBreakfast);
 
-        tempString = String.valueOf(decFormat.format(macroMg.getCarbohydratesForMealTimeFromDay(foodSystemDay.get(1)))) + " g";
+        tempString = String.valueOf(decFormat.format(macroMg.getCarbohydratesForMealTimeFromDay(foodSystemDay.get(1)))) + getString(R.string.g);
         tvCarbohydratesSecondBreakfast.setText(tempString);
-        tempString = String.valueOf(decFormat.format(macroMg.getProteinForMealTimeFromDay(foodSystemDay.get(1)))) + " g";
+        tempString = String.valueOf(decFormat.format(macroMg.getProteinForMealTimeFromDay(foodSystemDay.get(1)))) + getString(R.string.g);
         tvProteinSecondBreakfast.setText(tempString);
-        tempString = String.valueOf(decFormat.format(macroMg.getFatForMealTimeFromDay(foodSystemDay.get(1)))) + " g";
+        tempString = String.valueOf(decFormat.format(macroMg.getFatForMealTimeFromDay(foodSystemDay.get(1)))) + getString(R.string.g);
         tvFatSecondBreakfast.setText(tempString);
-        tempString = String.valueOf(macroMg.getCaloriesForMealTimeFromDay(foodSystemDay.get(1))) + " kcal";
+        tempString = String.valueOf(macroMg.getCaloriesForMealTimeFromDay(foodSystemDay.get(1))) + getString(R.string.kcal);
         tvCaloriesSecondBreakfast.setText(tempString);
 
         TextView tvCarbohydratesLunch = view.findViewById(R.id.tvCarbohydratesLunch);
@@ -356,13 +356,13 @@ public class HomeFragment extends Fragment implements FoodSystemDayConnectionCal
         TextView tvFatLunch = view.findViewById(R.id.tvFatLunch);
         TextView tvCaloriesLunch = view.findViewById(R.id.tvCaloriesLunch);
 
-        tempString = String.valueOf(decFormat.format(macroMg.getCarbohydratesForMealTimeFromDay(foodSystemDay.get(2)))) + " g";
+        tempString = String.valueOf(decFormat.format(macroMg.getCarbohydratesForMealTimeFromDay(foodSystemDay.get(2)))) + getString(R.string.g);
         tvCarbohydratesLunch.setText(tempString);
-        tempString = String.valueOf(decFormat.format(macroMg.getProteinForMealTimeFromDay(foodSystemDay.get(2)))) + " g";
+        tempString = String.valueOf(decFormat.format(macroMg.getProteinForMealTimeFromDay(foodSystemDay.get(2)))) + getString(R.string.g);
         tvProteinLunch.setText(tempString);
-        tempString = String.valueOf(decFormat.format(macroMg.getFatForMealTimeFromDay(foodSystemDay.get(2)))) + " g";
+        tempString = String.valueOf(decFormat.format(macroMg.getFatForMealTimeFromDay(foodSystemDay.get(2)))) + getString(R.string.g);
         tvFatLunch.setText(tempString);
-        tempString = String.valueOf(macroMg.getCaloriesForMealTimeFromDay(foodSystemDay.get(2))) + " kcal";
+        tempString = String.valueOf(macroMg.getCaloriesForMealTimeFromDay(foodSystemDay.get(2))) + getString(R.string.kcal);
         tvCaloriesLunch.setText(tempString);
 
         TextView tvCarbohydratesDinner = view.findViewById(R.id.tvCarbohydratesDinner);
@@ -370,13 +370,13 @@ public class HomeFragment extends Fragment implements FoodSystemDayConnectionCal
         TextView tvFatDinner = view.findViewById(R.id.tvFatDinner);
         TextView tvCaloriesDinner = view.findViewById(R.id.tvCaloriesDinner);
 
-        tempString = String.valueOf(decFormat.format(macroMg.getCarbohydratesForMealTimeFromDay(foodSystemDay.get(3)))) + " g";
+        tempString = String.valueOf(decFormat.format(macroMg.getCarbohydratesForMealTimeFromDay(foodSystemDay.get(3)))) + getString(R.string.g);
         tvCarbohydratesDinner.setText(tempString);
-        tempString = String.valueOf(decFormat.format(macroMg.getProteinForMealTimeFromDay(foodSystemDay.get(3)))) + " g";
+        tempString = String.valueOf(decFormat.format(macroMg.getProteinForMealTimeFromDay(foodSystemDay.get(3)))) + getString(R.string.g);
         tvProteinDinner.setText(tempString);
-        tempString = String.valueOf(decFormat.format(macroMg.getFatForMealTimeFromDay(foodSystemDay.get(3)))) + " g";
+        tempString = String.valueOf(decFormat.format(macroMg.getFatForMealTimeFromDay(foodSystemDay.get(3)))) + getString(R.string.g);
         tvFatDinner.setText(tempString);
-        tempString = String.valueOf(macroMg.getCaloriesForMealTimeFromDay(foodSystemDay.get(3))) + " kcal";
+        tempString = String.valueOf(macroMg.getCaloriesForMealTimeFromDay(foodSystemDay.get(3))) + getString(R.string.kcal);
         tvCaloriesDinner.setText(tempString);
 
         TextView tvCarbohydratesSnack = view.findViewById(R.id.tvCarbohydratesSnack);
@@ -384,13 +384,13 @@ public class HomeFragment extends Fragment implements FoodSystemDayConnectionCal
         TextView tvFatSnack = view.findViewById(R.id.tvFatSnack);
         TextView tvCaloriesSnack = view.findViewById(R.id.tvCaloriesSnack);
 
-        tempString = String.valueOf(decFormat.format(macroMg.getCarbohydratesForMealTimeFromDay(foodSystemDay.get(4)))) + " g";
+        tempString = String.valueOf(decFormat.format(macroMg.getCarbohydratesForMealTimeFromDay(foodSystemDay.get(4)))) + getString(R.string.g);
         tvCarbohydratesSnack.setText(tempString);
-        tempString = String.valueOf(decFormat.format(macroMg.getProteinForMealTimeFromDay(foodSystemDay.get(4)))) + " g";
+        tempString = String.valueOf(decFormat.format(macroMg.getProteinForMealTimeFromDay(foodSystemDay.get(4)))) + getString(R.string.g);
         tvProteinSnack.setText(tempString);
-        tempString = String.valueOf(decFormat.format(macroMg.getFatForMealTimeFromDay(foodSystemDay.get(4)))) + " g";
+        tempString = String.valueOf(decFormat.format(macroMg.getFatForMealTimeFromDay(foodSystemDay.get(4)))) + getString(R.string.g);
         tvFatSnack.setText(tempString);
-        tempString = String.valueOf(macroMg.getCaloriesForMealTimeFromDay(foodSystemDay.get(4))) + " kcal";
+        tempString = String.valueOf(macroMg.getCaloriesForMealTimeFromDay(foodSystemDay.get(4))) + getString(R.string.kcal);
         tvCaloriesSnack.setText(tempString);
 
         TextView tvCarbohydratesSupper = view.findViewById(R.id.tvCarbohydratesSupper);
@@ -398,18 +398,18 @@ public class HomeFragment extends Fragment implements FoodSystemDayConnectionCal
         TextView tvFatSupper = view.findViewById(R.id.tvFatSupper);
         TextView tvCaloriesSupper = view.findViewById(R.id.tvCaloriesSupper);
 
-        tempString = String.valueOf(decFormat.format(macroMg.getCarbohydratesForMealTimeFromDay(foodSystemDay.get(5)))) + " g";
+        tempString = String.valueOf(decFormat.format(macroMg.getCarbohydratesForMealTimeFromDay(foodSystemDay.get(5)))) + getString(R.string.g);
         tvCarbohydratesSupper.setText(tempString);
-        tempString = String.valueOf(decFormat.format(macroMg.getProteinForMealTimeFromDay(foodSystemDay.get(5)))) + " g";
+        tempString = String.valueOf(decFormat.format(macroMg.getProteinForMealTimeFromDay(foodSystemDay.get(5)))) + getString(R.string.g);
         tvProteinSupper.setText(tempString);
-        tempString = String.valueOf(decFormat.format(macroMg.getFatForMealTimeFromDay(foodSystemDay.get(5)))) + " g";
+        tempString = String.valueOf(decFormat.format(macroMg.getFatForMealTimeFromDay(foodSystemDay.get(5)))) + getString(R.string.g);
         tvFatSupper.setText(tempString);
-        tempString = String.valueOf(macroMg.getCaloriesForMealTimeFromDay(foodSystemDay.get(5))) + " kcal";
+        tempString = String.valueOf(macroMg.getCaloriesForMealTimeFromDay(foodSystemDay.get(5))) + getString(R.string.kcal);
         tvCaloriesSupper.setText(tempString);
     }
 
     public void updateEatenMacros() {
-        DecimalFormat decimalFormat = new DecimalFormat("0.0");
+        DecimalFormat decimalFormat = new DecimalFormat(getString(R.string.floatZero));
         MacrocomponentManagement macroMg = new MacrocomponentManagement();
         tvEatenCalories.setText(String.valueOf(macroMg.getCaloriesFromDay(foodSystemDay)));
         tvEatenCarbohydrates.setText(String.valueOf(decimalFormat.format(macroMg.getCarbohydratesFromDay(foodSystemDay))));
@@ -505,14 +505,14 @@ public class HomeFragment extends Fragment implements FoodSystemDayConnectionCal
                 foodSystemMealTimeAdapters.get(5).notifyDataSetChanged();
                 break;
         }
-        ToastUtils.shortToast(getActivity(), "Pomyślnie usunięto");
+        ToastUtils.shortToast(getActivity(), getString(R.string.successDelete));
         updateMacrosOnMealTimes();
         updateEatenMacros();
     }
 
     @Override
     public void onSuccessTrainingSystem(TrainingSystem training) {
-        ToastUtils.shortToast(getActivity(), "Pomyślnie usunięto");
+        ToastUtils.shortToast(getActivity(), getString(R.string.successDelete));
         trainingSystemDay.remove(training);
         trainingSystemListAdapter.notifyDataSetChanged();
         updateExerciseAmount();
