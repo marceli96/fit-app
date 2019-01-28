@@ -44,7 +44,7 @@ public class FoodSystemWeekConnection {
                     if (success) {
                         for (int i = 0; i < jsonResponse.length() - 3; i++) {
                             JSONObject row = jsonResponse.getJSONObject(String.valueOf(i));
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                            SimpleDateFormat sdf = new SimpleDateFormat(callback.activity().getString(R.string.formatDate));
                             String dateString = row.getString("FoodDate");
                             Date date = sdf.parse(dateString);
                             if (row.getString("type").equals("meal")) {

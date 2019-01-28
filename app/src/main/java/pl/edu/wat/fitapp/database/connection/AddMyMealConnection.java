@@ -51,7 +51,7 @@ public class AddMyMealConnection {
                     if (success) {
                         callback.onSuccessAddMyMeal();
                     } else {
-                        callback.onFailure(callback.activity().getString(R.string.adding));
+                        callback.onFailure(callback.activity().getString(R.string.addError));
                     }
                 } catch (JSONException e) {
                     callback.onFailure(callback.activity().getString(R.string.addError) + e.toString());
