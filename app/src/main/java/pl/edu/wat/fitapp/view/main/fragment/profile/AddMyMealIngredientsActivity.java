@@ -98,7 +98,7 @@ public class AddMyMealIngredientsActivity extends AppCompatActivity implements I
                     addMyMealConnection = new AddMyMealConnection(AddMyMealIngredientsActivity.this, mealIngredients);
                     addMyMealConnection.addMyMeal(user.getUserID(), mealName);
                 } else
-                    ToastUtils.shortToast(AddMyMealIngredientsActivity.this, "Najpierw dodaj składniki do posiłku");
+                    ToastUtils.shortToast(AddMyMealIngredientsActivity.this, getString(R.string.addIngredientsToMeal));
             }
         });
 
@@ -125,16 +125,16 @@ public class AddMyMealIngredientsActivity extends AppCompatActivity implements I
             }
         });
 
-        String tempString = String.valueOf(user.getCaloricDemand()) + " kcal";
+        String tempString = String.valueOf(user.getCaloricDemand()) + getString(R.string.kcal);
         tvReqCalories.setText(tempString);
 
-        tempString = String.valueOf((int) (0.5 * user.getCaloricDemand() / 4)) + "-" + String.valueOf((int) (0.65 * user.getCaloricDemand() / 4));
+        tempString = String.valueOf((int) (0.5 * user.getCaloricDemand() / 4)) + getString(R.string.dash) + String.valueOf((int) (0.65 * user.getCaloricDemand() / 4));
         tvReqCarbohydrates.setText(tempString);
 
-        tempString = String.valueOf((int) (0.15 * user.getCaloricDemand() / 4)) + "-" + String.valueOf((int) (0.25 * user.getCaloricDemand() / 4));
+        tempString = String.valueOf((int) (0.15 * user.getCaloricDemand() / 4)) + getString(R.string.dash) + String.valueOf((int) (0.25 * user.getCaloricDemand() / 4));
         tvReqProtein.setText(tempString);
 
-        tempString = String.valueOf((int) (0.2 * user.getCaloricDemand() / 9)) + "-" + String.valueOf((int) (0.3 * user.getCaloricDemand() / 9));
+        tempString = String.valueOf((int) (0.2 * user.getCaloricDemand() / 9)) + getString(R.string.dash) + String.valueOf((int) (0.3 * user.getCaloricDemand() / 9));
         tvReqFat.setText(tempString);
 
         pbCalories.setMax(user.getCaloricDemand());
@@ -168,13 +168,13 @@ public class AddMyMealIngredientsActivity extends AppCompatActivity implements I
         Intent openMeFragment = new Intent(AddMyMealIngredientsActivity.this, MainActivity.class);
         openMeFragment.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         openMeFragment.putExtra("user", user);
-        openMeFragment.putExtra("action", "openMeFragment");
+        openMeFragment.putExtra("action", getString(R.string.openMe));
         startActivity(openMeFragment);
     }
 
     private void updateMealMacros() {
         MacrocomponentManagement macroMng = new MacrocomponentManagement();
-        DecimalFormat decimalFormat = new DecimalFormat("0.0");
+        DecimalFormat decimalFormat = new DecimalFormat(getString(R.string.floatZero));
 
         int mealCalories = macroMng.getCaloriesForMeal(mealIngredients);
         double mealCarbohydrates = macroMng.getCarbohydratesForMeal(mealIngredients);
@@ -199,7 +199,7 @@ public class AddMyMealIngredientsActivity extends AppCompatActivity implements I
 
     @Override
     public void onSuccessAddMyMeal() {
-        ToastUtils.shortToast(AddMyMealIngredientsActivity.this, "Dodano posiłek");
+        ToastUtils.shortToast(AddMyMealIngredientsActivity.this, getString(R.string.mealAdded));
         openMeFragment();
     }
 

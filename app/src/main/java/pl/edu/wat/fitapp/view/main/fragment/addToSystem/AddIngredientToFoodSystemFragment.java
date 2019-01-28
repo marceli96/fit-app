@@ -78,7 +78,7 @@ public class AddIngredientToFoodSystemFragment extends Fragment implements Ingre
 
     @Override
     public void onSuccess() {
-        ToastUtils.shortToast(getActivity(), "Dodano pomyślnie");
+        ToastUtils.shortToast(getActivity(), getString(R.string.successAdd));
         openMainActivity();
     }
 

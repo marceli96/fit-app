@@ -10,39 +10,45 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import pl.edu.wat.fitapp.database.entity.Ingredient;
 import pl.edu.wat.fitapp.database.entity.Meal;
 import pl.edu.wat.fitapp.interfaces.FoodSystem;
-import pl.edu.wat.fitapp.interfaces.callback.FoodSystemDayConnectionCallback;
-import pl.edu.wat.fitapp.mangement.FoodSystemDayManagement;
+import pl.edu.wat.fitapp.interfaces.callback.FoodSystemWeekConnectionCallback;
+import pl.edu.wat.fitapp.mangement.FoodSystemWeekManagement;
 import pl.edu.wat.fitapp.R;
 
-public class FoodSystemDayConnection {
-    private FoodSystemDayConnectionCallback callback;
-    private ArrayList<ArrayList<FoodSystem>> foodSystemDay;
+public class FoodSystemWeekConnection {
+    private FoodSystemWeekConnectionCallback callback;
+    private ArrayList<ArrayList<ArrayList<FoodSystem>>> foodSystemWeek;
 
-    public FoodSystemDayConnection(FoodSystemDayConnectionCallback callback, ArrayList<ArrayList<FoodSystem>> foodSystemDay) {
+    public FoodSystemWeekConnection(FoodSystemWeekConnectionCallback callback, ArrayList<ArrayList<ArrayList<FoodSystem>>> foodSystemWeek) {
         this.callback = callback;
-        this.foodSystemDay = foodSystemDay;
+        this.foodSystemWeek = foodSystemWeek;
     }
 
-    public void getFoodSystemFromDay(final int userID, final String date) {
+    public void getFoodSystemFromWeek(final int userID) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, callback.activity().getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
-                    FoodSystemDayManagement foodSystemManagement = new FoodSystemDayManagement();
+                    FoodSystemWeekManagement foodSystemWeekManagement = new FoodSystemWeekManagement();
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
                     if (success) {
                         for (int i = 0; i < jsonResponse.length() - 3; i++) {
                             JSONObject row = jsonResponse.getJSONObject(String.valueOf(i));
+                            SimpleDateFormat sdf = new SimpleDateFormat(callback.activity().getString(R.string.formatDate));
+                            String dateString = row.getString("FoodDate");
+                            Date date = sdf.parse(dateString);
                             if (row.getString("type").equals("meal")) {
-                                int mealPosition = foodSystemManagement.checkMealPositionInList(row.getInt("ID_MyMeal"), row.getInt("MealTime"), foodSystemDay);
+                                int mealPosition = foodSystemWeekManagement.checkMealPositionInListForDate(row.getInt("ID_MyMeal"), date, row.getInt("MealTime"), foodSystemWeek);
                                 Meal tempMeal;
                                 if (mealPosition == -1) {
                                     tempMeal = new Meal(row.getInt("ID_MyMeal"), row.getString("MealName"));
@@ -51,46 +57,48 @@ public class FoodSystemDayConnection {
                                     tempIngredient.setWeight(row.getInt("IngredientWeight"));
                                     tempMeal.addIngredientToList(tempIngredient);
                                     tempMeal.setWeight(row.getInt("Weight"));
-                                    foodSystemManagement.addMealToFoodSystemList(tempMeal, row.getInt("MealTime"), foodSystemDay);
+                                    foodSystemWeekManagement.addMealToFoodSystemListForDate(tempMeal, date, row.getInt("MealTime"), foodSystemWeek);
                                 } else {
                                     Ingredient tempIngredient = new Ingredient(row.getInt("ID_Ingredient"), row.getString("IngredientName"), row.getDouble("Carbohydrates"),
                                             row.getDouble("Protein"), row.getDouble("Fat"), row.getInt("Calories"));
                                     tempIngredient.setWeight(row.getInt("IngredientWeight"));
-                                    foodSystemManagement.updateMealInFoodSystemList(mealPosition, tempIngredient, row.getInt("MealTime"), foodSystemDay);
+                                    foodSystemWeekManagement.updateMealInFoodSystemListForDate(mealPosition, tempIngredient, date, row.getInt("MealTime"), foodSystemWeek);
                                 }
                             } else {
                                 Ingredient tempIngredient = new Ingredient(row.getInt("ID_Ingredient"), row.getString("IngredientName"), row.getDouble("Carbohydrates"),
                                         row.getDouble("Protein"), row.getDouble("Fat"), row.getInt("Calories"));
                                 tempIngredient.setWeight(row.getInt("Weight"));
-                                foodSystemManagement.addIngredientToFoodSystemList(tempIngredient, row.getInt("MealTime"), foodSystemDay);
+                                foodSystemWeekManagement.addIngredientToFoodSystemListForDate(tempIngredient, date, row.getInt("MealTime"), foodSystemWeek);
                             }
                         }
-                        callback.onSuccessFoodSystemDay();
-                    } else {
-                        callback.onFailure("Błąd połączenia z bazą");
-                    }
+                        callback.onSuccessFoodSystemWeek();
+                    } else
+                        callback.onFailure(callback.activity().getString(R.string.connectionError));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    callback.onFailure("Błąd połączenia z bazą " + e.toString());
+                    callback.onFailure(callback.activity().getString(R.string.connectionError) + e.toString());
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                callback.onFailure("Błąd połączenia z bazą " + error.toString());
+                callback.onFailure(callback.activity().getString(R.string.connectionError) + error.toString());
             }
         }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                params.put("operation", "getFoodSystemFromDay");
+                Date date = new Date();
+                SimpleDateFormat dateFormat = new SimpleDateFormat(callback.activity().getString(R.string.formatDate));
+                params.put("operation", "getFoodSystemFromWeek");
                 params.put("userId", String.valueOf(userID));
-                params.put("date", date);
+                params.put("dateNow", dateFormat.format(date));
                 return params;
             }
         };
         RequestQueue requestQueue = Volley.newRequestQueue(callback.activity());
         requestQueue.add(stringRequest);
     }
-
 }

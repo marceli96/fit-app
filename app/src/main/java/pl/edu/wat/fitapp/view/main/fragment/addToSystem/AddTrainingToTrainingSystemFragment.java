@@ -77,7 +77,7 @@ public class AddTrainingToTrainingSystemFragment extends Fragment implements MyT
 
     @Override
     public void onSuccess() {
-        ToastUtils.shortToast(getActivity(), "Dodano pomyślnie");
+        ToastUtils.shortToast(getActivity(), getString(R.string.successAdd));
         openMainActivity();
     }
 

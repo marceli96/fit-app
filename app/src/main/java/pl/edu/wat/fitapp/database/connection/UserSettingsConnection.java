@@ -37,18 +37,18 @@ public class UserSettingsConnection {
                             user.setUserName(newUserName);
                             callback.onSuccess(user);
                         } else
-                            callback.onFailure("Nieoczekiwany błąd");
+                            callback.onFailure(callback.activity().getString(R.string.unexpectedError));
                     } else
-                        callback.onFailure("Nazwa użytkownika jest zajęta");
+                        callback.onFailure(callback.activity().getString(R.string.usernameError));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    callback.onFailure("Błąd połączenia z bazą  " + e.toString());
+                    callback.onFailure(callback.activity().getString(R.string.connectionError) + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                callback.onFailure("Błąd połączenia z bazą " + error.toString());
+                callback.onFailure(callback.activity().getString(R.string.connectionError) + error.toString());
             }
         }) {
             @Override
@@ -79,19 +79,19 @@ public class UserSettingsConnection {
                             user.setEmail(newEmail);
                             callback.onSuccess(user);
                         } else
-                            callback.onFailure("Nieoczekiwany błąd");
+                            callback.onFailure(callback.activity().getString(R.string.unexpectedError));
                     } else
-                        callback.onFailure("E-mail jest zajęty");
+                        callback.onFailure(callback.activity().getString(R.string.emailError));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    callback.onFailure("Błąd połączenia z bazą " + e.toString());
+                    callback.onFailure(callback.activity().getString(R.string.connectionError) + e.toString());
                 }
             }
         },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        callback.onFailure("Błąd połączenia z bazą " + error.toString());
+                        callback.onFailure(callback.activity().getString(R.string.connectionError) + error.toString());
                     }
                 }) {
             @Override
@@ -118,16 +118,16 @@ public class UserSettingsConnection {
                     if (success) {
                         callback.onSuccess(user);
                     } else
-                        callback.onFailure("Nieoczekiwany błąd");
+                        callback.onFailure(callback.activity().getString(R.string.unexpectedError));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    callback.onFailure("Błąd połączenia z bazą " + e.toString());
+                    callback.onFailure(callback.activity().getString(R.string.connectionError) + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                callback.onFailure("Błąd połączenia z bazą " + error.toString());
+                callback.onFailure(callback.activity().getString(R.string.connectionError) + error.toString());
             }
         }) {
             @Override

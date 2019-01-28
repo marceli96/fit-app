@@ -28,18 +28,18 @@ public class AddMyTrainingConnection {
     }
 
     public void addMyTraining(final int userID, final String trainingName) {
-        String exerciseIds = "";
-        String exerciseSeries = "";
-        String exerciseRepetitions = "";
+        String exerciseIds = callback.activity().getString(R.string.empty);
+        String exerciseSeries = callback.activity().getString(R.string.empty);
+        String exerciseRepetitions = callback.activity().getString(R.string.empty);
         for (int i = 0; i < trainingExercises.size(); i++) {
             if (i == trainingExercises.size() - 1) {
                 exerciseIds += String.valueOf(trainingExercises.get(i).getID());
                 exerciseSeries += String.valueOf(trainingExercises.get(i).getSeries());
                 exerciseRepetitions += String.valueOf(trainingExercises.get(i).getRepetitions());
             } else {
-                exerciseIds += String.valueOf(trainingExercises.get(i).getID()) + "/";
-                exerciseSeries += String.valueOf(trainingExercises.get(i).getSeries()) + "/";
-                exerciseRepetitions += String.valueOf(trainingExercises.get(i).getRepetitions()) + "/";
+                exerciseIds += String.valueOf(trainingExercises.get(i).getID()) + callback.activity().getString(R.string.slash);
+                exerciseSeries += String.valueOf(trainingExercises.get(i).getSeries()) + callback.activity().getString(R.string.slash);
+                exerciseRepetitions += String.valueOf(trainingExercises.get(i).getRepetitions()) + callback.activity().getString(R.string.slash);
             }
         }
 
@@ -55,16 +55,16 @@ public class AddMyTrainingConnection {
                     if (success) {
                         callback.onSuccessAddMyTraining();
                     } else
-                        callback.onFailure("Błąd podczas dodawania treningu");
+                        callback.onFailure(callback.activity().getString(R.string.addError));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    callback.onFailure("Błąd podczas dodawania treningu " + e.toString());
+                    callback.onFailure(callback.activity().getString(R.string.addError) + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                callback.onFailure("Błąd podczas dodawania treningu " + error.toString());
+                callback.onFailure(callback.activity().getString(R.string.addError) + error.toString());
             }
         }) {
             @Override

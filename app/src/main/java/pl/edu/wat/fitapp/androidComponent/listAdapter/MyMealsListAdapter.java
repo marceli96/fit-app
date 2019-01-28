@@ -36,23 +36,23 @@ public class MyMealsListAdapter extends ArrayAdapter<Meal> {
         TextView tvFat = convertView.findViewById(R.id.tvFat);
         TextView tvCalories = convertView.findViewById(R.id.tvCalories);
 
-        DecimalFormat decimalFormat = new DecimalFormat("0.0");
+        DecimalFormat decimalFormat = new DecimalFormat(getContext().getString(R.string.floatZero));
 
         tvName.setText(myMeals.get(position).getName());
 
-        String tempString = String.valueOf(myMeals.get(position).getTotalWeight()) + " g";
+        String tempString = String.valueOf(myMeals.get(position).getTotalWeight()) + getContext().getString(R.string.g);
         tvWeight.setText(tempString);
 
-        tempString = String.valueOf(decimalFormat.format(myMeals.get(position).getCarbohydrates())) + " g";
+        tempString = String.valueOf(decimalFormat.format(myMeals.get(position).getCarbohydrates())) + getContext().getString(R.string.g);
         tvCarbohydrates.setText(tempString);
 
-        tempString = String.valueOf(decimalFormat.format(myMeals.get(position).getProtein())) + " g";
+        tempString = String.valueOf(decimalFormat.format(myMeals.get(position).getProtein())) + getContext().getString(R.string.g);
         tvProtein.setText(tempString);
 
-        tempString = String.valueOf(decimalFormat.format(myMeals.get(position).getFat())) + " g";
+        tempString = String.valueOf(decimalFormat.format(myMeals.get(position).getFat())) + getContext().getString(R.string.g);
         tvFat.setText(tempString);
 
-        tempString = String.valueOf(myMeals.get(position).getCalories()) + " g";
+        tempString = String.valueOf(myMeals.get(position).getCalories()) + getContext().getString(R.string.kcal);
         tvCalories.setText(tempString);
 
         return convertView;

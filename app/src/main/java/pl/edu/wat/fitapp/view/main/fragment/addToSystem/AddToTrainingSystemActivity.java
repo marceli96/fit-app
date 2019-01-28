@@ -33,8 +33,8 @@ public class AddToTrainingSystemActivity extends AppCompatActivity {
         sectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
 
         viewPager = findViewById(R.id.container);
-        sectionsPageAdapter.addFragment(addExerciseToTrainingSystemFragment, "Ćwiczenia");
-        sectionsPageAdapter.addFragment(addTrainingToTrainingSystemFragment, "Treningi");
+        sectionsPageAdapter.addFragment(addExerciseToTrainingSystemFragment, getString(R.string.exercises2));
+        sectionsPageAdapter.addFragment(addTrainingToTrainingSystemFragment, getString(R.string.training2));
         viewPager.setAdapter(sectionsPageAdapter);
 
         tabLayout = findViewById(R.id.tabs);

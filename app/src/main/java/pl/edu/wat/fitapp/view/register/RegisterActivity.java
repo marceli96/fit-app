@@ -81,21 +81,21 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                     registerConnection.register();
                 } else {
                     if (etLogin.getText().toString().isEmpty())
-                        ToastUtils.shortToast(RegisterActivity.this, "Wprowadź login");
+                        ToastUtils.shortToast(RegisterActivity.this, getString(R.string.fillLogin));
                     else if (etPassword.getText().toString().isEmpty())
-                        ToastUtils.shortToast(RegisterActivity.this, "Wprowadź hasło");
+                        ToastUtils.shortToast(RegisterActivity.this, getString(R.string.fillPassword));
                     else if (etEmail.getText().toString().isEmpty())
-                        ToastUtils.shortToast(RegisterActivity.this, "Wprowadź e-mail");
+                        ToastUtils.shortToast(RegisterActivity.this, getString(R.string.fillEmail));
                     else if (etAge.getText().toString().isEmpty())
-                        ToastUtils.shortToast(RegisterActivity.this, "Wprowadź swój wiek");
+                        ToastUtils.shortToast(RegisterActivity.this, getString(R.string.fillAge));
                     else if (etHeight.getText().toString().isEmpty())
-                        ToastUtils.shortToast(RegisterActivity.this, "Wprowadź swój wzrost");
+                        ToastUtils.shortToast(RegisterActivity.this, getString(R.string.fillHeight));
                     else if (etWeight.getText().toString().isEmpty())
-                        ToastUtils.shortToast(RegisterActivity.this, "Wprowadź swoją wagę");
+                        ToastUtils.shortToast(RegisterActivity.this, getString(R.string.fillWeight));
                     else if (etLogin.getText().toString().length() <= 5)
-                        ToastUtils.shortToast(RegisterActivity.this, "Login musi mieć conajmniej 6 znaków");
+                        ToastUtils.shortToast(RegisterActivity.this, getString(R.string.reqLogin));
                     else if (etPassword.getText().toString().length() <= 5)
-                        ToastUtils.shortToast(RegisterActivity.this, "Hasło musi mieć conajmniej 6 znaków");
+                        ToastUtils.shortToast(RegisterActivity.this, getString(R.string.reqPassword));
                 }
             }
         });
@@ -110,11 +110,11 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                     tvCalories.setText(String.valueOf(calories));
                 } else {
                     if (etAge.getText().toString().isEmpty())
-                        ToastUtils.shortToast(RegisterActivity.this, "Wprowadź swój wiek");
+                        ToastUtils.shortToast(RegisterActivity.this, getString(R.string.fillAge));
                     else if (etWeight.getText().toString().isEmpty())
-                        ToastUtils.shortToast(RegisterActivity.this, "Wprowadź swoją wagę");
+                        ToastUtils.shortToast(RegisterActivity.this, getString(R.string.fillWeight));
                     else if (etHeight.getText().toString().isEmpty())
-                        ToastUtils.shortToast(RegisterActivity.this, "Wprowadź swój wzrost");
+                        ToastUtils.shortToast(RegisterActivity.this, getString(R.string.fillHeight));
                 }
             }
         });
@@ -137,7 +137,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
 
     @Override
     public void onSuccess() {
-        ToastUtils.shortToast(RegisterActivity.this, "Jesteś nowym użytkownikiem! Zaloguj się do serwisu!");
+        ToastUtils.shortToast(RegisterActivity.this, getString(R.string.welcomeInApp));
         openLoginActivity();
         this.finish();
     }

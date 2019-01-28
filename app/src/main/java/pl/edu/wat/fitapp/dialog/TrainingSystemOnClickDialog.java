@@ -51,12 +51,12 @@ public class TrainingSystemOnClickDialog {
             llTraining.setVisibility(View.GONE);
             tvSeries.setText(String.valueOf(tempExercise.getSeries()));
             tvRepetitions.setText(String.valueOf(tempExercise.getRepetitions()));
-            bDelete.setText("Usuń ćwiczenie");
+            bDelete.setText(callback.activity().getString(R.string.comunicat7));
         } else {
             Training tempTraining = (Training) trainingSystemDay.get(position);
             llExercise.setVisibility(View.GONE);
             tvExerciseAmount.setText(String.valueOf(tempTraining.getExerciseList().size()));
-            bDelete.setText("Usuń trening");
+            bDelete.setText(callback.activity().getString(R.string.comunicat8));
 
             ExercisesListAdapter exercisesListAdapter = new ExercisesListAdapter(callback.activity(), R.layout.listview_adapter_exercise_with_series_repetitions_simple, tempTraining.getExerciseList());
             lvExercises.setAdapter(exercisesListAdapter);

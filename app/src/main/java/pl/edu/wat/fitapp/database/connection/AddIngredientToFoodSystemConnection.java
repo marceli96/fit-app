@@ -18,14 +18,15 @@ import java.util.Map;
 import pl.edu.wat.fitapp.interfaces.callback.ConnectionCallback;
 import pl.edu.wat.fitapp.R;
 
-public class AddTrainingToTrainingSystemConnection {
+
+public class AddIngredientToFoodSystemConnection {
     private ConnectionCallback callback;
 
-    public AddTrainingToTrainingSystemConnection(ConnectionCallback callback) {
+    public AddIngredientToFoodSystemConnection(ConnectionCallback callback) {
         this.callback = callback;
     }
 
-    public void addTrainingToTrainingSystem(final int trainingId, final int userID) {
+    public void addIngredientToFoodSystem(final int ingredientId, final int userID, final int mealTime, final String weight) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, callback.activity().getString(R.string.OPERATIONS_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -33,37 +34,41 @@ public class AddTrainingToTrainingSystemConnection {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean message = jsonResponse.getBoolean("message");
                     if (!message) {
-                        callback.onFailure("Dany trening został już dodany w tym dniu");
+                        callback.onFailure(callback.activity().getString(R.string.comunicat2));
                     } else {
                         boolean success = jsonResponse.getBoolean("success");
                         if (success) {
                             callback.onSuccess();
-                        } else
-                            callback.onFailure("Błąd podczas dodawania");
+                        } else {
+                            callback.onFailure(callback.activity().getString(R.string.addError));
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    callback.onFailure("Błąd podczas dodawania " + e.toString());
+                    callback.onFailure(callback.activity().getString(R.string.addError) + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                callback.onFailure("Błąd podczas dodawania " + error.toString());
+                callback.onFailure(callback.activity().getString(R.string.addError) + error.toString());
             }
         }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 Date date = new Date();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                params.put("operation", "addTrainingToTrainingSystem");
+                SimpleDateFormat dateFormat = new SimpleDateFormat(callback.activity().getString(R.string.formatDate));
+                params.put("operation", "addIngredientToFoodSystem");
+                params.put("ingredientId", String.valueOf(ingredientId));
                 params.put("userId", String.valueOf(userID));
-                params.put("myTrainingId", String.valueOf(trainingId));
+                params.put("mealTime", String.valueOf(mealTime));
+                params.put("weight", weight);
                 params.put("date", dateFormat.format(date));
                 return params;
             }
         };
+
         RequestQueue requestQueue = Volley.newRequestQueue(callback.activity());
         requestQueue.add(stringRequest);
     }

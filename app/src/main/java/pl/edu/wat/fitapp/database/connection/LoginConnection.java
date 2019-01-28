@@ -41,14 +41,14 @@ public class LoginConnection {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                callback.onFailure("Błąd połączenia z bazą! " + error.toString());
+                callback.onFailure(callback.activity().getString(R.string.connectionError) + error.toString());
             }
         }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 Date date = new Date();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat dateFormat = new SimpleDateFormat(callback.activity().getString(R.string.formatDate));
                 params.put("operation", "moveWeight");
                 params.put("userName", userName);
                 params.put("dateNow", dateFormat.format(date));
@@ -75,18 +75,18 @@ public class LoginConnection {
                                 jsonObject1.getInt("CaloricDemend"), jsonObject1.getInt("Goal"));
                         callback.onSuccess(user);
                     } else {
-                        callback.onFailure("Błędne dane");
+                        callback.onFailure(callback.activity().getString(R.string.wrongDataComunicat));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    callback.onFailure("Błąd połączenia z bazą! " + e.toString());
+                    callback.onFailure(callback.activity().getString(R.string.connectionError) + e.toString());
                 }
             }
         },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        callback.onFailure("Błąd połączenia z bazą! " + error.toString());
+                        callback.onFailure(callback.activity().getString(R.string.connectionError) + error.toString());
                     }
                 }) {
             @Override

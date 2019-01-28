@@ -32,7 +32,7 @@ public class SimpleIngredientsListAdapter extends ArrayAdapter<Ingredient> {
         TextView tvIngredientWeight = convertView.findViewById(R.id.tvIngredientWeight);
 
         tvIngredientName.setText(ingredientList.get(position).getName());
-        String tempString = ingredientList.get(position).getWeight() + " g";
+        String tempString = ingredientList.get(position).getWeight() + getContext().getString(R.string.g);
         tvIngredientWeight.setText(tempString);
 
         return convertView;

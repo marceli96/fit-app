@@ -57,7 +57,7 @@ public class ExportFragment extends Fragment implements FoodSystemWeekConnection
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ((MainActivity) getActivity()).setActionBarTitle("Eksport danych");
+        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.nav_export));
 
         View view = inflater.inflate(R.layout.fragment_export, container, false);
         user = (User) getActivity().getIntent().getSerializableExtra("user");
@@ -84,7 +84,7 @@ public class ExportFragment extends Fragment implements FoodSystemWeekConnection
             public void onClick(View v) {
                 if (!cbBreakfast.isChecked() && !cbSecondBreakfast.isChecked() && !cbLunch.isChecked() && !cbDinner.isChecked() &&
                         !cbSnack.isChecked() && !cbSupper.isChecked() && !cbSummary.isChecked() && !cbTraining.isChecked()) {
-                    ToastUtils.shortToast(getActivity(), "Wybierz którąś z opcji");
+                    ToastUtils.shortToast(getActivity(), getString(R.string.selectAny));
                 } else {
                     PDFGenerator pdf = new PDFGenerator(ExportFragment.this);
                     ArrayList<Boolean> exportOptions = new ArrayList<>();

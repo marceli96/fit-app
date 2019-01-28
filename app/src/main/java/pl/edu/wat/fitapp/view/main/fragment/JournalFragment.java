@@ -55,7 +55,7 @@ public class JournalFragment extends Fragment implements WeightConnectionCallbac
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ((MainActivity) getActivity()).setActionBarTitle("Dziennik");
+        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.nav_journal));
 
         View view = getLayoutInflater().inflate(R.layout.fragment_journal, container, false);
 
@@ -92,7 +92,7 @@ public class JournalFragment extends Fragment implements WeightConnectionCallbac
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 chartDaily.setVisibility(View.GONE);
-                String date = year + "-" + (month + 1) + "-" + dayOfMonth;
+                String date = year + getString(R.string.dash) + (month + 1) + getString(R.string.dash) + dayOfMonth;
                 tvDate.setText(date);
                 llWeightDay.setVisibility(View.GONE);
                 pbLoadingDaily.setVisibility(View.VISIBLE);

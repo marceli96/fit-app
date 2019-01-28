@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.charts.chartComponent.XAxisValueFormatter;
 import pl.edu.wat.fitapp.charts.chartComponent.DoubleValueFormatter;
 import pl.edu.wat.fitapp.interfaces.FoodSystem;
@@ -44,19 +45,19 @@ public class JournalChartsMacroWeek {
         calendar.set(Calendar.SECOND, 0);
 
         calendar.add(Calendar.DAY_OF_MONTH, -1);
-        days.add(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1));
+        days.add(calendar.get(Calendar.DAY_OF_MONTH) + journalFragment.getString(R.string.slash) + (calendar.get(Calendar.MONTH) + 1));
         calendar.add(Calendar.DAY_OF_MONTH, -1);
-        days.add(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1));
+        days.add(calendar.get(Calendar.DAY_OF_MONTH) + journalFragment.getString(R.string.slash) + (calendar.get(Calendar.MONTH) + 1));
         calendar.add(Calendar.DAY_OF_MONTH, -1);
-        days.add(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1));
+        days.add(calendar.get(Calendar.DAY_OF_MONTH) + journalFragment.getString(R.string.slash) + (calendar.get(Calendar.MONTH) + 1));
         calendar.add(Calendar.DAY_OF_MONTH, -1);
-        days.add(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1));
+        days.add(calendar.get(Calendar.DAY_OF_MONTH) + journalFragment.getString(R.string.slash) + (calendar.get(Calendar.MONTH) + 1));
         calendar.add(Calendar.DAY_OF_MONTH, -1);
-        days.add(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1));
+        days.add(calendar.get(Calendar.DAY_OF_MONTH) + journalFragment.getString(R.string.slash) + (calendar.get(Calendar.MONTH) + 1));
         calendar.add(Calendar.DAY_OF_MONTH, -1);
-        days.add(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1));
+        days.add(calendar.get(Calendar.DAY_OF_MONTH) + journalFragment.getString(R.string.slash) + (calendar.get(Calendar.MONTH) + 1));
         calendar.add(Calendar.DAY_OF_MONTH, -1);
-        days.add(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1));
+        days.add(calendar.get(Calendar.DAY_OF_MONTH) + journalFragment.getString(R.string.slash) + (calendar.get(Calendar.MONTH) + 1));
     }
 
     public void drawChartsMacroWeek() {
@@ -97,7 +98,7 @@ public class JournalChartsMacroWeek {
         for (int i = 0; i < 7; i++)
             barEntriesCalories.add(new BarEntry(i, macroMg.getCaloriesFromDay(foodSystemWeek.get(i))));
 
-        BarDataSet barDataSetCalories = new BarDataSet(barEntriesCalories, "Test");
+        BarDataSet barDataSetCalories = new BarDataSet(barEntriesCalories, journalFragment.getString(R.string.calories2));
         barDataSetCalories.setColors(colorCalories);
         barDataSetCalories.setValueTextSize(10);
 
@@ -129,7 +130,7 @@ public class JournalChartsMacroWeek {
         for (int i = 0; i < 7; i++)
             barEntriesCarbohydrates.add(new BarEntry(i, (float) macroMg.getCarbohydratesFromDay(foodSystemWeek.get(i))));
 
-        BarDataSet barDataSetCarbohydrates = new BarDataSet(barEntriesCarbohydrates, "Test");
+        BarDataSet barDataSetCarbohydrates = new BarDataSet(barEntriesCarbohydrates, journalFragment.getString(R.string.carbohydrates2));
         barDataSetCarbohydrates.setValueFormatter(doubleValueFormatter);
         barDataSetCarbohydrates.setColors(colorCarbohydrates);
         barDataSetCarbohydrates.setValueTextSize(10);
@@ -162,7 +163,7 @@ public class JournalChartsMacroWeek {
         for (int i = 0; i < 7; i++)
             barEntriesProtein.add(new BarEntry(i, (float) macroMg.getProteinFromDay(foodSystemWeek.get(i))));
 
-        BarDataSet barDataSetProtein = new BarDataSet(barEntriesProtein, "Test");
+        BarDataSet barDataSetProtein = new BarDataSet(barEntriesProtein, journalFragment.getString(R.string.protein2));
         barDataSetProtein.setValueFormatter(doubleValueFormatter);
         barDataSetProtein.setColors(colorProtein);
         barDataSetProtein.setValueTextSize(10);
@@ -195,7 +196,7 @@ public class JournalChartsMacroWeek {
         for (int i = 0; i < 7; i++)
             barEntriesFat.add(new BarEntry(i, (float) macroMg.getFatFromDay(foodSystemWeek.get(i))));
 
-        BarDataSet barDataSetFat = new BarDataSet(barEntriesFat, "Test");
+        BarDataSet barDataSetFat = new BarDataSet(barEntriesFat, journalFragment.getString(R.string.fat2));
         barDataSetFat.setValueFormatter(doubleValueFormatter);
         barDataSetFat.setColors(colorFat);
         barDataSetFat.setValueTextSize(10);

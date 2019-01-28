@@ -81,7 +81,7 @@ public class AddMyTrainingExercisesActivity extends AppCompatActivity implements
                     addMyTrainingConnection.addMyTraining(user.getUserID(), trainingName);
                 }
                 else
-                    ToastUtils.shortToast(AddMyTrainingExercisesActivity.this, "Najpierw dodaj ćwiczenia do treningu");
+                    ToastUtils.shortToast(AddMyTrainingExercisesActivity.this, getString(R.string.addExercisesToTraining));
             }
         });
 
@@ -144,7 +144,7 @@ public class AddMyTrainingExercisesActivity extends AppCompatActivity implements
 
     @Override
     public void onSuccessAddMyTraining() {
-        ToastUtils.shortToast(AddMyTrainingExercisesActivity.this, "Dodano trening");
+        ToastUtils.shortToast(AddMyTrainingExercisesActivity.this, getString(R.string.trainingAdded));
         openMeFragment();
     }
 

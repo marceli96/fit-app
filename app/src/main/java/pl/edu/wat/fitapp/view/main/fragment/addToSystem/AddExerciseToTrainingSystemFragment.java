@@ -77,7 +77,7 @@ public class AddExerciseToTrainingSystemFragment extends Fragment implements Exe
 
     @Override
     public void onSuccess() {
-        ToastUtils.shortToast(getActivity(), "Dodano pomyślnie");
+        ToastUtils.shortToast(getActivity(), getString(R.string.successAdd));
         openMainActivity();
     }
 

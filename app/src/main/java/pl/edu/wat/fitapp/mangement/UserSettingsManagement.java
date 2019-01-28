@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import pl.edu.wat.fitapp.R;
 import pl.edu.wat.fitapp.database.entity.User;
 
 public class UserSettingsManagement {

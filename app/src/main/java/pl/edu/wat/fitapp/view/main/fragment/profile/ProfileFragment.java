@@ -59,7 +59,7 @@ public class ProfileFragment extends Fragment implements MyMealsConnectionCallba
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ((MainActivity) getActivity()).setActionBarTitle("Profil");
+        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.nav_me));
 
         View view = inflater.inflate(R.layout.fragment_me, container, false);
         user = (User) getActivity().getIntent().getSerializableExtra("user");

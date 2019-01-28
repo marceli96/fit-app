@@ -52,30 +52,30 @@ public class RegisterConnection {
                         if (success) {
                             callback.onSuccess();
                         } else {
-                            callback.onFailure("Nieoczekiwany błąd rejestracji");
+                            callback.onFailure(callback.activity().getString(R.string.registerError));
                         }
                     } else if (!availableUserName && availableEmail)
-                        callback.onFailure("Nazwa użytkownika jest zajęta");
+                        callback.onFailure(callback.activity().getString(R.string.usernameError));
                     else if (!availableEmail)
-                        callback.onFailure("E-mail jest zajęty");
+                        callback.onFailure(callback.activity().getString(R.string.emailError));
                     else
-                        callback.onFailure("Błąd połączenia");
+                        callback.onFailure(callback.activity().getString(R.string.connectionError));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    callback.onFailure("Błąd połączenia z bazą! " + e.toString());
+                    callback.onFailure(callback.activity().getString(R.string.connectionError) + e.toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                callback.onFailure("Błąd połączenia z bazą! " + error.toString());
+                callback.onFailure(callback.activity().getString(R.string.connectionError) + error.toString());
             }
         }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 Date date = new Date();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat dateFormat = new SimpleDateFormat(callback.activity().getString(R.string.formatDate));
                 params.put("userName", userName);
                 params.put("password", password);
                 params.put("email", email);

@@ -35,8 +35,8 @@ public class AddMyMealConnection {
                 ingredientIds += String.valueOf(mealIngredients.get(i).getID());
                 ingredientWeights += String.valueOf(mealIngredients.get(i).getWeight());
             } else {
-                ingredientIds += String.valueOf(mealIngredients.get(i).getID()) + "/";
-                ingredientWeights += String.valueOf(mealIngredients.get(i).getWeight()) + "/";
+                ingredientIds += String.valueOf(mealIngredients.get(i).getID()) + callback.activity().getString(R.string.slash);
+                ingredientWeights += String.valueOf(mealIngredients.get(i).getWeight()) + callback.activity().getString(R.string.slash);
             }
         }
 
@@ -51,17 +51,17 @@ public class AddMyMealConnection {
                     if (success) {
                         callback.onSuccessAddMyMeal();
                     } else {
-                        callback.onFailure("Blad podczas dodawania posiłku");
+                        callback.onFailure(callback.activity().getString(R.string.addError));
                     }
                 } catch (JSONException e) {
-                    callback.onFailure("Blad podczas dodawania posiłku " + e.toString());
+                    callback.onFailure(callback.activity().getString(R.string.addError) + e.toString());
                     e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                callback.onFailure("Blad podczas dodawania posiłku " + error.toString());
+                callback.onFailure(callback.activity().getString(R.string.addError) + error.toString());
             }
         }) {
             @Override

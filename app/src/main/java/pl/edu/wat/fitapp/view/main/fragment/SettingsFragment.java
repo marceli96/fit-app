@@ -35,7 +35,7 @@ public class SettingsFragment extends Fragment implements UserConnectionCallback
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ((MainActivity) getActivity()).setActionBarTitle("Ustawienia");
+        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.nav_settings));
 
         View view = getLayoutInflater().inflate(R.layout.fragment_settings, container, false);
 
@@ -64,9 +64,9 @@ public class SettingsFragment extends Fragment implements UserConnectionCallback
                     userSettingsConnection.changeLogin(user, etLogin.getText().toString());
                 } else {
                     if (etLogin.getText().toString().isEmpty())
-                        ToastUtils.shortToast(getActivity(), "Wprowadź login");
+                        ToastUtils.shortToast(getActivity(), getString(R.string.fillLogin));
                     else if (etLogin.getText().toString().length() <= 5)
-                        ToastUtils.shortToast(getActivity(), "Login musi mieć conajmniej 6 znaków");
+                        ToastUtils.shortToast(getActivity(), getString(R.string.reqLogin));
                 }
             }
         });
@@ -78,7 +78,7 @@ public class SettingsFragment extends Fragment implements UserConnectionCallback
                     userSettingsConnection = new UserSettingsConnection(SettingsFragment.this);
                     userSettingsConnection.changeEmail(user, etEmail.getText().toString());
                 } else {
-                    ToastUtils.shortToast(getActivity(), "Wprowadź e-mail");
+                    ToastUtils.shortToast(getActivity(), getString(R.string.fillEmail));
                 }
             }
         });
@@ -92,11 +92,11 @@ public class SettingsFragment extends Fragment implements UserConnectionCallback
                     userSettingsConnection.changePassword(user, etPassword1.getText().toString());
                 } else {
                     if (etPassword1.getText().toString().isEmpty())
-                        ToastUtils.shortToast(getActivity(), "Wprowadź hasło");
+                        ToastUtils.shortToast(getActivity(), getString(R.string.fillPassword));
                     else if (!etPassword1.getText().toString().equals(etPassword2.getText().toString()))
-                        ToastUtils.shortToast(getActivity(), "Hasła się różnią");
+                        ToastUtils.shortToast(getActivity(), getString(R.string.notSamePassword));
                     else if (etPassword1.getText().toString().length() <= 5)
-                        ToastUtils.shortToast(getActivity(), "Hasło musi mieć conajmniej 6 znaków");
+                        ToastUtils.shortToast(getActivity(), getString(R.string.reqPassword));
                 }
             }
 
@@ -120,7 +120,7 @@ public class SettingsFragment extends Fragment implements UserConnectionCallback
     @Override
     public void onSuccess(User user) {
         this.user = user;
-        ToastUtils.shortToast(getActivity(), "Dane zmienione pomyślnie");
+        ToastUtils.shortToast(getActivity(), getString(R.string.successChange));
         openHomeActivity();
     }
 

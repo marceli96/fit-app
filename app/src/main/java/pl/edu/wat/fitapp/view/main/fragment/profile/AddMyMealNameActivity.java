@@ -38,7 +38,7 @@ public class AddMyMealNameActivity extends AppCompatActivity {
                     openAddMyMealActivity2.putExtra("mealName", etMealName.getText().toString());
                     startActivity(openAddMyMealActivity2);
                 } else
-                    ToastUtils.shortToast(AddMyMealNameActivity.this, "Wpisz nazwę posiłku");
+                    ToastUtils.shortToast(AddMyMealNameActivity.this, getString(R.string.enterMealName));
             }
         });
 
