@@ -21,16 +21,12 @@ import pl.edu.wat.fitapp.R;
 
 public class TrainingSystemOnClickDialog {
     private TrainingSystemCallback callback;
-    private ArrayList<TrainingSystem> trainingSystemDay;
-    private TrainingSystemListAdapter trainingSystemListAdapter;
 
-    public TrainingSystemOnClickDialog(TrainingSystemCallback callback, ArrayList<TrainingSystem> trainingSystemDay, TrainingSystemListAdapter trainingSystemListAdapter) {
+    public TrainingSystemOnClickDialog(TrainingSystemCallback callback) {
         this.callback = callback;
-        this.trainingSystemDay = trainingSystemDay;
-        this.trainingSystemListAdapter = trainingSystemListAdapter;
     }
 
-    public void build(final int position, final int userID) {
+    public void build(final int position, final int userID, final ArrayList<TrainingSystem> trainingSystemDay) {
         AlertDialog.Builder builder = new AlertDialog.Builder(callback.activity());
         LayoutInflater inflater = LayoutInflater.from(callback.activity());
         View alertView = inflater.inflate(R.layout.dialog_training_system_details, null);
@@ -69,7 +65,7 @@ public class TrainingSystemOnClickDialog {
         bDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DeleteTrainingSystemConnection deleteConnection = new DeleteTrainingSystemConnection(callback, trainingSystemDay, trainingSystemListAdapter);
+                DeleteTrainingSystemConnection deleteConnection = new DeleteTrainingSystemConnection(callback);
                 deleteConnection.deleteFromTrainingSystem(trainingSystemDay.get(position), userID);
                 dialog.dismiss();
             }

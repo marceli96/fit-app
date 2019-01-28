@@ -24,13 +24,9 @@ import pl.edu.wat.fitapp.R;
 
 public class DeleteFoodSystemConnection {
     private FoodSystemCallback callback;
-    private ArrayList<ArrayList<FoodSystem>> foodSystemDay;
-    private ArrayList<FoodSystemListAdapter> foodSystemListAdapters;
 
-    public DeleteFoodSystemConnection(FoodSystemCallback callback, ArrayList<ArrayList<FoodSystem>> foodSystemDay, ArrayList<FoodSystemListAdapter> foodSystemListAdapters) {
+    public DeleteFoodSystemConnection(FoodSystemCallback callback) {
         this.callback = callback;
-        this.foodSystemDay = foodSystemDay;
-        this.foodSystemListAdapters = foodSystemListAdapters;
     }
 
     public void deleteFromFoodSystem(final FoodSystem food, final int userId, final int mealTime, final int weight) {

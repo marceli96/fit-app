@@ -139,8 +139,8 @@ public class HomeFragment extends Fragment implements FoodSystemDayConnectionCal
         trainingSystemDayConnection = new TrainingSystemDayConnection(this, trainingSystemDay);
         trainingSystemDayConnection.getTrainingSystem(user.getUserID());
 
-        foodSystemOnClickDialog = new FoodSystemOnClickDialog(this, foodSystemDay, foodSystemMealTimeAdapters);
-        trainingSystemOnClickDialog = new TrainingSystemOnClickDialog(this, trainingSystemDay, trainingSystemListAdapter);
+        foodSystemOnClickDialog = new FoodSystemOnClickDialog(this);
+        trainingSystemOnClickDialog = new TrainingSystemOnClickDialog(this);
         lvBreakfast.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -186,7 +186,7 @@ public class HomeFragment extends Fragment implements FoodSystemDayConnectionCal
         lvTraining.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                trainingSystemOnClickDialog.build(position, user.getUserID());
+                trainingSystemOnClickDialog.build(position, user.getUserID(), trainingSystemDay);
             }
         });
 

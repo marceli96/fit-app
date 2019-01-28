@@ -24,13 +24,9 @@ import pl.edu.wat.fitapp.R;
 
 public class DeleteTrainingSystemConnection {
     private TrainingSystemCallback callback;
-    private ArrayList<TrainingSystem> trainingSystemDay;
-    private TrainingSystemListAdapter trainingSystemListAdapter;
 
-    public DeleteTrainingSystemConnection(TrainingSystemCallback callback, ArrayList<TrainingSystem> trainingSystemDay, TrainingSystemListAdapter trainingSystemListAdapter) {
+    public DeleteTrainingSystemConnection(TrainingSystemCallback callback) {
         this.callback = callback;
-        this.trainingSystemDay = trainingSystemDay;
-        this.trainingSystemListAdapter = trainingSystemListAdapter;
     }
 
     public void deleteFromTrainingSystem(final TrainingSystem training, final int userID) {

@@ -57,7 +57,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/carbohydrates" />
+            android:text="@string/carbohydrates"
+            android:layout_marginRight="5dp"/>
 
         <TextView
             android:id="@+id/tvCarbohydrates"
@@ -77,7 +78,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/protein" />
+            android:text="@string/protein"
+            android:layout_marginRight="5dp"/>
 
         <TextView
             android:id="@+id/tvProtein"
@@ -97,7 +99,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/fat" />
+            android:text="@string/fat"
+            android:layout_marginRight="5dp"/>
 
         <TextView
             android:id="@+id/tvFat"
@@ -117,7 +120,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/calories" />
+            android:text="@string/calories"
+            android:layout_marginRight="5dp"/>
 
         <TextView
             android:id="@+id/tvCalories"

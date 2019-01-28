@@ -21,13 +21,9 @@ import pl.edu.wat.fitapp.R;
 
 public class FoodSystemOnClickDialog {
     private FoodSystemCallback callback;
-    private ArrayList<ArrayList<FoodSystem>> foodSystemDay;
-    private ArrayList<FoodSystemListAdapter> foodSystemMealTimeAdapters;
 
-    public FoodSystemOnClickDialog(FoodSystemCallback callback, ArrayList<ArrayList<FoodSystem>> foodSystemDay, ArrayList<FoodSystemListAdapter> foodSystemMealTimeAdapters) {
+    public FoodSystemOnClickDialog(FoodSystemCallback callback) {
         this.callback = callback;
-        this.foodSystemDay = foodSystemDay;
-        this.foodSystemMealTimeAdapters = foodSystemMealTimeAdapters;
     }
 
     public void build(final int position, final int mealTime, final ArrayList<FoodSystem> tempList, final int userID) {
@@ -86,7 +82,7 @@ public class FoodSystemOnClickDialog {
         bDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DeleteFoodSystemConnection deleteConnection = new DeleteFoodSystemConnection(callback, foodSystemDay, foodSystemMealTimeAdapters);
+                DeleteFoodSystemConnection deleteConnection = new DeleteFoodSystemConnection(callback);
                 deleteConnection.deleteFromFoodSystem(tempList.get(position), userID, mealTime, tempList.get(position).getWeight());
                 dialog.dismiss();
             }
