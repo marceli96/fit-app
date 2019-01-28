@@ -52,7 +52,7 @@ public class MyMealsListAdapter extends ArrayAdapter<Meal> {
         tempString = String.valueOf(decimalFormat.format(myMeals.get(position).getFat())) + getContext().getString(R.string.g);
         tvFat.setText(tempString);
 
-        tempString = String.valueOf(myMeals.get(position).getCalories()) + getContext().getString(R.string.g);
+        tempString = String.valueOf(myMeals.get(position).getCalories()) + getContext().getString(R.string.kcal);
         tvCalories.setText(tempString);
 
         return convertView;

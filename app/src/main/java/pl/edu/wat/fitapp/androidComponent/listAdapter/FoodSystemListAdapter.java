@@ -19,7 +19,7 @@ import pl.edu.wat.fitapp.R;
 
 public class FoodSystemListAdapter extends ArrayAdapter<FoodSystem> {
     private ArrayList<FoodSystem> foodList;
-    private DecimalFormat format = new DecimalFormat(getContext().getString(R.string.g));
+    private DecimalFormat format = new DecimalFormat(getContext().getString(R.string.floatZero));
 
     public FoodSystemListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<FoodSystem> objects) {
         super(context, resource, objects);
