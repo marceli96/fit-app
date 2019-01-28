@@ -98,7 +98,7 @@ public class JournalChartsMacroWeek {
         for (int i = 0; i < 7; i++)
             barEntriesCalories.add(new BarEntry(i, macroMg.getCaloriesFromDay(foodSystemWeek.get(i))));
 
-        BarDataSet barDataSetCalories = new BarDataSet(barEntriesCalories, journalFragment.getString(R.string.test));
+        BarDataSet barDataSetCalories = new BarDataSet(barEntriesCalories, journalFragment.getString(R.string.calories2));
         barDataSetCalories.setColors(colorCalories);
         barDataSetCalories.setValueTextSize(10);
 
@@ -130,7 +130,7 @@ public class JournalChartsMacroWeek {
         for (int i = 0; i < 7; i++)
             barEntriesCarbohydrates.add(new BarEntry(i, (float) macroMg.getCarbohydratesFromDay(foodSystemWeek.get(i))));
 
-        BarDataSet barDataSetCarbohydrates = new BarDataSet(barEntriesCarbohydrates, journalFragment.getString(R.string.test));
+        BarDataSet barDataSetCarbohydrates = new BarDataSet(barEntriesCarbohydrates, journalFragment.getString(R.string.carbohydrates2));
         barDataSetCarbohydrates.setValueFormatter(doubleValueFormatter);
         barDataSetCarbohydrates.setColors(colorCarbohydrates);
         barDataSetCarbohydrates.setValueTextSize(10);
@@ -163,7 +163,7 @@ public class JournalChartsMacroWeek {
         for (int i = 0; i < 7; i++)
             barEntriesProtein.add(new BarEntry(i, (float) macroMg.getProteinFromDay(foodSystemWeek.get(i))));
 
-        BarDataSet barDataSetProtein = new BarDataSet(barEntriesProtein, journalFragment.getString(R.string.test));
+        BarDataSet barDataSetProtein = new BarDataSet(barEntriesProtein, journalFragment.getString(R.string.protein2));
         barDataSetProtein.setValueFormatter(doubleValueFormatter);
         barDataSetProtein.setColors(colorProtein);
         barDataSetProtein.setValueTextSize(10);
@@ -196,7 +196,7 @@ public class JournalChartsMacroWeek {
         for (int i = 0; i < 7; i++)
             barEntriesFat.add(new BarEntry(i, (float) macroMg.getFatFromDay(foodSystemWeek.get(i))));
 
-        BarDataSet barDataSetFat = new BarDataSet(barEntriesFat, journalFragment.getString(R.string.test));
+        BarDataSet barDataSetFat = new BarDataSet(barEntriesFat, journalFragment.getString(R.string.fat2));
         barDataSetFat.setValueFormatter(doubleValueFormatter);
         barDataSetFat.setColors(colorFat);
         barDataSetFat.setValueTextSize(10);

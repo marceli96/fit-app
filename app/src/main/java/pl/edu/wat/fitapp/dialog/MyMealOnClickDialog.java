@@ -51,7 +51,7 @@ public class MyMealOnClickDialog {
         tempString = String.valueOf(decimalFormat.format(myMeals.get(position).getFat())) + callback.activity().getString(R.string.g);
         tvFat.setText(tempString);
 
-        tempString = String.valueOf(myMeals.get(position).getCalories()) + callback.activity().getString(R.string.g);
+        tempString = String.valueOf(myMeals.get(position).getCalories()) + callback.activity().getString(R.string.kcal);
         tvCalories.setText(tempString);
 
         tempString = String.valueOf(myMeals.get(position).getIngredientList().size());

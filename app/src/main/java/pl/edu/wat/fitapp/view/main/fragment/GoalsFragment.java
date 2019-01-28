@@ -42,7 +42,6 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
 
 
     public GoalsFragment() {
-        // Required empty public constructor
     }
 
 

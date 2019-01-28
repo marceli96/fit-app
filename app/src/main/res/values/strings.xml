@@ -88,6 +88,12 @@
     <string name="fillHeight">Wprowadź swój wzrost</string>
     <string name="welcomeInApp">Jesteś nowym użytkownikiem! Zaloguj się do serwisu!</string>
     <string name="successLogIn">Zalogowano pomyślnie</string>
+    <string name="enterTrainingName">Wpisz nazwę treningu</string>
+    <string name="addExercisesToTraining">Najpierw dodaj ćwiczenia do treningu</string>
+    <string name="trainingAdded">Dodano trening</string>
+    <string name="enterMealName">Wpisz nazwę posiłku</string>
+    <string name="addIngredientsToMeal">Najpierw dodaj składniki do posiłku</string>
+    <string name="mealAdded">Dodano posiłek</string>
 
 
     <string-array name="activityLevel">

@@ -37,7 +37,7 @@ public class AddMyTrainingNameActivity extends AppCompatActivity {
                     openAddMyTrainingActivity2.putExtra("trainingName", etTrainingName.getText().toString());
                     startActivity(openAddMyTrainingActivity2);
                 } else
-                    ToastUtils.shortToast(AddMyTrainingNameActivity.this, "Wpisz nazwę treningu");
+                    ToastUtils.shortToast(AddMyTrainingNameActivity.this, getString(R.string.enterTrainingName));
             }
         });
     }

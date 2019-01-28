@@ -83,7 +83,7 @@ public class JournalChartsWeightWeek {
             barEntriesWeight.add(new BarEntry(i, weightWeek.get(i).floatValue()));
         }
 
-        BarDataSet barDataSetWeight = new BarDataSet(barEntriesWeight, journalFragment.getString(R.string.test));
+        BarDataSet barDataSetWeight = new BarDataSet(barEntriesWeight, journalFragment.getString(R.string.weight2));
         barDataSetWeight.setValueFormatter(doubleValueFormatter);
         barDataSetWeight.setColors(colorWeight);
         barDataSetWeight.setValueTextSize(10);
