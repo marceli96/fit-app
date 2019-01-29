@@ -39,7 +39,7 @@ public class SettingsFragment extends Fragment implements UserConnectionCallback
 
         View view = getLayoutInflater().inflate(R.layout.fragment_settings, container, false);
 
-        user = (User) getActivity().getIntent().getSerializableExtra("user");
+        user = (User) getActivity().getIntent().getSerializableExtra(getString(R.string.userExtra));
 
         tvLogin = view.findViewById(R.id.tvLogin);
         tvEmail = view.findViewById(R.id.tvEmail);
@@ -108,7 +108,7 @@ public class SettingsFragment extends Fragment implements UserConnectionCallback
     public void openHomeActivity() {
         Intent openHomeScreen = new Intent(getActivity(), MainActivity.class);
         openHomeScreen.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        openHomeScreen.putExtra("user", user);
+        openHomeScreen.putExtra(getString(R.string.userExtra), user);
         startActivity(openHomeScreen);
     }
 

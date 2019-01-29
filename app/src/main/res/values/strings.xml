@@ -12,13 +12,17 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <string-array name="activityLevel">
+        <item>Brak</item>
+        <item>Niska</item>
+        <item>Średnia</item>
+        <item>Wysoka</item>
+        <item>Bardzo wysoka</item>
+    </string-array>
 
     <string name="OPERATIONS_URL">http://fitappliaction.cba.pl/operations.php</string>
-
     <string name="LOGIN_URL">http://fitappliaction.cba.pl/login.php</string>
-
     <string name="REGISTER_URL">http://fitappliaction.cba.pl/register.php</string>
-
 
     <string name="kcal"> kcal</string>
     <string name="g"> g</string>
@@ -94,17 +98,12 @@
     <string name="enterMealName">Wpisz nazwę posiłku</string>
     <string name="addIngredientsToMeal">Najpierw dodaj składniki do posiłku</string>
     <string name="mealAdded">Dodano posiłek</string>
-
-
-    <string-array name="activityLevel">
-        <item>Brak</item>
-        <item>Niska</item>
-        <item>Średnia</item>
-        <item>Wysoka</item>
-        <item>Bardzo wysoka</item>
-    </string-array>
-
-
+    <string name="excelName">excel.xls</string>
+    <string name="userExtra">user</string>
+    <string name="mealTimeExtra">mealTime</string>
+    <string name="trainingNameExtra">trainingName</string>
+    <string name="mealNameExtra">mealName</string>
+    <string name="action">action</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="firstPartMealSelected">1/2 Wybranie nazwy posiłku</string>

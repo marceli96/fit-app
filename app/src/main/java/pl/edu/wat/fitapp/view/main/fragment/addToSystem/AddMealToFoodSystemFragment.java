@@ -43,8 +43,8 @@ public class AddMealToFoodSystemFragment extends Fragment implements MyMealsConn
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_meal_to_food_system, container, false);
 
-        user = (User) getActivity().getIntent().getSerializableExtra("user");
-        mealTime = (int) getActivity().getIntent().getSerializableExtra("mealTime");
+        user = (User) getActivity().getIntent().getSerializableExtra(getString(R.string.userExtra));
+        mealTime = (int) getActivity().getIntent().getSerializableExtra(getString(R.string.mealTimeExtra));
 
         mealList = new ArrayList<>();
 
@@ -68,7 +68,7 @@ public class AddMealToFoodSystemFragment extends Fragment implements MyMealsConn
     public void openMainActivity() {
         Intent openMainActivity = new Intent(getContext(), MainActivity.class);
         openMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        openMainActivity.putExtra("user", user);
+        openMainActivity.putExtra(getString(R.string.userExtra), user);
         startActivity(openMainActivity);
     }
 

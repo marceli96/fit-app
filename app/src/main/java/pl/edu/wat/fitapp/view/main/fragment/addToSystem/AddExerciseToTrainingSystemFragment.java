@@ -39,7 +39,7 @@ public class AddExerciseToTrainingSystemFragment extends Fragment implements Exe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        user = (User) getActivity().getIntent().getSerializableExtra("user");
+        user = (User) getActivity().getIntent().getSerializableExtra(getString(R.string.userExtra));
 
         View view = inflater.inflate(R.layout.fragment_add_exercise_to_training_system, container, false);
 
@@ -66,7 +66,7 @@ public class AddExerciseToTrainingSystemFragment extends Fragment implements Exe
     public void openMainActivity() {
         Intent openMainActivity = new Intent(getContext(), MainActivity.class);
         openMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        openMainActivity.putExtra("user", user);
+        openMainActivity.putExtra(getString(R.string.userExtra), user);
         startActivity(openMainActivity);
     }
 

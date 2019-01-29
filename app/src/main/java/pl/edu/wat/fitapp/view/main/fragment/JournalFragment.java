@@ -59,7 +59,7 @@ public class JournalFragment extends Fragment implements WeightConnectionCallbac
 
         View view = getLayoutInflater().inflate(R.layout.fragment_journal, container, false);
 
-        user = (User) getActivity().getIntent().getSerializableExtra("user");
+        user = (User) getActivity().getIntent().getSerializableExtra(getString(R.string.userExtra));
 
         llCaloriesWeekly = view.findViewById(R.id.llCaloriesWeekly);
         llCarbohydratesWeekly = view.findViewById(R.id.llCarbohydratesWeekly);
@@ -181,8 +181,8 @@ public class JournalFragment extends Fragment implements WeightConnectionCallbac
 
 
     @Override
-    public void onSuccessWeightDay(Double weightDay) {
-        this.weightDay = weightDay;
+    public void onSuccessWeightDay(Double weight) {
+        this.weightDay = weight;
         tvWeightDay.setText(String.valueOf(weightDay));
         llWeightDay.setVisibility(View.VISIBLE);
     }

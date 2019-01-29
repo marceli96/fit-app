@@ -52,7 +52,7 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
 
         View view = getLayoutInflater().inflate(R.layout.fragment_goals, container, false);
 
-        user = (User) getActivity().getIntent().getSerializableExtra("user");
+        user = (User) getActivity().getIntent().getSerializableExtra(getString(R.string.userExtra));
 
         etWeight = view.findViewById(R.id.etWeight);
         tvCaloricDemand = view.findViewById(R.id.tvCaloricDemand);
@@ -129,7 +129,7 @@ public class GoalsFragment extends Fragment implements AdapterView.OnItemSelecte
     public void openHomeActivity() {
         Intent openHomeScreen = new Intent(getActivity(), MainActivity.class);
         openHomeScreen.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        openHomeScreen.putExtra("user", user);
+        openHomeScreen.putExtra(getString(R.string.userExtra), user);
         startActivity(openHomeScreen);
     }
 

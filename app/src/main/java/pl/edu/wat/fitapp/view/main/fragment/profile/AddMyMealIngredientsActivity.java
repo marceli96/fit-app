@@ -58,8 +58,8 @@ public class AddMyMealIngredientsActivity extends AppCompatActivity implements I
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_my_meal_ingredients);
 
-        user = (User) getIntent().getSerializableExtra("user");
-        mealName = (String) getIntent().getSerializableExtra("mealName");
+        user = (User) getIntent().getSerializableExtra(getString(R.string.userExtra));
+        mealName = (String) getIntent().getSerializableExtra(getString(R.string.mealNameExtra));
 
         bAddMyMeal = findViewById(R.id.bAddMyMeal);
         tvMealCalories = findViewById(R.id.tvMealCalories);
@@ -167,8 +167,8 @@ public class AddMyMealIngredientsActivity extends AppCompatActivity implements I
     public void openMeFragment() {
         Intent openMeFragment = new Intent(AddMyMealIngredientsActivity.this, MainActivity.class);
         openMeFragment.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        openMeFragment.putExtra("user", user);
-        openMeFragment.putExtra("action", getString(R.string.openMe));
+        openMeFragment.putExtra(getString(R.string.userExtra), user);
+        openMeFragment.putExtra(getString(R.string.action), getString(R.string.openMe));
         startActivity(openMeFragment);
     }
 

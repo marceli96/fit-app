@@ -45,11 +45,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         Intent intent = getIntent();
         if (intent != null) {
-            user = (User) intent.getSerializableExtra("user");
-            action = (String) intent.getSerializableExtra("action");
+            user = (User) intent.getSerializableExtra(getString(R.string.userExtra));
+            action = (String) intent.getSerializableExtra(getString(R.string.action));
         }
 
         toolbar = findViewById(R.id.toolbar);

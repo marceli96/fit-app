@@ -52,8 +52,8 @@ public class AddMyTrainingExercisesActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_my_training_exercises);
 
-        user = (User) getIntent().getSerializableExtra("user");
-        trainingName = (String) getIntent().getSerializableExtra("trainingName");
+        user = (User) getIntent().getSerializableExtra(getString(R.string.userExtra));
+        trainingName = (String) getIntent().getSerializableExtra(getString(R.string.trainingNameExtra));
 
         bAddMyTraining = findViewById(R.id.bAddMyTraining);
         llShowListView = findViewById(R.id.llShowListView);
@@ -113,8 +113,8 @@ public class AddMyTrainingExercisesActivity extends AppCompatActivity implements
     public void openMeFragment() {
         Intent openMeFragment = new Intent(AddMyTrainingExercisesActivity.this, MainActivity.class);
         openMeFragment.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        openMeFragment.putExtra("user", user);
-        openMeFragment.putExtra("action", "openMeFragment");
+        openMeFragment.putExtra(getString(R.string.userExtra), user);
+        openMeFragment.putExtra(getString(R.string.action), getString(R.string.openMe));
         startActivity(openMeFragment);
     }
 

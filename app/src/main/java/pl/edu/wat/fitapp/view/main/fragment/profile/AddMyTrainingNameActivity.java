@@ -23,7 +23,7 @@ public class AddMyTrainingNameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_my_training_name);
 
-        user = (User) getIntent().getSerializableExtra("user");
+        user = (User) getIntent().getSerializableExtra(getString(R.string.userExtra));
 
         etTrainingName = findViewById(R.id.etTrainingName);
         bSecondStep = findViewById(R.id.bSecondStep);
@@ -33,8 +33,8 @@ public class AddMyTrainingNameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!etTrainingName.getText().toString().isEmpty()) {
                     Intent openAddMyTrainingActivity2 = new Intent(AddMyTrainingNameActivity.this, AddMyTrainingExercisesActivity.class);
-                    openAddMyTrainingActivity2.putExtra("user", user);
-                    openAddMyTrainingActivity2.putExtra("trainingName", etTrainingName.getText().toString());
+                    openAddMyTrainingActivity2.putExtra(getString(R.string.userExtra), user);
+                    openAddMyTrainingActivity2.putExtra(getString(R.string.trainingNameExtra), etTrainingName.getText().toString());
                     startActivity(openAddMyTrainingActivity2);
                 } else
                     ToastUtils.shortToast(AddMyTrainingNameActivity.this, getString(R.string.enterTrainingName));

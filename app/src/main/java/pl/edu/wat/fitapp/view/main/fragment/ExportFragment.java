@@ -60,7 +60,7 @@ public class ExportFragment extends Fragment implements FoodSystemWeekConnection
         ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.nav_export));
 
         View view = inflater.inflate(R.layout.fragment_export, container, false);
-        user = (User) getActivity().getIntent().getSerializableExtra("user");
+        user = (User) getActivity().getIntent().getSerializableExtra(getString(R.string.userExtra));
 
         cbBreakfast = view.findViewById(R.id.cbBreakfast);
         cbSecondBreakfast = view.findViewById(R.id.cbSecondBreakfast);

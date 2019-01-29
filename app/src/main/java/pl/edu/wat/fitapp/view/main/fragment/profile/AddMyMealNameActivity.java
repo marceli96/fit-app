@@ -24,7 +24,7 @@ public class AddMyMealNameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_my_meal_name);
 
-        user = (User) getIntent().getSerializableExtra("user");
+        user = (User) getIntent().getSerializableExtra(getString(R.string.userExtra));
 
         etMealName = findViewById(R.id.etMealName);
         bSecondStep = findViewById(R.id.bSecondStep);
@@ -34,8 +34,8 @@ public class AddMyMealNameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!etMealName.getText().toString().isEmpty()) {
                     Intent openAddMyMealActivity2 = new Intent(AddMyMealNameActivity.this, AddMyMealIngredientsActivity.class);
-                    openAddMyMealActivity2.putExtra("user", user);
-                    openAddMyMealActivity2.putExtra("mealName", etMealName.getText().toString());
+                    openAddMyMealActivity2.putExtra(getString(R.string.userExtra), user);
+                    openAddMyMealActivity2.putExtra(getString(R.string.mealNameExtra), etMealName.getText().toString());
                     startActivity(openAddMyMealActivity2);
                 } else
                     ToastUtils.shortToast(AddMyMealNameActivity.this, getString(R.string.enterMealName));

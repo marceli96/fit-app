@@ -65,7 +65,7 @@ public class WelcomeActivity extends AppCompatActivity implements UserConnection
     private void openMainActivity() {
         ToastUtils.shortToast(WelcomeActivity.this, getString(R.string.successLogIn));
         Intent openMainActivity = new Intent(WelcomeActivity.this, MainActivity.class);
-        openMainActivity.putExtra("user", user);
+        openMainActivity.putExtra(getString(R.string.userExtra), user);
         startActivity(openMainActivity);
         WelcomeActivity.this.finish();
     }

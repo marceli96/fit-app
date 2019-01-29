@@ -41,7 +41,7 @@ public class AddTrainingToTrainingSystemFragment extends Fragment implements MyT
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_training_to_training_system, container, false);
 
-        user = (User) getActivity().getIntent().getSerializableExtra("user");
+        user = (User) getActivity().getIntent().getSerializableExtra(getString(R.string.userExtra));
 
         trainingList = new ArrayList<>();
 
@@ -66,7 +66,7 @@ public class AddTrainingToTrainingSystemFragment extends Fragment implements MyT
     public void openMainActivity() {
         Intent openMainActivity = new Intent(getContext(), MainActivity.class);
         openMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        openMainActivity.putExtra("user", user);
+        openMainActivity.putExtra(getString(R.string.userExtra), user);
         startActivity(openMainActivity);
     }
 

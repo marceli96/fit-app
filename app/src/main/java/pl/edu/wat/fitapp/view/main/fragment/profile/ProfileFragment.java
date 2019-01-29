@@ -62,7 +62,7 @@ public class ProfileFragment extends Fragment implements MyMealsConnectionCallba
         ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.nav_me));
 
         View view = inflater.inflate(R.layout.fragment_me, container, false);
-        user = (User) getActivity().getIntent().getSerializableExtra("user");
+        user = (User) getActivity().getIntent().getSerializableExtra(getString(R.string.userExtra));
 
         imAddMyMeal = view.findViewById(R.id.imAddMyMeal);
         imAddMyTraining = view.findViewById(R.id.imAddMyTraining);
@@ -138,13 +138,13 @@ public class ProfileFragment extends Fragment implements MyMealsConnectionCallba
 
     private void openAddMyMealNameActivity() {
         Intent openAddMyMealNameActivity = new Intent(getContext(), AddMyMealNameActivity.class);
-        openAddMyMealNameActivity.putExtra("user", user);
+        openAddMyMealNameActivity.putExtra(getString(R.string.userExtra), user);
         startActivity(openAddMyMealNameActivity);
     }
 
     private void openAddMyTrainingNameActivity() {
         Intent openAddMyTrainingNameActivity = new Intent(getContext(), AddMyTrainingNameActivity.class);
-        openAddMyTrainingNameActivity.putExtra("user", user);
+        openAddMyTrainingNameActivity.putExtra(getString(R.string.userExtra), user);
         startActivity(openAddMyTrainingNameActivity);
     }
 

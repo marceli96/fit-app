@@ -70,7 +70,7 @@ public class HomeFragment extends Fragment implements FoodSystemDayConnectionCal
 
         Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat(getString(R.string.formatDate));
-        user = (User) getActivity().getIntent().getSerializableExtra("user");
+        user = (User) getActivity().getIntent().getSerializableExtra(getString(R.string.userExtra));
 
         initializeArrays();
 
@@ -438,14 +438,14 @@ public class HomeFragment extends Fragment implements FoodSystemDayConnectionCal
 
     private void openAddToFoodSystem(int mealTime) {
         Intent openAddToFoodSystemActivity = new Intent(getContext(), AddToFoodSystemActivity.class);
-        openAddToFoodSystemActivity.putExtra("user", user);
-        openAddToFoodSystemActivity.putExtra("mealTime", mealTime);
+        openAddToFoodSystemActivity.putExtra(getString(R.string.userExtra), user);
+        openAddToFoodSystemActivity.putExtra(getString(R.string.mealTimeExtra), mealTime);
         startActivity(openAddToFoodSystemActivity);
     }
 
     private void openAddToTrainingSystem() {
         Intent openAddToTrainingSystemActivity = new Intent(getContext(), AddToTrainingSystemActivity.class);
-        openAddToTrainingSystemActivity.putExtra("user", user);
+        openAddToTrainingSystemActivity.putExtra(getString(R.string.userExtra), user);
         startActivity(openAddToTrainingSystemActivity);
     }
 

@@ -80,7 +80,7 @@ public class PDFGenerator {
             SimpleDateFormat dateFormat = new SimpleDateFormat(fragment.getString(R.string.formatDate));
             String path = Environment.getExternalStorageDirectory().getAbsolutePath();
 
-            File file = new File(path, "excel.xls");
+            File file = new File(path, fragment.getString(R.string.excelName));
 
             WritableFont dateFont = new WritableFont(WritableFont.ARIAL, 12);
             dateFont.setBoldStyle(WritableFont.BOLD);

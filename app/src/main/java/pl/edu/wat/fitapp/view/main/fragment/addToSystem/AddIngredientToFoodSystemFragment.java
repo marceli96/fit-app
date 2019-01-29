@@ -41,8 +41,8 @@ public class AddIngredientToFoodSystemFragment extends Fragment implements Ingre
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_ingredient_to_food_system, container, false);
 
-        user = (User) getActivity().getIntent().getSerializableExtra("user");
-        mealTime = (int) getActivity().getIntent().getSerializableExtra("mealTime");
+        user = (User) getActivity().getIntent().getSerializableExtra(getString(R.string.userExtra));
+        mealTime = (int) getActivity().getIntent().getSerializableExtra(getString(R.string.mealTimeExtra));
 
         ingredientList = new ArrayList<>();
 
@@ -67,7 +67,7 @@ public class AddIngredientToFoodSystemFragment extends Fragment implements Ingre
     public void openMainActivity() {
         Intent openMainActivity = new Intent(getContext(), MainActivity.class);
         openMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        openMainActivity.putExtra("user", user);
+        openMainActivity.putExtra(getString(R.string.userExtra), user);
         startActivity(openMainActivity);
     }
 
